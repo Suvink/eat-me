@@ -1,0 +1,50 @@
+/* Navbar */
+@media only screen and (max-width: 480px) {
+    .nav-logout{
+        text-align: center !important;
+    }
+}
+
+/* Tables */
+table{
+    width: 100% !important;
+    border: 1px solid black;
+  }
+  table th{
+    background-color: #f5a540;
+  }
+  
+  @media
+  only screen and (max-width: 770px) {
+    table, thead, tbody, td, tr {
+      display: block;
+      background-color: white;
+    }
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr { border: 1px solid #000;  }
+    td {
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      margin-left: 150px;
+    }
+    td:before {
+      position: absolute;
+      left: 6px;
+      width: 200px;
+      padding-right: 40px;
+      white-space: nowrap;
+      margin-left: -150px;
+    }
+    td:nth-of-type(1):before { content: "ID";}
+    td:nth-of-type(2):before { content: "Customer"; }
+    td:nth-of-type(3):before { content: "Items"; }
+    td:nth-of-type(4):before { content: "Price"; }
+    td:nth-of-type(5):before { content: "Status"; }
+  }
+
+  
