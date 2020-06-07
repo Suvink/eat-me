@@ -1,4 +1,4 @@
-<center>
+<center style="text-align: center">
         <img src="img/logo.png">
         <p>www.eat-me.live<br><i>by IS14</i></p>
 </center>
