@@ -266,6 +266,145 @@ input[type="submit"]:disabled:hover {
   padding: 1rem;
 }
 
+
+/* Forms */
+
+/* Reset existing styles */
+.field{
+  --artemisFieldPlaceholderColor: var(--fieldPlaceholderColor, grey);
+}
+.artemis-input{
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: inherit;
+  font-size: 1em;
+}
+.artemis-input:focus::-webkit-input-placeholder{
+  color: var(--artemisFieldPlaceholderColor);
+}
+.artemis-input:focus::-moz-placeholder{
+  color: var(--artemisFieldPlaceholderColor);
+  opacity: 1;
+}
+
+/* Add new styles */
+.field{
+  --fieldBorderColor: grey;
+  --fieldBorderColorActive: #f5a540;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.artemis-input-field{
+  display: block;
+  width: 15em;
+}
+.artemis-input{ 
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.artemis-input:focus{
+  outline: none;
+}
+.artemis-input-field{
+  --artemisFieldHeight: var(--fieldHeight, 40px);  
+  --artemisFieldBorderWidth: var(--fieldBorderWidth, 2px);
+  --artemisFieldBorderColor: var(--fieldBorderColor);
+
+  --artemisFieldFontSize: var(--fieldFontSize, 1em);
+  --artemisFieldHintFontSize: var(--fieldHintFontSize, 1em);
+
+  --artemisFieldPaddingRight: var(--fieldPaddingRight, 15px);
+  --artemisFieldPaddingBottom: var(--fieldPaddingBottom, 15px);
+  --artemisFieldPaddingLeft: var(--fieldPaddingLeft, 15px);   
+
+  position: relative;
+  box-sizing: border-box;
+  font-size: var(--artemisFieldFontSize);
+  padding-top: 1em;  
+}
+
+.artemis-input{
+  height: var(--artemisFieldHeight);
+  padding: 0 var(--artemisFieldPaddingRight) 0 var(--artemisFieldPaddingLeft);
+  border-bottom: var(--artemisFieldBorderWidth) solid var(--artemisFieldBorderColor);  
+}
+
+.artemis-input::-webkit-input-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.artemis-input::-moz-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.artemis-input:not(:placeholder-shown) ~ .label-wrap .label-text{
+  opacity: 0;
+  bottom: var(--artemisFieldPaddingBottom);
+}
+
+.artemis-input:focus::-webkit-input-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.artemis-input:focus::-moz-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+.label-wrap{
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--artemisFieldHeight);	
+
+  pointer-events: none;
+  cursor: text;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.label-text{
+  position: absolute;
+  left: var(--artemisFieldPaddingLeft);
+  bottom: calc(50% - .5em);
+
+  line-height: 1;
+  font-size: var(--uiFieldHintFontSize);
+
+  pointer-events: none;
+  transition: bottom .2s cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity .2s ease-out;
+  will-change: bottom, opacity;
+}
+.artemis-input:focus ~ .label-wrap .label-text{
+  opacity: 1;
+  bottom: var(--artemisFieldHeight);
+}
+
+.artemis-input-field .artemis-input{
+  transition: border-color .2s ease-out;
+  will-change: border-color;
+}
+
+.artemis-input-field .artemis-input:focus{
+  border-color: var(--fieldBorderColorActive);
+}
+
+
+
+
+
+
+
+
+
 /*
  _____                                        _           
 |_   _|   _ _ __   ___   __ _ _ __ __ _ _ __ | |__  _   _ 
