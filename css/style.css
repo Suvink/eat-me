@@ -1,0 +1,21 @@
+/* Import බලු තම්බි 2 font */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500&display=swap');
+/* Import Artemis CSS */
+@import url('./artemis.css');
+/* Font Awesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css");
+/* Animate CSS */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css");
+
+
+/* Global Styles */
+body{
+    font-family: 'Baloo Thambi 2', cursive;
+}
+.orange-color{
+    color: #f5a540 !important
+}
+.teal-color{
+    color: #327a7a !important
+}
+

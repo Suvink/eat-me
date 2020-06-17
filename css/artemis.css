@@ -1,0 +1,729 @@
+/*
+    _    ____ _____ _____ __  __ ___ ____     ____ ____ ____  
+   / \  |  _ \_   _| ____|  \/  |_ _/ ___|   / ___/ ___/ ___| 
+  / _ \ | |_) || | |  _| | |\/| || |\___ \  | |   \___ \___ \ 
+ / ___ \|  _ < | | | |___| |  | || | ___) | | |___ ___) |__) |
+/_/   \_\_| \_\|_| |_____|_|  |_|___|____/   \____|____/____/ 
+                          
+MIT License
+
+Copyright (c) 2020 Suvin Nimnaka, Amod Pathirana, Hasantha Pathirana and Sandarekka Dissanayaka
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+/* Global Imports goes here */
+
+/*
+ _                            _   
+| |    __ _ _   _  ___  _   _| |_ 
+| |   / _` | | | |/ _ \| | | | __|
+| |__| (_| | |_| | (_) | |_| | |_ 
+|_____\__,_|\__, |\___/ \__,_|\__|
+            |___/                 
+*/
+
+/*    GRID    */
+
+/*  Column Group  */
+.columns {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*  Single Column  */
+.column {
+  display: block;
+  float: left;
+  margin: 1% 0 1% 1.6%;
+  text-align: center !important;
+  border-radius: 10px;
+}
+.column:first-child {
+  margin-left: 0;
+}
+
+/*  Column Grouping  */
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  zoom: 1; /* For IE 6/7 */
+}
+
+/*  Grid with 12 blocks  */
+.is-12 {
+  width: 100%;
+}
+
+.is-11 {
+  width: 91.53%;
+}
+.is-10 {
+  width: 83.06%;
+}
+
+.is-9 {
+  width: 74.6%;
+}
+
+.is-8 {
+  width: 66.13%;
+}
+
+.is-7 {
+  width: 57.66%;
+}
+
+.is-6 {
+  width: 49.2%;
+}
+
+.is-5 {
+  width: 40.73%;
+}
+
+.is-4 {
+  width: 32.26%;
+}
+
+.is-3 {
+  width: 23.8%;
+}
+
+.is-2 {
+  width: 15.33%;
+}
+
+.is-1 {
+  width: 6.866%;
+}
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .column {
+    margin: 1% 0 1% 0%;
+  }
+
+  .is-1,
+  .is-2,
+  .is-3,
+  .is-4,
+  .is-5,
+  .is-6,
+  .is-7,
+  .is-8,
+  .is-9,
+  .is-10,
+  .is-11,
+  .is-12 {
+    width: 100%;
+  }
+}
+
+/*  CONTAINERS  */
+
+.container {
+  flex-grow: 1;
+  margin: 0 auto;
+  position: relative;
+  width: auto;
+}
+
+.container.is-fluid {
+  max-width: none;
+  padding-left: 32px;
+  padding-right: 32px;
+  width: 100%;
+}
+
+/*
+ _____ _                           _       
+| ____| | ___ _ __ ___   ___ _ __ | |_ ___ 
+|  _| | |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+| |___| |  __/ | | | | |  __/ | | | |_\__ \
+|_____|_|\___|_| |_| |_|\___|_| |_|\__|___/
+                                           
+*/
+
+button {
+  background-color: #3273dc;
+  border-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(0.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(0.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 0.3em;
+}
+
+.button {
+  background-color: white;
+  border-color: #dbdbdb;
+  border-width: 1px;
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(0.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(0.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 0.3em;
+}
+
+/* Button Colours */
+.button.is-primary {
+  background-color: #f5a540;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-link {
+  background-color: #327a7a;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-info {
+  background-color: #123f5a;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-success {
+  background-color: #48c774;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-danger {
+  background-color: #f14668;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-warning {
+  background-color: #ffdd57;
+  border-color: transparent;
+  color: #fff;
+}
+
+/* Button Sizes */
+
+.button.is-small {
+  border-radius: 2px;
+  font-size: 0.75rem;
+}
+
+.button.is-normal {
+  font-size: 1rem;
+}
+
+.button.is-medium {
+  font-size: 1.25rem;
+}
+
+.button.is-large {
+  font-size: 1.5rem;
+}
+
+/*  Disabled Mode */
+:disabled:hover {
+  cursor: not-allowed;
+}
+
+input[type="submit"]:disabled:hover {
+  cursor: not-allowed;
+}
+
+/*  Button Groups */
+
+.buttons {
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.buttons .button {
+  margin-bottom: 0.5rem;
+}
+
+/* Card */
+.card{
+  border-radius: 10px;
+  box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+  padding: 1rem;
+}
+
+
+/* Forms */
+
+/* Reset existing styles */
+.field{
+  --artemisFieldPlaceholderColor: var(--fieldPlaceholderColor, grey);
+}
+.artemis-input{
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: inherit;
+  font-size: 1em;
+}
+.artemis-input:focus::-webkit-input-placeholder{
+  color: var(--artemisFieldPlaceholderColor);
+}
+.artemis-input:focus::-moz-placeholder{
+  color: var(--artemisFieldPlaceholderColor);
+  opacity: 1;
+}
+
+/* Add new styles */
+.field{
+  --fieldBorderColor: grey;
+  --fieldBorderColorActive: #f5a540;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.artemis-input-field{
+  display: block;
+  width: 15em;
+}
+.artemis-input{ 
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.artemis-input:focus{
+  outline: none;
+}
+.artemis-input-field{
+  --artemisFieldHeight: var(--fieldHeight, 40px);  
+  --artemisFieldBorderWidth: var(--fieldBorderWidth, 2px);
+  --artemisFieldBorderColor: var(--fieldBorderColor);
+
+  --artemisFieldFontSize: var(--fieldFontSize, 1em);
+  --artemisFieldHintFontSize: var(--fieldHintFontSize, 1em);
+
+  --artemisFieldPaddingRight: var(--fieldPaddingRight, 15px);
+  --artemisFieldPaddingBottom: var(--fieldPaddingBottom, 15px);
+  --artemisFieldPaddingLeft: var(--fieldPaddingLeft, 15px);   
+
+  position: relative;
+  box-sizing: border-box;
+  font-size: var(--artemisFieldFontSize);
+  padding-top: 1em;  
+}
+
+.artemis-input{
+  height: var(--artemisFieldHeight);
+  padding: 0 var(--artemisFieldPaddingRight) 0 var(--artemisFieldPaddingLeft);
+  border-bottom: var(--artemisFieldBorderWidth) solid var(--artemisFieldBorderColor);  
+}
+
+.artemis-input::-webkit-input-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.artemis-input::-moz-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.artemis-input:not(:placeholder-shown) ~ .label-wrap .label-text{
+  opacity: 0;
+  bottom: var(--artemisFieldPaddingBottom);
+}
+
+.artemis-input:focus::-webkit-input-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.artemis-input:focus::-moz-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+.label-wrap{
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--artemisFieldHeight);	
+
+  pointer-events: none;
+  cursor: text;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.label-text{
+  position: absolute;
+  left: var(--artemisFieldPaddingLeft);
+  bottom: calc(50% - .5em);
+
+  line-height: 1;
+  font-size: var(--uiFieldHintFontSize);
+
+  pointer-events: none;
+  transition: bottom .2s cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity .2s ease-out;
+  will-change: bottom, opacity;
+}
+.artemis-input:focus ~ .label-wrap .label-text{
+  opacity: 1;
+  bottom: var(--artemisFieldHeight);
+}
+
+.artemis-input-field .artemis-input{
+  transition: border-color .2s ease-out;
+  will-change: border-color;
+}
+
+.artemis-input-field .artemis-input:focus{
+  border-color: var(--fieldBorderColorActive);
+}
+
+
+
+
+
+
+
+
+
+/*
+ _____                                        _           
+|_   _|   _ _ __   ___   __ _ _ __ __ _ _ __ | |__  _   _ 
+  | || | | | '_ \ / _ \ / _` | '__/ _` | '_ \| '_ \| | | |
+  | || |_| | |_) | (_) | (_| | | | (_| | |_) | | | | |_| |
+  |_| \__, | .__/ \___/ \__, |_|  \__,_| .__/|_| |_|\__, |
+      |___/|_|          |___/          |_|          |___/ 
+*/
+
+.title,
+.subtitle {
+  word-break: break-word;
+  margin: 1rem;
+}
+
+.title em,
+.title span,
+.subtitle em,
+.subtitle span {
+  font-weight: inherit;
+}
+
+.title {
+  color: #363636;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.125;
+}
+
+.title strong {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.subtitle {
+  color: #4a4a4a;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.subtitle strong {
+  color: #363636;
+  font-weight: 600;
+}
+
+h1.title {
+  font-size: 3rem;
+}
+h2.title {
+  font-size: 2.5rem;
+}
+h3.title {
+  font-size: 2rem;
+}
+h4.title {
+  font-size: 1.5rem;
+}
+h5.title {
+  font-size: 1.25rem;
+}
+h6.title {
+  font-size: 1rem;
+}
+
+h1.subtitle {
+  font-size: 3rem;
+}
+h2.subtitle {
+  font-size: 2.5rem;
+}
+h3.subtitle {
+  font-size: 2rem;
+}
+h4.subtitle {
+  font-size: 1.5rem;
+}
+h5.subtitle {
+  font-size: 1.25rem;
+}
+h6.subtitle {
+  font-size: 1rem;
+}
+
+/*
+ _   _      _                     
+| | | | ___| |_ __   ___ _ __ ___ 
+| |_| |/ _ \ | '_ \ / _ \ '__/ __|
+|  _  |  __/ | |_) |  __/ |  \__ \
+|_| |_|\___|_| .__/ \___|_|  |___/
+             |_| 
+*/
+
+/* margins */
+.ml-0 {
+  margin-left: 0 !important;
+}
+
+.ml-1 {
+  margin-left: 0.8rem !important;
+}
+
+.ml-2 {
+  margin-left: 2rem !important;
+}
+
+.ml-3 {
+  margin-left: 3.2rem !important;
+}
+
+.ml-4 {
+  margin-left: 4.4rem !important;
+}
+
+.ml-5 {
+  margin-left: 5.5rem !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-1 {
+  margin-top: 0.8rem !important;
+}
+
+.mt-2 {
+  margin-top: 2rem !important;
+}
+
+.mt-3 {
+  margin-top: 3.2rem !important;
+}
+
+.mt-4 {
+  margin-top: 4.4rem !important;
+}
+
+.mt-5 {
+  margin-top: 5.5rem !important;
+}
+
+.mr-0 {
+  margin-right: 0 !important;
+}
+
+.mr-1 {
+  margin-right: 0.8rem !important;
+}
+
+.mr-2 {
+  margin-right: 2rem !important;
+}
+
+.mr-3 {
+  margin-right: 3.2rem !important;
+}
+
+.mr-4 {
+  margin-right: 4.4rem !important;
+}
+
+.mr-5 {
+  margin-right: 5.5rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 0.8rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 3.2rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 4.4rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 5.5rem !important;
+}
+
+/* padding */
+.pl-0 {
+  padding-left: 0 !important;
+}
+
+.pl-1 {
+  padding-left: 0.8rem !important;
+}
+
+.pl-2 {
+  padding-left: 2rem !important;
+}
+
+.pl-3 {
+  padding-left: 3.2rem !important;
+}
+
+.pl-4 {
+  padding-left: 4.4rem !important;
+}
+
+.pl-5 {
+  padding-left: 5.5rem !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
+.pt-1 {
+  padding-top: 0.8rem !important;
+}
+
+.pt-2 {
+  padding-top: 2rem !important;
+}
+
+.pt-3 {
+  padding-top: 3.2rem !important;
+}
+
+.pt-4 {
+  padding-top: 4.4rem !important;
+}
+
+.pt-5 {
+  padding-top: 5.5rem !important;
+}
+
+.pr-0 {
+  padding-right: 0 !important;
+}
+
+.pr-1 {
+  padding-right: 0.8rem !important;
+}
+
+.pr-2 {
+  padding-right: 2rem !important;
+}
+
+.pr-3 {
+  padding-right: 3.2rem !important;
+}
+
+.pr-4 {
+  padding-right: 4.4rem !important;
+}
+
+.pr-5 {
+  padding-right: 5.5rem !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.pb-1 {
+  padding-bottom: 0.8rem !important;
+}
+
+.pb-2 {
+  padding-bottom: 2rem !important;
+}
+
+.pb-3 {
+  padding-bottom: 3.2rem !important;
+}
+
+.pb-4 {
+  padding-bottom: 4.4rem !important;
+}
+
+.pb-5 {
+  padding-bottom: 5.5rem !important;
+}
+
+
+/* Alignment Helpers */
+.has-text-left{
+  text-align: left !important;
+}
+.has-text-centered{
+  text-align: center !important;
+}
+.has-text-right{
+  text-align: right !important;
+}
+.justify-text{
+	text-align: justify !important;
+}
