@@ -11,7 +11,7 @@ $adminLogin = './routes/admin/adminlogin.php';
 $adminDashboard = 'routes/admin/dashboard';
 
 //Customer
-$dinein = 'routes/customer/dineinelogin.php';
+$dinein = 'routes/customer/dineinlogin.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
