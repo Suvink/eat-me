@@ -11,6 +11,7 @@ $adminLogin = './routes/admin/adminlogin.php';
 $adminDashboard = 'routes/admin/dashboard';
 
 //Customer
+$dinein = 'routes/customer/dineinelogin.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
@@ -25,6 +26,9 @@ switch ($request) {
         break;
     case '/admin' :
         require($adminLogin);
+        break;
+    case '/dinein' :
+        require($dinein);
         break;
     default:
         http_response_code(404);
