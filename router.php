@@ -14,6 +14,7 @@ $adminDashboard = 'routes/admin/dashboard.php';
 $dineinLogin = 'routes/customer/dineinlogin.php';
 $dineinSignup = 'routes/customer/dineinsignup.php';
 $dinein = 'routes/customer/dinein.php';
+$dineinSummery = 'routes/customer/dineinsummery.php';
 $onlineOrderLogin = 'routes/customer/onlineorderlogin.php';
 $onlineOrderSignup = 'routes/customer/onlineordersignup.php';
 $onlineOrder = 'routes/customer/onlineorder.php';
@@ -52,6 +53,9 @@ switch ($request) {
         break;
     case '/dinein/signup' :
         require($dineinSignup);
+        break;
+    case '/dinein/summery' :
+        require($dineinSummery);
         break;
     case '/dinein' :
         require($dinein);
