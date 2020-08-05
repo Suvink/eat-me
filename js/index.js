@@ -10,4 +10,4 @@ async function registerServiceWorker(){
             console.log("Service Worker Registration Failed");
         }
     }
-}
+};
