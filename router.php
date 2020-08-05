@@ -17,6 +17,7 @@ $dinein = 'routes/customer/dinein.php';
 $dineinSummery = 'routes/customer/dineinsummery.php';
 $onlineOrderLogin = 'routes/customer/onlineorderlogin.php';
 $onlineOrderSignup = 'routes/customer/onlineordersignup.php';
+$onlineSummery = 'routes/customer/onlineordersummery.php';
 $onlineOrder = 'routes/customer/onlineorder.php';
 
 //Store
@@ -65,6 +66,9 @@ switch ($request) {
         break;
     case '/online/signup' :
         require($onlineOrderSignup);
+        break;
+    case '/online/summery' :
+        require($onlineSummery);
         break;
     case '/online' :
         require($onlineOrder);
