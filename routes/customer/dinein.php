@@ -97,7 +97,7 @@
           </div>
         </div>
       </div>
-      <div class="column is-4">
+      <div class="column is-4 ml-0 mr-0">
         <div class="card">
           <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
 
