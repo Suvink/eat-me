@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/onlineOrderStyles.css">
-  <title>Dine-in</title>
+  <title>Order Online</title>
 </head>
 
 <body>
@@ -19,6 +19,10 @@
         <img src="../../img/logo.png" height=56 width="224" />
       </div>
       <div class="column is-10 has-text-right nav-logout">
+      <div class="field">
+        <input id="switchRoundedDefault" type="checkbox" name="switchRoundedDefault" class="switch is-rounded" checked="checked">
+        <label for="switchRoundedDefault">Switch rounded default</label>
+      </div>
         <i class="fa fa-user" aria-hidden="true"></i>
         <span class="mr-1">Suvin Nimnaka</span>
         <button class="button is-primary">Logout</button>
@@ -28,7 +32,7 @@
 
   <section>
     <div class="columns group">
-      <div class="column is-8">
+      <div class="column is-8">           
         <div class="tabs">
           <input type="radio" id="tab1" name="tab-control" checked>
           <input type="radio" id="tab2" name="tab-control">

@@ -48,20 +48,29 @@
             <section>
               <h2>Mains</h2>
               <div class="menu-cards">
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
+                <div class="menu-card" id="menu-12345" onclick="addToCart('12345')">
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
+                    <h5 class="mt-0">LKR 350.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
                 <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
+                    <h5 class="mt-0">LKR 350.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
                 <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
+                    <h5 class="mt-0">LKR 350.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
               </div>
 
@@ -70,19 +79,28 @@
               <h2>Starters</h2>
               <div class="menu-cards">
                 <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                  <h3 class="mt-1 mb-0">Chicken Burger</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
+                    <h3 class="mt-1 mb-0">Chicken Burger</h3>
+                    <h5 class="mt-0">LKR 350.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
                 <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
-                  <h3 class="mt-1 mb-0">Kukul Andak</h3>
-                  <h5 class="mt-0">LKR 120.00</h5>
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
+                    <h3 class="mt-1 mb-0">Kukul Andak</h3>
+                    <h5 class="mt-0">LKR 120.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
                 <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
+                  <div class="menu-card-content">
+                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
+                    <h5 class="mt-0">LKR 350.00</h5>
+                  </div>
+                  <button class="button is-primary menu-add-button">Add</button>
                 </div>
               </div>
             </section>
@@ -159,6 +177,24 @@
     </div>
   </section>
 
+
+<script>
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  let counter = false;
+
+  function addToCart(itemId){
+    if(!counter){
+      counter = true;
+      document.getElementById("menu-"+itemId).innerHTML = document.getElementById("menu-"+itemId).innerHTML + "<div id='fadetemp'>" + document.getElementById("menu-"+itemId).innerHTML + '</div>';
+      document.getElementById("fadetemp").classList.add("fade-out-menu");
+      delay(1000).then(() => {
+        document.getElementById("fadetemp").remove();
+      }).finally(() => {
+        counter = false;
+      });
+    }
+  }
+</script>
 </body>
 
 </html>

@@ -87,7 +87,7 @@
             <h2>Served! Enjoy your meal!</h2>
           </div>
           <div class="pay-buttons mt-1">
-          <a href=""><button class="button is-link">Review Order</button></a>
+            <a href=""><button class="button is-link">Review Order</button></a>
             <a href=""><button class="button is-primary">Pay Online</button></a>
             <a href=""><button class="button is-primary">Pay in Cash</button></a>
           </div>
