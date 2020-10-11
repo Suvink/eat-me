@@ -32,6 +32,9 @@ $kitchenManager = 'routes/store/kitchenmanager.php';
 $stewardLogin = 'routes/store/stewardlogin.php';
 $steward = 'routes/store/steward.php';
 
+//API
+$verify = 'routes/api/v1/OTP.php';
+
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
@@ -102,6 +105,9 @@ switch ($request) {
         break;
     case '/steward' :
         require($steward);
+        break;
+    case '/api/v1/verify' :
+        require($verify);
         break;
     default:
         http_response_code(404);

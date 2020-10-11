@@ -492,6 +492,37 @@ input[type="submit"]:disabled:hover {
 } */
 
 
+/* Notification */
+
+.artemis-notification-danger{
+    background-color: #feecf0;
+    color: #cc0f35;
+    width: 50%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-left: 5px solid #cc0f35;
+    border-radius: 4px;
+}
+.artemis-notification-success{
+  background-color: #effaf3;
+  color: #257942;
+  width: 50%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-left: 5px solid #257942;
+  border-radius: 4px;
+}
+.artemis-notification-warning{
+  background-color: #fffbeb;
+  color: #947600;
+  width: 50%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-left: 5px solid #947600;
+  border-radius: 4px;
+}
+
+
 
 
 
