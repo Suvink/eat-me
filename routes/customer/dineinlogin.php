@@ -23,7 +23,7 @@
 
   <div class="container has-text-centered">
     <h1 class="title mb-1 mt-0">Login</h1>
-    <img class="mt-0 mb-0" src="../../img/login.jpg" height="150" />
+    <img id="banner-image" class="mt-0 mb-0" src="../../img/login.jpg" height="150" />
     <center>
       <div id="error-block"></div>
 
@@ -44,7 +44,7 @@
             <span class="label-text">OTP</span>
           </span>
         </label>
-        <input id="ref_token" style="display:hidden" name="token">
+        <input id="ref_token" style="display: none" name="token">
         <button class="button is-primary">Login</button>
       </form>
 
@@ -54,12 +54,16 @@
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     async function sendOTP(){
-      
+
       let phone_no = document.getElementById('phone_number_input').value;
       if (!/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/.test(phone_no)){
         artemisAlert.alert('error', 'Enter a valid phone number!')
         return;
       }else{
+
+        //Call the Loader
+        document.getElementById('banner-image').src = '../../img/loading.gif';
+
         let data = {
           "phone": phone_no,
         }
@@ -73,16 +77,19 @@
           let dataJson = JSON.parse(await response.text());
           console.log(dataJson);
           if(!dataJson.token){
-            document.getElementById('error-block').innerHTML = '<div class="row artemis-notification-danger bounceIn"><p>Error: '+dataJson.message+'!</p></div>'
+            document.getElementById('error-block').innerHTML = '<div class="row artemis-notification-danger bounceIn"><p>Error: '+dataJson.message+'!</p></div>';
+            document.getElementById('banner-image').src = '../../img/login.jpg';
           }else{
             document.getElementById('ref_token').value = dataJson.token;
+            document.getElementById('banner-image').src = '../../img/login.jpg';
             document.getElementById('loginInfoDiv').style.display = "none";
             document.getElementById('otpDiv').style.display = "block";
           }
 
         }catch(err){
-          console.log(err.text)
-          document.getElementById('error-block').innerHTML = '<div class="row artemis-notification-danger bounceIn"><p>Error: Unknown Error Occured! Please try again later!</p></div>'
+          console.log(err.text);
+          document.getElementById('banner-image').src = '../../img/login.jpg';
+          document.getElementById('error-block').innerHTML = '<div class="row artemis-notification-danger bounceIn"><p>Error: Unknown Error Occured! Please try again later!</p></div>';
         }
         
       }
