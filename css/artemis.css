@@ -493,34 +493,46 @@ input[type="submit"]:disabled:hover {
 
 
 /* Notification */
-
-.artemis-notification-danger{
-    background-color: #feecf0;
-    color: #cc0f35;
+.artemis-notification{
+    background-color: #eef3fc;
+    color: #2160c4;
     width: 50%;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-left: 5px solid #2160c4;
+    border-radius: 4px;
+}
+.notification-danger{
+    background-color: #feecf0;
+    color: #cc0f35;
     border-left: 5px solid #cc0f35;
     border-radius: 4px;
 }
-.artemis-notification-success{
+.notification-success{
   background-color: #effaf3;
   color: #257942;
-  width: 50%;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
   border-left: 5px solid #257942;
-  border-radius: 4px;
 }
-.artemis-notification-warning{
+.notification-warning{
   background-color: #fffbeb;
   color: #947600;
-  width: 50%;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
   border-left: 5px solid #947600;
-  border-radius: 4px;
 }
+
+@media only screen and (max-width: 768px) {
+  .artemis-notification {
+    width: 70% !important
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .artemis-notification {
+    width: 85% !important
+  }
+}
+
 
 
 
@@ -835,4 +847,7 @@ h6.subtitle {
 }
 .d-inlineblock{
   display: inline-block !important;
+}
+.d-inline{
+  display: inline !important;
 }
