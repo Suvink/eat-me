@@ -1,3 +1,29 @@
+<?php
+  session_start();
+  ob_start();
+  require_once "./config/dbconnection.php";
+
+  if(!isset($_SERVER['HTTP_REFERER'])){
+      header('Location: /dinein/login');
+  }
+  if(!isset($_SESSION['user_phone'])){
+      header('Location: /dinein/login');
+  }
+
+  //Logout script
+  if ( isset( $_POST['logout'] ) ){
+    session_destroy();
+    unset($_SESSION['user_phone']);
+    header("Location: /dinein",TRUE,302);
+  }
+
+
+  //Fetch User Data
+  $sql = "SELECT * FROM customer WHERE contactNo='".$_SESSION['user_phone']."'";
+  $result = $con->query($sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +46,22 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Suvin Nimnaka</span>
-        <button class="button is-primary">Logout</button>
+        <?php
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              //Trim to first name of provisioned users because the system generated usernames are too long
+              if($row['profileType'] == 'PROVISIONED'){
+                echo '<span class="mr-1">'.$row['firstName'].'</span>';
+              }else{
+                echo '<span class="mr-1">'.$row['firstName'].' '.$row['lastName'].'</span>';
+              }
+            }
+          }
+        ?>   
+        <form class="d-inline" action="/dinein" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
+        
       </div>
     </div>
   </div>
