@@ -14,16 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $time = time();
 
     //Check if the user is registered in the database
-    try{
-        $sql = "SELECT * FROM customer WHERE contactNo=" . $data->phone;
-        $result = $con->query($sql);
-    }catch(Exception $e){
-        header("HTTP/1.1 500 Internal Server Error");
-        http_response_code(500);
-        $message = json_decode('{"message": "Internal Server Error"}');
-        echo stripslashes(json_encode($message));
-        exit("Error1");
-    }
+    $sql = "SELECT * FROM customer WHERE contactNo=" . $data->phone;
+    $result = $con->query($sql);
 
     //Add a PROVISIONED profile if the user is not registered in the system
     if (!(!empty($result) && $result->num_rows > 0)) {
@@ -50,36 +42,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (trim($res[0]) == "OK") {
         //Add token to database
-        try{
-            $sql3 = "INSERT INTO otp_temp(token, otp, phone, timeStamp) VALUES ('$token', '$OTP', '$data->phone', $time)";
-            echo $sql3;
-            $result = $con->query($sql3);
-        }catch(Exception $e){
-            header("HTTP/1.1 500 Internal Server Error");
-            http_response_code(500);
-            $message = json_decode('{"message": "Internal Server Error"}');
-            echo stripslashes(json_encode($message));
-            exit("Error");
-        }
+        $sql3 = "INSERT INTO otp_temp(token, otp, phone, timeStamp) VALUES ('$token', '$OTP', '$data->phone', $time)";
+        $result = $con->query($sql3);
         if ($result) {
             header("HTTP/1.1 200 OK");
             http_response_code(200);
             $smsString = '{"token": "' . $token . '"}';
             $message = json_decode($smsString);
             echo stripslashes(json_encode($message));
-            exit("Error");
+            return;
         } else {
             header("HTTP/1.1 400 Bad Request");
             http_response_code(400);
             $message = json_decode('{"message": "Error Communicating with server. Please try again in a few minutes."}');
             echo stripslashes(json_encode($message));
-            exit("Error");
+            return;
         }
     } else {
         header("HTTP/1.1 400 Bad Request");
         http_response_code(400);
         $message = '{"message": "Failed to send OTP"}';
         echo stripslashes(json_encode($message));
-        exit("Error");
+        return;
     }
 }
