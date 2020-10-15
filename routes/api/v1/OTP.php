@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         http_response_code(500);
         $message = json_decode('{"message": "Internal Server Error"}');
         echo stripslashes(json_encode($message));
-        exit();
+        exit("Error");
     }
 
     //Add a PROVISIONED profile if the user is not registered in the system
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             http_response_code(500);
             $message = json_decode('{"message": "Internal Server Error"}');
             echo stripslashes(json_encode($message));
-            exit();
+            exit("Error");
         }
         if ($result) {
             header("HTTP/1.1 200 OK");
@@ -67,19 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $smsString = '{"token": "' . $token . '"}';
             $message = json_decode($smsString);
             echo stripslashes(json_encode($message));
-            exit();
+            exit("Error");
         } else {
             header("HTTP/1.1 400 Bad Request");
             http_response_code(400);
             $message = json_decode('{"message": "Error Communicating with server. Please try again in a few minutes."}');
             echo stripslashes(json_encode($message));
-            exit();
+            exit("Error");
         }
     } else {
         header("HTTP/1.1 400 Bad Request");
         http_response_code(400);
         $message = '{"message": "Failed to send OTP"}';
         echo stripslashes(json_encode($message));
-        exit();
+        exit("Error");
     }
 }
