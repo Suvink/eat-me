@@ -50,8 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (trim($res[0]) == "OK") {
         //Add token to database
-        $sql3 = "INSERT INTO otp_temp(token, otp, phone, timeStamp) VALUES ('$token', '$OTP', '$data->phone', $time)";
-        $result = $con->query($sql3);
+        try{
+            $sql3 = "INSERT INTO otp_temp(token, otp, phone, timeStamp) VALUES ('$token', '$OTP', '$data->phone', $time)";
+            echo $sql3;
+            $result = $con->query($sql3);
+        }catch(Exception $e){
+            header("HTTP/1.1 500 Internal Server Error");
+            http_response_code(500);
+            $message = json_decode('{"message": "Internal Server Error"}');
+            echo stripslashes(json_encode($message));
+            return;
+        }
         if ($result) {
             header("HTTP/1.1 200 OK");
             http_response_code(200);
