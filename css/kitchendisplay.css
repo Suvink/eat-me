@@ -376,7 +376,7 @@
     content: '■';
     position: absolute;
     left: -0.8em;          /* Adjust this value so that it appears where you want. */
-    font-size: 1.5em;      /* Adjust this value so that it appears what size you want. */
+    font-size: 1.5  em;      /* Adjust this value so that it appears what size you want. */
 }
   
   
@@ -392,16 +392,19 @@
   .menu-card{
       display: inline-block;
       width: 150px;
-      height: 150px;
       box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
       border-radius: 15px;
       padding: 1rem;
       margin: 10px;
       align-self: center;
       cursor: pointer;
+      overflow: auto;
   }
   .menu-card img{
       width: 80px;
+  }
+  .menu-card .menu-card-visibility{
+    display:none;
   }
   
   /* Order Summery */
@@ -532,6 +535,16 @@
     transition:all 300ms ease-in-out;
     transform:translate(-50%,-50%) scale(1);
   }
+
+  #btnRiders {
+    display: none;
+  }
+  #btnPrepared{
+    display: none;
+  }
+.resizebtn{
+  width:80%;
+}
   /* -----xx-------popup orders---------------xx-------- */
 
 

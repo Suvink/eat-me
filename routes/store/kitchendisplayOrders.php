@@ -24,8 +24,8 @@
         <nav class="nav">
           <div class="nav-menu flex-row">
             <ul class="nav-items "> 
-               <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders.html">Orders</a></li>
-               <li class="nav-link ml-5 zoom" ><a href="kitchendisplayInventory.html">Items</a></li>
+               <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
+               <li class="nav-link ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
             </ul>
           </div>
         </nav>
@@ -59,41 +59,96 @@
             <section>
               <h2>O_Orders</h2>
               <div class="menu-cards">
-                <div class="menu-card card-zoom" onclick="togglePopup()">
+                <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()">
                   <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order O75lk </h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
+                 
+                  <div class="columns group">
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0">Order</h3>
+                    </div>
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0" id="orderId">075 </h3>
+                    </div>
+                  </div>
+                  <div class="columns group menu-card-visibility" id="showAccepted">
+                    <div class="column is-12">
+                      <h3 class="mt-1 mb-0" id="accept-value">Accepted</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility" id="showAssigned">
+                      <h3 class="mt-1 mb-0">Asigned</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility">
+                      <h3 class="mt-1 mb-0">Prepared</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()">
+
+
+                <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()">
                   <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
+                 
+                  <div class="columns group">
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0">Order</h3>
+                    </div>
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0" id="orderId">076 </h3>
+                    </div>
+                  </div>
+                  <div class="columns group menu-card-visibility" id="showAccepted">
+                    <div class="column is-12">
+                      <h3 class="mt-1 mb-0" id="accept-value">Accepted</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility" id="showAssigned">
+                      <h3 class="mt-1 mb-0">Asigned</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility">
+                      <h3 class="mt-1 mb-0">Prepared</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()">
+
+
+                <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()">
                   <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
+                 
+                  <div class="columns group">
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0">Order</h3>
+                    </div>
+                    <div class="column is-6">
+                      <h3 class="mt-1 mb-0" id="orderId">076 </h3>
+                    </div>
+                  </div>
+                  <div class="columns group menu-card-visibility" id="showAccepted">
+                    <div class="column is-12">
+                      <h3 class="mt-1 mb-0" id="accept-value">Accepted</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility" id="showAssigned">
+                      <h3 class="mt-1 mb-0">Asigned</h3>
+                    </div>
+                  </div>
+                  <div class="columns group">
+                    <div class="column is-12 menu-card-visibility">
+                      <h3 class="mt-1 mb-0">Prepared</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()" >
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
-                </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
-                </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
-                </div>
-                <div class="menu-card card-zoom" onclick="togglePopup()">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Order xxx</h3>
-                  <h3 class="mt-1 mb-0 asign-order-status">Not Asigned</h3>
-                </div>
+
+
+
+
+               
                 
               </div>
 
@@ -145,7 +200,7 @@
 <div class="popup" id="popup-1">
   <div class="overlay"></div>
   <div class="pop-content">
-    <div class="close-btn zoom" onclick="togglePopup()">&times;</div>
+    <div class="close-btn zoom"  onclick="closepopup01()">&times;</div>
      <div class="column is-12 ml-0 mr-0">
         <div class="card">
           <h2 class="orange-color mt-0 mb-1">Order 5667lH</h2>
@@ -175,23 +230,41 @@
             <div class="price-col has-text-right mr-1">
             <h3 class="mt-1 mb-1">450.00</h3>
             <h3 class="mt-1 mb-1">10:20 pm</h3>
-            <h3 class="mt-1 mb-1">Negomabo xxxxx  </h3>
+            <h3 class="mt-1 mb-1">Negombo xxxxx  </h3>
             </div>
           </div>
           <!------accept/decline btn -------->
           <div class="columns group">
-            <div class="column is-3">
-               <button class="button is-primary mt-1 zoom">Accept</button>
+            <div class="column is-6"  id="btnAccept">
+               <button  class="button is-primary mt-1 zoom  resizebtn" onclick="hideAcceptDecline()">Accept</button>
             </div>
-            <div class="column is-3">
-              <button class="button is-link mt-1 zoom" onclick="togglePopup2()">Riders</button>
+            <div class="column is-12" id="btnRiders">
+              <button class="button is-link mt-1 zoom mr-1 resizebtn" onclick="togglePopup2()">Riders</button>
            </div>
-            <div class="column is-3">
-              <button class="button is-success mt-1 zoom">Prepared</button>
+            <div class="column is-12" id="btnPrepared">
+              <button class="button is-success mt-1 mr-1 zoom resizebtn">Prepared</button>
            </div>
-            <div class="column is-3">
-               <button class="button is-danger mt-1 zoom">Decline</button>
+            <div class="column is-6" id="btnDecline">
+               <button class="button is-danger mt-1 zoom resizebtn" id="switch-decline-orders">Decline</button>
             </div>
+            <script>
+              function hideAcceptDecline() {
+                document.getElementById("btnAccept").style.display = "none";
+                document.getElementById("btnDecline").style.display = "none";
+                document.getElementById("btnRiders").style.display = "block";
+                document.getElementById("showAccepted").style.display = "block";
+              }
+              function closepopup01(){
+                document.getElementById("popup-1").style.display = "none";
+              }
+              function togglePopup1(){
+
+                document.getElementById("popup-1").style.display = "block";
+               
+                
+              }
+
+            </script>
           </div>
            <!-----XX---accept/decline btn ---XX------>
         </div>
@@ -275,7 +348,7 @@
             <h3 class="mt-1 mb-2">________________________</h3>
             <h3 class="mt-1 mb-2">Rider ID</h3>
             <h3 class="mt-1 mb-2">Rider Name</h3>
-            <h3 class="mt-1 mb-2">Rider MOb Num</h3>
+            <h3 class="mt-1 mb-2">Rider Mob Num</h3>
           
             
           </div>
@@ -289,8 +362,21 @@
             <h3 class="mt-1 mb-2 rider-status">___________</h3>
           </div>
           <div class="column is-3">
-            <button class="button is-primary ml-4 mt-1 zoom" onclick="kk()">Asigned Order</button>
+            <button class="button is-primary ml-4 mt-1 zoom"  onclick="displayPrepared()" id="btnAsignOrders">Asigned Order</button>
          </div>
+         <script>
+           function displayPrepared()
+           {
+            document.getElementById("btnRiders").style.display = "none"; 
+            document.getElementById("btnPrepared").style.display = "block";
+            document.getElementById("btnAsignOrders").style.display = "none";
+            document.getElementById("popup-2").style.display = "none";
+            document.getElementById("popup-3").style.display = "none";
+            document.getElementById("showAssigned").style.display = "block";
+                
+           }
+
+         </script>
         </div>
       </div>
     </div>

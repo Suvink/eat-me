@@ -26,7 +26,8 @@ $cashier = 'routes/store/cashier.php';
 $deliveryPersonLogin = 'routes/store/deliverypersonlogin.php';
 $deliveryPerson = 'routes/store/deliveryperson.php';
 $inventory = 'routes/store/inventory.php';
-$kitchendisplay = 'routes/store/kitchendisplay.php';
+$kitchendisplayOrders = 'routes/store/kitchendisplayOrders.php';
+$kitchendisplayInventory = 'routes/store/kitchendisplayInventory.php';
 $kitchenManagerLogin = 'routes/store/kitchenmanagerlogin.php';
 $kitchenManager = 'routes/store/kitchenmanager.php';
 $stewardLogin = 'routes/store/stewardlogin.php';
@@ -91,8 +92,11 @@ switch ($request) {
     case '/inventory' :
         require($inventory);
         break;
-    case '/kitchendisplay' :
-        require($kitchendisplay);
+    case '/kitchendisplayOrders' :
+        require($kitchendisplayOrders);
+        break;
+    case '/kitchendisplayInventory' :
+        require($kitchendisplayInventory);
         break;
     case '/kitchenmanager/login' :
         require($kitchenManagerLogin);

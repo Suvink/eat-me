@@ -24,8 +24,8 @@
       <nav class="nav">
         <div class="nav-menu flex-row">
           <ul class="nav-items "> 
-             <li class="nav-link ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders.html">Orders</a></li>
-             <li class="nav-link  orange-color ml-5 zoom" ><a href="kitchendisplayInventory.html">Items</a></li>
+             <li class="nav-link ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
+             <li class="nav-link  orange-color ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
           </ul>
         </div>
       </nav>
@@ -109,13 +109,13 @@
             <h3 class="mt-1 mb-1">Negomabo xxxxx  </h3>
             </div>
           </div>
-          <!------accept/decline btn -------->
+          <!------accept/decline/prepared/riders btn -------->
           <div class="columns group">
             <div class="column is-3">
                <button class="button is-primary mt-1 zoom">Accept</button>
             </div>
             <div class="column is-3">
-              <button class="button is-link mt-1 zoom" onclick="togglePopup2()">Riders</button>
+              <button class="button is-link mt-1 zoom " onclick="togglePopup2()">Riders</button>
            </div>
             <div class="column is-3">
               <button class="button is-success mt-1 zoom">Prepared</button>
