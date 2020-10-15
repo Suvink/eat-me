@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         http_response_code(500);
         $message = json_decode('{"message": "Internal Server Error"}');
         echo stripslashes(json_encode($message));
-        exit("Error");
+        exit("Error1");
     }
 
     //Add a PROVISIONED profile if the user is not registered in the system
