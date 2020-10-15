@@ -14,8 +14,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $time = time();
 
     //Check if the user is registered in the database
-    $sql = "SELECT * FROM customer WHERE contactNo=" . $data->phone;
-    $result = $con->query($sql);
+    try{
+        $sql = "SELECT * FROM customer WHERE contactNo=" . $data->phone;
+        $result = $con->query($sql);
+    }catch(Exception $e){
+        header("HTTP/1.1 500 Internal Server Error");
+        http_response_code(500);
+        $message = json_decode('{"message": "Internal Server Error"}');
+        echo stripslashes(json_encode($message));
+        return;
+    }
 
     //Add a PROVISIONED profile if the user is not registered in the system
     if (!(!empty($result) && $result->num_rows > 0)) {
