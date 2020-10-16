@@ -1,7 +1,8 @@
 <?php
   session_start();
   ob_start();
-  require_once "./config/dbconnection.php";
+
+  include './PHP/customer/dineincontroller.php';
 
   if(!isset($_SERVER['HTTP_REFERER'])){
       header('Location: /dinein/login');
@@ -9,18 +10,6 @@
   if(!isset($_SESSION['user_phone'])){
       header('Location: /dinein/login');
   }
-
-  //Logout script
-  if ( isset( $_POST['logout'] ) ){
-    session_destroy();
-    unset($_SESSION['user_phone']);
-    header("Location: /dinein",TRUE,302);
-  }
-
-
-  //Fetch User Data
-  $sql = "SELECT * FROM customer WHERE contactNo='".$_SESSION['user_phone']."'";
-  $result = $con->query($sql);
 
 ?>
 
@@ -30,6 +19,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
@@ -47,18 +37,9 @@
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
         <?php
-          if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-              //Trim to first name of provisioned users because the system generated usernames are too long
-              if($row['profileType'] == 'PROVISIONED'){
-                echo '<span class="mr-1">'.$row['firstName'].'</span>';
-              }else{
-                echo '<span class="mr-1">'.$row['firstName'].' '.$row['lastName'].'</span>';
-              }
-            }
-          }
+          $renderNavBar($_SESSION['user_phone']);
         ?>   
-        <form class="d-inline" action="/dinein" method="POST">
+        <form class="d-inline" action="../../PHP/customer/dineincontroller.php" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
         
@@ -88,69 +69,30 @@
             <section>
               <h2>Mains</h2>
               <div class="menu-cards">
-                <div class="menu-card" id="menu-12345" onclick="addToCart('12345')">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                    <h5 class="mt-0">LKR 350.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
-                <div class="menu-card">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                    <h5 class="mt-0">LKR 350.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
-                <div class="menu-card">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                    <h5 class="mt-0">LKR 350.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
-              </div>
+                <?php
+                  $renderMainMenu();
+                ?>
 
             </section>
             <section>
               <h2>Starters</h2>
               <div class="menu-cards">
-                <div class="menu-card">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                    <h3 class="mt-1 mb-0">Chicken Burger</h3>
-                    <h5 class="mt-0">LKR 350.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
-                <div class="menu-card">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
-                    <h3 class="mt-1 mb-0">Kukul Andak</h3>
-                    <h5 class="mt-0">LKR 120.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
-                <div class="menu-card">
-                  <div class="menu-card-content">
-                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                    <h5 class="mt-0">LKR 350.00</h5>
-                  </div>
-                  <button class="button is-primary menu-add-button">Add</button>
-                </div>
+                <?php
+                  $renderSidesMenu();
+                ?>
               </div>
             </section>
             <section>
               <h2>Beverages</h2>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam nemo ducimus eius, magnam error quisquam sunt voluptate labore, excepturi numquam! Alias libero optio sed harum debitis! Veniam, quia in eum.
+              <?php
+                $renderBeveragesMenu();
+              ?>
             </section>
             <section>
               <h2>Desserts</h2>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa dicta vero rerum? Eaque repudiandae architecto libero reprehenderit aliquam magnam ratione quidem? Nobis doloribus molestiae enim deserunt necessitatibus eaque quidem incidunt.
+              <?php
+                $renderDessertMenu();
+              ?>
             </section>
           </div>
         </div>
