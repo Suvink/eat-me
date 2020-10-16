@@ -110,11 +110,7 @@
                 </div>
                 <div class="menu-selected-row-description has-text-left">
                   <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
+                  <input placeholder="qty" value="1">
                 </div>
                 <div class="menu-selected-row-price">
                   <h4 class="mb-0 mt-0">350.00</h4>
@@ -129,11 +125,7 @@
                 </div>
                 <div class="menu-selected-row-description has-text-left">
                   <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
+                  <input placeholder="qty" value="1">
                 </div>
                 <div class="menu-selected-row-price">
                   <h4 class="mb-0 mt-0">350.00</h4>

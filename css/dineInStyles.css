@@ -440,8 +440,9 @@
   display: inline-block;
   vertical-align: middle;
 }
-.menu-selected-row-description select {
+.menu-selected-row-description input {
   border-radius: 5px;
+  width: 3rem;
 }
 
 /* Total */
