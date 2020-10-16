@@ -32,9 +32,9 @@ $renderMainMenu = function () use($con){
       echo '
       <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
         <div class="menu-card-content">
-          <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-          <h3 class="mt-1 mb-0">'.$row['itemName'].'</h3>
-          <h5 class="mt-0">LKR '.$row['price'].'</h5>
+          <img id="item-picture-'.$row['itemNo'].'" src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+          <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
+          <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
         </div>
       </div>
       ';
@@ -51,9 +51,9 @@ $renderSidesMenu = function () use($con){
       echo '
       <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
         <div class="menu-card-content">
-          <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-          <h3 class="mt-1 mb-0">'.$row['itemName'].'</h3>
-          <h5 class="mt-0">LKR '.$row['price'].'</h5>
+          <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046786.svg">
+          <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
+          <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
         </div>
       </div>
       ';
@@ -69,9 +69,9 @@ $renderBeveragesMenu = function () use($con){
       echo '
       <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
         <div class="menu-card-content">
-          <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-          <h3 class="mt-1 mb-0">'.$row['itemName'].'</h3>
-          <h5 class="mt-0">LKR '.$row['price'].'</h5>
+          <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046781.svg">
+          <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
+          <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
         </div>
       </div>
       ';
@@ -89,9 +89,9 @@ $renderDessertMenu = function () use($con){
       echo '
       <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
         <div class="menu-card-content">
-          <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-          <h3 class="mt-1 mb-0">'.$row['itemName'].'</h3>
-          <h5 class="mt-0">LKR '.$row['price'].'</h5>
+          <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046767.svg">
+          <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
+          <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
         </div>
       </div>
       ';

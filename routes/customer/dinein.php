@@ -101,45 +101,17 @@
         <div class="card">
           <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
 
-          <div class="menu-selected">
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <input placeholder="qty" value="1">
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
+          <form action="">
+            <div class="menu-selected" id="selected-menu">
             </div>
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <input placeholder="qty" value="1">
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
-            </div>
-          </div>
+          </form>
 
           <div class="total-box d-flex">
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
             </div>
             <div class="price-col has-text-right mr-1">
-            <h3 class="mt-1 mb-1">450.00</h3>
+            <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
 
@@ -155,8 +127,13 @@
 <script>
   const delay = ms => new Promise(res => setTimeout(res, ms));
   let counter = false;
+  let total = 0;
 
   function addToCart(itemId){
+    let itemName = 'name-'+itemId;
+    let ItemPrice = 'price-'+itemId;
+    let imageUrl = 'item-picture-'+itemId;
+
     if(!counter){
       counter = true;
       document.getElementById("menu-"+itemId).innerHTML = document.getElementById("menu-"+itemId).innerHTML + "<div id='fadetemp'>" + document.getElementById("menu-"+itemId).innerHTML + '</div>';
@@ -164,9 +141,31 @@
       delay(1000).then(() => {
         document.getElementById("fadetemp").remove();
       }).finally(() => {
+        document.getElementById('selected-menu').innerHTML = document.getElementById('selected-menu').innerHTML + `
+              <div class="menu-selected-item">
+                <div class="menu-selected-row">
+                  <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
+                  <div class="menu-selected-row-image">
+                    <img src="`+document.getElementById(imageUrl).src+`">
+                  </div>
+                  <div class="menu-selected-row-description has-text-left">
+                    <h4 class="mb-0 mt-0">`+document.getElementById(itemName).innerHTML+`</h4>
+                    <input placeholder="qty" value="1">
+                  </div>
+                  <div class="menu-selected-row-price">
+                    <h4 class="mb-0 mt-0">`+document.getElementById(ItemPrice).innerHTML+`</h4>
+                  </div>
+                </div>
+              </div>`;
+        total = parseFloat(total) + parseFloat(document.getElementById(ItemPrice).innerHTML.replace(/\D/g,''));
+        updateTotal(total);
         counter = false;
       });
     }
+  }
+
+  function updateTotal(amount){
+    document.getElementById('price-tag').innerHTML = amount+'.00';
   }
 </script>
 </body>

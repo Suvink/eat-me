@@ -32,7 +32,7 @@
       <div class="column is-8">
         <div class="card">
           <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
-          <div class="menu-items">
+          <div class="menu-items" id="selected-menu">
             <div class="menu-selected-item">
               <div class="menu-selected-row">
                 <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
