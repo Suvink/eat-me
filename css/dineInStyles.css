@@ -415,6 +415,7 @@
 }
 .menu-selected-row {
   width: 100%;
+  transition: all .2s;
 }
 .menu-selected-row-delete {
   width: 6.866%;
@@ -444,6 +445,7 @@
   border-radius: 5px;
   width: 3rem;
 }
+
 
 /* Total */
 .total-box {

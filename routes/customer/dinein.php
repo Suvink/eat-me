@@ -39,7 +39,7 @@
         <?php
           $renderNavBar($_SESSION['user_phone']);
         ?>   
-        <form class="d-inline" action="../../PHP/customer/dineincontroller.php" method="POST">
+        <form class="d-inline" action="/dinein" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
         
@@ -115,7 +115,7 @@
             </div>
           </div>
 
-          <button class="button is-primary mt-1">Place Order</button>
+          <button class="button is-primary mt-1 fadeInRight">Place Order</button>
 
 
         </div>
@@ -142,9 +142,9 @@
         document.getElementById("fadetemp").remove();
       }).finally(() => {
         document.getElementById('selected-menu').innerHTML = document.getElementById('selected-menu').innerHTML + `
-              <div class="menu-selected-item">
+              <div class="menu-selected-item" id="div-`+itemId+`">
                 <div class="menu-selected-row">
-                  <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
+                  <div class="menu-selected-row-delete"><i class="fas fa-trash-alt" onclick="removeItem(`+itemId+`)"></i></div>
                   <div class="menu-selected-row-image">
                     <img src="`+document.getElementById(imageUrl).src+`">
                   </div>
@@ -153,7 +153,7 @@
                     <input placeholder="qty" value="1">
                   </div>
                   <div class="menu-selected-row-price">
-                    <h4 class="mb-0 mt-0">`+document.getElementById(ItemPrice).innerHTML+`</h4>
+                    <h4 class="mb-0 mt-0" id="item-price-`+itemId+`">`+document.getElementById(ItemPrice).innerHTML+`</h4>
                   </div>
                 </div>
               </div>`;
@@ -167,6 +167,16 @@
   function updateTotal(amount){
     document.getElementById('price-tag').innerHTML = amount+'.00';
   }
+
+  function removeItem(itemId){
+    let divName = 'div-'+itemId;
+    let priceDiv = 'item-price-'+itemId;
+    total = parseFloat(document.getElementById('price-tag').innerHTML) - parseFloat(document.getElementById(priceDiv).innerHTML.replace(/\D/g,''));
+    updateTotal(total);
+    let toBeDeleted = document.getElementById(divName);
+    toBeDeleted.parentNode.removeChild(toBeDeleted);
+  }
+
 </script>
 </body>
 

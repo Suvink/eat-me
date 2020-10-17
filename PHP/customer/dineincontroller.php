@@ -1,5 +1,16 @@
 <?php
+
 require_once "./config/dbconnection.php";
+
+
+//Logout script
+if ( isset( $_POST['logout'] ) ){
+  session_destroy();
+  unset($_SESSION['user_phone']);
+  header("Location: /dinein",TRUE,302);
+}
+
+
 
 //Fetch User data and render NavBar
 $renderNavBar = function ($user_phone) use($con){
@@ -22,6 +33,8 @@ $renderNavBar = function ($user_phone) use($con){
       }
   }
 };
+
+//Fetch and renser menu blocks
 
 $renderMainMenu = function () use($con){
   $mainQuery = "SELECT * FROM menu WHERE type='mains'";
@@ -98,13 +111,5 @@ $renderDessertMenu = function () use($con){
     }
   }
 };
-
-//Logout script
-if ( isset( $_POST['logout'] ) ){
-  session_destroy();
-  unset($_SESSION['user_phone']);
-  header("Location: /dinein",TRUE,302);
-}
-
 
 ?>

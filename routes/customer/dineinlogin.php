@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
 
       <form action="/dinein/login" id="otpDiv" style="display: none" method="POST">
         <label class="field artemis-input-field">
-          <input class="artemis-input" type="text" placeholder="Your OTP here" name="otp" required>
+          <input class="artemis-input" type="text" placeholder="Your OTP here" name="otp" autocomplete="one-time-code" required>
           <span class="label-wrap">
             <span class="label-text">OTP</span>
           </span>
