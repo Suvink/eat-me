@@ -1,14 +1,30 @@
+<?php
+  session_start();
+  ob_start();
+
+  include './PHP/customer/dineincontroller.php';
+
+  if(!isset($_SERVER['HTTP_REFERER'])){
+      header('Location: /online/login');
+  }
+  if(!isset($_SESSION['user_phone'])){
+      header('Location: /online/login');
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
-  <link rel="stylesheet" href="../../css/onlineOrderStyles.css">
-  <title>Order Online</title>
+  <link rel="stylesheet" href="../../css/dineInStyles.css">
+  <title>Online Order</title>
 </head>
 
 <body>
@@ -19,20 +35,21 @@
         <img src="../../img/logo.png" height=56 width="224" />
       </div>
       <div class="column is-10 has-text-right nav-logout">
-      <div class="field">
-        <input id="switchRoundedDefault" type="checkbox" name="switchRoundedDefault" class="switch is-rounded" checked="checked">
-        <label for="switchRoundedDefault">Switch rounded default</label>
-      </div>
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Suvin Nimnaka</span>
-        <button class="button is-primary">Logout</button>
+        <?php
+          $renderNavBar($_SESSION['user_phone']);
+        ?>   
+        <form class="d-inline" action="/dinein" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
+        
       </div>
     </div>
   </div>
 
   <section>
     <div class="columns group">
-      <div class="column is-8">           
+      <div class="column is-8">
         <div class="tabs">
           <input type="radio" id="tab1" name="tab-control" checked>
           <input type="radio" id="tab2" name="tab-control">
@@ -52,51 +69,30 @@
             <section>
               <h2>Mains</h2>
               <div class="menu-cards">
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
-                </div>
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
-                </div>
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
-                </div>
-              </div>
+                <?php
+                  $renderMainMenu();
+                ?>
 
             </section>
             <section>
               <h2>Starters</h2>
               <div class="menu-cards">
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                  <h3 class="mt-1 mb-0">Chicken Burger</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
-                </div>
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
-                  <h3 class="mt-1 mb-0">Kukul Andak</h3>
-                  <h5 class="mt-0">LKR 120.00</h5>
-                </div>
-                <div class="menu-card">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  <h3 class="mt-1 mb-0">Chinese Ramen</h3>
-                  <h5 class="mt-0">LKR 350.00</h5>
-                </div>
+                <?php
+                  $renderSidesMenu();
+                ?>
               </div>
             </section>
             <section>
               <h2>Beverages</h2>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam nemo ducimus eius, magnam error quisquam sunt voluptate labore, excepturi numquam! Alias libero optio sed harum debitis! Veniam, quia in eum.
+              <?php
+                $renderBeveragesMenu();
+              ?>
             </section>
             <section>
               <h2>Desserts</h2>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa dicta vero rerum? Eaque repudiandae architecto libero reprehenderit aliquam magnam ratione quidem? Nobis doloribus molestiae enim deserunt necessitatibus eaque quidem incidunt.
+              <?php
+                $renderDessertMenu();
+              ?>
             </section>
           </div>
         </div>
@@ -105,57 +101,21 @@
         <div class="card">
           <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
 
-          <div class="menu-selected">
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
+          <form action="">
+            <div class="menu-selected" id="selected-menu">
             </div>
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
-            </div>
-          </div>
+          </form>
 
           <div class="total-box d-flex">
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
             </div>
             <div class="price-col has-text-right mr-1">
-            <h3 class="mt-1 mb-1">450.00</h3>
+            <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
 
-          <button class="button is-primary mt-1">Place Order</button>
+          <button class="button is-primary mt-1 fadeInRight">Place Order</button>
 
 
         </div>
@@ -163,6 +123,61 @@
     </div>
   </section>
 
+
+<script>
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  let counter = false;
+  let total = 0;
+
+  function addToCart(itemId){
+    let itemName = 'name-'+itemId;
+    let ItemPrice = 'price-'+itemId;
+    let imageUrl = 'item-picture-'+itemId;
+
+    if(!counter){
+      counter = true;
+      document.getElementById("menu-"+itemId).innerHTML = document.getElementById("menu-"+itemId).innerHTML + "<div id='fadetemp'>" + document.getElementById("menu-"+itemId).innerHTML + '</div>';
+      document.getElementById("fadetemp").classList.add("fade-out-menu");
+      delay(1000).then(() => {
+        document.getElementById("fadetemp").remove();
+      }).finally(() => {
+        document.getElementById('selected-menu').innerHTML = document.getElementById('selected-menu').innerHTML + `
+              <div class="menu-selected-item" id="div-`+itemId+`">
+                <div class="menu-selected-row">
+                  <div class="menu-selected-row-delete"><i class="fas fa-trash-alt" onclick="removeItem(`+itemId+`)"></i></div>
+                  <div class="menu-selected-row-image">
+                    <img src="`+document.getElementById(imageUrl).src+`">
+                  </div>
+                  <div class="menu-selected-row-description has-text-left">
+                    <h4 class="mb-0 mt-0">`+document.getElementById(itemName).innerHTML+`</h4>
+                    <input placeholder="qty" value="1">
+                  </div>
+                  <div class="menu-selected-row-price">
+                    <h4 class="mb-0 mt-0" id="item-price-`+itemId+`">`+document.getElementById(ItemPrice).innerHTML+`</h4>
+                  </div>
+                </div>
+              </div>`;
+        total = parseFloat(total) + parseFloat(document.getElementById(ItemPrice).innerHTML.replace(/\D/g,''));
+        updateTotal(total);
+        counter = false;
+      });
+    }
+  }
+
+  function updateTotal(amount){
+    document.getElementById('price-tag').innerHTML = amount+'.00';
+  }
+
+  function removeItem(itemId){
+    let divName = 'div-'+itemId;
+    let priceDiv = 'item-price-'+itemId;
+    total = parseFloat(document.getElementById('price-tag').innerHTML) - parseFloat(document.getElementById(priceDiv).innerHTML.replace(/\D/g,''));
+    updateTotal(total);
+    let toBeDeleted = document.getElementById(divName);
+    toBeDeleted.parentNode.removeChild(toBeDeleted);
+  }
+
+</script>
 </body>
 
 </html>
