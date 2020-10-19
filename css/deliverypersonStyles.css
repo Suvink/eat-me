@@ -85,7 +85,7 @@ table th{
 /* Navbar */
 @media (max-width:480px){
     .nav-logout{
-        text-align: right;
+        text-align: center !important;
     }
     
 }
