@@ -7,7 +7,7 @@
                           
 MIT License
 
-Copyright (c) 2020 Suvin Nimnaka, Amod Pathirana, Hasantha Pathirana and Sandarekka Dissanayaka
+Copyright (c) 2020 Suvin Nimnaka, Amod Pathirana, Hasantha Pathirana and Sandarekha Dissanayaka
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -419,7 +419,119 @@ input[type="submit"]:disabled:hover {
 }
 
 
+/* Select Box */
 
+/* .artemis-select {
+  position: relative;
+  background: white;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05);
+  border-color: #f5a540;
+}
+.artemis-select:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  right: 10px;
+  bottom: 0;
+  margin: auto;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #f5a540 transparent transparent transparent;
+  pointer-events: none;
+}
+.artemis-select:before {
+  width: 30px;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  background: white;
+  content: '';
+  pointer-events: none;
+}
+.artemis-select:hover:before {
+  background: white;
+}
+.artemis-select select {
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  padding-right: 35px;
+  padding-left: 15px;
+  padding: 5px;
+  border: 1px solid #f5a540;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.artemis-select select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+.artemis-select select::-ms-expand {
+  display: none;
+}
+.artemis-select select:focus {
+  border-color: #f5a540;
+}
+
+@media all and (min-width: 0\0) and (min-resolution: 0.001dpcm) {
+  .select select {
+    padding-right: 0;
+  }
+  .select:after, .select:before {
+    display: none;
+  }
+} */
+
+
+/* Notification */
+.artemis-notification{
+    background-color: #eef3fc;
+    color: #2160c4;
+    width: 50%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-left: 5px solid #2160c4;
+    border-radius: 4px;
+}
+.notification-danger{
+    background-color: #feecf0;
+    color: #cc0f35;
+    border-left: 5px solid #cc0f35;
+    border-radius: 4px;
+}
+.notification-success{
+  background-color: #effaf3;
+  color: #257942;
+  border-left: 5px solid #257942;
+}
+.notification-warning{
+  background-color: #fffbeb;
+  color: #947600;
+  border-left: 5px solid #947600;
+}
+
+@media only screen and (max-width: 768px) {
+  .artemis-notification {
+    width: 70% !important
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .artemis-notification {
+    width: 85% !important
+  }
+}
 
 
 
@@ -726,4 +838,16 @@ h6.subtitle {
 }
 .justify-text{
 	text-align: justify !important;
+}
+
+
+/* Display Helpers */
+.d-flex{
+  display: flex !important;
+}
+.d-inlineblock{
+  display: inline-block !important;
+}
+.d-inline{
+  display: inline !important;
 }

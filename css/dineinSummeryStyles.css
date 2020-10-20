@@ -1,0 +1,80 @@
+/* Added Menu Items */
+.menu-selected-item{
+    align-self: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid grey;
+}
+.menu-selected-row-delete i:hover{
+  color: #f5a540 !important;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.menu-selected-item img{
+    width: 50px;
+}
+.menu-selected-row{
+    width: 100%;
+}
+.menu-selected-row-delete{
+    width: 6.866%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.menu-selected-row-image{
+    width: 23.8%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.menu-selected-row-description{
+    width: 40.73%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.menu-selected-row-price{
+    width: 23.8%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.menu-selected-row-description select{
+  border-radius: 5px;
+}
+
+ /* Total */
+ .total-box{
+    border-bottom: 2px solid #f5a540;
+    width: 100%;
+}
+.title-col{
+    width: 50%;
+    display: inline-block;
+}
+.price-col{
+    width: 50%;
+    display: inline-block;
+}
+
+.status-badge-orange{
+    background-color: #f5a540 !important;
+    padding: 0.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.status-badge-green{
+    background-color: #327a7a !important;
+    padding: 0.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 625px){
+    .pay-buttons .button{
+        margin-top: 0.5rem;
+    }
+}

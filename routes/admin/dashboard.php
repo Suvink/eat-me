@@ -6,7 +6,7 @@
     <!-- Global Styles -->
     <link rel="stylesheet" href="../../css/style.css" />
     <!-- Local Styles -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../css/adminStyles.css">
     <title>Admin Dashboard</title>
   </head>
   <body>
