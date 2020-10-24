@@ -36,6 +36,8 @@ $steward = 'routes/store/steward.php';
 //API
 $verify = 'routes/api/v1/OTP.php';
 
+//controllers
+$dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
@@ -81,7 +83,7 @@ switch ($request) {
         require($onlineOrderSignup);
         break;
     case '/cashier' :
-        require($onlineOrder);
+        require($cashier);
         break;
     case '/deliveryperson/login' :
         require($deliveryPersonLogin);
@@ -109,6 +111,9 @@ switch ($request) {
         break;
     case '/steward' :
         require($steward);
+        break;
+    case '/dineinlogincontroller' :
+        require($dineinlogincontroller);
         break;
     case '/api/v1/verify' :
         require($verify);

@@ -6,7 +6,7 @@
     <!-- Add global styles -->
 		<link rel="stylesheet" href="../../css/style.css">
 		<!-- local styles -->
-		<link rel="stylesheet" href="../../css/deliverypersonStyles.css">
+		<link rel="stylesheet" href="../../css/deliveryPersonStyles.css">
     <title>Delivery Home </title>
   </head>
   <body>
@@ -69,7 +69,7 @@
 														<option value="Preparing">Preparing</option>
 														<option value="Prepared">Prepared</option>
 														<option value="Collected">Collected</option>
-														<option value="Delivered" id="del" >Delivered</option>
+														<option value="Delivered" >Delivered</option>
 													</select>
 												</td>
 											</tr>
