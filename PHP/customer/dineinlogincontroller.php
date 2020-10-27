@@ -1,11 +1,12 @@
 <?php
 require_once "./config/dbconnection.php";
+session_start();
 
-$isError=false;
+
 if (isset($_POST['submit'])) {
   $token =  $_REQUEST['token'];
   $otp =  $_REQUEST['otp'];
-  
+
   $sql = "SELECT * FROM otp_temp WHERE otp='$otp'";
   $result = $con->query($sql);
   //echo $result->num_rows;
@@ -17,17 +18,20 @@ if (isset($_POST['submit'])) {
         $_SESSION['user_phone'] = $row["phone"];
         header('Location: /dinein');
       } else {
-        $isError=true;
+        $_SESSION['isError'] = true;
       }
     }
   } else {
-    $isError=true;
+    $_SESSION['isError'] = true;
+    $sql = "DELETE FROM otp_temp WHERE token='$token'";
+    $result = $con->query($sql);
+    header('Location: /dinein/login');
   }
 }
 
-$showError = otpError($isError) ;
-function otpError($isError){
+function otpError($isError)
+{
   if ($isError == true) {
-    return '<div class="row artemis-notification notification-danger bounceIn"><p>Error: Invalid OTP!</p></div>';
+    echo '<div class="row artemis-notification notification-danger bounceIn"><p>Error: Invalid OTP!</p></div>';
   }
 };
