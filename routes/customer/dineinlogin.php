@@ -1,6 +1,6 @@
 <?php
 require_once "./PHP/customer/dineinlogincontroller.php";
-session_start();
+
 
 ?>
 
@@ -34,9 +34,15 @@ session_start();
       <div id="error-block"></div>
 
       <?php
-
-      echo $showError;
-      
+      //check session error set or not
+      if (isset($_SESSION['isError'])) {
+        otpError($_SESSION['isError']);
+        session_unset();
+        //refresh time
+        $sec = "5";
+        //refresh page to set session free
+        header("Refresh: $sec ; url= /dinein/login");
+      }
       ?>
 
       <div id="loginInfoDiv" style="display: block">
