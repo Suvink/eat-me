@@ -2,13 +2,19 @@
   session_start();
   ob_start();
 
-  include './PHP/customer/dineincontroller.php';
-
   if(!isset($_SERVER['HTTP_REFERER'])){
       header('Location: /online/login');
   }
   if(!isset($_SESSION['user_phone'])){
       header('Location: /online/login');
+  }
+
+  require_once './controllers/customer/OnlineOrderController.php';
+  //Initiate an instance of controller
+  $OnlineOrderController = new OnlineOrderController();
+
+  if ( isset( $_POST['logout'] ) ){
+    $OnlineOrderController->logout();
   }
 
 ?>
@@ -37,9 +43,9 @@
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
         <?php
-          $renderNavBar($_SESSION['user_phone']);
+          $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
         ?>   
-        <form class="d-inline" action="/dinein" method="POST">
+        <form class="d-inline" action="/online" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
         
@@ -61,7 +67,6 @@
             <li title="Beverages"><label for="tab3" role="button"><i class="fas fa-beer mr-1"></i><br><span>Beverages</span></label></li>
             <li title="Desserts"><label for="tab4" role="button"><i class="fas fa-cookie mr-1"></i><br><span>Desserts</span></label></li>
           </ul>
-
           <div class="slider">
             <div class="indicator"></div>
           </div>
@@ -70,28 +75,27 @@
               <h2>Mains</h2>
               <div class="menu-cards">
                 <?php
-                  $renderMainMenu();
+                  $OnlineOrderController->renderMainMenu();
                 ?>
-
             </section>
             <section>
               <h2>Starters</h2>
               <div class="menu-cards">
                 <?php
-                  $renderSidesMenu();
+                  $OnlineOrderController->renderSidesMenu();
                 ?>
               </div>
             </section>
             <section>
               <h2>Beverages</h2>
               <?php
-                $renderBeveragesMenu();
+                $OnlineOrderController->renderBeveragesMenu();
               ?>
             </section>
             <section>
               <h2>Desserts</h2>
               <?php
-                $renderDessertMenu();
+                $OnlineOrderController->renderDessertMenu();
               ?>
             </section>
           </div>

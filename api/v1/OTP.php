@@ -2,7 +2,11 @@
 header("Content-Type:application/json");
 header("Access-Control-Allow-Methods: POST");
 
-require_once "./config/dbconnection.php";
+require_once "./core/DBConnection.php";
+
+$DBConnection = new DBConnection();
+$con = $DBConnection->getConnection();
+
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $rawdata = file_get_contents('php://input');

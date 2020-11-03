@@ -1,6 +1,7 @@
 <?php
 
-require_once "./config/dbconnection.php";
+//require_once "./config/dbconnection.php";
+//require_once "./models/DineinModel.php";
 
 
 //Logout script
@@ -14,6 +15,13 @@ if ( isset( $_POST['logout'] ) ){
 
 //Fetch User data and render NavBar
 $renderNavBar = function ($user_phone) use($con){
+
+  $dineInModel = new DineinModel();
+  $data = $dineInModel->getAllData('customer', $user_phone);
+  
+
+
+
     $sql = "SELECT * FROM customer WHERE contactNo='".$user_phone."'";
     $result =  $con->query($sql);
 
