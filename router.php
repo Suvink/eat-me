@@ -32,6 +32,7 @@ $kitchenManagerLogin = 'routes/store/kitchenmanagerlogin.php';
 $kitchenManager = 'routes/store/kitchenmanager.php';
 $stewardLogin = 'routes/store/stewardlogin.php';
 $steward = 'routes/store/steward.php';
+$deliveryrating = 'routes/store/deliveryPersonRating.php';
 
 //API
 $verify = 'routes/api/v1/OTP.php';
@@ -118,6 +119,9 @@ switch ($request) {
     case '/api/v1/verify' :
         require($verify);
         break;
+    case '/deliveryrating' :
+            require($deliveryrating);
+            break;
     default:
         http_response_code(404);
         require($errorPage);

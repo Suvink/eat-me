@@ -1,0 +1,65 @@
+/* Popup container*/
+.popup {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    padding-left: 750px;
+  }
+  @media(max-width:700px){
+    .popup{
+      padding-left:0px;
+      padding-right:0px;
+    }
+  }
+
+  /* Actual contain */
+  .popup .popuptext {
+    visibility: hidden;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+  }
+  /* Whole pop up in one flex */
+  .flex-container {
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 4px 6px 25px -8px black;
+    background-color: #ffdd57;
+  }
+  /* Visibility of topup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  /* blur the background */
+  .blur{
+    backdrop-filter:blur(1px) !important;
+  }  
+  /* flex for rows of rating */
+  .popup .popuptext .d-flex > button {
+    margin: 5px;
+    text-align: center;
+    line-height: 20px;
+    background-color: white;
+    color: black;
+    font-size: 13px;
+  }
+  .popup .popuptext .d-flex >button:hover{
+    background-color: black;
+    color: white;
+  }
+  /* Animation for popup*/
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
