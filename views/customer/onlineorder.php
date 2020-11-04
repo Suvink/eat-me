@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/dineInStyles.css">
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <title>Online Order</title>
 </head>
 
@@ -118,22 +119,31 @@
             <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
-
-          <button class="button is-primary mt-1 fadeInRight">Place Order</button>
-
-
+          <form action="" method="POST">
+            <input id="confirmed-total" name="total" value="0" style="display:none">
+            <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
+            <button class="button is-primary mt-1 fadeInRight">Place Order</button>
+          </form>
+          
         </div>
       </div>
     </div>
   </section>
 
-
+<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
 <script>
   const delay = ms => new Promise(res => setTimeout(res, ms));
   let counter = false;
   let total = 0;
+  let order = {};
 
   function addToCart(itemId){
+
+    if(itemId in order){
+      artemisAlert.alert('warning', 'Item Already Exists!');
+      return;
+    }
+
     let itemName = 'name-'+itemId;
     let ItemPrice = 'price-'+itemId;
     let imageUrl = 'item-picture-'+itemId;
@@ -154,7 +164,7 @@
                   </div>
                   <div class="menu-selected-row-description has-text-left">
                     <h4 class="mb-0 mt-0">`+document.getElementById(itemName).innerHTML+`</h4>
-                    <input placeholder="qty" value="1">
+                    <input placeholder="qty" value="1" id="item-qty-`+itemId+`" onchange="updateCartQty(`+itemId+`);">
                   </div>
                   <div class="menu-selected-row-price">
                     <h4 class="mb-0 mt-0" id="item-price-`+itemId+`">`+document.getElementById(ItemPrice).innerHTML+`</h4>
@@ -163,6 +173,7 @@
               </div>`;
         total = parseFloat(total) + parseFloat(document.getElementById(ItemPrice).innerHTML.replace(/\D/g,''));
         updateTotal(total);
+        addToOrder(itemId);
         counter = false;
       });
     }
@@ -170,13 +181,33 @@
 
   function updateTotal(amount){
     document.getElementById('price-tag').innerHTML = amount+'.00';
+    document.getElementById('confirmed-total').value = amount;
+  }
+
+  function addToOrder(itemId){
+    order[itemId] = "1";
+    document.getElementById('order-array').value = JSON.stringify(order);
+  }
+
+  function updateCartQty(itemId){
+    let qtyDiv = 'item-qty-'+itemId;
+    order[itemId] = document.getElementById(qtyDiv).value;
+    document.getElementById('order-array').value = JSON.stringify(order);
+    //TODO
+    console.log(order);
+  }
+
+  function removeCartQty(itemId){
+    delete order[itemId];
   }
 
   function removeItem(itemId){
     let divName = 'div-'+itemId;
     let priceDiv = 'item-price-'+itemId;
     total = parseFloat(document.getElementById('price-tag').innerHTML) - parseFloat(document.getElementById(priceDiv).innerHTML.replace(/\D/g,''));
+    removeCartQty(itemId);
     updateTotal(total);
+    document.getElementById('order-array').value = JSON.stringify(order);
     let toBeDeleted = document.getElementById(divName);
     toBeDeleted.parentNode.removeChild(toBeDeleted);
   }
