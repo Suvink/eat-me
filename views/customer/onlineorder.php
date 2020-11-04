@@ -2,13 +2,19 @@
   session_start();
   ob_start();
 
-  include './PHP/customer/dineincontroller.php';
-
   if(!isset($_SERVER['HTTP_REFERER'])){
       header('Location: /online/login');
   }
   if(!isset($_SESSION['user_phone'])){
       header('Location: /online/login');
+  }
+
+  require_once './controllers/customer/OnlineOrderController.php';
+  //Initiate an instance of controller
+  $OnlineOrderController = new OnlineOrderController();
+
+  if ( isset( $_POST['logout'] ) ){
+    $OnlineOrderController->logout();
   }
 
 ?>
@@ -24,6 +30,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/dineInStyles.css">
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <title>Online Order</title>
 </head>
 
@@ -37,9 +44,9 @@
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
         <?php
-          $renderNavBar($_SESSION['user_phone']);
+          $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
         ?>   
-        <form class="d-inline" action="/dinein" method="POST">
+        <form class="d-inline" action="/online" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
         
@@ -61,7 +68,6 @@
             <li title="Beverages"><label for="tab3" role="button"><i class="fas fa-beer mr-1"></i><br><span>Beverages</span></label></li>
             <li title="Desserts"><label for="tab4" role="button"><i class="fas fa-cookie mr-1"></i><br><span>Desserts</span></label></li>
           </ul>
-
           <div class="slider">
             <div class="indicator"></div>
           </div>
@@ -70,28 +76,27 @@
               <h2>Mains</h2>
               <div class="menu-cards">
                 <?php
-                  $renderMainMenu();
+                  $OnlineOrderController->renderMainMenu();
                 ?>
-
             </section>
             <section>
               <h2>Starters</h2>
               <div class="menu-cards">
                 <?php
-                  $renderSidesMenu();
+                  $OnlineOrderController->renderSidesMenu();
                 ?>
               </div>
             </section>
             <section>
               <h2>Beverages</h2>
               <?php
-                $renderBeveragesMenu();
+                $OnlineOrderController->renderBeveragesMenu();
               ?>
             </section>
             <section>
               <h2>Desserts</h2>
               <?php
-                $renderDessertMenu();
+                $OnlineOrderController->renderDessertMenu();
               ?>
             </section>
           </div>
@@ -114,22 +119,31 @@
             <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
-
-          <button class="button is-primary mt-1 fadeInRight">Place Order</button>
-
-
+          <form action="" method="POST">
+            <input id="confirmed-total" name="total" value="0" style="display:none">
+            <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
+            <button class="button is-primary mt-1 fadeInRight">Place Order</button>
+          </form>
+          
         </div>
       </div>
     </div>
   </section>
 
-
+<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
 <script>
   const delay = ms => new Promise(res => setTimeout(res, ms));
   let counter = false;
   let total = 0;
+  let order = {};
 
   function addToCart(itemId){
+
+    if(itemId in order){
+      artemisAlert.alert('warning', 'Item Already Exists!');
+      return;
+    }
+
     let itemName = 'name-'+itemId;
     let ItemPrice = 'price-'+itemId;
     let imageUrl = 'item-picture-'+itemId;
@@ -150,7 +164,7 @@
                   </div>
                   <div class="menu-selected-row-description has-text-left">
                     <h4 class="mb-0 mt-0">`+document.getElementById(itemName).innerHTML+`</h4>
-                    <input placeholder="qty" value="1">
+                    <input placeholder="qty" value="1" id="item-qty-`+itemId+`" onchange="updateCartQty(`+itemId+`);">
                   </div>
                   <div class="menu-selected-row-price">
                     <h4 class="mb-0 mt-0" id="item-price-`+itemId+`">`+document.getElementById(ItemPrice).innerHTML+`</h4>
@@ -159,6 +173,7 @@
               </div>`;
         total = parseFloat(total) + parseFloat(document.getElementById(ItemPrice).innerHTML.replace(/\D/g,''));
         updateTotal(total);
+        addToOrder(itemId);
         counter = false;
       });
     }
@@ -166,13 +181,33 @@
 
   function updateTotal(amount){
     document.getElementById('price-tag').innerHTML = amount+'.00';
+    document.getElementById('confirmed-total').value = amount;
+  }
+
+  function addToOrder(itemId){
+    order[itemId] = "1";
+    document.getElementById('order-array').value = JSON.stringify(order);
+  }
+
+  function updateCartQty(itemId){
+    let qtyDiv = 'item-qty-'+itemId;
+    order[itemId] = document.getElementById(qtyDiv).value;
+    document.getElementById('order-array').value = JSON.stringify(order);
+    //TODO
+    console.log(order);
+  }
+
+  function removeCartQty(itemId){
+    delete order[itemId];
   }
 
   function removeItem(itemId){
     let divName = 'div-'+itemId;
     let priceDiv = 'item-price-'+itemId;
     total = parseFloat(document.getElementById('price-tag').innerHTML) - parseFloat(document.getElementById(priceDiv).innerHTML.replace(/\D/g,''));
+    removeCartQty(itemId);
     updateTotal(total);
+    document.getElementById('order-array').value = JSON.stringify(order);
     let toBeDeleted = document.getElementById(divName);
     toBeDeleted.parentNode.removeChild(toBeDeleted);
   }

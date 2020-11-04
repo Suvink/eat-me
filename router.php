@@ -7,34 +7,34 @@ $homepage = 'index.html';
 $errorPage = '404.html';
 
 //Admin
-$adminLogin = 'routes/admin/adminlogin.php';
-$adminDashboard = 'routes/admin/dashboard.php';
+$adminLogin = 'views/admin/adminlogin.php';
+$adminDashboard = 'views/admin/dashboard.php';
 
 //Customer
-$dineinLogin = 'routes/customer/dineinlogin.php';
-$dineinSignup = 'routes/customer/dineinsignup.php';
-$dinein = 'routes/customer/dinein.php';
-$dineinSummery = 'routes/customer/dineinsummery.php';
-$onlineOrderLogin = 'routes/customer/onlineorderlogin.php';
-$onlineOrderSignup = 'routes/customer/onlineordersignup.php';
-$onlineSummery = 'routes/customer/onlineordersummery.php';
-$onlineOrder = 'routes/customer/onlineorder.php';
+$dineinLogin = 'views/customer/dineinlogin.php';
+$dineinSignup = 'views/customer/dineinsignup.php';
+$dinein = 'views/customer/dinein.php';
+$dineinSummery = 'views/customer/dineinsummery.php';
+$onlineOrderLogin = 'views/customer/onlineorderlogin.php';
+$onlineOrderSignup = 'views/customer/onlineordersignup.php';
+$onlineSummery = 'views/customer/onlineordersummery.php';
+$onlineOrder = 'views/customer/onlineorder.php';
 
 //Store
-$cashierLogin = 'routes/store/cashierlogin.php';
-$cashier = 'routes/store/cashier.php';
-$deliveryPersonLogin = 'routes/store/deliverypersonlogin.php';
-$deliveryPerson = 'routes/store/deliveryperson.php';
-$inventory = 'routes/store/inventory.php';
-$kitchendisplayOrders = 'routes/store/kitchendisplayOrders.php';
-$kitchendisplayInventory = 'routes/store/kitchendisplayInventory.php';
-$kitchenManagerLogin = 'routes/store/kitchenmanagerlogin.php';
-$kitchenManager = 'routes/store/kitchenmanager.php';
-$stewardLogin = 'routes/store/stewardlogin.php';
-$steward = 'routes/store/steward.php';
+$cashierLogin = 'views/store/cashierlogin.php';
+$cashier = 'views/store/cashier.php';
+$deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
+$deliveryPerson = 'views/store/deliveryperson.php';
+$inventory = 'views/store/inventory.php';
+$kitchendisplayOrders = 'views/store/kitchendisplayOrders.php';
+$kitchendisplayInventory = 'views/store/kitchendisplayInventory.php';
+$kitchenManagerLogin = 'views/store/kitchenmanagerlogin.php';
+$kitchenManager = 'views/store/kitchenmanager.php';
+$stewardLogin = 'views/store/stewardlogin.php';
+$steward = 'views/store/steward.php';
 
 //API
-$verify = 'routes/api/v1/OTP.php';
+$verify = 'api/v1/OTP.php';
 
 
 //Get the incoming request
