@@ -49,10 +49,16 @@
     color: black;
     font-size: 13px;
   }
-  .popup .popuptext .d-flex >button:hover{
+  .popup .popuptext .d-flex > button:hover{
     background-color: black;
     color: white;
   }
+
+  .filled-color{
+    background-color: black !important;
+    color: white !important;
+  }
+  
   /* Animation for popup*/
   @-webkit-keyframes fadeIn {
     from {opacity: 0;} 

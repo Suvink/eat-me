@@ -2,7 +2,7 @@
   session_start();
   ob_start();
 
-  include './PHP/customer/dineincontroller.php';
+  include './controllers/customer/dineincontroller.php';
 
   if(!isset($_SERVER['HTTP_REFERER'])){
       header('Location: /dinein/login');

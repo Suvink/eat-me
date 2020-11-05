@@ -28,7 +28,7 @@
 	<div class="coloumns">
 		<div class="column is-12">
 			<div class="container has-text-centered">
-				<div class="card">
+				<div class="card" id="availability">
 					<h1>Set Availability</h1>
 					<input type="checkbox" id="switch" class="checkbox" />
 					<label for="switch" class="toggle">
@@ -83,11 +83,11 @@
 						<h1 class="title">Rate Customer</h1>
 						<div class="d-flex" name="customerRate">
 
-							<button name="1"><i class="far fa-star"><br> Worse</i></button>
-							<button name="2"><i class="far fa-star"><br>Bad</i></button>
-							<button name="3"><i class="far fa-star"><br> Average</i></button>
-							<button name="4"><i class="far fa-star"><br> Good</i></button>
-							<button name="5"><i class="far fa-star"><br> Great</i></button>
+							<button class="" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
+							<button class="" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
+							<button class="" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
+							<button class="" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
+							<button class="" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
 						</div>
 						<div class="d-flex" name="customerRate">
 							<form action="">
@@ -113,7 +113,6 @@
 				showRating();
 				blurBackground();
 			}
-
 		}
 
 		function showRating() {
@@ -122,7 +121,49 @@
 
 		}
 
-		function blurBackground() {
+		function colorButton(buttonNumber) {
+			switch (buttonNumber) {
+				case 1:
+					document.getElementById("star_1").classList.toggle("filled-color");
+					disableButtons();
+					break;
+				case 2:
+					document.getElementById("star_1").classList.toggle("filled-color");
+					document.getElementById("star_2").classList.toggle("filled-color");
+					disableButtons();
+					break;
+				case 3:					
+					document.getElementById("star_1").classList.toggle("filled-color");
+					document.getElementById("star_2").classList.toggle("filled-color");
+					document.getElementById("star_3").classList.toggle("filled-color");
+					disableButtons();
+					break;
+				case 4:
+					document.getElementById("star_1").classList.toggle("filled-color");
+					document.getElementById("star_2").classList.toggle("filled-color");
+					document.getElementById("star_3").classList.toggle("filled-color");
+					document.getElementById("star_4").classList.toggle("filled-color");
+					disableButtons();
+					break;
+				case 5:
+					document.getElementById("star_1").classList.toggle("filled-color");
+					document.getElementById("star_2").classList.toggle("filled-color");
+					document.getElementById("star_3").classList.toggle("filled-color");
+					document.getElementById("star_4").classList.toggle("filled-color");
+					document.getElementById("star_5").classList.toggle("filled-color");
+					disableButtons();
+			}
+		}
+
+		function disableButtons(){
+			document.getElementById("star_1").disabled= true;
+			document.getElementById("star_2").disabled= true;
+			document.getElementById("star_3").disabled= true;
+			document.getElementById("star_4").disabled= true;
+			document.getElementById("star_5").disabled= true;
+		}
+
+		function blurBackground(){
 			let blurEliment = document.getElementById("detailTable");
 			blurEliment.classList.toggle("blur");
 		}
