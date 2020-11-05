@@ -119,7 +119,7 @@
             <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
-          <form action="" method="POST">
+          <form action="/online/summery" method="POST">
             <input id="confirmed-total" name="total" value="0" style="display:none">
             <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
             <button class="button is-primary mt-1 fadeInRight">Place Order</button>
@@ -191,8 +191,23 @@
 
   function updateCartQty(itemId){
     let qtyDiv = 'item-qty-'+itemId;
+    let itemPriceDiv = 'item-price-'+itemId;
+    let increasedQty = order[itemId] - document.getElementById(qtyDiv).value;
+
+    //TODO 
+    //convert everything to positive
+    let changedAmount = parseInt(document.getElementById(itemPriceDiv).innerHTML.replace(/\D/g,'')) * Math.abs(increasedQty);
+    if(increasedQty < 0){
+      total = total + changedAmount;
+      updateTotal(total);
+    }else{
+      total = total - changedAmount;
+      updateTotal(total);
+    }
     order[itemId] = document.getElementById(qtyDiv).value;
     document.getElementById('order-array').value = JSON.stringify(order);
+
+    
     //TODO
     console.log(order);
   }

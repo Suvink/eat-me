@@ -421,42 +421,8 @@ input[type="submit"]:disabled:hover {
 
 /* Select Box */
 
-/* .artemis-select {
-  position: relative;
-  background: white;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05);
-  border-color: #f5a540;
-}
-.artemis-select:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 0;
-  right: 10px;
-  bottom: 0;
-  margin: auto;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #f5a540 transparent transparent transparent;
-  pointer-events: none;
-}
-.artemis-select:before {
-  width: 30px;
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  bottom: 1px;
-  background: white;
-  content: '';
-  pointer-events: none;
-}
-.artemis-select:hover:before {
-  background: white;
-}
-.artemis-select select {
-  border-radius: 5px;
-  font-size: 14px;
+.artemis-select{
+  font-size: 1em;
   border: none;
   box-shadow: none;
   background: transparent;
@@ -466,30 +432,11 @@ input[type="submit"]:disabled:hover {
   outline: none;
   padding-right: 35px;
   padding-left: 15px;
-  padding: 5px;
-  border: 1px solid #f5a540;
+  padding: 0 var(--artemisFieldPaddingRight) 0 var(--artemisFieldPaddingLeft);
   -moz-appearance: none;
   -webkit-appearance: none;
+  border-bottom: var(--artemisFieldBorderWidth) solid var(--artemisFieldBorderColor);
 }
-.artemis-select select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-.artemis-select select::-ms-expand {
-  display: none;
-}
-.artemis-select select:focus {
-  border-color: #f5a540;
-}
-
-@media all and (min-width: 0\0) and (min-resolution: 0.001dpcm) {
-  .select select {
-    padding-right: 0;
-  }
-  .select:after, .select:before {
-    display: none;
-  }
-} */
 
 
 /* Notification */
