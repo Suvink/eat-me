@@ -78,3 +78,15 @@
 .check-icon{
     color: green !important
 } 
+.payment-option{
+    width: 200px;
+    max-width: 380px;
+}
+.payment-button{
+    background-color: transparent !important;
+}
+.payment-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

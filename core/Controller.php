@@ -1,35 +1,34 @@
 <?php
 
-class Controller {
+class Controller
+{
 
-    function __construct(){
-        
+  function __construct()
+  {
+  }
+
+  public function triggerError($message)
+  {
+    echo '<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>';
+    echo "artemisAlert.alert('error', '{$message}')";
+  }
+
+  public function logout(){
+    session_destroy();
+    unset($_SESSION['user_phone']);
+    header("Location: /online",TRUE,302);
+  }
+
+  public function parseParams($params)
+  {
+    $extractedParams = explode("&", $params);
+    $paramsArray = array();
+    foreach ($extractedParams as $param) {
+      $splitParam = explode("=", $param);
+      $paramsArray[$splitParam[0]] = $splitParam[1];
     }
+    return $paramsArray;
+  }
 
-    public function triggerError($message){
-        echo '<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>';
-        echo "artemisAlert.alert('error', '{$message}')";
-    }
-
+  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

@@ -49,7 +49,6 @@
         <form class="d-inline" action="/online" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
-        
       </div>
     </div>
   </div>
@@ -120,7 +119,7 @@
             </div>
           </div>
           <form action="/online/summery" method="POST">
-            <input id="confirmed-total" name="total" value="0" style="display:none">
+            <input id="confirmed-total" name="totalValue" value="0" style="display:none">
             <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
             <button class="button is-primary mt-1 fadeInRight">Place Order</button>
           </form>

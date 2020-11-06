@@ -1,0 +1,57 @@
+hr{
+    opacity: 0.4;
+}
+.profile-avatar{
+    border-radius: 15px;
+    width: 200px;
+}
+.order-card{
+    display: inline-block;
+    width: 400px;
+    height: 400px;
+    box-shadow: 4px 6px 25px -8px rgba(0, 0, 0, 0.75);
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 10px;
+    align-self: center;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+@media (max-width: 480px){
+    .order-card{
+        height: 600px;
+    }
+}
+
+.delivery-image{
+    height: 200px;
+    width: 200px !important;
+}
+.order-value{
+    border: 1px solid lightgray;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+.order-time{
+    border: 1px solid lightgray;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+.info-column{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: center;
+}
+.check-icon{
+    margin-right: 5px;
+}
+.menu-items{
+    color: grey;
+    margin-top: 5px;
+}
+.payment-option{
+    width: 200px;
+    max-width: 380px;
+}
