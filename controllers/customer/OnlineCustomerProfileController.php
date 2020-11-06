@@ -2,28 +2,19 @@
 
 require_once './core/Controller.php';
 
-class OnlineOrderSummeryController extends Controller{
-
-  private $orderArray;
-  private $orderTotal;
+class OnlineCustomerProfileController extends Controller{
 
   function __construct()
   {
-    require './models/customer/OnlineOrderSummeryModel.php';
-    $this->OnlineOrderSummeryModel = new OnlineOrderSummeryModel();
+    require './models/customer/OnlineCustomerProfileModel.php';
+    $this->OnlineCustomerProfileModel = new OnlineCustomerProfileModel();
     
   }
 
-  public function setOrderArray($orderData){
-    $this->orderArray = json_decode($orderData);
-  }
-  public function setorderTotal($totalValue){
-      $this->orderTotal = $totalValue;
-  }
 
   public function renderNavBar($phone)
   {
-    $result = $this->OnlineOrderSummeryModel->getAllDataWhere('customer', 'contactNo', $phone);
+    $result = $this->OnlineCustomerProfileModel->getAllDataWhere('customer', 'contactNo', $phone);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         //Trim to first name of provisioned users because the system generated usernames are too long

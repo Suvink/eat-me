@@ -19,6 +19,7 @@ $onlineOrderLogin = 'views/customer/onlineorderlogin.php';
 $onlineOrderSignup = 'views/customer/onlineordersignup.php';
 $onlineSummery = 'views/customer/onlineordersummery.php';
 $onlineOrder = 'views/customer/onlineorder.php';
+$onlineProfile = 'views/customer/onlinecustomerprofile.php';
 
 //Store
 $cashierLogin = 'views/store/cashierlogin.php';
@@ -40,9 +41,17 @@ $verify = 'api/v1/OTP.php';
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
 
+//extract the params and clean the URL
+if(strpos($request, "?")){
+    $params = explode('?', $request)[1];
+    $request = explode('?', $request)[0];
+}else{
+    $params = "";
+}
+
 switch ($request) {
     case '/' :
-        require($homepage);
+        require($homepage.$params);
         break;
     case '' :
         require($homepage);
@@ -73,6 +82,9 @@ switch ($request) {
         break;
     case '/online/summery' :
         require($onlineSummery);
+        break;
+    case '/online/profile' :
+        require($onlineProfile);
         break;
     case '/online' :
         require($onlineOrder);

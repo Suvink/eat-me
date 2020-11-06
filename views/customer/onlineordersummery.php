@@ -1,34 +1,31 @@
 <?php
 
-  session_start();
-  ob_start();
+session_start();
+ob_start();
 
-  if(!isset($_SERVER['HTTP_REFERER'])){
-    //header('Location: /online/login');
-  }
-  if(!isset($_SESSION['user_phone'])){
-    header('Location: /online/login');
-  }
+if (!isset($_SERVER['HTTP_REFERER'])) {
+  //header('Location: /online/login');
+}
+if (!isset($_SESSION['user_phone'])) {
+  header('Location: /online/login');
+}
 
-  require_once './controllers/customer/OnlineOrderSummeryController.php';
+require_once './controllers/customer/OnlineOrderSummeryController.php';
+//Initiate an instance of controller
+$OnlineOrderSummeryController = new OnlineOrderSummeryController();
 
-  
+//Process the incoming order data
+if (isset($_POST['orderdetails'])) {
+  $orderData = $_REQUEST['orderArray'];
+  $orderTotal = $_REQUEST['totalValue'];
 
+  $OnlineOrderSummeryController->setOrderArray($orderData);
+  $OnlineOrderSummeryController->setorderTotal($orderTotal);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if (isset($_POST['logout'])) {
+  $OnlineOrderSummeryController->logout();
+}
 
 ?>
 
@@ -55,14 +52,18 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Suvin Nimnaka</span>
-        <button class="button is-primary">Logout</button>
+        <?php
+        $OnlineOrderSummeryController->renderNavBar($_SESSION['user_phone']);
+        ?>
+        <form class="d-inline" action="/online" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
       </div>
     </div>
   </div>
 
   <section>
-    <form action="" method="POST">
+    <form action="/online/profile" method="POST">
       <div class="columns group">
         <div class="column is-3"></div>
         <div class="column is-6">
@@ -76,12 +77,8 @@
                     <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
                   </div>
                   <div class="menu-selected-row-description has-text-left">
-                    <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                    <select>
-                      <option>Small</option>
-                      <option>Regular</option>
-                      <option>Large</option>
-                    </select>
+                    <h4 class="mb-0 mt-0">Chicken Burger</h4>
+                    <h5 class="mb-0 mt-0">Qty: 1</h5>
                   </div>
                   <div class="menu-selected-row-price">
                     <h4 class="mb-0 mt-0 has-text-right">350.00</h4>
@@ -92,15 +89,11 @@
                 <div class="menu-selected-row">
                   <div class="menu-selected-row-delete"><i class="check-icon fas fa-check-circle"></i></div>
                   <div class="menu-selected-row-image">
-                    <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
+                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
                   </div>
                   <div class="menu-selected-row-description has-text-left">
                     <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                    <select>
-                      <option>Small</option>
-                      <option>Regular</option>
-                      <option>Large</option>
-                    </select>
+                    <h5 class="mb-0 mt-0">Qty: 1</h5>
                   </div>
                   <div class="menu-selected-row-price">
                     <h4 class="mb-0 mt-0 has-text-right">350.00</h4>
@@ -119,7 +112,7 @@
             <div class="delivery-info">
               <h3 class="has-text-left">Delivery Information</h3>
               <label class="field artemis-input-field">
-                <input class="artemis-input" type="text" placeholder="Your email here">
+                <input class="artemis-input" type="text" placeholder="Your email here" required>
                 <span class="label-wrap">
                   <span class="label-text">Email to send the receipt</span>
                 </span>
@@ -179,7 +172,10 @@
                 </div>
               </div>
             </div>
-            <button class="button mt-1 is-primary">Pay and confirm</button>
+            <div class="mt-1 payment-buttons">
+              <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+            </div>
           </div>
         </div>
         <div class="column is-3"></div>
