@@ -55,3 +55,7 @@ hr{
     width: 200px;
     max-width: 380px;
 }
+.back-btn{
+    color: black !important;
+    text-decoration: none !important;
+}

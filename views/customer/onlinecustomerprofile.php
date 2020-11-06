@@ -59,6 +59,9 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
   </div>
 
   <section>
+    <div class="row"><a class="back-btn" href="/online"><p class="ml-1 mt-0 mb-0"><i class="fas fa-arrow-left mr-1"></i>Back to Menu</p></a></div>
+  </section>
+  <section>
     <div class="has-text-centered">
       <h2 class="title">My Profile</h2>
       <div class="columns group">
@@ -123,7 +126,7 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
       <div class="order-card">
         <div class="columns group">
           <div class="column is-6">
-            <img class="delivery-image" src="../../img/done.jpg" alt="">
+            <img class="delivery-image" src="../../img/done.png" alt="">
           </div>
           <div class="column is-6 info-column">
             <h4 class="title orange-color">Order #3212</h4>
@@ -145,7 +148,7 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
       <div class="order-card">
         <div class="columns group">
           <div class="column is-6">
-            <img class="delivery-image" src="../../img/done.jpg" alt="">
+            <img class="delivery-image" src="../../img/done.png" alt="">
           </div>
           <div class="column is-6 info-column">
             <h4 class="title orange-color">Order #3212</h4>

@@ -29,13 +29,12 @@
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
-  <link rel="stylesheet" href="../../css/dineInStyles.css">
+  <link rel="stylesheet" href="../../css/onlineOrderStyles.css">
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <title>Online Order</title>
 </head>
 
 <body>
-
   <div class="navbar">
     <div class="columns group">
       <div class="column is-2">
@@ -43,9 +42,11 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <?php
-          $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
-        ?>   
+        <a class="navbar-link" href="/online/profile">
+          <?php
+            $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
+          ?> 
+        </a>  
         <form class="d-inline" action="/online" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
