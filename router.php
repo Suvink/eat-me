@@ -28,6 +28,7 @@ $deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
 $kitchendisplayOrders = 'views/store/kitchendisplayOrders.php';
+$kitchendisplayDineinOrders = 'views/store/kitchendisplayDineinOrders.php';
 $kitchendisplayInventory = 'views/store/kitchendisplayInventory.php';
 $kitchenManagerLogin = 'views/store/kitchenmanagerlogin.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
@@ -106,6 +107,9 @@ switch ($request) {
         break;
     case '/kitchendisplayOrders' :
         require($kitchendisplayOrders);
+        break;
+    case '/kitchendisplayDineinOrders' :
+        require($kitchendisplayDineinOrders);
         break;
     case '/kitchendisplayInventory' :
         require($kitchendisplayInventory);
