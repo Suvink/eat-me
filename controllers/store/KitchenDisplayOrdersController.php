@@ -9,8 +9,12 @@ class KitchenDisplayOrdersController extends Controller
     {
         require './models/store/KitchenDisplayOrdersModel.php';
         $this->KitchenDisplayOrdersModel = new KitchenDisplayOrdersModel();
+    }
+
+    public function getOrderDetails()
+    {
         $result = $this->KitchenDisplayOrdersModel->getAllDataWhere('order_details',' orderType','on');
-        $_SESSION['result']=$result;
+        return $result;
     }
 }
 

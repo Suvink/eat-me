@@ -1,7 +1,5 @@
 <?php require_once ("./controllers/store/KitchenDisplayDineinOrdersController.php"); 
     $KitchenDisplayDineinOrdersController =new KitchenDisplayDineinOrdersController();
-    $result=$_SESSION['result'];
-    session_destroy();
  ?>
   
 
@@ -69,7 +67,8 @@
             <section>
               <h2>D_Orders</h2>
               <div class="menu-cards">
-              <?php                                                               
+              <?php
+                $result = $KitchenDisplayDineinOrdersController->getOrderDetails();                                                               
                 while($row=mysqli_fetch_assoc($result))
 				        {
                   ?>
