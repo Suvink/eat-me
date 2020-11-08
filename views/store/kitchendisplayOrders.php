@@ -30,7 +30,7 @@
           <div class="nav-menu flex-row">
             <ul class="nav-items "> 
                <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
-               <li class="nav-link ml-5 zoom" ><a href="#">Items</a></li>
+               <li class="nav-link ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
             </ul>
           </div>
         </nav>
