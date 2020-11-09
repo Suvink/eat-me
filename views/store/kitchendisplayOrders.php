@@ -29,8 +29,8 @@
         <nav class="nav">
           <div class="nav-menu flex-row">
             <ul class="nav-items "> 
-               <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
-               <li class="nav-link ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
+               <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="/kitchendisplay/orders">Orders</a></li>
+               <li class="nav-link ml-5 zoom" ><a href="/kitchendisplay/inventory">Items</a></li>
             </ul>
           </div>
         </nav>
@@ -54,7 +54,7 @@
           <input type="radio" id="tab2" name="tab-control">
           <ul>
             <li title="O_Orders"><label for="tab1" role="button"><br><span>O_Oders</span></label></li>
-            <li title="D_Orders"><label for="tab2" role="button"><br><a href="kitchendisplayDineinOrders"><span>D_Oders</a></span></label></li>
+            <li title="D_Orders"><label for="tab2" role="button"><br><a href="/kitchendisplay/dinein/orders"><span>D_Oders</a></span></label></li>
           </ul>
 
           <div class="slider">
