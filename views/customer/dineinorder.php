@@ -63,21 +63,21 @@ $DineinOrderController = new DineinOrderController();
             <h5 class=" ml-0 mb-0 title">Payment</h5>
             <div class="mt-1 payment-buttons">
               <form action="https://sandbox.payhere.lk/pay/checkout" method="POST">
-                <input type="text" name="merchant_id" style="display: none" value="1214666">
-                <input type="text" name="return_url" style="display: none" value="https://eat-me.live/dinein/order">
-                <input type="text" name="cancel_url" style="display: none" value="https://eat-me.live/dinein/order">
-                <input type="text" name="notify_url" style="display: none" value="https://eat-me.live/dinein/order">
-                <input type="text" name="first_name" style="display: none" value="Suvin">
-                <input type="text" name="last_name" style="display: none" value="Nimnaka">
-                <input type="text" name="e-mail" style="display: none" value="hello@suvin.me">
-                <input type="text" name="phone" style="display: none" value="0771655198">
-                <input type="text" name="address" style="display: none" value="Obama Restaurent, Veyangoda">
-                <input type="text" name="city" style="display: none" value="Colombo">
-                <input type="text" name="country" style="display: none" value="Sri Lanka">
-                <input type="text" name="order_id" style="display: none" value="23432">
-                <input type="text" name="items" style="display: none" value="Eat Me Dine-in">
-                <input type="text" name="currency" style="display: none" value="LKR">
-                <input type="text" name="amount" style="display: none" value="700">
+                <input type="hidden" name="merchant_id" value="1214666">   
+                <input type="hidden" name="return_url" value="https://eat-me.live/dinein/order">
+                <input type="hidden" name="cancel_url" value="https://eat-me.live/dinein/order">
+                <input type="hidden" name="notify_url" value="https://eat-me.live/dinein/order">  
+                <input type="text" name="order_id" value="Order 12345" style="display: none;">
+                <input type="text" name="items" value="Eat Me Dine-in" style="display: none;">
+                <input type="text" name="currency" value="LKR" style="display: none;">
+                <input type="text" name="amount" value="700" style="display: none;">  
+                <input type="text" name="first_name" value="Suvin" style="display: none;">
+                <input type="text" name="last_name" value="Nimnaka" style="display: none;">
+                <input type="text" name="email" value="suvin@gmail.com" style="display: none;">
+                <input type="text" name="phone" value="0771655198" style="display: none;">
+                <input type="text" name="address" value="Obama Restaurent, Veyangoda" style="display: none;">
+                <input type="text" name="city" value="Colombo" style="display: none;">
+                <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
                 <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
               </form>
               <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
@@ -88,6 +88,27 @@ $DineinOrderController = new DineinOrderController();
       <div class="column is-2"></div>
     </div>
   </section>
+
+  <!-- <form method="post" action="https://sandbox.payhere.lk/pay/checkout">   
+    <input type="hidden" name="merchant_id" value="1214666">   
+    <input type="hidden" name="return_url" value="http://sample.com/return">
+    <input type="hidden" name="cancel_url" value="http://sample.com/cancel">
+    <input type="hidden" name="notify_url" value="http://sample.com/notify">  
+    <br><br>Item Details<br>
+    <input type="text" name="order_id" value="ItemNo12345">
+    <input type="text" name="items" value="Door bell wireless"><br>
+    <input type="text" name="currency" value="LKR">
+    <input type="text" name="amount" value="1000">  
+    <br><br>Customer Details<br>
+    <input type="text" name="first_name" value="Saman">
+    <input type="text" name="last_name" value="Perera"><br>
+    <input type="text" name="email" value="samanp@gmail.com">
+    <input type="text" name="phone" value="0771234567"><br>
+    <input type="text" name="address" value="No.1, Galle Road">
+    <input type="text" name="city" value="Colombo">
+    <input type="hidden" name="country" value="Sri Lanka"><br><br> 
+    <input type="submit" value="Buy Now">   
+</form> -->
 
 
   <div class="popout" onclick="stopEvent();">
