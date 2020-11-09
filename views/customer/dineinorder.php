@@ -62,7 +62,24 @@ $DineinOrderController = new DineinOrderController();
             <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
             <h5 class=" ml-0 mb-0 title">Payment</h5>
             <div class="mt-1 payment-buttons">
-              <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              <form action="https://sandbox.payhere.lk/pay/checkout" method="POST">
+                <input type="text" name="merchant_id" style="display: none" value="1214666">
+                <input type="text" name="return_url" style="display: none" value="https://eat-me.live/dinein/order">
+                <input type="text" name="cancel_url" style="display: none" value="https://eat-me.live/dinein/order">
+                <input type="text" name="notify_url" style="display: none" value="https://eat-me.live/dinein/order">
+                <input type="text" name="first_name" style="display: none" value="Suvin">
+                <input type="text" name="last_name" style="display: none" value="Nimnaka">
+                <input type="text" name="e-mail" style="display: none" value="hello@suvin.me">
+                <input type="text" name="phone" style="display: none" value="0771655198">
+                <input type="text" name="address" style="display: none" value="Obama Restaurent, Veyangoda">
+                <input type="text" name="city" style="display: none" value="Colombo">
+                <input type="text" name="country" style="display: none" value="Sri Lanka">
+                <input type="text" name="order_id" style="display: none" value="23432">
+                <input type="text" name="items" style="display: none" value="Eat Me Dine-in">
+                <input type="text" name="currency" style="display: none" value="LKR">
+                <input type="text" name="amount" style="display: none" value="700">
+                <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              </form>
               <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
           </div>
