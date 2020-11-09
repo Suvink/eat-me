@@ -14,15 +14,6 @@ require_once './controllers/customer/OnlineCustomerProfileController.php';
 //Initiate an instance of controller
 $OnlineCustomerProfileController = new OnlineCustomerProfileController();
 
-
-
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>

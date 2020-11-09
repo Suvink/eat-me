@@ -12,11 +12,10 @@ $adminDashboard = 'views/admin/dashboard.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
-$dineinSignup = 'views/customer/dineinsignup.php';
 $dinein = 'views/customer/dinein.php';
+$dineinorder = 'views/customer/dineinorder.php';
 $dineinSummery = 'views/customer/dineinsummery.php';
 $onlineOrderLogin = 'views/customer/onlineorderlogin.php';
-$onlineOrderSignup = 'views/customer/onlineordersignup.php';
 $onlineSummery = 'views/customer/onlineordersummery.php';
 $onlineOrder = 'views/customer/onlineorder.php';
 $onlineProfile = 'views/customer/onlinecustomerprofile.php';
@@ -36,6 +35,7 @@ $steward = 'views/store/steward.php';
 
 //API
 $verify = 'api/v1/OTP.php';
+$review = 'api/v1/Review.php';
 
 
 //Get the incoming request
@@ -65,8 +65,8 @@ switch ($request) {
     case '/dinein/login' :
         require($dineinLogin);
         break;
-    case '/dinein/signup' :
-        require($dineinSignup);
+    case '/dinein/order' :
+        require($dineinorder);
         break;
     case '/dinein/summery' :
         require($dineinSummery);
@@ -76,9 +76,6 @@ switch ($request) {
         break;
     case '/online/login' :
         require($onlineOrderLogin);
-        break;
-    case '/online/signup' :
-        require($onlineOrderSignup);
         break;
     case '/online/summery' :
         require($onlineSummery);
@@ -124,6 +121,9 @@ switch ($request) {
         break;
     case '/api/v1/verify' :
         require($verify);
+        break;
+    case '/api/v1/review' :
+        require($review);
         break;
     default:
         http_response_code(404);
