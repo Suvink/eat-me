@@ -9,6 +9,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
@@ -25,16 +26,7 @@
       <div class="column is-2">
         <img src="../../img/logo.png" height=56 width="224" />
       </div>
-      <div class="column is-6 ml-5">
-        <nav class="nav">
-          <div class="nav-menu flex-row">
-            <ul class="nav-items "> 
-               <li class="nav-link orange-color ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
-               <li class="nav-link ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <div class="column is-6 ml-5"></div>
       <div class="column is-3 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
         <span class="mr-1">Kitchen Manager</span>
@@ -46,6 +38,19 @@
 <!--------xx-----navi bar --------xx------->
 
 <!----------- Main section------------>
+
+
+<section>
+    <div class="row buttons-row">
+      <a href="kitchendisplayOrders">
+        <button class="button is-primary button-is-active right-radius">Orders</button>
+      
+      </a>
+      <a href="kitchendisplayInventory">
+        <button class="button is-primary left-radius idle">Items</button>
+      </a>
+    </div>
+  </section>
 
   <section>
       <div class="column is-12">           

@@ -43,16 +43,7 @@
     <div class="column is-2">
       <img src="../../img/logo.png" height=56 width="224" />
     </div>
-    <div class="column is-6 ml-5">
-      <nav class="nav">
-        <div class="nav-menu flex-row">
-          <ul class="nav-items "> 
-             <li class="nav-link ml-5 mr-5 zoom"  ><a href="kitchendisplayOrders">Orders</a></li>
-             <li class="nav-link  orange-color ml-5 zoom" ><a href="kitchendisplayInventory">Items</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <div class="column is-6 ml-5"></div>
     <div class="column is-3 has-text-right nav-logout">
       <i class="fa fa-user" aria-hidden="true"></i>
       <span class="mr-1">Kitchen Manager</span>
@@ -64,9 +55,19 @@
 <!--------xx-----navi bar --------xx------->
 
 
-
-
 <!----------- Main section------------>
+
+<section>
+    <div class="row buttons-row">
+      <a href="kitchendisplayOrders">
+        <button class="button is-primary right-radius idle">Orders</button>
+      
+      </a>
+      <a href="kitchendisplayInventory">
+        <button class="button is-primary button-is-active left-radius">Items</button>
+      </a>
+    </div>
+  </section>
 
   <section>
       <div class="column is-12">           
@@ -85,25 +86,25 @@
             <section>
               <h2>Inventory</h2>
               <div class="search-boxs ">
-                <div class="search-box card-zoom">
+                <div class="search-box">
       
                   <form action="kitchendisplayInventory" method="POST">
                    <div class="holder">
-                      <div class="columns group">
-                        <div class="column is-11">
+
+                      <div class="columns group searchbox-holder">
+                        <div class="column is-1 mb-0"></div>
+                        <div class="column is-10 mb-0">
                           <input type="text" class="search-feild" placeholder="" name="search" value="" />
-                          <button  class=" search-button fa fa-search zoom"></button>
+                          <button class="search-button"><i class="fa fa-search zoom"></i></button>
                         </div>
-                        <div class="column is-1">
-                          
-                        </div>
+                        <div class="column is-1 mb-0"></div>
                       </div>
+
                       <div class="columns group" >
                        <div class="column is-12" id="output">
                           <?php echo $output ?>
                        </div>
                       </div>
-                      
                    </div>
                   </form>
                   
