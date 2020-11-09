@@ -1,5 +1,5 @@
-<?php require_once ("./controllers/store/KitchenDisplayOrdersController.php"); 
-    $KitchenDisplayOrdersController =new KitchenDisplayOrdersController();
+<?php require_once ("./controllers/store/KitchenDisplayDineinOrdersController.php"); 
+    $KitchenDisplayDineinOrdersController =new KitchenDisplayDineinOrdersController();
  ?>
   
 
@@ -50,22 +50,25 @@
   <section>
       <div class="column is-12">           
         <div class="tabs">
-          <input type="radio" id="tab1" name="tab-control" checked>
-          <input type="radio" id="tab2" name="tab-control">
+        <input type="radio" id="tab1" name="tab-control" >
+          <input type="radio" id="tab2" name="tab-control" checked>
           <ul>
-            <li title="O_Orders"><label for="tab1" role="button"><br><span>O_Oders</span></label></li>
-            <li title="D_Orders"><label for="tab2" role="button"><br><a href="kitchendisplayDineinOrders"><span>D_Oders</a></span></label></li>
+            <li title="O_Orders"><label for="tab1" role="button"><a href="kitchendisplayOrders"><br><span>O_Oders</span></a></label></li>
+            <li title="D_Orders"><label for="tab2" role="button"><br><span>D_Oders</span></label></li>
           </ul>
-
           <div class="slider">
             <div class="indicator"></div>
           </div>
           <div class="content">
             <section>
               <h2>O_Orders</h2>
+             
+            </section>
+            <section>
+              <h2>D_Orders</h2>
               <div class="menu-cards">
               <?php
-                $result = $KitchenDisplayOrdersController->getOrderDetails();                                                               
+                $result = $KitchenDisplayDineinOrdersController->getOrderDetails();                                                               
                 while($row=mysqli_fetch_assoc($result))
 				        {
                   ?>
@@ -101,9 +104,6 @@
               ?>       
               </div>
              
-            </section>
-            <section>
-              <h2>D_Orders</h2>
             </section>
     
           </div>
@@ -142,31 +142,21 @@
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
               <h3 class="mt-1 mb-1">Arived Time</h3>
-              <h3 class="mt-1 mb-1">Order Location</h3>
+              <h3 class="mt-1 mb-1">Table Number</h3>
             </div>
             <div class="price-col has-text-right mr-1">
             <h3 class="mt-1 mb-1">450.00</h3>
             <h3 class="mt-1 mb-1">10:20 pm</h3>
-            <h3 class="mt-1 mb-1">Negombo xxxxx  </h3>
+            <h3 class="mt-1 mb-1">05</h3>
             </div>
           </div>
           <!------accept/decline btn -------->
           <div class="columns group">
             <div class="column is-6"  id="btnAccept">
-              <!-- <form action="" method="POST"> -->
                <button class="button is-primary mt-1 zoom  resizebtn" onclick="hideAcceptDecline()" name="update-orStatus" >Accept</button>
-              <!-- </form> -->
-               <?php
-                // if(isset($_POST['update-orStatus'])){
-                  
-                //   $sql3 = "UPDATE `order_details` SET `orderStatus`='accpted' WHERE orderId=3";
-                //   $result3 = mysqli_query($connection,$sql3);
-                 
-                // }
-                // ?> 
             </div>
-            <div class="column is-12" id="btnRiders">
-              <button class="button is-link mt-1 zoom mr-1 resizebtn" onclick="togglePopup2()">Riders</button>
+            <div class="column is-12" id="btnSteward">
+              <button class="button is-link mt-1 zoom mr-1 resizebtn" onclick="togglePopup2()"> Available Stewards</button>
            </div>
             <div class="column is-12" id="btnPrepared">
               <button class="button is-success mt-1 mr-1 zoom resizebtn" onclick="closepopup01();showPrepare()">Prepared</button>
@@ -178,7 +168,7 @@
               function hideAcceptDecline() {
                 document.getElementById("btnAccept").style.display = "none";
                 document.getElementById("btnDecline").style.display = "none";
-                document.getElementById("btnRiders").style.display = "block";
+                document.getElementById("btnSteward").style.display = "block";
                 document.getElementById("showAccepted").style.display = "block";
               }
               function closepopup01(){
@@ -212,12 +202,12 @@
 <div class="popup" id="popup-2">
   <div class="pop-content2">
     <div class="close-btn" onclick="togglePopup2()">&times;</div><br><br>
-    <h2 class="orange-color mt-0 mb-1">Available Delevery People</h2>
+    <h2 class="orange-color mt-0 mb-1 ml-3">Available Stewards</h2>
     <div class="menu-cards">
       <div class="dp-card" onclick="togglePopup3()">
         <div class="columns group">
           <div class="column is-6">
-            <h3 class="mt-1 mb-0">Rieder 025R</h3>
+            <h3 class="mt-1 mb-0">Steward 025R</h3>
           </div>
           <div class="column is-6">
             <h3 class="mt-1 mb-0 rider-status">Free</h3>
@@ -229,7 +219,7 @@
       <div class="dp-card" onclick="togglePopup3()">
         <div class="columns group">
           <div class="column is-6">
-            <h3 class="mt-1 mb-0">Rider xxxx</h3>
+            <h3 class="mt-1 mb-0">Steward xxxx</h3>
           </div>
           <div class="column is-6">
             <h3 class="mt-1 mb-0 rider-status">Free</h3>
@@ -241,7 +231,7 @@
       <div class="dp-card" onclick="togglePopup3()">
         <div class="columns group">
           <div class="column is-6">
-            <h3 class="mt-1 mb-0">Rider xxxx</h3>
+            <h3 class="mt-1 mb-0">Steward xxxx</h3>
           </div>
           <div class="column is-6">
             <h3 class="mt-1 mb-0 rider-status">Free</h3>
@@ -253,7 +243,7 @@
       <div class="dp-card" onclick="togglePopup3()">
         <div class="columns group">
           <div class="column is-6">
-            <h3 class="mt-1 mb-0">Rider xxxx</h3>
+            <h3 class="mt-1 mb-0">Steward xxxx</h3>
           </div>
           <div class="column is-6">
             <h3 class="mt-1 mb-0 rider-status">Free</h3>
@@ -278,13 +268,10 @@
           <div class="column is-6">
             <h3 class="mt-1 mb-2">Order Id</h3>
             <h3 class="mt-1 mb-2">Assigned Time</h3>
-            <h3 class="mt-1 mb-2">Location</h3>
+            <h3 class="mt-1 mb-2">Tbale Number</h3>
             <h3 class="mt-1 mb-2">________________________</h3>
-            <h3 class="mt-1 mb-2">Rider ID</h3>
-            <h3 class="mt-1 mb-2">Rider Name</h3>
-            <h3 class="mt-1 mb-2">Rider Mob Num</h3>
-          
-            
+            <h3 class="mt-1 mb-2">Steward ID</h3>
+            <h3 class="mt-1 mb-2">Steward Name</h3>
           </div>
           <div class="column is-6">
             <h3 class="mt-1 mb-2 rider-status">___________</h3>
@@ -292,16 +279,12 @@
             <h3 class="mt-1 mb-2 rider-status">___________</h3>
             <h3 class="mt-1 mb-2 rider-status">___________</h3>
             <h3 class="mt-1 mb-2 rider-status">___________</h3>
-            <h3 class="mt-1 mb-2 rider-status">___________</h3>
-            <h3 class="mt-1 mb-2 rider-status">___________</h3>
+            <h3 class="mt-1 mb-2 rider-status">___________</h3>    
           </div>
-          <div class="column is-3">
-            <button class="button is-primary ml-4 mt-1 zoom"  onclick="displayPrepared()" id="btnAsignOrders">Asigned Order</button>
-         </div>
          <script>
            function displayPrepared()
            {
-            document.getElementById("btnRiders").style.display = "none"; 
+            document.getElementById("btnSteward").style.display = "none"; 
             document.getElementById("btnPrepared").style.display = "block";
             document.getElementById("btnAsignOrders").style.display = "none";
             document.getElementById("popup-2").style.display = "none";
@@ -313,6 +296,9 @@
          </script>
         </div>
       </div>
+          <div class="column is-12">
+            <button class="button is-primary  mt-1 zoom"  onclick="displayPrepared()" id="btnAsignOrders">Asigned Order</button>
+          </div>
     </div>
     
     

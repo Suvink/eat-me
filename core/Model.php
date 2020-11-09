@@ -3,7 +3,7 @@ require_once './core/DBConnection.php';
 
 class Model {
     public $con = null;
-
+    private $result;
     public function __construct(){
         $db = new DBConnection();
         $this->con =  $db->getConnection();
@@ -27,11 +27,10 @@ class Model {
     public function getAllData($tableName){
         $sql = 'SELECT * FROM '.$tableName;
         $result =  $this->con->query($sql);
-        
         if ($this->con->query($sql) === FALSE) {
             echo "No data";
           } else {
-            return $this->$result; 
+            return $result; 
         }
     }
 
@@ -39,6 +38,19 @@ class Model {
     //SELECT * FROM customer WHERE phone=0771655198
     public function getAllDataWhere($tableName, $column, $data){
         $sql = 'SELECT * FROM '.$tableName.' WHERE '.$column.'="'.$data.'"';
+        $result =  $this->con->query($sql);
+        
+        if ($this->con->query($sql) === FALSE) {
+            echo "No data";
+          } else {
+            return $result; 
+        }
+    }
+
+    //getAllDataWhere('name','customer', 'phone', '0771655198')
+    //SELECT name FROM customer WHERE phone=0771655198
+    public function getSpecificDataWhere($columnName,$tableName, $column, $data){
+        $sql = 'SELECT '.$columnName.' FROM '.$tableName.' WHERE '.$column.'="'.$data.'"';
         $result =  $this->con->query($sql);
         
         if ($this->con->query($sql) === FALSE) {
