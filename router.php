@@ -33,6 +33,7 @@ $kitchenManagerLogin = 'views/store/kitchenmanagerlogin.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
+$staffLogin = 'views/store/stafflogin.php';
 
 //API
 $verify = 'api/v1/OTP.php';
@@ -124,6 +125,9 @@ switch ($request) {
         break;
     case '/api/v1/verify' :
         require($verify);
+        break;
+    case '/staff/login' :
+        require($staffLogin);
         break;
     default:
         http_response_code(404);
