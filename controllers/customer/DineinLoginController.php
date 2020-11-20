@@ -8,7 +8,7 @@ class DineinLoginController extends Controller
 
   public function __construct()
   {
-    require './models/customer/OnlineOrderLoginModel.php';
+    require './models/customer/DineinLoginModel.php';
     $this->DineinLoginModelModel = new DineinLoginModel();
   }
 
@@ -22,7 +22,7 @@ class DineinLoginController extends Controller
           echo $row["phone"];
           $_SESSION['user_phone'] = $row["phone"];
           echo '<script>alert("wade hari")</script>';
-          header('Location: /online');
+          header('Location: /dinein');
         } else {
           $this->triggerError('Login Failed!');
         }
