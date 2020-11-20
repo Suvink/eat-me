@@ -64,7 +64,7 @@
 									<td>LKR 230.00</td>
 									<td>8</td>
 									<td>
-										<select name="Status" id="Status" onchange="myfunc()">
+										<select name="Status" id="Status" onchange="popupRate()">
 											<option value="Preparing">Preparing</option>
 											<option value="Prepared">Prepared</option>
 											<option value="Served">Served</option>
@@ -107,7 +107,7 @@
 	</div>
 	</div>
 	<script>
-		function myfunc() {
+		function popupRate() {
 			var x = document.getElementById("Status").value;
 			if (x == "Completed") {
 				showRating();

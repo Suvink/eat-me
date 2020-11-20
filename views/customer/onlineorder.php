@@ -29,13 +29,12 @@
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
-  <link rel="stylesheet" href="../../css/dineInStyles.css">
+  <link rel="stylesheet" href="../../css/onlineOrderStyles.css">
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <title>Online Order</title>
 </head>
 
 <body>
-
   <div class="navbar">
     <div class="columns group">
       <div class="column is-2">
@@ -43,13 +42,14 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <?php
-          $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
-        ?>   
+        <a class="navbar-link" href="/online/profile">
+          <?php
+            $OnlineOrderController->renderNavBar($_SESSION['user_phone']);
+          ?> 
+        </a>  
         <form class="d-inline" action="/online" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
-        
       </div>
     </div>
   </div>
@@ -119,8 +119,8 @@
             <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
-          <form action="" method="POST">
-            <input id="confirmed-total" name="total" value="0" style="display:none">
+          <form action="/online/summery" method="POST">
+            <input id="confirmed-total" name="totalValue" value="0" style="display:none">
             <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
             <button class="button is-primary mt-1 fadeInRight">Place Order</button>
           </form>
@@ -191,8 +191,23 @@
 
   function updateCartQty(itemId){
     let qtyDiv = 'item-qty-'+itemId;
+    let itemPriceDiv = 'item-price-'+itemId;
+    let increasedQty = order[itemId] - document.getElementById(qtyDiv).value;
+
+    //TODO 
+    //convert everything to positive
+    let changedAmount = parseInt(document.getElementById(itemPriceDiv).innerHTML.replace(/\D/g,'')) * Math.abs(increasedQty);
+    if(increasedQty < 0){
+      total = total + changedAmount;
+      updateTotal(total);
+    }else{
+      total = total - changedAmount;
+      updateTotal(total);
+    }
     order[itemId] = document.getElementById(qtyDiv).value;
     document.getElementById('order-array').value = JSON.stringify(order);
+
+    
     //TODO
     console.log(order);
   }

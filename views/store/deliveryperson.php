@@ -83,11 +83,11 @@
 						<h1 class="title">Rate Customer</h1>
 						<div class="d-flex" name="customerRate">
 
-							<button class="" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
-							<button class="" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
-							<button class="" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
-							<button class="" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
-							<button class="" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
+							<button class="rate-button" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
+							<button class="rate-button" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
+							<button class="rate-button" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
+							<button class="rate-button" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
+							<button class="rate-button" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
 						</div>
 						<div class="d-flex" name="customerRate">
 							<form action="">
@@ -124,48 +124,49 @@
 		function colorButton(buttonNumber) {
 			switch (buttonNumber) {
 				case 1:
+					clearButtons();
 					document.getElementById("star_1").classList.toggle("filled-color");
-					disableButtons();
 					break;
 				case 2:
+					clearButtons();
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
-					disableButtons();
 					break;
-				case 3:					
+				case 3:
+					clearButtons();
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
 					document.getElementById("star_3").classList.toggle("filled-color");
-					disableButtons();
 					break;
 				case 4:
+					clearButtons();
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
 					document.getElementById("star_3").classList.toggle("filled-color");
 					document.getElementById("star_4").classList.toggle("filled-color");
-					disableButtons();
 					break;
 				case 5:
+					clearButtons();
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
 					document.getElementById("star_3").classList.toggle("filled-color");
 					document.getElementById("star_4").classList.toggle("filled-color");
 					document.getElementById("star_5").classList.toggle("filled-color");
-					disableButtons();
 			}
 		}
 
-		function disableButtons(){
-			document.getElementById("star_1").disabled= true;
-			document.getElementById("star_2").disabled= true;
-			document.getElementById("star_3").disabled= true;
-			document.getElementById("star_4").disabled= true;
-			document.getElementById("star_5").disabled= true;
-		}
 
-		function blurBackground(){
+		function blurBackground() {
 			let blurEliment = document.getElementById("detailTable");
 			blurEliment.classList.toggle("blur");
+		}
+
+		function clearButtons() {
+			document.getElementById("star_1").classList.remove("filled-color");
+			document.getElementById("star_2").classList.remove("filled-color");
+			document.getElementById("star_3").classList.remove("filled-color");
+			document.getElementById("star_4").classList.remove("filled-color");
+			document.getElementById("star_5").classList.remove("filled-color");
 		}
 	</script>
 

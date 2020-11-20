@@ -41,7 +41,7 @@
     backdrop-filter:blur(1px) !important;
   }  
   /* flex for rows of rating */
-  .popup .popuptext .d-flex > button {
+  .rate-button {
     margin: 5px;
     text-align: center;
     line-height: 20px;
@@ -49,11 +49,12 @@
     color: black;
     font-size: 13px;
   }
-  .popup .popuptext .d-flex > button:hover{
+  .rate-button:hover{
     background-color: black;
     color: white;
   }
 
+  
   .filled-color{
     background-color: black !important;
     color: white !important;

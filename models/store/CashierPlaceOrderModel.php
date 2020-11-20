@@ -2,7 +2,7 @@
 
 require_once './core/Model.php';
 
-class OnlineOrderSummeryModel extends Model{
+class CashierPlaceOrderModel extends Model{
 
     function __construct()
     {

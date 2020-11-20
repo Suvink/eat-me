@@ -19,10 +19,12 @@ $onlineOrderLogin = 'views/customer/onlineorderlogin.php';
 $onlineOrderSignup = 'views/customer/onlineordersignup.php';
 $onlineSummery = 'views/customer/onlineordersummery.php';
 $onlineOrder = 'views/customer/onlineorder.php';
+$onlineProfile = 'views/customer/onlinecustomerprofile.php';
 
 //Store
-$cashierLogin = 'views/store/cashierlogin.php';
 $cashier = 'views/store/cashier.php';
+$cashierPlaceOrder = 'views/store/cashierplaceorder.php';
+$cashierCheckOrders = 'views/store/cashiercheckorders.php';
 $deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
@@ -42,9 +44,17 @@ $dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
 
+//extract the params and clean the URL
+if(strpos($request, "?")){
+    $params = explode('?', $request)[1];
+    $request = explode('?', $request)[0];
+}else{
+    $params = "";
+}
+
 switch ($request) {
     case '/' :
-        require($homepage);
+        require($homepage.$params);
         break;
     case '' :
         require($homepage);
@@ -76,14 +86,20 @@ switch ($request) {
     case '/online/summery' :
         require($onlineSummery);
         break;
+    case '/online/profile' :
+        require($onlineProfile);
+        break;
     case '/online' :
         require($onlineOrder);
         break;
-    case '/cashier/login' :
-        require($onlineOrderSignup);
-        break;
     case '/cashier' :
         require($cashier);
+        break;
+    case '/cashier/placeorder':
+        require($cashierPlaceOrder);
+        break;
+    case '/cashier/checkorders':
+        require($cashierCheckOrders);
         break;
     case '/deliveryperson/login' :
         require($deliveryPersonLogin);
@@ -97,7 +113,7 @@ switch ($request) {
     case '/kitchendisplayOrders' :
         require($kitchendisplayOrders);
         break;
-    case '/kitchendisplayInventory' :
+    case '/kitchen/inventory' :
         require($kitchendisplayInventory);
         break;
     case '/kitchenmanager/login' :

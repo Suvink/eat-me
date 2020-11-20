@@ -11,12 +11,6 @@ class OnlineOrderController extends Controller
     $this->OnlineOrderModel = new OnlineOrderModel();
   }
 
-  public function logout(){
-    session_destroy();
-    unset($_SESSION['user_phone']);
-    header("Location: /online",TRUE,302);
-  }
-
   public function renderNavBar($phone)
   {
     $result = $this->OnlineOrderModel->getAllDataWhere('customer', 'contactNo', $phone);
