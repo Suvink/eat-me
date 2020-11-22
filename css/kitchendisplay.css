@@ -684,6 +684,11 @@ transform: scale(1.1);
 /* ---xx---Zoom in/out for all cards -----xx-------*/
 
 
+
+
+/* navigatable button page top */
+
+
 .buttons-row{
   display: flex;
   flex-direction: row;
@@ -699,7 +704,8 @@ transform: scale(1.1);
   color: black;
   background-color: transparent;
   border: 1px solid #f5a540;
-}
+}  
+
 .left-radius{
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

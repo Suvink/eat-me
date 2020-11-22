@@ -41,11 +41,14 @@ $InventoryController = new InventoryController();
     <section>
         <div class="row buttons-row">
             <a href="/inventory">
-                <button class="button is-primary button-is-active  right-radius">Inventory</button>
+                <button class="button is-primary button-is-active  right-radius idle" >Inventory</button>
 
             </a>
             <a href="/grn">
-                <button class="button is-primary left-radius idle">GRN</button>
+                <button class="button is-primary left-radius right-radius idle">GRN</button>
+            </a>
+            <a href="/admin/staffmanage">
+                <button class="button is-primary  left-radius idle">Staff Manage</button>
             </a>
         </div>
     </section>
