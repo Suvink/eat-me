@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 <<<<<<< HEAD:routes/customer/dineinlogin.php
 require_once "./PHP/customer/dineinlogincontroller.php";
 
@@ -31,6 +32,10 @@ session_start();
 //   }
 // }
 >>>>>>> 09143751e6ad6dbbb74488b39b77f0f43d86d15c:views/customer/dineinlogin.php
+=======
+require_once "./PHP/customer/dineinlogincontroller.php";
+
+>>>>>>> a1b442a53c96704ffc274780f371a51ae0c85423
 
 ?>
 
@@ -113,7 +118,6 @@ session_start();
         let data = {
           "phone": phone_no,
         }
-
 
         try {
           const response = await fetch('/api/v1/verify', {

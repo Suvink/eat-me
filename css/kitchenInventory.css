@@ -1,0 +1,250 @@
+/* import kitchenDisplay css */
+@import url("./kitchendisplay.css");
+
+/* search box  */
+.search-boxs {
+  margin: 0 -5px;
+}
+.search-boxs:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.search-box {
+  display: inline-block;
+  width: 85%;
+  box-shadow: 4px 6px 25px -8px rgba(0, 0, 0, 0.75);
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 10px;
+  align-self: center;
+  /* cursor: pointer; */
+  overflow: auto;
+}
+.search-box img {
+  width: 80px;
+}
+/* search feild inside search box */
+.searchbox-holder {
+  padding-top: 2px;
+}
+.search-box .holder {
+  /* border:20 solid #be2222; */
+  margin: auto;
+  position: relative;
+  width: 90%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f3aa51;
+}
+.search-box .search-button {
+  border: 0;
+  color: rgb(39, 39, 39);
+  background-color: #f3aa51;
+}
+.search-box .search-feild {
+  border: none;
+  width: 80%;
+  border-radius: 5px;
+  height: 25px;
+  font-size: 20px;
+  font-family: "Baloo Thambi 2", cursive;
+  text-align: center;
+}
+.search-box .search-button,
+.search-feild:focus {
+  outline: none;
+}
+
+.search-box #btnhide {
+  cursor: pointer;
+  color: rgb(133, 132, 132);
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgb(245, 245, 245);
+}
+.search-box #btnhide {
+  border-radius: 10px 10px 10px 10px;
+}
+.search-box #btnhide:hover {
+  background-color: #f5a540;
+  color: white;
+  transition: 0.1s;
+}
+.blinking {
+  animation: blinkingText 1.2s infinite;
+}
+@keyframes blinkingText {
+  0% {
+    color: #f5a540;
+  }
+  49% {
+    color: #f5a540;
+  }
+  60% {
+    color: white;
+  }
+  99% {
+    color: white;
+  }
+  100% {
+    color: #f5a540;
+  }
+}
+.hide-up {
+  display: none;
+  position: relative;
+  left: 45%;
+  width: 10%;
+}
+/* slidshow */
+
+.slides-holder {
+  max-width: 80%;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.btn-prv,
+.btn-nxt {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: rgb(133, 132, 132);
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgb(245, 245, 245);
+}
+
+/* Position the "next button" to the right */
+.btn-prv {
+  left: 0;
+  border-radius: 10px 1px 1px 10px;
+}
+.btn-nxt {
+  right: 0;
+  border-radius: 1px 10px 10px 1px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.btn-prv:hover,
+.btn-nxt:hover {
+  background-color: #f5a540;
+  color: white;
+  transition: 0.1s;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #f5a540;
+}
+
+/* Fading animation for slides*/
+.slide-fade {
+  -webkit-animation-name: slide-fade;
+  -webkit-animation-duration: 2s;
+  animation-name: slide-fade;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes slide-fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* rotate menu cards */
+.container {
+  display: inline-block;
+}
+.rotate-card {
+  transform-style: preserve-3d;
+  transition: all 1s ease;
+  width: 250px;
+}
+.rotate-card:hover {
+  transform: rotateY(180deg);
+}
+.front-face {
+  backface-visibility: hidden;
+  position: absolute;
+}
+.back-face {
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  height: 150px;
+  background-color: #f5af59;
+}
+
+/* retrive searched-card-BOX */
+
+.retrieve-box {
+  width: 270px;
+}
+.f-size {
+  font-size: 30px;
+}
+.retreive-quantity-txtbox {
+  background-color: white;
+  width: 120px;
+  height: 80px;
+  border-width: 5px;
+  border-color: #f5a540;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font-size: 40px;
+  font-family: "Baloo Thambi 2", cursive;
+  text-align: center;
+  outline: none;
+}
+.retreive-quantity-addbtn {
+  width: 120px;
+  font-family: "Baloo Thambi 2", cursive;
+  font-size: 20px;
+}
