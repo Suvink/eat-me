@@ -1,6 +1,5 @@
 <?php
 require_once "./controllers/customer/OnlineOrderLoginController.php";
-
 if (isset($_POST['submit'])) {
   $token =  $_REQUEST['token'];
   $otp =  $_REQUEST['otp'];
@@ -8,7 +7,6 @@ if (isset($_POST['submit'])) {
   $DineinLoginController = new DineinLoginController();
   $DineinLoginController->submitLogin($token, $otp);
 }
-
 ?>
 
 <!DOCTYPE html>

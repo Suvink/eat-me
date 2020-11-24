@@ -24,8 +24,9 @@ $onlineOrder = 'views/customer/onlineorder.php';
 $onlineProfile = 'views/customer/onlinecustomerprofile.php';
 
 //Store
-$cashierLogin = 'views/store/cashierlogin.php';
 $cashier = 'views/store/cashier.php';
+$cashierPlaceOrder = 'views/store/cashierplaceorder.php';
+$cashierCheckOrders = 'views/store/cashiercheckorders.php';
 $deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
@@ -102,11 +103,14 @@ switch ($request) {
     case '/online' :
         require($onlineOrder);
         break;
-    case '/cashier/login' :
-        require($onlineOrderSignup);
-        break;
     case '/cashier' :
         require($cashier);
+        break;
+    case '/cashier/placeorder':
+        require($cashierPlaceOrder);
+        break;
+    case '/cashier/checkorders':
+        require($cashierCheckOrders);
         break;
     case '/deliveryperson/login' :
         require($deliveryPersonLogin);
