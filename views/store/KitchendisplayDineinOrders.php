@@ -35,7 +35,7 @@
   </div>
 <!--------xx-----navi bar --------xx------->
 
-<!----------- Main section------------>
+<!----------- navigetable buttons------------>
   <section>
     <div class="row buttons-row">
       <a href="/kitchendisplay/orders">
@@ -43,11 +43,16 @@
       
       </a>
       <a href="/kitchendisplay/inventory">
-        <button class="button is-primary left-radius idle">Items</button>
+        <button class="button is-primary left-radius right-radius idle">Items</button>
+      </a>
+      <a href="/kitchen/menu/update">
+        <button class="button is-primary left-radius idle">Menu</button>
       </a>
     </div>
   </section>
+<!-------XX---- navigetable buttons-----XX------->
 
+<!----------- Main section------------>
   <section>
       <div class="column is-12">           
         <div class="tabs">

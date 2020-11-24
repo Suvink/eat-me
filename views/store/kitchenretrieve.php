@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
-  <title>kitchen Display</title>
+  <title>kitchen Retrieve</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
 </head>
@@ -66,14 +66,17 @@
 
 
 <!----------- Main section------------>
-  <section>
+<section>
     <div class="row buttons-row">
       <a href="/kitchendisplay/orders">
         <button class="button is-primary right-radius">Orders</button>
       
       </a>
       <a href="/kitchendisplay/inventory">
-        <button class="button is-primary button-is-active left-radius idle">Items</button>
+        <button class="button is-primary button-is-active left-radius right-radius idle">Items</button>
+      </a>
+      <a href="/kitchen/menu/update">
+        <button class="button is-primary left-radius idle">Menu</button>
       </a>
     </div>
   </section>
@@ -103,11 +106,11 @@
               <div class="search-boxs ">
                 <div class="search-box ">
       
-                  <form  method="POST" action="">
+                  <form  method="POST" action="/kitchen/retrieve">
                    <div class="holder ">
                       <div class="columns group">
                         <div class="column is-11">
-                          <input type="text" class="search-feild" placeholder="" name="search" value="" />
+                          <input type="text" class="search-feild"  name="search" />
                           <button  class=" search-button fa fa-search zoom"></button>
                         </div>
                         <div class="column is-1">

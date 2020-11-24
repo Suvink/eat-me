@@ -63,7 +63,10 @@
       
       </a>
       <a href="/kitchendisplay/inventory">
-        <button class="button is-primary button-is-active left-radius idle">Items</button>
+        <button class="button is-primary button-is-active left-radius right-radius idle">Items</button>
+      </a>
+      <a href="/kitchen/menu/update">
+        <button class="button is-primary left-radius idle">Menu</button>
       </a>
     </div>
   </section>
@@ -87,7 +90,7 @@
               <div class="search-boxs ">
                 <div class="search-box">
       
-                  <form action="kitchendisplayInventory" method="POST">
+                  <form action="/kitchendisplay/inventory" method="POST">
                    <div class="holder">
 
                       <div class="columns group searchbox-holder">

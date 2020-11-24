@@ -9,6 +9,8 @@ $errorPage = '404.html';
 //Admin
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
+$staffManage='views/admin/staffmanage.php';
+$menuUpdate='views/admin/menuupdate.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
@@ -30,10 +32,12 @@ $kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
 $kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
 $kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
 $kitchenRetrieve = 'views/store/kitchenretrieve.php';
+$kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
 $grn='views/store/grn.php';
+
 
 //API
 $verify = 'api/v1/OTP.php';
@@ -65,6 +69,12 @@ switch ($request) {
         break;
     case '/admin' :
         require($adminDashboard);
+        break;
+    case '/admin/staffmanage':
+        require($staffManage);
+        break;
+    case '/admin/menu/update':
+        require($menuUpdate);
         break;
     case '/dinein/login' :
         require($dineinLogin);
@@ -116,6 +126,9 @@ switch ($request) {
         break;
     case '/kitchen/retrieve':
         require($kitchenRetrieve);
+        break;
+    case '/kitchen/menu/update':
+        require($kitchenMenuUpdate);
         break;
     case '/kitchenmanager/login' :
         require($kitchenManagerLogin);

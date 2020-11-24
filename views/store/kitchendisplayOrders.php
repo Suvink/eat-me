@@ -47,7 +47,10 @@
       
       </a>
       <a href="/kitchendisplay/inventory">
-        <button class="button is-primary left-radius idle">Items</button>
+        <button class="button is-primary left-radius right-radius idle">Items</button>
+      </a>
+      <a href="/kitchen/menu/update">
+        <button class="button is-primary left-radius idle">Menu</button>
       </a>
     </div>
   </section>

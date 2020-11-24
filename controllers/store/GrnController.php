@@ -50,33 +50,35 @@
             $datetime = date("Y-m-d,h:i");
             //  echo $newupdateq."<br>";
             $val = 0;
-            if (is_numeric($newq) && $newq >= 0) {
-                $newupdateq = ($oldq+$newq);
-                if ($oldq >= $newq) {
-                    if ($unitId == 3) {
-                        if (fmod($newq, 1) == 0) {
-                            $val = 1;
-                        } else {
-                            return "not a whole number";
-                        }
-                    } else if ($unitId == 1) {
+            if (is_numeric($newq) && $newq >= 0) 
+            {
+                $newupdateq = ($oldq + $newq);
+                if ($unitId == 3
+                ) {
+                    if (fmod($newq, 1) == 0) {
                         $val = 1;
-                    } else if ($unitId == 2) {
-                        $val = 1;
+                    } else {
+                        return "not a whole number";
                     }
-                } else {
-                    return "can't retreive more than ". $oldq;
+                } else if ($unitId == 1) {
+                    $val = 1;
+                } else if ($unitId == 2) {
+                    $val = 1;
                 }
             } else {
 
                 return "not a positive integer";
             }
-            if ($val == 1) {                                                
+            if ($val == 1) 
+            {                                                
                 $this->GrnModel->writeData("add_stock","`added_quntity`,`date&time`,inventoryId","$newq,'$datetime',$itemId");
-                // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
+                // $this->GrnModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
+                $this->GrnModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
                 return "inserted";
 
-            } else {
+            } 
+            else 
+            {
                 return " <br>data not entered to db";
             }
 
