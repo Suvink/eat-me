@@ -17,10 +17,10 @@
               while ($row = $result->fetch_assoc()) {
                 echo '
                 <div class="tray">
-                        <div class="overlay" id="'.$row['itemNo'].'">
+                        <div class="overlay ml-0 " id="'.$row['itemNo'].'">
                             <button class="is-primary btn-edit zoom" onclick="hideClose('.$row['itemNo'].')">show</button>
                         </div>
-                        <div class="tray-card zoom" onclick="hideOpen('.$row['itemNo'].')">
+                        <div class="tray-card zoom ml-1 mt-1" onclick="hideOpen('.$row['itemNo'].')">
                             <div class="column is-2">
                                 <span  class="mt-1 mb-0">'.$row['itemNo'].'</span>
                             </div>
@@ -39,10 +39,10 @@
               while ($row = $result->fetch_assoc()) {
                 echo '
                 <div class="tray">
-                        <div class="overlay" id="'.$row['itemNo'].'">
+                        <div class="overlay ml-0" id="'.$row['itemNo'].'">
                             <button class="is-primary btn-edit zoom" onclick="hideClose('.$row['itemNo'].')">show</button>
                         </div>
-                        <div class="tray-card zoom" onclick="hideOpen('.$row['itemNo'].')">
+                        <div class="tray-card zoom ml-1 mt-1" onclick="hideOpen('.$row['itemNo'].')">
                             <div class="column is-2">
                                 <span  class="mt-1 mb-0">'.$row['itemNo'].'</span>
                             </div>
@@ -61,10 +61,10 @@
               while ($row = $result->fetch_assoc()) {
                 echo '
                 <div class="tray">
-                        <div class="overlay" id="'.$row['itemNo'].'">
+                        <div class="overlay ml-0" id="'.$row['itemNo'].'">
                             <button class="is-primary btn-edit zoom" onclick="hideClose('.$row['itemNo'].')">show</button>
                         </div>
-                        <div class="tray-card zoom" onclick="hideOpen('.$row['itemNo'].')">
+                        <div class="tray-card zoom ml-1 mt-1" onclick="hideOpen('.$row['itemNo'].')">
                             <div class="column is-2">
                                 <span  class="mt-1 mb-0">'.$row['itemNo'].'</span>
                             </div>
@@ -83,10 +83,10 @@
               while ($row = $result->fetch_assoc()) {
                 echo '
                 <div class="tray">
-                        <div class="overlay" id="'.$row['itemNo'].'">
+                        <div class="overlay ml-0" id="'.$row['itemNo'].'">
                             <button class="is-primary btn-edit zoom" onclick="hideClose('.$row['itemNo'].')">show</button>
                         </div>
-                        <div class="tray-card zoom" onclick="hideOpen('.$row['itemNo'].')">
+                        <div class="tray-card zoom ml-1 mt-1" onclick="hideOpen('.$row['itemNo'].')">
                             <div class="column is-2">
                                 <span  class="mt-1 mb-0">'.$row['itemNo'].'</span>
                             </div>

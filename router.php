@@ -10,6 +10,7 @@ $errorPage = '404.html';
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
 $staffManage='views/admin/staffmanage.php';
+$menuUpdate='views/admin/menuupdate.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
@@ -71,6 +72,9 @@ switch ($request) {
         break;
     case '/admin/staffmanage':
         require($staffManage);
+        break;
+    case '/admin/menu/update':
+        require($menuUpdate);
         break;
     case '/dinein/login' :
         require($dineinLogin);

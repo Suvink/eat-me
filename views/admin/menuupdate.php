@@ -1,6 +1,6 @@
 <?php
-require_once './controllers/store/KitchenMenuUpdateController.php';
-$KitchenMenuUpdateController = new KitchenMenuUpdateController();
+require_once './controllers/admin/MenuUpdateController.php';
+$MenuUpdateController = new MenuUpdateController();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
     <!-- Global Styles -->
     <link rel="stylesheet" href="../../css/style.css" />
     <!-- Local Styles -->
-    <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
+    <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
     <title>kitchen Menu</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -36,16 +36,19 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
 
     <!----------- navigetable buttons------------>
     <section>
-        <div class="row buttons-row">
-            <a href="/kitchendisplay/orders">
-                <button class="button is-primary right-radius">Orders</button>
+    <div class="row buttons-row">
+            <a href="/inventory">
+                <button class="button is-primary right-radius idle" >Inventory</button>
 
             </a>
-            <a href="/kitchendisplay/inventory">
-                <button class="button is-primary left-radius right-radius idle">Items</button>
+            <a href="/grn">
+                <button class="button is-primary left-radius right-radius idle">GRN</button>
             </a>
-            <a href="/kitchen/menu/update">
-                <button class="button is-primary  button-is-active  left-radius idle">Menu</button>
+            <a href="/admin/menu/update">
+                <button class="button is-primary button-is-active  left-radius right-radius idle">Menue</button>
+            </a>
+            <a href="/admin/staffmanage">
+                <button class="button is-primary left-radius idle">Staff Manage</button>
             </a>
         </div>
     </section>
@@ -57,25 +60,25 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
                 <div class="column is-3">
                     <h2>Men<span class="change-menu-color">ue</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderMainMenu(); ?>
+                    <?php $MenuUpdateController->renderMainMenu(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Star<span class="change-menu-color">ters</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderStarters(); ?>
+                    <?php $MenuUpdateController->renderStarters(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Beve<span class="change-menu-color">rages</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderBeverages(); ?>
+                    <?php $MenuUpdateController->renderBeverages(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Desse<span class="change-menu-color">rts</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderDesserts(); ?>
+                    <?php $MenuUpdateController->renderDesserts(); ?>
 
                 </div>
             </div>
@@ -84,14 +87,31 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
     <script>
         function hideOpen(id) {
             document.getElementById(id).style.visibility = "visible";
+            document.getElementById('btnUpdate-'+id).style.visibility="visible";
         }
 
         function hideClose(id) {
             document.getElementById(id).style.visibility = "hidden";
+            document.getElementById('btnUpdate-'+id).style.visibility="hidden";
+        }
+        function hideUpdatebtn(id) {
+            // 
+            document.getElementById('btnUpdate-'+id).style.visibility="hidden";
+           
+        }
+
+        function togglePopup1() {
+            document.getElementById('editOverlay').style.display="block";
+            document.getElementById("popup-1").classList.toggle("active");
+        }
+
+        function closepopup01() {
+            document.getElementById("popup-1").style.display = "none";
         }
     </script>
 
-
+<!-- --------kitchen display js file -->
+    <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
 
 </html>

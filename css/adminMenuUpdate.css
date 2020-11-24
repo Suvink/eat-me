@@ -1,3 +1,4 @@
+
 /* container */
 .content
 {
@@ -109,3 +110,68 @@
 .zoom:hover{
   transform: scale(1.1); 
 }
+
+
+/* menu item edit pop up */
+
+.popup-overlay {
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.2);
+    z-index:2;
+    display:none;
+  }
+  
+  .pop-content {
+    position:absolute;
+    display:block;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:white;
+    width:500px;
+    /* height:370px; */
+    z-index:2;
+    padding:20px;
+    box-sizing:border-box;
+    font-family: 'Baloo Thambi 2', cursive;
+    margin: 0 -5px;
+    border-radius: 10px;
+    resize: height;
+    overflow: auto;
+  
+  }
+  
+  .close-btn {
+    cursor:pointer;
+    position:absolute;
+    right:20px;
+    top:20px;
+    width:30px;
+    height:30px;
+    background:#f5a540;
+    color:#fff;
+    font-size:25px;
+    font-weight:600;
+    line-height:30px;
+    text-align:center;
+    border-radius:50%;
+    transform: 0.7s;
+  }
+  .close-btn:hover{
+    transform: scale(1.2); 
+    background:#b30f0f;
+  }
+  
+  .popup.active .overlay {
+    display:block;
+  }
+  
+  .popup.active .pop-content {
+    transition:all 300ms ease-in-out;
+    transform:translate(-50%,-50%) scale(1);
+  }
+  

@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
-  <title>kitchen Display</title>
+  <title>kitchen Retrieve</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
 </head>
@@ -106,11 +106,11 @@
               <div class="search-boxs ">
                 <div class="search-box ">
       
-                  <form  method="POST" action="">
+                  <form  method="POST" action="/kitchen/retrieve">
                    <div class="holder ">
                       <div class="columns group">
                         <div class="column is-11">
-                          <input type="text" class="search-feild" placeholder="" name="search" value="" />
+                          <input type="text" class="search-feild"  name="search" />
                           <button  class=" search-button fa fa-search zoom"></button>
                         </div>
                         <div class="column is-1">

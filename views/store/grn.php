@@ -75,6 +75,9 @@ if (isset($_POST['sendbtn'])) {
             <a href="/grn">
                 <button class="button is-primary button-is-active left-radius right-radius idle">GRN</button>
             </a>
+            <a href="/admin/menu/update">
+                <button class="button is-primary left-radius right-radius idle">Menue</button>
+            </a>
             <a href="/admin/staffmanage">
                 <button class="button is-primary left-radius idle">Staff    Manage</button>
             </a>
