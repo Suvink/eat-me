@@ -14,15 +14,6 @@ require_once './controllers/customer/OnlineCustomerProfileController.php';
 //Initiate an instance of controller
 $OnlineCustomerProfileController = new OnlineCustomerProfileController();
 
-
-
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -120,8 +111,44 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
         <hr>
         <h5 class=" ml-0 mb-0 title">Order Items</h5>
         <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
-        <h5 class=" ml-0 mb-0 title">Payment</h5>
-        <img class="payment-option" src="../../img/payhere.png" alt="">
+        <div class="columns group">
+          <div class="column is-6 has-text-left">
+            <h5 class=" ml-0 mb-0 title">Payment</h5>
+            <img class="payment-option" src="../../img/payhere.png" alt="">
+          </div>
+          <div class="column is-6 has-text-right">
+            <h6 class=" ml-0 mb-0 title">Lakshan is on his way!</h6>
+            <h6 class=" ml-0 mb-0 mt-0 title">+94771655198</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-card">
+        <div class="columns group">
+          <div class="column is-6">
+            <img class="delivery-image" src="../../img/done.png" alt="">
+          </div>
+          <div class="column is-6 info-column">
+            <h4 class="title orange-color">Order #3212</h4>
+            <div class="order-value d-flex">
+              <h6 class="subtitle mt-0 mb-0">Amount: </h6><h6 class="title mt-0 mb-0">700.00</h6>
+            </div>
+            <div class="order-time d-flex mt-1">
+              <h6 class="subtitle mt-0 mb-0">Date: </h6><h6 class="title mt-0 mb-0">12/11/2020</h6>
+            </div>
+            <button class="button is-success mt-1" name="logout"><i class="check-icon fas fa-check-circle"></i>Completed</button>
+          </div>
+        </div>
+        <hr>
+        <h5 class=" ml-0 mb-0 title">Order Items</h5>
+        <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
+        <div class="columns group">
+          <div class="column is-6 has-text-left">
+            <h5 class=" ml-0 mb-0 title">Payment</h5>
+            <img class="payment-option" src="../../img/paycash.png" alt="">
+          </div>
+          <div class="column is-6 has-text-right"></div>
+        </div>
       </div>
       <div class="order-card">
         <div class="columns group">
@@ -142,30 +169,13 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
         <hr>
         <h5 class=" ml-0 mb-0 title">Order Items</h5>
         <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
-        <h5 class=" ml-0 mb-0 title">Payment</h5>
-        <img class="payment-option" src="../../img/paycash.png" alt="">
-      </div>
-      <div class="order-card">
         <div class="columns group">
-          <div class="column is-6">
-            <img class="delivery-image" src="../../img/done.png" alt="">
+          <div class="column is-6 has-text-left">
+            <h5 class=" ml-0 mb-0 title">Payment</h5>
+            <img class="payment-option" src="../../img/payhere.png" alt="">
           </div>
-          <div class="column is-6 info-column">
-            <h4 class="title orange-color">Order #3212</h4>
-            <div class="order-value d-flex">
-              <h6 class="subtitle mt-0 mb-0">Amount: </h6><h6 class="title mt-0 mb-0">700.00</h6>
-            </div>
-            <div class="order-time d-flex mt-1">
-              <h6 class="subtitle mt-0 mb-0">Date: </h6><h6 class="title mt-0 mb-0">12/11/2020</h6>
-            </div>
-            <button class="button is-success mt-1" name="logout"><i class="check-icon fas fa-check-circle"></i>Completed</button>
-          </div>
+          <div class="column is-6 has-text-right"></div>
         </div>
-        <hr>
-        <h5 class=" ml-0 mb-0 title">Order Items</h5>
-        <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
-        <h5 class=" ml-0 mb-0 title">Payment</h5>
-        <img class="payment-option" src="../../img/payhere.png" alt="">
       </div>
     </div>
   </section>

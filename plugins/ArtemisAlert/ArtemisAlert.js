@@ -52,7 +52,7 @@ function ArtemisAlert(){
         document.getElementById('dialogboxhead').innerHTML = '<img class="alert-image" src="https://t3.ftcdn.net/jpg/03/52/50/08/240_F_352500882_ynKURmVaMoOrbCc0QOs8AkEykrvpSVFG.jpg"><h2 class="title mb-1 mt-0">'+title.toUpperCase()+'!</h2> ';
       }
       else if(title === 'success'){
-        document.getElementById('dialogboxhead').innerHTML = '<img class="alert-image" src="https://www.flaticon.com/svg/static/icons/svg/3582/3582820.svg"><h2 class="title mb-1 mt-0">'+title.toUpperCase()+'!</h2> ';
+        document.getElementById('dialogboxhead').innerHTML = '<img class="alert-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Check_green_icon.svg/1200px-Check_green_icon.svg.png"><h2 class="title mb-1 mt-0">'+title.toUpperCase()+'!</h2> ';
       }
       else if(title === 'warning'){
         document.getElementById('dialogboxhead').innerHTML = '<img class="alert-image" src="https://www.flaticon.com/svg/static/icons/svg/3582/3582820.svg"><h2 class="title mb-1 mt-0">'+title.toUpperCase()+'!</h2> ';

@@ -4,6 +4,7 @@
     "start_url": ".",
     "display": "standalone",
     "background_color": "#fff",
+    "theme_color":"#f5a540",
     "description": "The next generation reataurant maagement system",
     "icons": [{
       "src": "img/icon-512x512.png",

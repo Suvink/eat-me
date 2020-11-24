@@ -10,14 +10,15 @@ $errorPage = '404.html';
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
 $staffDetails = 'views/admin/managestaffdetails.php';
+$staffManage='views/admin/staffmanage.php';
+$menuUpdate='views/admin/menuupdate.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
-$dineinSignup = 'views/customer/dineinsignup.php';
 $dinein = 'views/customer/dinein.php';
+$dineinorder = 'views/customer/dineinorder.php';
 $dineinSummery = 'views/customer/dineinsummery.php';
 $onlineOrderLogin = 'views/customer/onlineorderlogin.php';
-$onlineOrderSignup = 'views/customer/onlineordersignup.php';
 $onlineSummery = 'views/customer/onlineordersummery.php';
 $onlineOrder = 'views/customer/onlineorder.php';
 $onlineProfile = 'views/customer/onlinecustomerprofile.php';
@@ -28,18 +29,24 @@ $cashier = 'views/store/cashier.php';
 $deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
-$kitchendisplayOrders = 'views/store/kitchendisplayOrders.php';
-$kitchendisplayInventory = 'views/store/kitchendisplayInventory.php';
-$kitchenManagerLogin = 'views/store/kitchenmanagerlogin.php';
+$kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
+$kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
+$kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
+$kitchenRetrieve = 'views/store/kitchenretrieve.php';
+$kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
 $staffLogin = 'views/store/stafflogin.php';
+$grn='views/store/grn.php';
 
 
 //API
 $verify = 'api/v1/OTP.php';
+$review = 'api/v1/Review.php';
 
+//controllers
+$dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
@@ -65,11 +72,17 @@ switch ($request) {
     case '/admin' :
         require($adminDashboard);
         break;
+    case '/admin/staffmanage':
+        require($staffManage);
+        break;
+    case '/admin/menu/update':
+        require($menuUpdate);
+        break;
     case '/dinein/login' :
         require($dineinLogin);
         break;
-    case '/dinein/signup' :
-        require($dineinSignup);
+    case '/dinein/order' :
+        require($dineinorder);
         break;
     case '/dinein/summery' :
         require($dineinSummery);
@@ -79,9 +92,6 @@ switch ($request) {
         break;
     case '/online/login' :
         require($onlineOrderLogin);
-        break;
-    case '/online/signup' :
-        require($onlineOrderSignup);
         break;
     case '/online/summery' :
         require($onlineSummery);
@@ -96,7 +106,7 @@ switch ($request) {
         require($onlineOrderSignup);
         break;
     case '/cashier' :
-        require($onlineOrder);
+        require($cashier);
         break;
     case '/deliveryperson/login' :
         require($deliveryPersonLogin);
@@ -104,14 +114,23 @@ switch ($request) {
     case '/deliveryperson' :
         require($deliveryPerson);
         break;
-    case '/inventory' :
+    case '/inventory':
         require($inventory);
         break;
-    case '/kitchendisplayOrders' :
+    case '/kitchendisplay/orders':
         require($kitchendisplayOrders);
         break;
-    case '/kitchendisplayInventory' :
+    case '/kitchendisplay/dinein/orders':
+        require($kitchendisplayDineinOrders);
+        break;
+    case '/kitchendisplay/inventory':
         require($kitchendisplayInventory);
+        break;
+    case '/kitchen/retrieve':
+        require($kitchenRetrieve);
+        break;
+    case '/kitchen/menu/update':
+        require($kitchenMenuUpdate);
         break;
     case '/kitchenmanager/login' :
         require($kitchenManagerLogin);
@@ -119,11 +138,17 @@ switch ($request) {
     case '/kitchenmanager' :
         require($kitchenManager);
         break;
+    case '/grn':
+        require($grn);
+        break;
     case '/steward/login' :
         require($stewardLogin);
         break;
     case '/steward' :
         require($steward);
+        break;
+    case '/dineinlogincontroller' :
+        require($dineinlogincontroller);
         break;
     case '/api/v1/verify' :
         require($verify);
@@ -133,6 +158,8 @@ switch ($request) {
         break;
     case '/staff/details' :
         require($staffDetails);
+    case '/api/v1/review' :
+        require($review);
         break;
     default:
         http_response_code(404);
