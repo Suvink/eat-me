@@ -157,7 +157,7 @@ if (isset($_POST['logout'])) {
               </div>
               <div class="total-box d-flex nobottom">
                 <div class="title-col">
-                  <h3 class="mt-0 mb-1">Delivery Charges:</h3>
+                  <h3 class="mt-0 mb-1">Delivery Fee:</h3>
                 </div>
                 <div class="price-col mr-1">
                   <h3 class="mt-0 mb-1 has-text-right">100.00</h3>

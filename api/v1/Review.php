@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $sql = "INSERT INTO `customer_rates_order`(`orderRating`, `description`, `orderId`) VALUES (" . $data->rating . ",'" . $data->review . "'," . $data->id . ")";
   $result = $con->query($sql);
 
-
   if ($result === TRUE) {
     header("HTTP/1.1 200 OK");
     http_response_code(200);

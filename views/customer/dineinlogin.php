@@ -1,42 +1,12 @@
 <?php
-<<<<<<< HEAD
-<<<<<<< HEAD:routes/customer/dineinlogin.php
-require_once "./PHP/customer/dineinlogincontroller.php";
-
-=======
-//require_once "./config/dbconnection.php";
-session_start();
-
-// $isError = false;
-
-// if (isset($_POST['submit'])) {
-//   $token =  $_REQUEST['token'];
-//   $otp =  $_REQUEST['otp'];
-
-//   $sql = "SELECT * FROM otp_temp WHERE token='$token'";
-//   $result = $con->query($sql);
-//   //echo $result->num_rows;
-//   if ($result->num_rows > 0) {
-//     while ($row = $result->fetch_assoc()) {
-//       if ($token === $row["token"]) {
-//         $sql = "DELETE FROM otp_temp WHERE token='$token'";
-//         $result = $con->query($sql);
-//         $_SESSION['user_phone'] = $row["phone"];
-//         header('Location: /dinein');
-//       } else {
-//         $isError = true;
-//       }
-//     }
-//   } else {
-//     $isError = true;
-//   }
-// }
->>>>>>> 09143751e6ad6dbbb74488b39b77f0f43d86d15c:views/customer/dineinlogin.php
-=======
-require_once "./PHP/customer/dineinlogincontroller.php";
-
->>>>>>> a1b442a53c96704ffc274780f371a51ae0c85423
-
+require_once "./controllers/customer/OnlineOrderLoginController.php";
+if (isset($_POST['submit'])) {
+  $token =  $_REQUEST['token'];
+  $otp =  $_REQUEST['otp'];
+  
+  $DineinLoginController = new DineinLoginController();
+  $DineinLoginController->submitLogin($token, $otp);
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,15 +39,9 @@ require_once "./PHP/customer/dineinlogincontroller.php";
       <div id="error-block"></div>
 
       <?php
-      //check session error set or not
-      if (isset($_SESSION['isError'])) {
-        otpError($_SESSION['isError']);
-        session_unset();
-        //refresh time
-        $sec = "5";
-        //refresh page to set session free
-        header("Refresh: $sec ; url= /dinein/login");
-      }
+      // if ($isError) {
+      //   echo '<div class="row artemis-notification notification-danger bounceIn"><p>Error: Invalid OTP!</p></div>';
+      // }
       ?>
 
       <div id="loginInfoDiv" style="display: block">
@@ -90,7 +54,7 @@ require_once "./PHP/customer/dineinlogincontroller.php";
         <button class="button is-primary" onclick="sendOTP();">Send OTP</button>
       </div>
 
-      <form action="/dineinlogincontroller" id="otpDiv" style="display: none" method="POST">
+      <form action="/online/login" id="otpDiv" style="display: none" method="POST">
         <label class="field artemis-input-field">
           <input class="artemis-input" type="text" placeholder="Your OTP here" name="otp" autocomplete="one-time-code" required>
           <span class="label-wrap">
@@ -99,6 +63,9 @@ require_once "./PHP/customer/dineinlogincontroller.php";
         </label>
         <input id="ref_token" style="display: none" name="token">
         <button class="button is-primary" name="submit">Login</button>
+      </form>
+
+
       </form>
     </center>
   </div>
@@ -144,7 +111,6 @@ require_once "./PHP/customer/dineinlogincontroller.php";
         }
 
       }
-
 
     }
   </script>

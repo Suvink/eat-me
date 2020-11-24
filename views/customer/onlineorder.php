@@ -105,12 +105,8 @@
       <div class="column is-4 ml-0 mr-0">
         <div class="card">
           <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
-
-          <form action="">
             <div class="menu-selected" id="selected-menu">
             </div>
-          </form>
-
           <div class="total-box d-flex">
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
@@ -191,7 +187,8 @@
 
   function updateCartQty(itemId){
     let qtyDiv = 'item-qty-'+itemId;
-    let itemPriceDiv = 'item-price-'+itemId;
+    let itemPriceDiv = 'price-'+itemId;
+    let itemPriceDivCart = 'item-price-'+itemId;
     let increasedQty = order[itemId] - document.getElementById(qtyDiv).value;
 
     //TODO 
@@ -207,7 +204,8 @@
     order[itemId] = document.getElementById(qtyDiv).value;
     document.getElementById('order-array').value = JSON.stringify(order);
 
-    
+    document.getElementById(itemPriceDivCart).innerHTML = 'LKR ' + (order[itemId] * parseInt(document.getElementById(itemPriceDiv).innerHTML.replace(/\D/g,'')))
+
     //TODO
     console.log(order);
   }

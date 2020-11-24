@@ -17,6 +17,7 @@ self.addEventListener("activate", (e) => {
   self.clients.claim();
 });
 
+
 self.addEventListener("fetch", async (event) => {
   const req = event.request;
   const url = new URL(req.url);

@@ -27,6 +27,10 @@ body {
 
 /* FAB */
 
+.icon{
+  margin-top: 12px;
+}
+
 .popout {
   position: absolute;
   bottom: 3rem;

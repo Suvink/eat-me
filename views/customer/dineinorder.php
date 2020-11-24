@@ -1,15 +1,12 @@
 <?php
 
-// if(!isset($_SERVER['HTTP_REFERER'])){
-//   //header('Location: /online/login');
-// }
-// if(!isset($_SESSION['user_phone'])){
-//   header('Location: /online/login');
-// }
-
 require_once './controllers/customer/DineinOrderController.php';
 //Initiate an instance of controller
 $DineinOrderController = new DineinOrderController();
+
+if(!isset($_SESSION['user_phone'])){
+  header('Location: /dinein/login');
+}
 
 ?>
 
@@ -22,6 +19,7 @@ $DineinOrderController = new DineinOrderController();
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/dineinorderstyles.css">
   <title>Your Order</title>
@@ -62,7 +60,7 @@ $DineinOrderController = new DineinOrderController();
             <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
             <h5 class=" ml-0 mb-0 title">Payment</h5>
             <div class="mt-1 payment-buttons">
-              <form action="https://sandbox.payhere.lk/pay/checkout" method="POST">
+              <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST">
                 <input type="hidden" name="merchant_id" value="1214666">   
                 <input type="hidden" name="return_url" value="https://eat-me.live/dinein/order">
                 <input type="hidden" name="cancel_url" value="https://eat-me.live/dinein/order">
@@ -80,7 +78,7 @@ $DineinOrderController = new DineinOrderController();
                 <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
                 <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
               </form>
-              <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+              <button class="payment-button" type="submit" name="place-order" onclick="payByCash();"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
           </div>
         </div>
@@ -133,7 +131,7 @@ $DineinOrderController = new DineinOrderController();
           </div>
           <textarea type="text" class="review-input mt-1" id="review-text" rows="3"></textarea>
         </div>
-        <button class="button is-primary" onclick="submitReview();">Submit</button>
+        <button class="button is-primary mt-1" onclick="submitReview();">Submit</button>
         <div class="row has-text-right">
           Find More at Trip Advisor <i class="icon fab fa-tripadvisor"></i>
         </div>
@@ -141,6 +139,7 @@ $DineinOrderController = new DineinOrderController();
     </div>
   </div>
 
+  <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     let reviewStatus = false;
     let rating = 0;
@@ -197,6 +196,11 @@ $DineinOrderController = new DineinOrderController();
         document.getElementById("notification-message").innerHTML = "Something went wrong!"
       }
     }
+
+    function payByCash(){
+      artemisAlert.alert('success', 'Cash Payment Request Sent!')
+    }
+
   </script>
 </body>
 
