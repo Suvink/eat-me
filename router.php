@@ -9,6 +9,7 @@ $errorPage = '404.html';
 //Admin
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
+$staffDetails = 'views/admin/managestaffdetails.php';
 $staffManage='views/admin/staffmanage.php';
 $menuUpdate='views/admin/menuupdate.php';
 
@@ -36,6 +37,7 @@ $kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
+$staffLogin = 'views/store/stafflogin.php';
 $grn='views/store/grn.php';
 
 
@@ -151,6 +153,11 @@ switch ($request) {
     case '/api/v1/verify' :
         require($verify);
         break;
+    case '/staff/login' :
+        require($staffLogin);
+        break;
+    case '/staff/details' :
+        require($staffDetails);
     case '/api/v1/review' :
         require($review);
         break;
