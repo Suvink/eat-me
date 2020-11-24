@@ -87,7 +87,7 @@
               <div class="search-boxs ">
                 <div class="search-box">
       
-                  <form action="kitchendisplayInventory" method="POST">
+                  <form action="/kitchendisplay/inventory" method="POST">
                    <div class="holder">
 
                       <div class="columns group searchbox-holder">

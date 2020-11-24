@@ -9,6 +9,7 @@ $errorPage = '404.html';
 //Admin
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
+$staffManage='views/admin/staffmanage.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
@@ -35,6 +36,7 @@ $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
 $grn='views/store/grn.php';
+
 
 //API
 $verify = 'api/v1/OTP.php';
@@ -66,6 +68,9 @@ switch ($request) {
         break;
     case '/admin' :
         require($adminDashboard);
+        break;
+    case '/admin/staffmanage':
+        require($staffManage);
         break;
     case '/dinein/login' :
         require($dineinLogin);

@@ -39,7 +39,7 @@ if (isset($_POST['sendbtn'])) {
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/kitchenInventory.css">
     <link rel="stylesheet" href="../../css/inventory.css">
-    <title>kitchen Display</title>
+    <title>GRN</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
 </head>
@@ -69,11 +69,14 @@ if (isset($_POST['sendbtn'])) {
     <section>
         <div class="row buttons-row">
             <a href="/inventory">
-                <button class="button is-primary right-radius">Inventory</button>
+                <button class="button is-primary right-radius idle" >Inventory</button>
 
             </a>
             <a href="/grn">
-                <button class="button is-primary button-is-active left-radius idle">GRN</button>
+                <button class="button is-primary button-is-active left-radius right-radius idle">GRN</button>
+            </a>
+            <a href="/admin/staffmanage">
+                <button class="button is-primary left-radius idle">Staff    Manage</button>
             </a>
         </div>
     </section>
