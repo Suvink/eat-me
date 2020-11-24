@@ -31,6 +31,7 @@ $kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
 $kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
 $kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
 $kitchenRetrieve = 'views/store/kitchenretrieve.php';
+$kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
@@ -121,6 +122,9 @@ switch ($request) {
         break;
     case '/kitchen/retrieve':
         require($kitchenRetrieve);
+        break;
+    case '/kitchen/menu/update':
+        require($kitchenMenuUpdate);
         break;
     case '/kitchenmanager/login' :
         require($kitchenManagerLogin);

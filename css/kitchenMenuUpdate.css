@@ -1,0 +1,98 @@
+/* tray cards */
+
+.tray:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.tray-card{
+    display: inline-block;
+    width: 200px;
+    height:30px;
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: .5rem;
+    margin: 10px;
+    align-self: center;
+    cursor: pointer;
+    overflow: auto;
+}
+.tray-card:hover{
+    background-color: rgb(189, 34, 34);
+    color:white;
+}
+/* navigatable button page top */
+
+
+.buttons-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .button-is-active{
+    background-color: #f5a540 !important;
+    color: white !important;
+  }
+  .buttons-row > a > .button{
+    font-family: 'Baloo Thambi 2', cursive;
+    width: 10rem !important;
+    color: black;
+    background-color: transparent;
+    border: 1px solid #f5a540;
+  }  
+  
+  .left-radius{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .right-radius{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .idle:hover{
+    background-color: #f5a540 !important;
+    color: white !important;
+  }
+
+  /* change menu types color */
+  .change-menu-color{
+    color:#f5a540 !important;
+  }
+
+  /* pop to hide not availabale items */
+.overlay {
+    position:absolute;
+    background:rgba(0,0,0,0.3);
+    z-index:1;
+    border-radius: 15px;
+    width: 200px;
+    height:30px;
+    padding: .5rem;
+    margin: 10px;
+    align-self: center;
+    visibility: hidden;
+    display: inline-block;
+
+  }
+  .overlay .btn-edit{
+      background-color: rgb(1, 80, 1);
+      align-self: center;
+      position: absolute;
+      top:14%;
+      right:3%;
+      font-family: 'Baloo Thambi 2', cursive;
+      border-radius: 15px;
+      width: 50px;
+      height:30px;
+      text-align: center ;
+      padding: 0;
+  }
+  .btn-edit:focus {outline:0;}
+
+  /* zoom tray-card */
+.zoom{
+    transform: 0.7s;
+}
+.zoom:hover{
+  transform: scale(1.1); 
+}

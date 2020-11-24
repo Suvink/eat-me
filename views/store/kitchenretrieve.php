@@ -66,14 +66,17 @@
 
 
 <!----------- Main section------------>
-  <section>
+<section>
     <div class="row buttons-row">
       <a href="/kitchendisplay/orders">
         <button class="button is-primary right-radius">Orders</button>
       
       </a>
       <a href="/kitchendisplay/inventory">
-        <button class="button is-primary button-is-active left-radius idle">Items</button>
+        <button class="button is-primary button-is-active left-radius right-radius idle">Items</button>
+      </a>
+      <a href="/kitchen/menu/update">
+        <button class="button is-primary left-radius idle">Menu</button>
       </a>
     </div>
   </section>
