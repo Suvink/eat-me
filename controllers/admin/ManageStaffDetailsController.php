@@ -10,7 +10,7 @@ class ManageStaffDetailsController extends Controller
   function __construct()
   {
     require './models/admin/ManageStaffDetailsModel.php';
-    $this->ManagaeStaffDetailsModel = new ManagaeStaffDetailsModel();
+    $this->ManagaeStaffDetailsModel = new ManageStaffDetailsModel();
   }
 
   public function saveData($staffid, $firstname, $lastname, $contactno, $email, $roleid, $password)
@@ -18,4 +18,4 @@ class ManageStaffDetailsController extends Controller
     $result = $this->ManagaeStaffDetailsModell->writeData('staff', "staffId", $staffid);
     
   }
-   
+}
