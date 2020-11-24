@@ -9,6 +9,7 @@ $errorPage = '404.html';
 //Admin
 $adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
+$staffDetails = 'views/admin/managestaffdetails.php';
 
 //Customer
 $dineinLogin = 'views/customer/dineinlogin.php';
@@ -34,6 +35,7 @@ $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
 $staffLogin = 'views/store/stafflogin.php';
+
 
 //API
 $verify = 'api/v1/OTP.php';
@@ -128,6 +130,9 @@ switch ($request) {
         break;
     case '/staff/login' :
         require($staffLogin);
+        break;
+    case '/staff/details' :
+        require($staffDetails);
         break;
     default:
         http_response_code(404);

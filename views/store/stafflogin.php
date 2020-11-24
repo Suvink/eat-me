@@ -2,11 +2,11 @@
 require_once "./controllers/store/StaffLoginController.php";
 
 if (isset($_POST['submit'])) {
-  $username =  $_REQUEST['user_name'];
+  $userid =  $_REQUEST['user_id'];
   $password =  $_REQUEST['password'];
   
   $StaffLoginController = new StaffLoginController();
-  $StaffLoginController->submitLogin($username, $password);
+  $StaffLoginController->submitLogin($userid, $password);
 }
 
 ?>
@@ -43,9 +43,9 @@ if (isset($_POST['submit'])) {
     <form action="/staff/login" method='POST'>
       <div id="loginInfoDiv" style="display: block">
         <label class="field artemis-input-field">
-          <input class="artemis-input" type="text" placeholder="Your User Name" name="user_name" required>
+          <input class="artemis-input" type="text" placeholder="Your User ID" name="user_id" required>
           <span class="label-wrap">
-            <span class="label-text">User Name</span>
+            <span class="label-text">User ID</span>
           </span>
         </label>
         <label class="field artemis-input-field">

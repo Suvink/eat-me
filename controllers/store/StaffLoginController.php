@@ -12,16 +12,37 @@ class StaffLoginController extends Controller
     $this->StaffLoginModel = new StaffLoginModel();
   }
 
-  function submitLogin($username, $password)
+  function submitLogin($userid, $password)
   {
-    $result = $this->StaffLoginModel->getAllDataWhere('staff', "staffId", $username);
+    $result = $this->StaffLoginModel->getAllDataWhere('staff', "staffId", $userid);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         if ($password === $row["password"]) {
             $_SESSION['staffId']=$row['staffId'];
          
-         
-         header('Location: /online');
+    switch ($row["roleId"]) {
+      case 1: 
+        header('Location: /admin');
+      break;
+      case 2: 
+        header('Location: /kitchenmanager');
+      break;
+      case 3: 
+        header('Location: /steward');
+      break;
+      case 4: 
+        header('Location: /cashier');
+      break;
+      case 5: 
+        header('Location: /deliveryperson');
+      break;
+      default:
+        http_response_code(404);
+        header($errorPage);
+        break;
+      
+    }
+        
         } else {
           $this->triggerError('Login Failed!');
         }
