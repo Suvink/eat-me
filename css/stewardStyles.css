@@ -78,7 +78,7 @@ table th{
     td:nth-of-type(2):before { content: "Customer"; }
     td:nth-of-type(3):before { content: "Items"; }
     td:nth-of-type(4):before { content: "Price"; }
-	td:nth-of-type(5):before { content: "Address"; }
+	td:nth-of-type(5):before { content: "Table No"; }
 	td:nth-of-type(6):before { content: "Status"; }
 }
 

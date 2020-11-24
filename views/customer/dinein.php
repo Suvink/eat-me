@@ -1,11 +1,8 @@
 <?php
   session_start();
   ob_start();
-  
   echo $_SESSION['user_phone'];
-  if(!isset($_SERVER['HTTP_REFERER'])){
-      header('Location: /dinein/login');
-  }
+
   if(!isset($_SESSION['user_phone'])){
       header('Location: /dinein/login');
   }
@@ -14,7 +11,7 @@
   //Initiate an instance of controller
   $DineinController = new DineinController();
 
-  if ( isset( $_POST['logout'] ) ){
+  if( isset( $_POST['logout'] ) ){
     $DineinController->logout();
   }
 

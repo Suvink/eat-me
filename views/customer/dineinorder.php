@@ -1,17 +1,12 @@
 <?php
-session_start();
-ob_start();
-echo $_SESSION['user_phone'];
-if(!isset($_SERVER['HTTP_REFERER'])){
-  //header('Location: /online/login');
-}
-if(!isset($_SESSION['user_phone'])){
-  header('Location: /online/login');
-}
 
 require_once './controllers/customer/DineinOrderController.php';
 //Initiate an instance of controller
 $DineinOrderController = new DineinOrderController();
+
+if(!isset($_SESSION['user_phone'])){
+  header('Location: /dinein/login');
+}
 
 ?>
 
@@ -24,6 +19,7 @@ $DineinOrderController = new DineinOrderController();
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/dineinorderstyles.css">
   <title>Your Order</title>
@@ -82,7 +78,7 @@ $DineinOrderController = new DineinOrderController();
                 <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
                 <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
               </form>
-              <button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+              <button class="payment-button" type="submit" name="place-order" onclick="payByCash();"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
           </div>
         </div>
@@ -143,6 +139,7 @@ $DineinOrderController = new DineinOrderController();
     </div>
   </div>
 
+  <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     let reviewStatus = false;
     let rating = 0;
@@ -199,6 +196,11 @@ $DineinOrderController = new DineinOrderController();
         document.getElementById("notification-message").innerHTML = "Something went wrong!"
       }
     }
+
+    function payByCash(){
+      artemisAlert.alert('success', 'Cash Payment Request Sent!')
+    }
+
   </script>
 </body>
 

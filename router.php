@@ -26,18 +26,21 @@ $cashier = 'views/store/cashier.php';
 $deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
-$kitchendisplayOrders = 'views/store/kitchendisplayOrders.php';
-$kitchendisplayDineinOrders = 'views/store/kitchendisplayDineinOrders.php';
-$kitchendisplayInventory = 'views/store/kitchendisplayInventory.php';
-$kitchenManagerLogin = 'views/store/kitchenmanagerlogin.php';
+$kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
+$kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
+$kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
+$kitchenRetrieve = 'views/store/kitchenretrieve.php';
 $kitchenManager = 'views/store/kitchenmanager.php';
 $stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
+$grn='views/store/grn.php';
 
 //API
 $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
 
+//controllers
+$dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
@@ -91,7 +94,7 @@ switch ($request) {
         require($onlineOrderSignup);
         break;
     case '/cashier' :
-        require($onlineOrder);
+        require($cashier);
         break;
     case '/deliveryperson/login' :
         require($deliveryPersonLogin);
@@ -99,17 +102,20 @@ switch ($request) {
     case '/deliveryperson' :
         require($deliveryPerson);
         break;
-    case '/inventory' :
+    case '/inventory':
         require($inventory);
         break;
-    case '/kitchendisplayOrders' :
+    case '/kitchendisplay/orders':
         require($kitchendisplayOrders);
         break;
-    case '/kitchendisplayDineinOrders' :
+    case '/kitchendisplay/dinein/orders':
         require($kitchendisplayDineinOrders);
         break;
-    case '/kitchendisplayInventory' :
+    case '/kitchendisplay/inventory':
         require($kitchendisplayInventory);
+        break;
+    case '/kitchen/retrieve':
+        require($kitchenRetrieve);
         break;
     case '/kitchenmanager/login' :
         require($kitchenManagerLogin);
@@ -117,11 +123,17 @@ switch ($request) {
     case '/kitchenmanager' :
         require($kitchenManager);
         break;
+    case '/grn':
+        require($grn);
+        break;
     case '/steward/login' :
         require($stewardLogin);
         break;
     case '/steward' :
         require($steward);
+        break;
+    case '/dineinlogincontroller' :
+        require($dineinlogincontroller);
         break;
     case '/api/v1/verify' :
         require($verify);

@@ -9,7 +9,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
@@ -21,7 +20,7 @@
 
 <body>
 <!-- -----navi bar ---------- -->
-  <div class="navbar">
+<div class="navbar">
     <div class="columns group">
       <div class="column is-2">
         <img src="../../img/logo.png" height=56 width="224" />
@@ -34,10 +33,20 @@
       </div>
     </div>
   </div>
- 
 <!--------xx-----navi bar --------xx------->
 
 <!----------- Main section------------>
+  <section>
+    <div class="row buttons-row">
+      <a href="/kitchendisplay/orders">
+        <button class="button is-primary button-is-active right-radius">Orders</button>
+      
+      </a>
+      <a href="/kitchendisplay/inventory">
+        <button class="button is-primary left-radius idle">Items</button>
+      </a>
+    </div>
+  </section>
 
   <section>
       <div class="column is-12">           
@@ -45,7 +54,7 @@
         <input type="radio" id="tab1" name="tab-control" >
           <input type="radio" id="tab2" name="tab-control" checked>
           <ul>
-            <li title="O_Orders"><label for="tab1" role="button"><a href="kitchendisplayOrders"><br><span>O_Oders</span></a></label></li>
+            <li title="O_Orders"><label for="tab1" role="button"><a href="/kitchendisplay/orders"><br><span>O_Oders</span></a></label></li>
             <li title="D_Orders"><label for="tab2" role="button"><br><span>D_Oders</span></label></li>
           </ul>
           <div class="slider">

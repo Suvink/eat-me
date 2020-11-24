@@ -18,7 +18,7 @@ class Model {
         if ($this->con->query($sql) === FALSE) {
             echo "Database Error";
           } else {
-            return $this->$result; 
+            return $result; 
         }
     }
 

@@ -1,0 +1,174 @@
+
+
+.font{
+    font-family: 'Baloo Thambi 2', cursive;
+}    
+/* Menu Cards->box */
+.box{
+    margin: 0 -5px;
+}
+.box:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.s-box{
+    display: inline-block;
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: 1rem;
+    padding-top: 0rem;
+    margin: 10px;
+    margin-top: 0px;
+    align-self: center;
+    cursor: pointer;
+    overflow: auto;
+    width: 900px;
+    height:410px;
+    height: 500px;
+   
+    
+}
+
+.box-2{
+    margin: 0 -5px;
+   
+}
+.box-2:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.s-box-2{
+    display: inline-block;
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: 1rem;
+    padding-top: 1rem;
+    margin:10px;
+    margin-top: 80px;
+    align-self: center;
+    cursor: pointer;
+    overflow: auto;
+    width: 200px;
+    height:330px;
+    position: absolute;
+    right:6%;
+    top:20%;
+    
+}
+.adjust-height{
+    position: absolute;
+    top:30%;
+}
+#btnup{
+    display:none;
+}
+.width-adjust{
+    width:80%;
+}
+.inventory-table{
+    align-self: center;
+    text-align:center;
+    border:1px;
+    padding-top: 0px;
+    /* background-color: rgb(71, 39, 39); */
+  
+
+    
+}
+.inventory-container{
+    position: absolute;
+    top:23%;
+
+}
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent; 
+}
+.inventory-table td,th{
+    width:160px;
+    height: 50px;
+}
+.inventory-table #adjust-width{
+    width:140px;
+
+    text-align:left;
+}
+.inventory-table #align-right{
+    text-align:right;
+}
+.inventory-table .visibility-hide{
+    color:white;
+    background-color: white;
+}
+.visibility-hide:focus{
+   outline: none;
+    
+}
+tr:hover td{
+   background-color: #f5a540;
+   box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+   color:white;
+}
+#stuff .visibility-hide{
+    visibility: hidden;
+}
+tr:hover #stuff .visibility-hide{
+    color:#f5a540;
+    background:white;
+    visibility: visible;
+}
+th{
+    background: #d17a40;
+    position: sticky;
+    top: 0; 
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    font-size: 18px;
+    color:wheat;
+}
+/* drrop down  */
+.dropdown{
+    width:300px;
+    margin-top:24px;
+    height:auto;
+    background-color:#f5a540;
+    z-index: 1;
+    position: absolute;
+    right:3%;
+}
+.dropdown-content {
+    display: none;
+    transition: opacity 2s ease-out;
+    opacity: 1;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    height:390px;
+  }
+  
+ 
+.dropdown-content 
+    {
+    -webkit-animation-name: slide-fade;
+    -webkit-animation-duration: 2.5s;
+    animation-name: slide-fade;
+    animation-duration: 2.5s;
+  }
+  
+  @-webkit-keyframes slide-fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  @keyframes slide-fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+
+#grnpage-header
+{
+    color:#f5a540;
+}
+
+

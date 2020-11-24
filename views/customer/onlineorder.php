@@ -2,12 +2,12 @@
   session_start();
   ob_start();
 
-  // if(!isset($_SERVER['HTTP_REFERER'])){
-  //     header('Location: /online/login');
-  // }
-  // if(!isset($_SESSION['user_phone'])){
-  //     header('Location: /online/login');
-  // }
+  if(!isset($_SERVER['HTTP_REFERER'])){
+      header('Location: /online/login');
+  }
+  if(!isset($_SESSION['user_phone'])){
+      header('Location: /online/login');
+  }
 
   require_once './controllers/customer/OnlineOrderController.php';
   //Initiate an instance of controller

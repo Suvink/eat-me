@@ -1,13 +1,6 @@
 <?php
 require_once "./controllers/customer/DineinLoginController.php";
 
-if (isset($_POST['submit'])) {
-  $token =  $_REQUEST['token'];
-  $otp =  $_REQUEST['otp'];
-  
-  $DineinLoginController = new DineinLoginController();
-  $DineinLoginController->submitLogin($token, $otp);
-}
 
 ?>
 
@@ -41,9 +34,15 @@ if (isset($_POST['submit'])) {
       <div id="error-block"></div>
 
       <?php
-      // if ($isError) {
-      //   echo '<div class="row artemis-notification notification-danger bounceIn"><p>Error: Invalid OTP!</p></div>';
-      // }
+      //check session error set or not
+      if (isset($_SESSION['isError'])) {
+        otpError($_SESSION['isError']);
+        session_unset();
+        //refresh time
+        $sec = "5";
+        //refresh page to set session free
+        header("Refresh: $sec ; url= /dinein/login");
+      }
       ?>
 
       <div id="loginInfoDiv" style="display: block">
@@ -65,9 +64,6 @@ if (isset($_POST['submit'])) {
         </label>
         <input id="ref_token" style="display: none" name="token">
         <button class="button is-primary" name="submit">Login</button>
-      </form>
-
-
       </form>
     </center>
   </div>
@@ -113,6 +109,7 @@ if (isset($_POST['submit'])) {
         }
 
       }
+
 
     }
   </script>

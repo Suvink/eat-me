@@ -1,5 +1,6 @@
 <?php
 require_once './core/Controller.php';
+//session_set_cookie_params('3600');
 session_start();
 ob_start();
 

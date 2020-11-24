@@ -42,11 +42,11 @@
 
 <section>
     <div class="row buttons-row">
-      <a href="kitchendisplayOrders">
+      <a href="/kitchendisplay/orders">
         <button class="button is-primary button-is-active right-radius">Orders</button>
       
       </a>
-      <a href="kitchendisplayInventory">
+      <a href="/kitchendisplay/inventory">
         <button class="button is-primary left-radius idle">Items</button>
       </a>
     </div>
@@ -59,7 +59,7 @@
           <input type="radio" id="tab2" name="tab-control">
           <ul>
             <li title="O_Orders"><label for="tab1" role="button"><br><span>O_Oders</span></label></li>
-            <li title="D_Orders"><label for="tab2" role="button"><br><a href="kitchendisplayDineinOrders"><span>D_Oders</a></span></label></li>
+            <li title="D_Orders"><label for="tab2" role="button"><br><a href="/kitchendisplay/dinein/orders"><span>D_Oders</a></span></label></li>
           </ul>
 
           <div class="slider">
