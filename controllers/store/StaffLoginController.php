@@ -25,7 +25,7 @@ class StaffLoginController extends Controller
         header('Location: /admin');
       break;
       case 2: 
-        header('Location: /kitchenmanager');
+        header('Location: /kitchendisplay/orders');
       break;
       case 3: 
         header('Location: /steward');
@@ -38,7 +38,7 @@ class StaffLoginController extends Controller
       break;
       default:
         http_response_code(404);
-        header($errorPage);
+        header('Location: /error');
         break;
       
     }
