@@ -1,3 +1,8 @@
+<?php
+require_once './controllers/store/CashierController.php';
+$CashierController = new CashierController();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,28 +43,28 @@
 
 					<section>
 
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-01"> 
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(1)" id="table-01">
 							<h2>Table 01</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-02">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(2)" id="table-02">
 							<h2>Table 02</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-03">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(3)" id="table-03">
 							<h2>Table 03</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-04">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(4)" id="table-04">
 							<h2>Table 04</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-05">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(5)" id="table-05">
 							<h2>Table 05</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-06">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(6)" id="table-06">
 							<h2>Table 06</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-07">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(7)" id="table-07">
 							<h2>Table 07</h2>
 						</button>
-						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails()" id="table-08">
+						<button class="card d-inlineblock table-hover transparent-button mr-3" onclick="showTableDetails(8)" id="table-08">
 							<h2>Table 08</h2>
 						</button>
 					</section>
@@ -91,25 +96,34 @@
 						<button class="button is-primary" onclick="updateTable()">Refresh</button>
 					</section>
 				</div>
-				<section>
-					<div class="invisible-box" id="table-description">
-						<div class="box-content">
-							<span class="close" onclick="closeDetails()">&times;</span>
-							<button class="button is-success" id="set-reserve" onclick="reserveTable()">Not Reserved</button>
-							<table>
-								<tr>
-									<td>1001</td>
-								</tr>
-								<tr>
-									<td>Mr.Bean</td>
-								</tr>
-								<tr>
-									<td>Order Status </td>
-								</tr>
-							</table>
+				<?php
+
+				for ($count = 1; $count <= 8; $count++) { ?>
+					<section id="section-<?= $count ?>">
+						<div class="invisible-box" id="table-description">
+							<div class="box-content">
+								<span class="close" onclick="closeDetails(<?= $count ?>)">&times;</span>
+								<input type="text" name="table-number" style="display: none;" id="save-table-number">
+								<button class="button is-success" id="set-reserve" onclick="reserveTable()">
+									<?php
+									echo $CashierController->renderTableReservationDetails($count) ?></button>
+								<table>
+									<tr>
+										<td>1001</td>
+									</tr>
+									<tr>
+										<td>Mr.Bean</td>
+									</tr>
+									<tr>
+										<td>Order Status </td>
+									</tr>
+								</table>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+				<?php }
+
+				?>
 			</div>
 		</div>
 	</div>
@@ -139,17 +153,25 @@
 		function placeOrder() {
 			window.location.href = '/cashier/placeorder';
 		}
-		function checkOrder(){
+
+		function checkOrder() {
 			window.location.href = '/cashier/checkorders';
 		}
 
-		function showTableDetails() {
-			tableDescription.style.display = "block"
+		function showTableDetails(tableNumber) {
+
+		//	tableDescription.style.display = "block";
+			const tableNo = tableNumber;
+			const table  = document.querySelector("#section-" + tableNumber + " #table-description");
+			// console.log(table);
+			table.style.display = "block";
+			// document.getElementById('save-table-number').value = tableNumber;
 			blurBackground();
 		}
 
-		function closeDetails() {
-			tableDescription.style.display = "none";
+		function closeDetails(tableNumber) {
+			const table  = document.querySelector("#section-" + tableNumber + " #table-description");
+			table.style.display = "none";
 			removeBlur();
 		}
 
@@ -170,19 +192,19 @@
 			let blurEliment3 = document.getElementById("popup-background-3");
 			blurEliment3.classList.remove("blur");
 		}
-		function reserveTable(){
-			let tableNumber= document.getElementById("table-07");
+
+		function reserveTable() {
+			let tableNumber = document.getElementById('table-01');
 			tableNumber.classList.toggle("reserved");
-			let setButton= document.getElementById("set-reserve");
+			let setButton = document.getElementById("set-reserve");
 			setButton.classList.toggle("reserved");
-			if(setButton.innerHTML=="Reserved"){
+			if (setButton.innerHTML == "Reserved") {
 				setButton.innerHTML = "Not Reserved";
-			}else{
+			} else {
 				setButton.innerHTML = "Reserved";
 			}
-			
-		}
 
+		}
 	</script>
 
 </body>

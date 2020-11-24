@@ -50,7 +50,28 @@ if (isset($_POST['search-btn'])) {
 				</div>
 				<div class="columns group">
 					<div class="column is-12" id="display">
-						<?php echo $row['amount']  ?>
+						<table>
+							<thead>
+								<th>Order ID</th>
+								<th>Amount</th>
+								<th>Payment Type</th>
+								<th>Order Status</th>
+								<th>Order Type</th>
+								<th>Customer ID</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td> <?php echo $row['orderId']  ?></td>
+									<td> <?php echo $row['amount']  ?></td>
+									<td> <?php echo $row['paymentType']  ?></td>
+									<td> <?php echo $row['orderStatus']  ?></td>
+									<td> <?php echo $row['orderType']  ?></td>
+									<td> <?php echo $row['customerId']  ?></td>
+								</tr>
+							
+							</tbody>
+						</table>
+						
 					</div>
 				</div>
 			</div>

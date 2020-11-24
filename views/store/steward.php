@@ -9,7 +9,7 @@
 	<!-- local styles -->
 	<link rel="stylesheet" href="../../css/stewardStyles.css">
 	<link rel="stylesheet" href="../../css/ratingStyles.css">
-	<title>Delivery Home </title>
+	<title>Steward Home </title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 			<div class="container has-text-centered">
 				<div class="card" id="availability">
 					<h1>Set Availability</h1>
-					<input type="checkbox" id="switch" class="checkbox" />
+					<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
 					<label for="switch" class="toggle">
 						<p>On &nbsp; &nbsp; Off</p>
 					</label>
@@ -166,6 +166,9 @@
 		function blurBackground(){
 			let blurEliment = document.getElementById("detailTable");
 			blurEliment.classList.toggle("blur");
+		}
+		function changeAvailability(){
+
 		}
 	</script>
 
