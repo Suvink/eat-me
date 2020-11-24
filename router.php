@@ -7,7 +7,6 @@ $homepage = 'index.html';
 $errorPage = '404.html';
 
 //Admin
-$adminLogin = 'views/admin/adminlogin.php';
 $adminDashboard = 'views/admin/dashboard.php';
 $staffDetails = 'views/admin/managestaffdetails.php';
 $staffManage='views/admin/staffmanage.php';
@@ -27,7 +26,6 @@ $onlineProfile = 'views/customer/onlinecustomerprofile.php';
 $cashier = 'views/store/cashier.php';
 $cashierPlaceOrder = 'views/store/cashierplaceorder.php';
 $cashierCheckOrders = 'views/store/cashiercheckorders.php';
-$deliveryPersonLogin = 'views/store/deliverypersonlogin.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
 $kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
@@ -35,8 +33,6 @@ $kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
 $kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
 $kitchenRetrieve = 'views/store/kitchenretrieve.php';
 $kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
-$kitchenManager = 'views/store/kitchenmanager.php';
-$stewardLogin = 'views/store/stewardlogin.php';
 $steward = 'views/store/steward.php';
 $staffLogin = 'views/store/stafflogin.php';
 $grn='views/store/grn.php';
@@ -66,9 +62,6 @@ switch ($request) {
         break;
     case '' :
         require($homepage);
-        break;
-    case '/admin/login' :
-        require($adminLogin);
         break;
     case '/admin' :
         require($adminDashboard);
@@ -112,9 +105,6 @@ switch ($request) {
     case '/cashier/checkorders':
         require($cashierCheckOrders);
         break;
-    case '/deliveryperson/login' :
-        require($deliveryPersonLogin);
-        break;
     case '/deliveryperson' :
         require($deliveryPerson);
         break;
@@ -136,19 +126,10 @@ switch ($request) {
     case '/kitchen/menu/update':
         require($kitchenMenuUpdate);
         break;
-    case '/kitchenmanager/login' :
-        require($kitchenManagerLogin);
-        break;
-    case '/kitchenmanager' :
-        require($kitchenManager);
-        break;
     case '/grn':
         require($grn);
         break;
-    case '/steward/login' :
-        require($stewardLogin);
-        break;
-    case '/steward' :
+   case '/steward' :
         require($steward);
         break;
     case '/dineinlogincontroller' :
