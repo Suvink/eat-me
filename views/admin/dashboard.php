@@ -1,3 +1,22 @@
+<?php
+  session_start();
+  ob_start();
+  echo $_SESSION['staffId'];
+
+  if(!isset($_SESSION['staffId'])){
+      header('Location: /staff/login');
+  }
+  require_once './controllers/admin/AdminDashboardController.php';
+ 
+  $AdminDashboardController = new AdminDashboardController();
+
+  if( isset( $_POST['logout'] ) ){
+    $AdminDashboardController->logout();
+  }
+  
+  
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,7 +41,9 @@
         <div class="column is-10 has-text-right nav-logout">
           <i class="fa fa-user" aria-hidden="true"></i>
           <span class="mr-1">Suvin Nimnaka</span>
-          <button class="button is-primary">Logout</button>
+          <form class="d-inline" action="/admin" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
         </div>
       </div>
     </div>

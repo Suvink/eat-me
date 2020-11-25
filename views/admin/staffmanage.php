@@ -1,6 +1,20 @@
 <?php
 require_once './controllers/admin/staffManageController.php';
 $staffManageController = new StaffManageController();
+
+if(isset($_POST['submit'])){
+    $staffid =$_POST['staffid'];
+    $firstname =$_POST['firstname'];
+    $lastname =$_POST['lastname'];
+    $cnumber =$_POST['cnumber'];
+    $email =$_POST['email'];
+    $roleid =$_POST['roleid'];
+    $password =$_POST['password'];
+ 
+    $staffManageController->addStaff($staffid,$firstname,$lastname,$cnumber,$email,$roleid,$password);
+
+    unset($_POST['submit']);
+}
 ?>
 
 
@@ -13,8 +27,7 @@ $staffManageController = new StaffManageController();
     <!-- Global Styles -->
     <link rel="stylesheet" href="../css/style.css" />
     <!-- Local Styles -->
-    <link rel="stylesheet" href="../css/adminStaffManage.css" />
-    <link rel="stylesheet" href="../../css/managestaffdetailsStyles.css">
+    <link rel="stylesheet" href="../../css/staffManage.css">
     <title>StaffManagement</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -60,54 +73,94 @@ $staffManageController = new StaffManageController();
         </div>
     </section>
     <section>
-        <!--Staff_details_form-->
-        <div class="card">
-            <div class="staffdetails_form">
+        <div class="content">
+            <div class="columns group">
+                <div class="column is-8">
+                    <table class="inventory-table">
+                        <tr>
+                            <th>ID</th>
+                            <th>F_Name</th>
+                            <th>L_Name</th>
+                            <th>Contact Num</th>
+                            <th>Email</th>
+                            <th>roleId</th>
+                            <th>Password</th>
+                        </tr>
+                        <?php
+                        $result = $staffManageController->getStaffDetails();
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <tr>
+                                <td><?php echo $row['staffId']; ?></td>
+                                <td><?php echo $row['firstName']; ?></td>
+                                <td><?php echo $row['lastName']; ?></td>
+                                <td><?php echo $row['contactNo']; ?></td>
+                                <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['roleId']; ?></td>
+                                <td><?php echo $row['password']; ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+                </div>
+            
+                <div class="column is-3">
+                    <h2>Manage-<span class="change-menu-color">-Staff</span></h2>
+                    <div>
+                    <form action = '/admin/staffmanage' method = 'POST'>
+                        <div class="fill-form">
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="New Staff Id here" name="staffid">
+                                <span class="label-wrap">
+                                    <span class="label-text">Staff ID</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="Sfaff member first Name" name="firstname">
+                                <span class="label-wrap">
+                                    <span class="label-text">First Name</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="Sfaff member last Name" name="lastname">
+                                <span class="label-wrap">
+                                    <span class="label-text">Last Name</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="Sfaff member Contact Number" name="cnumber">
+                                <span class="label-wrap">
+                                    <span class="label-text">Contact NO</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="email" placeholder="Sfaff member Email here" name="email">
+                                <span class="label-wrap">
+                                    <span class="label-text">Email</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="Sfaff member role Id" name="roleid">
+                                <span class="label-wrap">
+                                    <span class="label-text">Role Id</span>
+                                </span>
+                            </label>
+                            <label class="field artemis-input-field">
+                                <input class="artemis-input" type="text" placeholder="Sfaff member Password here " name="password">
+                                <span class="label-wrap">
+                                    <span class="label-text">Password</span>
+                                </span>
+                            </label>
+                        </div>    
+                            <button class="is-primary" name="submit">Add</button>
+                            <button class="is-primary">Update</button>
+                            <button class="is-primary">Delete</button>
 
-                <h1 class="title mb-0" align="center">Staff Details</h1>
+                        </form>
+                    </div>
 
-                <table class="staffdetails_table" border=0 cellpadding="15px" cellspacing="2px" align="center">
-
-                    <form method="POST" action="DBConnection.php">
-
-                        <tr>
-                            <td>Staff ID</td>
-                            <td colspan="2"><input type="text" name="sid" class="text_box" placeholder="Enter the Staff ID" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>First Name</td>
-                            <td colspan="2"><input type="text" name="fn" class="text_box" placeholder="Enter the First Name" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td colspan="2"><input type="text" name="ln" class="text_box" placeholder="Enter the Last Name" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>Contact Number</td>
-                            <td colspan="2"><input type="text" name="cno" class="text_box" placeholder="Enter the Contact Number" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td colspan="2"><input type="text" name="em" class="text_box" placeholder="Enter the Email Address" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>Role ID</td>
-                            <td colspan="2"><input type="text" name="rid" class="text_box" placeholder="Enter the Role ID" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td colspan="2"><input type="password" name="pw" class="text_box" placeholder="Enter the Password" size="40px"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="1" align="middle"><input type="submit" id="btn" name="suB" value="SAVE"></td>
-                            <td colspan="1" align="middle"><input type="submit" id="btn" name="cancelB" value="CANCEL"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="1" align="middle"><input type="submit" id="btn" name="updateB" value="UPDATE"></td>
-                            <td colspan="1" align="middle"><input type="submit" id="btn" name="deleteB" value="DELETE"></td>
-                        </tr>
-                    </form>
-                </table>
+                </div>
             </div>
         </div>
     </section>
