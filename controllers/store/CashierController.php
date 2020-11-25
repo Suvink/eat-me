@@ -15,6 +15,16 @@ class CashierController extends Controller{
     public function renderTableReservationDetails($tableNumber){
         $result = $this->CashierModel->getAllDataWhere('table_details','tableNo',$tableNumber);
         $row=mysqli_fetch_assoc($result);
-        return $row['reservation'];
+        if($row['reservation']=='Reserved'){
+          return true;
+        }else{
+          return false;
+        }
+        
+    }
+    public function logout(){
+      session_destroy();
+      unset($_SESSION['staffId']);
+      header("Location: /staff/login",TRUE,302);
     }
 }

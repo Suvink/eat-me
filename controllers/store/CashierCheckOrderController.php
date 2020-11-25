@@ -13,4 +13,10 @@
             $result = $this->CashierCheckOrderModel->getAllDataWhere('order_details','orderId',$searchedId);
             return $result;
         }
+        public function logout(){
+            session_destroy();
+            unset($_SESSION['staffId']);
+            header("Location: /staff/login",TRUE,302);
+          }
     }
+?>

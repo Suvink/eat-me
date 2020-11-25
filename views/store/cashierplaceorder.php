@@ -1,5 +1,23 @@
 <?php
+session_start();
+ob_start();
+
 require_once "./controllers/store/CashierPlaceOrderController.php";
+$CashierPlaceOrderController = new CashierPlaceOrderController();
+
+if(!isset($_SESSION['staffId'])){
+    header('Location: /staff/login');
+}
+
+if( isset( $_POST['logout'] ) ){
+  $CashierPlaceOrderController->logout();
+}
+
+if(isset($_POST['placeorder-btn'])){
+  $customerPhone = $_POST['customerPhone'];
+  $orderItems = $_POST['items'];
+  $CashierPlaceOrderController->placeOrder($customerPhone,$orderItems);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,19 +41,21 @@ require_once "./controllers/store/CashierPlaceOrderController.php";
       <div class="column is-10 has-text-right nav-logout">
         <i class="fas fa-bicycle" aria-hidden="true"></i>
         <span class="mr-1">User Name</span>
-        <button class="button is-primary"> Logout </button>
+        <form class="d-inline" action="/cashier" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
       </div>
     </div>
   </div>
   <button class="button is-primary is-2 mr-1" onclick="returnHome()">Home</button>
   <div class="columns">
-    <form action="/" method="POST">
+    <form action="/cashier/placeorder" method="POST">
       <div class="column is-4">
         <div class="card">
 
           <div>
             <label class="field artemis-input-field">
-              <input class="artemis-input" type="text" placeholder="Phone Number here" name="phone">
+              <input class="artemis-input" type="text" placeholder="Phone Number here" name="customerPhone">
               <span class="label-wrap">
                 <span class="label-text">Customer's Phone Number</span>
               </span>
@@ -70,7 +90,7 @@ require_once "./controllers/store/CashierPlaceOrderController.php";
           </center>
 
           <span>Total Amount Rs.500</span> <br>
-          <button class="button is-primary" type="submit">Place Order</button>
+          <button class="button is-primary" type="submit" name="placeorder-btn">Place Order</button>
           <button class="button is-danger">Cancel Order</button>
         </div>
 
@@ -130,7 +150,7 @@ require_once "./controllers/store/CashierPlaceOrderController.php";
       let tempItem = arrayBase + '"' + itemId + '"' + '=>' + '"' + itemQty + '",';
       arrayBase = tempItem;
       document.getElementById("orderItems").value = arrayBase;
-      console.log(tempItem);
+      console.log(arrayBase);
       addItemsToTable(itemId, itemQty);
     }
 
@@ -146,24 +166,3 @@ require_once "./controllers/store/CashierPlaceOrderController.php";
 </body>
 
 </html>
-
-<!-- TODO
-
-$str = "'status' => '-1','level1' => '1', 'level2' => '1', 'level9' => '1', 'level10' => '1', 'start' => '2013-12-13', 'stop' => '2013-12-13'";
-
-$mstr = explode(",",$str);
-$a = array();
-foreach($mstr as $nstr )
-{
-    $narr = explode("=>",$nstr);
-$narr[0] = str_replace("\x98","",$narr[0]);
-$ytr[1] = $narr[1];
-$a[$narr[0]] = $ytr[1];
-}
-print_r($a);
-
-
-array(
-$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
-
--->
