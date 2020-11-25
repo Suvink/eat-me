@@ -27,7 +27,7 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/onlinecustomerprofilestyles.css">
-  <title>Online Order Summery</title>
+  <title>Customer Profile</title>
 </head>
 
 <body>
@@ -63,23 +63,26 @@ $OnlineCustomerProfileController = new OnlineCustomerProfileController();
         <div class="column is-4">
           <form action="">
             <label class="field artemis-input-field">
-              <input class="artemis-input" value="user-A0HN9CYV2D" type="text" placeholder="Your first name here">
+              <input class="artemis-input" value="user-NLKPHCWOG9" type="text" placeholder="Your first name here">
               <span class="label-wrap">
                 <span class="label-text">First Name</span>
               </span>
             </label>
             <label class="field artemis-input-field">
-              <input class="artemis-input" value="user-A0HN9CYV2D" type="text" placeholder="Your last name here">
+              <input class="artemis-input" value="user-NLKPHCWOG9" type="text" placeholder="Your last name here">
               <span class="label-wrap">
                 <span class="label-text">Last Name</span>
               </span>
             </label>
             <label class="field artemis-input-field">
-              <input class="artemis-input" value="user-A0HN9CYV2D@eat-me.live" type="email" placeholder="Your email here">
+              <input class="artemis-input" value="user-NLKPHCWOG9@eat-me.live" type="email" placeholder="Your email here">
               <span class="label-wrap">
                 <span class="label-text">Email Address</span>
               </span>
             </label>
+            <div class="row has-text-left">
+              <button class="button is-primary" name="logout">Change</button>
+            </div>
           </form>
         </div>
         <div class="column is-2"></div>
