@@ -1,6 +1,15 @@
 <?php
+session_start();
+ob_start();
+$staffid=$_SESSION['staffId'];
+$name_first=$_SESSION['firstName'];
+$name_last=$_SESSION['lastName'];
 require_once './controllers/admin/MenuUpdateController.php';
 $MenuUpdateController = new MenuUpdateController();
+
+if( isset( $_POST['logout'] ) ){
+    $MenuUpdateController->logoutstaffMem();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,40 +28,57 @@ $MenuUpdateController = new MenuUpdateController();
 
 <body>
     <!-- -----navi bar ---------- -->
-    <div class="navbar">
+    <form action="" method="POST"> 
+        <div class="navbar">
         <div class="columns group">
             <div class="column is-2">
-                <img src="../../img/logo.png" height=56 width="224" />
+            <img src="../../img/logo.png" height=56 width="224" />
             </div>
             <div class="column is-6 ml-5"></div>
             <div class="column is-3 has-text-right nav-logout">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <span class="mr-1">Kitchen Manager</span>
-                <button class="button is-primary">Logout</button>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span class="mr-1"><?php echo $staffid?></span>
+            <span class="mr-1"><?php echo $name_first," ",$name_last?></span>
+            <button class="button is-primary" name="logout">Logout</button>
             </div>
         </div>
-    </div>
-    <!--------xx-----navi bar --------xx------->
-
-    <!----------- navigetable buttons------------>
-    <section>
-    <div class="row buttons-row">
-            <a href="/inventory">
-                <button class="button is-primary right-radius idle" >Inventory</button>
-
-            </a>
-            <a href="/grn">
-                <button class="button is-primary left-radius right-radius idle">GRN</button>
-            </a>
-            <a href="/admin/menu/update">
-                <button class="button is-primary button-is-active  left-radius right-radius idle">Menue</button>
-            </a>
-            <a href="/admin/staffmanage">
-                <button class="button is-primary left-radius idle">Staff Manage</button>
-            </a>
         </div>
-    </section>
-    <!-------XX---- navigetable buttons-----XX------->
+    </form>
+<!--------xx-----navi bar --------xx------->
+<!----------- navigatable buttons------------>
+<?php
+      if($staffid==50)
+      {     
+        ?>
+            <section>
+                <div class="row buttons-row">
+                        <a href="/admin">
+                            <button class="button is-primary  right-radius idle">Dash Board</button>
+                        </a>
+                        <a href="/inventory">
+                            <button class="button is-primary left-radius right-radius idle" >Inventory</button>
+
+                        </a>
+                        <a href="/grn">
+                            <button class="button is-primary left-radius right-radius idle">GRN</button>
+                        </a>
+                        <a href="/admin/menu/update">
+                            <button class="button is-primary button-is-active  left-radius right-radius idle">Menue</button>
+                        </a>
+                        <a href="/admin/staffmanage">
+                            <button class="button is-primary left-radius idle">Staff Manage</button>
+                        </a>
+                    </div>
+            </section>
+      <?php
+      }
+      else
+      {
+        $MenuUpdateController->logoutstaffMem();
+      }
+    ?>
+<!-----XX------ navigatable buttons-----XX------->
+    
 
     <section>
         <div class="columns group">
