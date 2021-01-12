@@ -113,9 +113,10 @@
             </div>
           </div>
           <form action="/online/summery" method="POST">
+            <!-- Log the order array and total amount -->
             <input id="confirmed-total" name="totalValue" value="0" style="display:none">
             <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
-            <button class="button is-primary mt-1 fadeInRight">Place Order</button>
+            <button class="button is-primary mt-1 fadeInRight" name="orderdetails">Place Order</button>
           </form>
           
         </div>
