@@ -1,0 +1,136 @@
+
+/* navigatable button page top */
+.buttons-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .button-is-active{
+    background-color: #f5a540 !important;
+    color: white !important;
+  }
+  .buttons-row > a > .button{
+    font-family: 'Baloo Thambi 2', cursive;
+    width: 10rem !important;
+    color: black;
+    background-color: transparent;
+    border: 1px solid #f5a540;
+  }  
+  
+  .left-radius{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .right-radius{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .idle:hover{
+    background-color: #f5a540 !important;
+    color: white !important;
+  }
+
+/* container */
+.content
+{
+  box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+  border-radius: 15px;
+  padding: .5rem;
+  margin: 51px;
+  margin-top: 13px;
+  /* margin-bottom: 20px; */
+  align-self: center;
+  cursor: pointer;
+  overflow: auto;
+}
+.font{
+    font-family: 'Baloo Thambi 2', cursive;
+}    
+/* Menu Cards->box */
+.box{
+    margin: 0 -5px;
+}
+.box:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.s-box{
+    display: inline-block;
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    padding: 1rem;
+    padding-top: 0rem;
+    margin: 10px;
+    margin-top: 0px;
+    align-self: center;
+    cursor: pointer;
+    overflow: auto;
+    width: 900px;
+    height:410px;
+    height: 500px;
+   
+    
+}
+inventory-container{
+    position: absolute;
+    top:23%;
+
+}
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent; 
+}
+.inventory-table td,th{
+    width:160px;
+    height: 50px;
+}
+.inventory-table #adjust-width{
+    width:140px;
+
+    text-align:left;
+}
+.inventory-table #align-right{
+    text-align:right;
+}
+.inventory-table .visibility-hide{
+    color:white;
+    background-color: white;
+}
+.visibility-hide:focus{
+   outline: none;
+    
+}
+tr:hover td{
+   background-color: #f5a540;
+   box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+   color:white;
+}
+#stuff .visibility-hide{
+    visibility: hidden;
+}
+tr:hover #stuff .visibility-hide{
+    color:#f5a540;
+    background:white;
+    visibility: visible;
+}
+th{
+    background: #d17a40;
+    position: sticky;
+    top: 0; 
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    font-size: 18px;
+    color:wheat;
+}
+
+/* change menu types color */
+.change-menu-color{
+    color:#f5a540 !important;
+  }
+
+.fill-form
+{
+    align-items: center;
+    margin-left:37px;
+    margin-top:40px;
+}

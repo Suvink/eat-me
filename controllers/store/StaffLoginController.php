@@ -19,6 +19,10 @@ class StaffLoginController extends Controller
       while ($row = $result->fetch_assoc()) {
         if ($password === $row["password"]) {
             $_SESSION['staffId']=$row['staffId'];
+            $_SESSION['firstName']=$row['firstName'];
+            $_SESSION['lastName']=$row['lastName'];
+           
+            // $_SESSION['lastName']=$row['staffId'];
          
     switch ($row["roleId"]) {
       case 1: 

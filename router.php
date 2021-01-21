@@ -8,7 +8,6 @@ $errorPage = '404.html';
 
 //Admin
 $adminDashboard = 'views/admin/dashboard.php';
-$staffDetails = 'views/admin/managestaffdetails.php';
 $staffManage='views/admin/staffmanage.php';
 $menuUpdate='views/admin/menuupdate.php';
 
@@ -142,8 +141,6 @@ switch ($request) {
     case '/staff/login' :
         require($staffLogin);
         break;
-    case '/staff/details' :
-        require($staffDetails);
     case '/api/v1/review' :
         require($review);
         break;
