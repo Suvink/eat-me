@@ -1,7 +1,5 @@
 <?php
 require_once './core/Controller.php';
-session_start();
-ob_start();
 class KitchenRetrieveController extends Controller
 {
     public function __construct()
@@ -75,6 +73,7 @@ class KitchenRetrieveController extends Controller
             // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
             $this->KitchenRetrieveModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
             return "inserted";
+           
 
         } else {
             return " <br>data not entered to db";

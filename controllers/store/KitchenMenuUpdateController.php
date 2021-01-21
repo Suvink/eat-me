@@ -1,6 +1,4 @@
 <?php 
-    session_start();
-    ob_start();
     require_once './core/Controller.php';
 
     class KitchenMenuUpdateController extends Controller

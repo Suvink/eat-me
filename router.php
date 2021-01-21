@@ -56,6 +56,7 @@ if(strpos($request, "?")){
     $params = "";
 }
 
+
 switch ($request) {
     case '/' :
         require($homepage.$params);

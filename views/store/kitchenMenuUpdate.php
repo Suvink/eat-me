@@ -1,6 +1,16 @@
 <?php
-require_once './controllers/store/KitchenMenuUpdateController.php';
-$KitchenMenuUpdateController = new KitchenMenuUpdateController();
+    session_start();
+    ob_start();
+    $staffid=$_SESSION['staffId'];
+    $name_first=$_SESSION['firstName'];
+    $name_last=$_SESSION['lastName'];
+
+    require_once './controllers/store/KitchenMenuUpdateController.php';
+    $KitchenMenuUpdateController = new KitchenMenuUpdateController();
+
+    if( isset( $_POST['logout'] ) ){
+        $KitchenMenuUpdateController->logoutstaffMem();
+      }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,23 +29,30 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
 
 <body>
     <!-- -----navi bar ---------- -->
-    <div class="navbar">
+    <form action="" method="POST"> 
+        <div class="navbar">
         <div class="columns group">
             <div class="column is-2">
-                <img src="../../img/logo.png" height=56 width="224" />
+            <img src="../../img/logo.png" height=56 width="224" />
             </div>
             <div class="column is-6 ml-5"></div>
             <div class="column is-3 has-text-right nav-logout">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <span class="mr-1">Kitchen Manager</span>
-                <button class="button is-primary">Logout</button>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span class="mr-1"><?php echo $staffid?></span>
+            <span class="mr-1"><?php echo $name_first," ",$name_last?></span>
+            <button class="button is-primary" name="logout">Logout</button>
             </div>
         </div>
-    </div>
+        </div>
+    </form>
     <!--------xx-----navi bar --------xx------->
-
-    <!----------- navigetable buttons------------>
-    <section>
+    <!----------- navigatable buttons------------>
+    <?php
+      if(isset($staffid))
+      {
+        
+        ?>
+        <section>
         <div class="row buttons-row">
             <a href="/kitchendisplay/orders">
                 <button class="button is-primary right-radius">Orders</button>
@@ -48,8 +65,18 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
                 <button class="button is-primary  button-is-active  left-radius idle">Menu</button>
             </a>
         </div>
-    </section>
-    <!-------XX---- navigetable buttons-----XX------->
+        </section>
+
+      <?php
+      }
+      else
+      {
+        $KitchenMenuUpdateController->logoutstaffMem();
+      }
+    ?>
+<!-----XX------ navigatable buttons-----XX------->
+
+<!----------- Main Section----------->
 
     <section>
         <div class="columns group">
@@ -81,6 +108,7 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
             </div>
         </div>
     </section>
+<!------XX----- Main Section-----XX------>
     <script>
         function hideOpen(id) {
             document.getElementById(id).style.visibility = "visible";
@@ -90,8 +118,6 @@ $KitchenMenuUpdateController = new KitchenMenuUpdateController();
             document.getElementById(id).style.visibility = "hidden";
         }
     </script>
-
-
 </body>
 
 </html>

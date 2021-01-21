@@ -18,6 +18,11 @@ class Controller
     unset($_SESSION['user_phone']);
     header("Location: /online",TRUE,302);
   }
+  public function logoutstaffMem(){
+    session_destroy();
+    unset($_SESSION['staffId']);
+    header("Location: /staff/login");
+  }
 
   public function parseParams($params)
   {

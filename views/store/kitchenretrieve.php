@@ -1,4 +1,11 @@
-<?php require_once './controllers/store/KitchenRetrieveController.php'; 
+<?php 
+     session_start();
+     ob_start();
+     $staffid=$_SESSION['staffId'];
+     $name_first=$_SESSION['firstName'];
+     $name_last=$_SESSION['lastName'];
+
+    require_once './controllers/store/KitchenRetrieveController.php'; 
     $KitchenRetriveController=new KitchenRetrieveController();
     $result4=null;
     $output=null;
@@ -14,11 +21,13 @@
         }
         $style = "style='display:block;'";
     }
-    
+    if( isset( $_POST['logout'] ) ){
+      $KitchenRetriveController->logoutstaffMem();
+    }
 ?>  
 
 <?php
- 
+
     if(isset($_POST['sendbtn'])){
       $newq=$_POST['newq'];
       $oldq=$_POST['oldq'];
@@ -47,39 +56,56 @@
 <body onload="hideUpbtn()">
 
 <!-- -----navi bar ---------- -->
-<div class="navbar">
-  <div class="columns group">
-    <div class="column is-2">
-      <img src="../../img/logo.png" height=56 width="224" />
+<form action="" method="POST"> 
+    <div class="navbar">
+      <div class="columns group">
+        <div class="column is-2">
+          <img src="../../img/logo.png" height=56 width="224" />
+        </div>
+        <div class="column is-6 ml-5"></div>
+        <div class="column is-3 has-text-right nav-logout">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <span class="mr-1"><?php echo $staffid?></span>
+          <span class="mr-1"><?php echo $name_first," ",$name_last?></span>
+          <button class="button is-primary" name="logout">Logout</button>
+        </div>
+      </div>
     </div>
-    <div class="column is-6 ml-5"></div>
-    <div class="column is-3 has-text-right nav-logout">
-      <i class="fa fa-user" aria-hidden="true"></i>
-      <span class="mr-1">Kitchen Manager</span>
-      <button class="button is-primary">Logout</button>
-    </div>
-  </div>
-</div>
+  </form>
 <!--------xx-----navi bar --------xx------->
 
+<!----------- navigatable buttons------------>
+    <?php
+      if($staffid==2)
+      {
+        
+        ?>
+        <section>
+          <div class="row buttons-row">
+            <a href="/kitchendisplay/orders">
+              <button class="button is-primary right-radius">Orders</button>
+            
+            </a>
+            <a href="/kitchendisplay/inventory">
+              <button class="button is-primary button-is-active left-radius right-radius idle">Items</button>
+            </a>
+            <a href="/kitchen/menu/update">
+              <button class="button is-primary left-radius idle">Menu</button>
+            </a>
+          </div>
+        </section>
 
+      <?php
+      }
+      else
+      {
+        $KitchenRetriveController->logoutstaffMem();
+      }
+    ?>
+<!-----XX------ navigatable buttons-----XX------->
 
 
 <!----------- Main section------------>
-<section>
-    <div class="row buttons-row">
-      <a href="/kitchendisplay/orders">
-        <button class="button is-primary right-radius">Orders</button>
-      
-      </a>
-      <a href="/kitchendisplay/inventory">
-        <button class="button is-primary button-is-active left-radius right-radius idle">Items</button>
-      </a>
-      <a href="/kitchen/menu/update">
-        <button class="button is-primary left-radius idle">Menu</button>
-      </a>
-    </div>
-  </section>
 
   <section>
       <div class="column is-12">           
