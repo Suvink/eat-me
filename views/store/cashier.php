@@ -10,7 +10,7 @@ require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
 
 if( isset( $_POST['logout'] ) ){
-  $CashierController->logout();
+  $CashierController->stafflogout();
 }
 
 ?>
@@ -36,8 +36,8 @@ if( isset( $_POST['logout'] ) ){
         <img src="../../img/logo.png" height="56" width="224" />
       </div>
       <div class="column is-10 has-text-right nav-logout">
-        <i class="fas fa-bicycle" aria-hidden="true"></i>
-        <span class="mr-1">User Name</span>
+        <i class="fas fa-user" aria-hidden="true"></i>
+        <span class="mr-1">Cashier <?= $_SESSION['staffId'] ?> </span>
         <form class="d-inline" action="/cashier" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
@@ -228,6 +228,18 @@ if( isset( $_POST['logout'] ) ){
       }
 
     }
+    async function fetchOrderDetails(){
+      try {
+        const response = await fetch('/api/v1/ongoingorders', {
+          method: 'GET',
+        });
+        console.log(await response);
+      } catch (err) {
+        artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+
+    fetchOrderDetails();
   </script>
 
 </body>
