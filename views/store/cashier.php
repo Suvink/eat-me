@@ -2,14 +2,14 @@
 session_start();
 ob_start();
 
-if(!isset($_SESSION['staffId'])){
-    header('Location: /staff/login');
+if (!isset($_SESSION['staffId'])) {
+  header('Location: /staff/login');
 }
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
 
-if( isset( $_POST['logout'] ) ){
+if (isset($_POST['logout'])) {
   $CashierController->stafflogout();
 }
 
@@ -26,6 +26,7 @@ if( isset( $_POST['logout'] ) ){
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- local styles -->
   <link rel="stylesheet" href="../../css/cashierStyles.css">
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <title>Cashier Dashboard </title>
 </head>
 
@@ -44,7 +45,7 @@ if( isset( $_POST['logout'] ) ){
       </div>
     </div>
   </div>
-  <div class="d-flex" id="popup-background-2">
+  <div class="d-flex justify-content-center" id="popup-background-2">
     <button class="button is-primary is-2 mr-1" onclick="checkOrder()"> Check Orders </button>
     <button class="button is-primary is-2 mr-1" onclick="placeOrder()"> Place Order </button>
   </div>
@@ -78,18 +79,9 @@ if( isset( $_POST['logout'] ) ){
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1001</td>
-                  <td>Mr.MR</td>
-                  <td>Coca Cola</td>
-                  <td>LKR 230.00</td>
-                  <td>08</td>
-                  <td> Preparing</td>
-                </tr>
-
               </tbody>
             </table>
-            <button class="button is-primary" onclick="updateTable()">Refresh</button>
+            <button class="button is-primary mt-1" onclick="fetchOrderDetails()">Refresh</button>
           </section>
         </div>
         <?php
@@ -136,25 +128,6 @@ if( isset( $_POST['logout'] ) ){
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     let closeBtn = document.getElementsByClassName("close");
-
-    function updateTable() {
-      let table = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
-      let row = table.insertRow(0);
-
-      let id = row.insertCell(0);
-      let customer = row.insertCell(1);
-      let items = row.insertCell(2);
-      let price = row.insertCell(3);
-      let table_No = row.insertCell(4);
-      let status = row.insertCell(5);
-
-      id.innerHTML = "1007";
-      customer.innerHTML = "Mr. T";
-      items.innerHTML = "Coke";
-      price.innerHTML = "rs.255";
-      table_No.innerHTML = "08";
-      status.innerHTML = "Preparing";
-    }
 
     function placeOrder() {
       window.location.href = '/cashier/placeorder';
@@ -203,19 +176,19 @@ if( isset( $_POST['logout'] ) ){
       let setButton = document.querySelector("#set-reserve-" + number);
       if (setButton.innerHTML.includes('Not')) {
         setButton.innerHTML = "Reserved";
-        isTableReserved=true;
+        isTableReserved = true;
         setButton.classList.toggle("reserved");
       } else {
         setButton.innerHTML = "Not Reserved";
-        isTableReserved=false;
+        isTableReserved = false;
         setButton.classList.remove("reserved");
       }
 
-      let data ={
-        "table":number,
-        "isReserved":isTableReserved
+      let data = {
+        "table": number,
+        "isReserved": isTableReserved
       }
-      
+
       try {
         const response = await fetch('/api/v1/reserve/table', {
           method: 'POST',
@@ -228,13 +201,44 @@ if( isset( $_POST['logout'] ) ){
       }
 
     }
-    async function fetchOrderDetails(){
+    async function fetchOrderDetails() {
       try {
         const response = await fetch('/api/v1/ongoingorders', {
           method: 'GET',
         });
-        console.log(await response);
+        let responseData = JSON.parse(await response.text());
+        console.log(responseData);
+
+        let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
+
+        //Clear the table
+        console.log(tbodyRef.rows.length);
+        for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+          tbodyRef.deleteRow(d);
+        }
+
+        //Insert data to table
+
+        responseData.forEach(function(entry) {
+          let row = tbodyRef.insertRow(0);
+          let id = row.insertCell(0);
+
+          let customer = row.insertCell(1);
+          let items = row.insertCell(2);
+          let price = row.insertCell(3);
+          let table_No = row.insertCell(4);
+          let status = row.insertCell(5);
+
+          id.innerHTML = entry.orderId;
+          customer.innerHTML = entry.customerId;
+          items.innerHTML = entry.orderStatus;
+          price.innerHTML = entry.orderType;
+          table_No.innerHTML = entry.paymentType;
+          status.innerHTML = "Preparing";
+        });
+
       } catch (err) {
+        console.log(err)
         artemisAlert.alert('error', 'Something went wrong!')
       }
     }
