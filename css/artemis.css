@@ -798,3 +798,14 @@ h6.subtitle {
 .d-inline{
   display: inline !important;
 }
+
+/* Flex Helpers */
+.justify-content-center{
+  justify-content: center !important;
+}
+.justify-content-right{
+  justify-content: right !important;
+}
+.justify-content-left{
+  justify-content: left !important;
+}

@@ -1,3 +1,19 @@
+<?php
+session_start();
+ob_start();
+
+require_once "./controllers/store/StewardController.php";
+$StewardController = new StewardController();
+
+if(!isset($_SESSION['staffId'])){
+    header('Location: /staff/login');
+}
+
+if( isset( $_POST['logout'] ) ){
+  $StewardController->stafflogout();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,9 +35,11 @@
 				<img src="../../img/logo.png" height="56" width="224" />
 			</div>
 			<div class="column is-10 has-text-right nav-logout">
-				<i class="fas fa-bicycle" aria-hidden="true"></i>
-				<span class="mr-1">User Name</span>
-				<button class="button is-primary"> Logout </button>
+				<i class="fas fa-user" aria-hidden="true"></i>
+				<span class="mr-1">Steward <?= $_SESSION['staffId'] ?></span>
+				<form class="d-inline" action="/steward" method="POST">
+					<button class="button is-primary" name="logout">Logout</button>
+				</form>
 			</div>
 		</div>
 	</div>

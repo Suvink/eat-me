@@ -42,6 +42,7 @@ $grn='views/store/grn.php';
 $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
 $reservetable= 'api/v1/TableReservation.php';
+$ongoingorders= 'api/v1/Ongoingorders.php';
 
 //controllers
 $dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
@@ -149,6 +150,9 @@ switch ($request) {
         break;
     case '/api/v1/reserve/table' :
         require($reservetable);
+        break;
+    case '/api/v1/ongoingorders' :
+        require($ongoingorders);
         break;
     default:
         http_response_code(404);

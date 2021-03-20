@@ -7,7 +7,7 @@ if (!isset($_SESSION['staffId'])) {
 	header('Location: /staff/login');
 }
 if( isset( $_POST['logout'] ) ){
-	$CashierCheckOrderController->logout();
+	$CashierCheckOrderController->stafflogout();
 }
 
 $display = null;

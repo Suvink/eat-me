@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
           </span>
         </label>
         <label class="field artemis-input-field">
-          <input class="artemis-input" type="text" placeholder="Your Password" name="password" required>
+          <input class="artemis-input" type="password" placeholder="Your Password" name="password" required>
           <span class="label-wrap">
             <span class="label-text">Password</span>
           </span>
