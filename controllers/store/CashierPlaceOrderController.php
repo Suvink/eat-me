@@ -18,7 +18,7 @@ class CashierPlaceOrderController extends Controller
           <td>'.$row['itemNo'].'</td>
           <td>'.$row['itemName'].'</td>
           <td>'.$row['price'].'</td>
-          <td>'.$row['availability'].'</td>
+          <td>'.(($row['availability']=='true')?'Available':'Unavailable').'</td>
         </tr>
         ';
       }
