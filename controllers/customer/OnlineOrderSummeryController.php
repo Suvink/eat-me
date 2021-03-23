@@ -2,46 +2,81 @@
 
 require_once './core/Controller.php';
 
-class OnlineOrderSummeryController extends Controller{
+class OnlineOrderSummeryController extends Controller
+{
 
   private $orderArray;
   private $orderTotal;
+  private $deliveryFee;
 
   function __construct()
   {
     require './models/customer/OnlineOrderSummeryModel.php';
     $this->OnlineOrderSummeryModel = new OnlineOrderSummeryModel();
-    
   }
 
-  public function setOrderArray($orderData){
+  public function setOrderArray($orderData)
+  {
     $this->orderArray = json_decode($orderData);
   }
-  public function setorderTotal($totalValue){
-      $this->orderTotal = $totalValue;
+  public function setorderTotal($totalValue)
+  {
+    $this->orderTotal = $totalValue;
   }
 
-  public function getOrderTotal(){
+  public function getOrderID()
+  {
+    $result = $this->OnlineOrderSummeryModel->executeSql('SELECT * FROM `online_order` ORDER BY `orderId` DESC LIMIT 1');
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo $row['orderId'] + 1;
+      }
+    }
+  }
+
+  public function getDeliveryFee()
+  {
+    $result = $this->OnlineOrderSummeryModel->getAllDataWhere("delivery_fees", "type", 'standard');
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $this->deliveryFee = number_format((float)$row['price'], 2, '.', '');
+        echo number_format((float)$row['price'], 2, '.', '');
+      }
+    }
+  }
+
+  public function getTotalOrderFee()
+  {
+    if ($this->deliveryFee && $this->orderTotal) {
+      //cant keep the order total in double because we are double checking the user's order against DB for any hacks 
+      echo number_format((float)($this->deliveryFee + $this->orderTotal), 2, '.', '');
+    }
+  }
+
+  public function getOrderTotal()
+  {
     $calculatedTotal = 0;
-    foreach($this->orderArray as $item_price => $item_qty) {
+    foreach ($this->orderArray as $item_price => $item_qty) {
       $result =  $this->OnlineOrderSummeryModel->getAllDataWhere("menu", "itemNo", $item_price);
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-          $calculatedTotal = $calculatedTotal + ($row['price'] * $item_qty) ;
+          $calculatedTotal = $calculatedTotal + ($row['price'] * $item_qty);
         }
-      }else{
+      } else {
         $calculatedTotal = $calculatedTotal;
       }
     }
     //First check if the order total mathes with the DB. Then Convert to 2 decimal places and return
-    if($calculatedTotal == $this->orderTotal){
-      echo '<h3 class="mt-1 mb-1">'.number_format((float)$calculatedTotal, 2, '.', '').'</h3>';
+    if ($calculatedTotal == $this->orderTotal) {
+      echo number_format((float)$calculatedTotal, 2, '.', '');
     }
     //TODO: redirect with an error if that doesnt match
   }
 
-  public function renderFinalOrder(){
-    foreach($this->orderArray as $item_price => $item_qty) {
+  public function renderFinalOrder()
+  {
+    $counter = 1;
+    foreach ($this->orderArray as $item_price => $item_qty) {
       $result =  $this->OnlineOrderSummeryModel->getAllDataWhere("menu", "itemNo", $item_price);
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -50,17 +85,21 @@ class OnlineOrderSummeryController extends Controller{
                   <div class="menu-selected-row">
                     <div class="menu-selected-row-delete"><i class="check-icon fas fa-check-circle"></i></div>
                     <div class="menu-selected-row-image">
-                      <img src="'.$row['url'].'">
+                      <img src="' . $row['url'] . '">
                     </div>
                     <div class="menu-selected-row-description has-text-left">
-                      <h4 class="mb-0 mt-0">'.$row['itemName'].'</h4>
-                      <h5 class="mb-0 mt-0">Qty: '.$item_qty.'</h5>
+                      <h4 class="mb-0 mt-0">' . $row['itemName'] . '</h4>
+                      <h5 class="mb-0 mt-0">Qty: ' . $item_qty . '</h5>
                     </div>
                     <div class="menu-selected-row-price">
-                      <h4 class="mb-0 mt-0 has-text-right">'.number_format((float)$item_total_price, 2, '.', '').'</h4>
+                      <h4 class="mb-0 mt-0 has-text-right">' . number_format((float)$item_total_price, 2, '.', '') . '</h4>
                     </div>
                   </div>
+                  <input name="item_name_' . $counter . '" value="' . $row['itemName'] . '" style="display:none;">
+                  <input name="amount_' . $counter . '" value="' . number_format((float)$item_total_price, 2, '.', '') . '" style="display:none;">
+                  <input name="quantity_' . $counter . '" value="' . $item_qty . '" style="display:none;">
                 </div>';
+          $counter++;
         }
       }
     }
@@ -81,6 +120,33 @@ class OnlineOrderSummeryController extends Controller{
     }
   }
 
-  
+  public function getUserFname($phone)
+  {
+    $result = $this->OnlineOrderSummeryModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo $row['firstName'];
+      }
+    }
+  }
 
+  public function getUserLname($phone)
+  {
+    $result = $this->OnlineOrderSummeryModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo $row['lastName'];
+      }
+    }
+  }
+
+  public function getUserEmail($phone)
+  {
+    $result = $this->OnlineOrderSummeryModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo $row['email'];
+      }
+    }
+  }
 }
