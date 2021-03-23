@@ -1,5 +1,7 @@
 <?php
 require_once './core/Controller.php';
+session_start();
+ob_start();
 class KitchenRetrieveController extends Controller
 {
     public function __construct()
@@ -45,10 +47,17 @@ class KitchenRetrieveController extends Controller
         //  echo date("h:i")."<br>";
         date_default_timezone_set("Asia/Colombo");
         $datetime = date("Y-m-d,h:i");
+<<<<<<< HEAD
         //  echo $newupdateq."<br>";
         $val = 0;
         if (is_numeric($newq) && $newq >= 0) {
             $newupdateq = ($oldq-$newq);
+=======
+        $newupdateq = ($oldq-$newq);
+        //  echo $newupdateq."<br>";
+        $val = 0;
+        if (is_numeric($newq) && $newq >= 0) {
+>>>>>>> 8917dd0ea29a78658f07c14d47e17ad9e8fb7a27
             if ($oldq >= $newq) {
                 if ($unitId == 3) {
                     if (fmod($newq, 1) == 0) {
@@ -68,12 +77,21 @@ class KitchenRetrieveController extends Controller
 
             return "not a positive integer";
         }
+<<<<<<< HEAD
         if ($val == 1) {                                                
             $this->KitchenRetrieveModel->writeData("retrieve_stock","retrieve_quantity,`retrieved_date&time`,inventoryId","$newq,'$datetime',$itemId");
             // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
             $this->KitchenRetrieveModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
             return "inserted";
            
+=======
+        if ($val == 1) {
+                                                            //writeData("customer", "'id', 'phone', 'nic'", "'1212', 'sumanapala', '1231231'");
+                                                    //INSERT INTO customer ('id', 'phone', 'nic') VALUES ('1212', 'sumanapala', '1231231')
+            $this->KitchenRetrieveModel->writeData("'retrieve_stock'","'retrieve_quantity','retrieved_date&time','inventoryId'","$newq,'$datetime',$itemId");
+            // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
+            return "";
+>>>>>>> 8917dd0ea29a78658f07c14d47e17ad9e8fb7a27
 
         } else {
             return " <br>data not entered to db";

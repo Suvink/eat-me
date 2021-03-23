@@ -13,7 +13,7 @@ class Model {
     //INSERT INTO customer ('id', 'phone', 'nic') VALUES ('1212', 'sumanapala', '1231231')
     public function writeData($tableName, $columns, $data){
         $sql = 'INSERT INTO '.$tableName.' ('.$columns.' ) VALUES ('.$data.');';
-        //  echo $sql;
+        //echo $sql;
         $result =  $this->con->query($sql);
         
         if ($this->con->query($sql) === FALSE) {
