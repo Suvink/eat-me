@@ -42,6 +42,11 @@
   align-self: center;
   cursor: pointer;
   overflow: auto;
+ 
+ 
+}
+.table-color{
+  background-color:rgb(80, 37, 26) ;
 }
 .font{
     font-family: 'Baloo Thambi 2', cursive;
@@ -133,4 +138,10 @@ th{
     align-items: center;
     margin-left:37px;
     margin-top:40px;
+}
+.color-green:hover{
+  background-color: rgb(3, 56, 3);
+}
+.color-red:hover{
+  background-color: rgb(145, 6, 6);
 }

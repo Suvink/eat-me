@@ -11,6 +11,26 @@
     if( isset( $_POST['logout'] ) ){
         $KitchenMenuUpdateController->logoutstaffMem();
       }
+
+    function ext($i_id) 
+    {
+        $itemID=$i_id;
+        return $itemID;
+    }
+    if(isset($_POST['updateToHide'])) {
+        $ans=ext($_REQUEST['updateToHide']);
+        $KitchenMenuUpdateController->updateAvailabilityHide($ans);
+    }
+    if(isset($_POST['updateToShow'])) {
+        $ans=ext($_REQUEST['updateToShow']);
+        $KitchenMenuUpdateController->updateAvailabilityShow($ans);
+    }
+    if(isset($_POST['hideAllItems'])) {
+        $KitchenMenuUpdateController->hideAllItems();
+    }
+    if(isset($_POST['showAllItems'])) {
+        $KitchenMenuUpdateController->showAllItems();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,32 +99,51 @@
 <!----------- Main Section----------->
 
     <section>
-        <div class="columns group">
-            <div class="content">
+        <div class="content">
+            <div class="columns group">
                 <div class="column is-3">
                     <h2>Men<span class="change-menu-color">ue</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderMainMenu(); ?>
+                    <?php $KitchenMenuUpdateController->renderMainMenu(); 
+                          $KitchenMenuUpdateController->renderMainMenuHide(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Star<span class="change-menu-color">ters</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderStarters(); ?>
+                    <?php $KitchenMenuUpdateController->renderStarters();
+                          $KitchenMenuUpdateController->renderStartersHide(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Beve<span class="change-menu-color">rages</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderBeverages(); ?>
+                    <?php $KitchenMenuUpdateController->renderBeverages(); 
+                          $KitchenMenuUpdateController->renderBeveragesHide(); ?>
 
                 </div>
                 <div class="column is-3">
                     <h2>Desse<span class="change-menu-color">rts</span></h2>
 
-                    <?php $KitchenMenuUpdateController->renderDesserts(); ?>
+                    <?php $KitchenMenuUpdateController->renderDesserts(); 
+                          $KitchenMenuUpdateController->renderDessertsHide(); ?>
 
                 </div>
+            </div>
+       
+            <div class="columns group">
+                <form action="" method="POST">
+                    <div class="column is-12">
+                        <button class="hide-all-items-btn" name="hideAllItems">Hide all items</button>
+                    </div>
+                </form>
+            </div>
+            <div class="columns group">
+                <form action="" method="POST">
+                    <div class="column is-12">
+                        <button class="hide-all-items-btn show-all-items-btn" name="showAllItems">Show all items</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

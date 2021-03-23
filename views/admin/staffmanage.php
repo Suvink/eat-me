@@ -24,6 +24,35 @@ if(isset($_POST['submit'])){
 
     $staffManageController->addStaff($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
 }
+if(isset($_POST['updateStafff'])){
+    $staffid=$_POST['staffId'];
+    $firstname =$_POST['firstname'];
+    $lastname =$_POST['lastname'];
+    $cnumber =$_POST['cnumber'];
+    $email =$_POST['email'];
+    $roleid =$_POST['roleid'];
+    $password =$_POST['password'];
+    $re_password =$_POST['re_password'];
+
+    $staffManageController->updateStaff($staffid,$firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
+}
+$staffid2 ="Taken Automatically";
+$firstname2 =null;
+$lastName2 =null;
+$contactNo2 =null;
+$roleId2 =null;
+$email2 =null;
+$password2=null;
+if(isset($_POST['updateToList'])){
+    $staffid2 =$_POST['staffId'];
+    $firstname2 =$_POST['firstName'];
+    $lastName2 =$_POST['lastName'];
+    $contactNo2 =$_POST['contactNo'];
+    $roleId2 =$_POST['roleId'];
+    $email2 =$_POST['email'];
+    $password2=$staffManageController->getPassword($staffid2);
+
+}
 ?>
 <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
 <script>
@@ -51,6 +80,8 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="../css/style.css" />
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/staffManage.css">
+    <link rel="stylesheet" href="../../css/kitcheninventory.css">
+    <link rel="stylesheet" href="../../css/inventory.css">
     <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>StaffManagement</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
@@ -118,10 +149,10 @@ if(isset($_POST['submit'])){
     <!----------- Main section------------>
     
     <section>
-        <div class="content">
-            <div class="columns group">
-                <div class="column is-8">
-                    <table class="inventory-table">
+        <div class="columns group">
+            <div class="column is-8">
+                <div class="content table-color mr-0">
+                    <table class="inventory-table ">
                         <tr>
                             <th>ID</th>
                             <th>F_Name</th>
@@ -129,77 +160,93 @@ if(isset($_POST['submit'])){
                             <th>Contact Num</th>
                             <th>Email</th>
                             <th>roleId</th>
-                            <th>Password</th>
+                            <th>EDIT</th>
                         </tr>
                         <?php
                         $result = $staffManageController->getStaffDetails();
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                             <tr>
-                                <td><?php echo $row['staffId']; ?></td>
-                                <td><?php echo $row['firstName']; ?></td>
-                                <td><?php echo $row['lastName']; ?></td>
-                                <td><?php echo $row['contactNo']; ?></td>
-                                <td><?php echo $row['email']; ?></td>
-                                <td><?php echo $row['roleId']; ?></td>
-                                <td><?php echo "********" ?></td>
+                                <form action="" method="POST">
+                                <td><input name="staffId" type="hidden" value="<?php echo $row['staffId']; ?>"><?php echo $row['staffId']; ?></td>
+                                <td><input name="firstName" type="hidden" value="<?php echo $row['firstName']; ?>"><?php echo $row['firstName']; ?></td>
+                                <td><input name="lastName" type="hidden" value="<?php echo $row['lastName']; ?>"><?php echo $row['lastName']; ?></td>
+                                <td><input name="contactNo" type="hidden" value="<?php echo $row['contactNo']; ?>"><?php echo $row['contactNo']; ?></td>
+                                <td><input name="email" type="hidden" value="<?php echo $row['email']; ?>"><?php echo $row['email']; ?></td>
+                                <td><input name="roleId" type="hidden" value="<?php echo $row['roleId']; ?>"><?php echo $row['roleId']; ?></td>
+                                <!-- <td id="stuff"> <button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom">update</button></td> -->
+                                <td id="stuff"><button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom" >update</button></td>
+                                </form>
                             </tr>
                         <?php
                         }
                         ?>
                     </table>
                 </div>
-                <div class="column is-3">
+            </div>
+        <!-- </div> -->
+        <!-- <div class="columns group"> -->
+            <div class="column is-4">
+                <div class="content ml-0  mt-0 mb-0">
                     <h2>Manage-<span class="change-menu-color">-Staff</span></h2>
                     <div>
                     <form action = '/admin/staffmanage' method = 'POST'>
                         <div class="fill-form">
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="Only first name" name="firstname" required>
+                            <div class="columns group  mt-0 mb-0">
+                                <div class="column is-4  mt-0 mb-0">
+                                    <h2> Itam  ID </h2>
+                                </div>
+                                <div class="column is-6 mt-0 mb-0">
+                                    <input class=" zoom" type="hidden"  name="staffId" value="<?php echo $staffid2?>"> 
+                                    <h2><span class="change-menu-color"><?php echo $staffid2?></span></h2>
+                                </div>
+                            </div>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="Only first name" name="firstname" value="<?php echo $firstname2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">First Name</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="Onlylast last name" name="lastname" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="Onlylast last name" name="lastname" value="<?php echo $lastName2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Last Name</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="10 number required" name="cnumber" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="10 number required" name="cnumber" value="<?php echo "0".$contactNo2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Contact NO</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="email" placeholder="Sfaff member Email here" name="email" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="email" placeholder="Sfaff member Email here" name="email" value="<?php echo $email2 ?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Email</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="Sfaff member role Id" name="roleid" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="Sfaff member role Id" name="roleid" value="<?php echo $roleId2 ?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Role Id</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="Sfaff member Password here " name="password" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="Sfaff member Password here " name="password" value="<?php echo $password2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Password</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field">
-                                <input class="artemis-input" type="text" placeholder="Re-Enter password " name="re_password" required>
+                            <label class="field artemis-input-field ml-2">
+                                <input class="artemis-input zoom" type="text" placeholder="Re-Enter password " name="re_password" value="<?php echo $password2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Re-Enter Password</span>
                                 </span>
                             </label>
                         </div>    
-                            <button class="is-primary ml-2" name="submit">Add</button>
-                            <button class="is-primary">Update</button>
-                            <button class="is-primary">Delete</button>
+                            <button class="is-primary ml-2 color-green zoom" name="submit">Add</button>
+                            <button class="is-primary zoom ml-2" name="updateStafff">Update</button>
+                            <button class="is-primary color-red zoom ml-2">Delete</button>
 
                         </form>
                     </div>

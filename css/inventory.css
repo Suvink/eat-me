@@ -171,4 +171,19 @@ th{
     color:#f5a540;
 }
 
+.text-align{
+    text-align: center !important;
 
+}
+.adjust-margins{
+    margin:0;
+    padding: 0;
+    padding-top: 10px;
+    
+}
+.green-color{
+    background-color: darkgreen;
+}
+.color-org{
+    background-color: #f5a540;
+}

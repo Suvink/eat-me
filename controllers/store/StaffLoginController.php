@@ -21,7 +21,7 @@ class StaffLoginController extends Controller
             $_SESSION['staffId']=$row['staffId'];
             $_SESSION['firstName']=$row['firstName'];
             $_SESSION['lastName']=$row['lastName'];
-           
+            $_SESSION['lastUpdated']="------";
             // $_SESSION['lastName']=$row['staffId'];
          
     switch ($row["roleId"]) {
