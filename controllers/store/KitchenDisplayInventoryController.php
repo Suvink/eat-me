@@ -1,7 +1,5 @@
 <?php
     require_once './core/Controller.php';
-    ob_start();
-    session_start();
     class KitchenDisplayInventoryController extends Controller
     {
         public function __construct()

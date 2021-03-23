@@ -10,6 +10,19 @@ class CashierPlaceOrderController extends Controller
     $this->CashierPlaceOrderModel = new CashierPlaceOrderModel();
   }
   public function renderItemDisplayTable(){
+    $result=$this->CashierPlaceOrderModel->getAllData('menu');
+    if($result->num_rows>0){
+      while ($row = $result->fetch_assoc()) {
+        echo '
+        <tr>
+          <td>'.$row['itemNo'].'</td>
+          <td>'.$row['itemName'].'</td>
+          <td>'.$row['price'].'</td>
+          <td>'.(($row['availability']=='true')?'Available':'Unavailable').'</td>
+        </tr>
+        ';
+      }
+    }
       
   }
   public function placeOrder($customerPhone,$orderItems){

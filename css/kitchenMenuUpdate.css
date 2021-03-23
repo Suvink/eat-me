@@ -87,7 +87,34 @@
     display: inline-block;
 
   }
+.overlayHide {
+    position:absolute;
+    background:rgba(0,0,0,0.3);
+    z-index:1;
+    border-radius: 15px;
+    width: 250px;
+    height:40px;
+    padding: .5rem;
+    margin: 10px;
+    align-self: center;
+    visibility: visible;
+    display: inline-block;
+
+  }
   .overlay .btn-edit{
+      background-color: rgb(1, 80, 1);
+      align-self: center;
+      position: absolute;
+      top:20%;
+      right:3%;
+      font-family: 'Baloo Thambi 2', cursive;
+      border-radius: 15px;
+      width: 50px;
+      height:30px;
+      text-align: center ;
+      padding: 0;
+  }
+  .overlayHide .btn-edit{
       background-color: rgb(1, 80, 1);
       align-self: center;
       position: absolute;
@@ -108,4 +135,29 @@
 }
 .zoom:hover{
   transform: scale(1.1); 
+}
+
+.hide-btn-color{
+   background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-family: 'Baloo Thambi 2', cursive;
+    color: black;
+}
+.hide-all-items-btn{
+  width: 400px;
+  box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+  border: none;
+  cursor:pointer;
+  outline:none;
+  font-family: 'Baloo Thambi 2', cursive;
+}
+.show-all-items-btn{
+  background-color: rgb(1, 80, 1);
+}
+.add-new-items-btn{
+  background-color: #f5a540;
 }

@@ -1,5 +1,5 @@
 <?php
-    require './core/Model.php';
+    require_once './core/Model.php';
     class StaffManageModel extends Model
     {
         function __construct()

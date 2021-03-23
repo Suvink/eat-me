@@ -108,30 +108,7 @@ if(isset($_POST['placeorder-btn'])){
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1001</td>
-              <td>Chicken Fried Rice</td>
-              <td>LKR 230.00</td>
-              <td> Available</td>
-            </tr>
-            <tr>
-              <td>1001</td>
-              <td>Chicken Fried Rice</td>
-              <td>LKR 230.00</td>
-              <td> Available</td>
-            </tr>
-            <tr>
-              <td>1001</td>
-              <td>Chicken Fried Rice</td>
-              <td>LKR 230.00</td>
-              <td> Available</td>
-            </tr>
-            <tr>
-              <td>1001</td>
-              <td>Chicken Fried Rice</td>
-              <td>LKR 230.00</td>
-              <td> Available</td>
-            </tr>
+            <?php $CashierPlaceOrderController-> renderItemDisplayTable()?> 
           </tbody>
         </table>
       </div>
