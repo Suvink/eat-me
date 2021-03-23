@@ -8,13 +8,27 @@ class CashierController extends Controller{
       require './models/store/CashierModel.php';
       $this->CashierModel = new CashierModel();
     }
-    // public function setTableNumber($Number){
-    //     $this->tableNumber=$Number;
-    // }
-
+    
+    //get table reservation details from database
     public function renderTableReservationDetails($tableNumber){
         $result = $this->CashierModel->getAllDataWhere('table_details','tableNo',$tableNumber);
         $row=mysqli_fetch_assoc($result);
-        return $row['reservation'];
+        if($row['reservation']=='Reserved'){
+          return true;
+        }else{
+          return false;
+        }
+        
     }
+    //get ongoing order details from database
+
+    // public function renderOngoingOrders(){
+    //   $result = $this->CashierModel->getAllData('order_details');
+    //   $row=mysqli_fetch_assoc($result);
+    //   //$count = $this->CashierModel->executeSql("SELECT COUNT(orderid) FROM order_details;");
+    //   print_r($result);
+    //   die();
+    //   return [$result];
+
+    // }
 }

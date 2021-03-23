@@ -1,13 +1,21 @@
 <?php
 require_once './controllers/store/CashierCheckOrderController.php';
-$cashierCheckOrderController = new CashierCheckOrderController();
+$CashierCheckOrderController = new CashierCheckOrderController();
+
+/*Check session*/
+if (!isset($_SESSION['staffId'])) {
+	header('Location: /staff/login');
+}
+if( isset( $_POST['logout'] ) ){
+	$CashierCheckOrderController->stafflogout();
+}
+
 $display = null;
 $row = null;
 if (isset($_POST['search-btn'])) {
 	$searchedId = $_POST['search'];
-	$display = $cashierCheckOrderController->getOrderDetails($searchedId);
+	$display = $CashierCheckOrderController->getOrderDetails($searchedId);
 	$row = mysqli_fetch_assoc($display);
-	
 }
 ?>
 <!DOCTYPE html>
@@ -32,7 +40,9 @@ if (isset($_POST['search-btn'])) {
 			<div class="column is-10 has-text-right nav-logout">
 				<i class="fas fa-bicycle" aria-hidden="true"></i>
 				<span class="mr-1">User Name</span>
-				<button class="button is-primary"> Logout </button>
+				<form class="d-inline" action="/cashier" method="POST">
+					<button class="button is-primary" name="logout">Logout</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -68,10 +78,10 @@ if (isset($_POST['search-btn'])) {
 									<td> <?php echo $row['orderType']  ?></td>
 									<td> <?php echo $row['customerId']  ?></td>
 								</tr>
-							
+
 							</tbody>
 						</table>
-						
+
 					</div>
 				</div>
 			</div>

@@ -22,7 +22,6 @@ class DineinLoginController extends Controller
           $deleteQuery = $this->DineinLoginModelModel->deleteData('otp_temp', 'token', $token);
           echo $row["phone"];
           $_SESSION['user_phone'] = $row["phone"];
-          echo '<script>alert("wade hari")</script>';
           header('Location: /dinein');
         } else {
           $this->triggerError('Login Failed!');

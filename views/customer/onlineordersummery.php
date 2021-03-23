@@ -70,43 +70,18 @@ if (isset($_POST['logout'])) {
           <div class="card">
             <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
             <div class="menu-items">
-              <div class="menu-selected-item">
-                <div class="menu-selected-row">
-                  <div class="menu-selected-row-delete"><i class="check-icon fas fa-check-circle"></i></div>
-                  <div class="menu-selected-row-image">
-                    <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                  </div>
-                  <div class="menu-selected-row-description has-text-left">
-                    <h4 class="mb-0 mt-0">Chicken Burger</h4>
-                    <h5 class="mb-0 mt-0">Qty: 1</h5>
-                  </div>
-                  <div class="menu-selected-row-price">
-                    <h4 class="mb-0 mt-0 has-text-right">350.00</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="menu-selected-item">
-                <div class="menu-selected-row">
-                  <div class="menu-selected-row-delete"><i class="check-icon fas fa-check-circle"></i></div>
-                  <div class="menu-selected-row-image">
-                    <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                  </div>
-                  <div class="menu-selected-row-description has-text-left">
-                    <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                    <h5 class="mb-0 mt-0">Qty: 1</h5>
-                  </div>
-                  <div class="menu-selected-row-price">
-                    <h4 class="mb-0 mt-0 has-text-right">350.00</h4>
-                  </div>
-                </div>
-              </div>
+              <?php
+              $OnlineOrderSummeryController->renderFinalOrder();
+              ?>
             </div>
             <div class="total-box d-flex">
               <div class="title-col">
                 <h3 class="mt-1 mb-1">Order Total</h3>
               </div>
               <div class="price-col mr-1">
-                <h3 class="mt-1 mb-1">700.00</h3>
+                <?php
+                $OnlineOrderSummeryController->getOrderTotal();
+                ?>
               </div>
             </div>
             <div class="delivery-info">
