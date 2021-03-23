@@ -242,8 +242,6 @@ if (isset($_POST['logout'])) {
         artemisAlert.alert('error', 'Something went wrong!')
       }
     }
-
-    fetchOrderDetails();
   </script>
 
 </body>
