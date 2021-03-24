@@ -10,7 +10,7 @@ require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
 
 if (isset($_POST['logout'])) {
-  $CashierController->stafflogout();
+  $CashierController->logoutstaffMem();
 }
 
 ?>
@@ -81,7 +81,6 @@ if (isset($_POST['logout'])) {
               <tbody>
               </tbody>
             </table>
-            <button class="button is-primary mt-1" onclick="fetchOrderDetails()">Refresh</button>
           </section>
         </div>
         <?php
@@ -201,6 +200,7 @@ if (isset($_POST['logout'])) {
       }
 
     }
+    //order details table
     async function fetchOrderDetails() {
       try {
         const response = await fetch('/api/v1/ongoingorders', {
@@ -213,7 +213,7 @@ if (isset($_POST['logout'])) {
 
         //Clear the table
         console.log(tbodyRef.rows.length);
-        for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+        for (let d = tbodyRef.rows.length-1; d >= 0; d--) {
           tbodyRef.deleteRow(d);
         }
 
@@ -242,6 +242,8 @@ if (isset($_POST['logout'])) {
         artemisAlert.alert('error', 'Something went wrong!')
       }
     }
+    fetchOrderDetails();
+    setInterval(function(){ fetchOrderDetails() ; }, 30000);
   </script>
 
 </body>

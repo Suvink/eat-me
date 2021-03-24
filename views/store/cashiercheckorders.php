@@ -7,16 +7,20 @@ if (!isset($_SESSION['staffId'])) {
 	header('Location: /staff/login');
 }
 if( isset( $_POST['logout'] ) ){
-	$CashierCheckOrderController->stafflogout();
+	$CashierCheckOrderController->logoutstaffMem();
 }
 
 $display = null;
 $row = null;
+
 if (isset($_POST['search-btn'])) {
 	$searchedId = $_POST['search'];
 	$display = $CashierCheckOrderController->getOrderDetails($searchedId);
-	$row = mysqli_fetch_assoc($display);
+	
+}else{
+	$display = $CashierCheckOrderController->getOrderDetails("");
 }
+$row = mysqli_fetch_assoc($display);
 ?>
 <!DOCTYPE html>
 <html lang="en">

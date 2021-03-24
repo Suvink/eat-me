@@ -10,7 +10,11 @@
             $this->CashierCheckOrderModel = new CashierCheckOrderModel();
         }
         public function getOrderDetails($searchedId){
-            $result = $this->CashierCheckOrderModel->getAllDataWhere('order_details','orderId',$searchedId);
+            if($searchedId==null){
+                $result = $this->CashierCheckOrderModel->getAllData('order_details');    
+            }else{
+                $result = $this->CashierCheckOrderModel->getAllDataWhere('order_details','orderId',$searchedId);
+            }
             return $result;
         }
         public function logout(){

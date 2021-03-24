@@ -1,6 +1,6 @@
 <?php
 header("Content-Type:application/json");
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: POST");
 
 require_once "./core/DBConnection.php";
 
@@ -34,4 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     echo stripslashes(json_encode($message));
     return;
   }
+}else{
+  header("HTTP/1.1 405 Method Not Allowed");
+  http_response_code(405);
+  $message = '{"message": "Method Not Allowed"}';
+  echo stripslashes(json_encode($message));
+  return;
 }

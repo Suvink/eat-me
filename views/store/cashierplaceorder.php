@@ -10,7 +10,7 @@ if(!isset($_SESSION['staffId'])){
 }
 
 if( isset( $_POST['logout'] ) ){
-  $CashierPlaceOrderController->stafflogout();
+  $CashierPlaceOrderController->logoutstaffMem();
 }
 
 if(isset($_POST['placeorder-btn'])){
