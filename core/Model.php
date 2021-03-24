@@ -13,11 +13,10 @@ class Model {
     //INSERT INTO customer ('id', 'phone', 'nic') VALUES ('1212', 'sumanapala', '1231231')
     public function writeData($tableName, $columns, $data){
         $sql = 'INSERT INTO '.$tableName.' ('.$columns.' ) VALUES ('.$data.');';
-        //echo $sql;
         $result =  $this->con->query($sql);
         
         if ($this->con->query($sql) === FALSE) {
-            // echo "Database Error";
+            echo "Database Error";
           } else {
             return $result; 
         }
@@ -39,18 +38,6 @@ class Model {
     //SELECT * FROM customer WHERE phone=0771655198
     public function getAllDataWhere($tableName, $column, $data){
         $sql = 'SELECT * FROM '.$tableName.' WHERE '.$column.'="'.$data.'"';
-        $result =  $this->con->query($sql);
-        
-        if ($this->con->query($sql) === FALSE) {
-            echo "No data";
-          } else {
-            return $result; 
-        }
-    }
-    //getAllDataWhere('customer', 'phone', '0771655198', 'id', '11001')
-    //SELECT * FROM customer WHERE phone=0771655198 AND id=11001
-    public function getAllDataWhereAnd($tableName, $column1, $data1,$column2, $data2){
-        $sql = 'SELECT * FROM '.$tableName.' WHERE '.$column1.'="'.$data1.'" AND '.$column2.'="'.$data2.'"';
         $result =  $this->con->query($sql);
         
         if ($this->con->query($sql) === FALSE) {
@@ -88,11 +75,10 @@ class Model {
         }
     
         $sql = "UPDATE {$tableName} SET {$set} WHERE {$key} = {$keyvalue}";
-        $result =  $this->con->query($sql);
-        //  echo $sql;
-        // if(!$this->con->query($sql, $data)->error()) {
-        //     return true;
-        // }
+    
+        if(!$this->con->query($sql, $data)->error()) {
+            return true;
+        }
     
         return false;
     }
@@ -112,13 +98,11 @@ class Model {
 
 
 
-    //ona magulak meken puluwan
-    public function executeSql($query){ 
-        // echo $query;
+    //ඔබගේ වෙනත් සියලු අවශ්‍යතාවයන් සඳහා මෙමෙ Function එක භාවිත කරන්න
+    public function executeSql($query){
         $result =  $this->con->query($query);
-        
-        if ($this->con->query($query) === FALSE) {
-            echo "No data";
+        if ($result === FALSE) {
+            echo $this->con->error;
           } else {
             return $result; 
         }
