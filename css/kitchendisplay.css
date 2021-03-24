@@ -16,7 +16,7 @@
 .tabs input[name="tab-control"] {
   display: none;
 }
-.tabs .content section h2,
+.tabs .content-1 section h2,
 .tabs ul li label {
   font-weight: bold;
   font-size: 18px;
@@ -104,13 +104,13 @@
   background: #f5a540;
   border-radius: 1px;
 }
-.tabs .content {
+.tabs .content-1 {
   margin-top: 30px;
 }
-.tabs .content section {
+.tabs .content-1 section {
   display: none;
-  -webkit-animation-name: content;
-  animation-name: content;
+  -webkit-animation-name: content-1;
+  animation-name: content-1;
   -webkit-animation-direction: normal;
   animation-direction: normal;
   -webkit-animation-duration: 0.3s;
@@ -121,14 +121,14 @@
   animation-iteration-count: 1;
   line-height: 1.4;
 }
-.tabs .content .asign-order-status{
+.tabs .content-1 .asign-order-status{
     color:rgb(206, 151, 79);
 }
-.tabs .content section h2 {
+.tabs .content-1 section h2 {
   color: #f5a540;
   display: none;
 }
-.tabs .content section h2::after {
+.tabs .content-1 section h2::after {
   content: "";
   position: relative;
   display: block;
@@ -171,7 +171,7 @@
 }
 .tabs
   input[name="tab-control"]:nth-of-type(1):checked
-  ~ .content
+  ~ .content-1
   > section:nth-child(1) {
   display: block;
 }
@@ -206,7 +206,7 @@
 }
 .tabs
   input[name="tab-control"]:nth-of-type(2):checked
-  ~ .content
+  ~ .content-1
   > section:nth-child(2) {
   display: block;
 }
@@ -241,7 +241,7 @@
 }
 .tabs
   input[name="tab-control"]:nth-of-type(3):checked
-  ~ .content
+  ~ .content-1
   > section:nth-child(3) {
   display: block;
 }
@@ -276,11 +276,11 @@
 }
 .tabs
   input[name="tab-control"]:nth-of-type(4):checked
-  ~ .content
+  ~ .content-1
   > section:nth-child(4) {
   display: block;
 }
-@-webkit-keyframes content {
+@-webkit-keyframes content-1 {
   from {
     opacity: 0;
     -webkit-transform: translateY(5%);
@@ -292,7 +292,7 @@
     transform: translateY(0%);
   }
 }
-@keyframes content {
+@keyframes content-1 {
   from {
     opacity: 0;
     -webkit-transform: translateY(5%);
@@ -329,10 +329,10 @@
   .tabs .slider {
     display: none;
   }
-  .tabs .content {
+  .tabs .content-1 {
     margin-top: 20px;
   }
-  .tabs .content section h2 {
+  .tabs .content-1 section h2 {
     display: block;
   }
 }
@@ -348,7 +348,7 @@
 
 
 /* .nav .nav-menu{
-  justify-content: space-between;
+  justify-content-1: space-between;
 } */
 .nav .nav-items{
   display:flex;
@@ -574,21 +574,65 @@ width:80%;
 .popup .pop-content2 {
   position:absolute;
   display:block;
-  top:53%;
-  left:16%;
-  transform:translate(-50%,-50%) scale(0);
+  top:30%;
+  left:30%;
+  /* transform:translate(-50%,-50%) scale(0); */
   background:white;
-  width:380px;
-  height:600px;
-  z-index:1;
+  width:500px;
+  /* height:370px; */
+  z-index:2;
   padding:20px;
   box-sizing:border-box;
-  font-family:"Open Sans",sans-serif;
+  font-family: 'Baloo Thambi 2', cursive;
   margin: 0 -5px;
   border-radius: 10px;
-  /* resize: both; */
+  resize: height;
   overflow: auto;
 
+}
+.pop-content-update-riders {
+  position:absolute;
+  display:block;
+  top:22%;
+  left:2%;
+  /* transform:translate(-50%,-50%) scale(0); */
+  background:white;
+  width:380px;
+  /* height:370px; */
+  z-index:2;
+  padding:20px;
+  box-sizing:border-box;
+  font-family: 'Baloo Thambi 2', cursive;
+  margin: 0 -5px;
+  border-radius: 10px;
+  resize: height;
+  overflow: auto;
+  
+
+}
+.placement-top{
+  top:22%;
+  left:32%;
+}
+.close-btn-update-riders {
+  cursor:pointer;
+  position:absolute;
+  right:20px;
+  top:20px;
+  width:30px;
+  height:30px;
+  background:#f5a540;
+  color:#fff;
+  font-size:25px;
+  font-weight:600;
+  line-height:30px;
+  text-align:center;
+  border-radius:50%;
+  transform: 0.7s;
+}
+.close-btn-update-riders:hover{
+  transform: scale(1.2); 
+  background:#b30f0f;
 }
 
 .popup.active .pop-content2 {
@@ -626,19 +670,19 @@ width:80%;
 .popup .pop-content3 {
   position:absolute;
   display:block;
-  top:53%;
-  left:84%;
-  transform:translate(-50%,-50%) scale(0);
+  top:22%;
+  right:2%;
+  /* transform:translate(-50%,-50%) scale(0); */
   background:white;
   width:380px;
-  height:600px;
-  z-index:1;
+  /* height:370px; */
+  z-index:2;
   padding:20px;
   box-sizing:border-box;
-  font-family:"Open Sans",sans-serif;
+  font-family: 'Baloo Thambi 2', cursive;
   margin: 0 -5px;
   border-radius: 10px;
-  /* resize: both; */
+  resize: height;
   overflow: auto;
 
 }
@@ -651,7 +695,8 @@ width:80%;
 .asiggned-summery-card{
   display: inline-block;
   width: 295px;
-  height: 380px;
+  /* height: 380px; */
+  overflow: auto;
   box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
   border-radius: 15px;
   padding: 1rem;
@@ -718,3 +763,15 @@ transform: scale(1.1);
   background-color: #f5a540 !important;
   color: white !important;
 }
+
+.click-btn{
+  display:inline-block;
+  background-color:white;
+}
+.availibity-btn{
+  background-color: #0c440a;
+}
+.availibity-btn:hover{
+  background-color: #f5a540 !important;
+}
+

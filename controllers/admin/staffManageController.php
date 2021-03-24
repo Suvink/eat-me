@@ -86,7 +86,11 @@
             $val2=$this->validation($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
             if($val2==1)
             {
-                    $this->StaffManageModel->writeData("`staff`","`firstName`,`lastName`,`contactNo`,`email`,`roleId`,`password`","'$firstname','$lastname',$cnumber,'$email',$roleid,'$password'");
+                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,MD5('$password'))";    
+                $this->StaffManageModel->executeSql($sqlQ);
+                    
+                    // $query="INSERT INTO staff (id,user_id,first_name,last_name,email )VALUES('NULL','NULL','".$firstname."','".$lastname."','".$email."',MD5('".$password."'))";
+
                     //header('Location: /admin/staffmanage',true,302);
 
             }
@@ -115,3 +119,4 @@
         }
     }
 ?>
+

@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
+  <!-- <link rel="stylesheet" href="../../css/kitchendisplay.css"> -->
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -112,7 +113,7 @@
           <div class="slider">
             <div class="indicator"></div>
           </div>
-          <div class="content">
+          <div class="content-1">
             <section>
               <h2>Inventory</h2>
               <div class="search-boxs ">
