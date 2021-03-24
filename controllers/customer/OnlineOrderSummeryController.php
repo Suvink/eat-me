@@ -8,6 +8,7 @@ class OnlineOrderSummeryController extends Controller
   private $orderArray;
   private $orderTotal;
   private $deliveryFee;
+  private $itemCounter;
 
   function __construct()
   {
@@ -32,6 +33,11 @@ class OnlineOrderSummeryController extends Controller
         echo $row['orderId'] + 1;
       }
     }
+  }
+
+  public function getOrderItems()
+  {
+    print_r($this->orderArray);
   }
 
   public function getDeliveryFee()
@@ -98,11 +104,18 @@ class OnlineOrderSummeryController extends Controller
                   <input name="item_name_' . $counter . '" value="' . $row['itemName'] . '" style="display:none;">
                   <input name="amount_' . $counter . '" value="' . number_format((float)$item_total_price, 2, '.', '') . '" style="display:none;">
                   <input name="quantity_' . $counter . '" value="' . $item_qty . '" style="display:none;">
+                  <input name="item_code_' . $counter . '" value="' . $item_price . '" style="display:none;">
                 </div>';
           $counter++;
         }
       }
     }
+    $this->itemCounter = $counter;
+  }
+
+  public function getItemCount(){
+    //Minus 1 to account for the last increment
+    echo $this->itemCounter - 1;
   }
 
   public function renderNavBar($phone)
@@ -140,13 +153,4 @@ class OnlineOrderSummeryController extends Controller
     }
   }
 
-  public function getUserEmail($phone)
-  {
-    $result = $this->OnlineOrderSummeryModel->getAllDataWhere('customer', 'contactNo', $phone);
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        echo $row['email'];
-      }
-    }
-  }
 }

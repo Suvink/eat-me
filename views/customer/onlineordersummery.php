@@ -102,7 +102,7 @@ if (isset($_POST['logout'])) {
           <div class="delivery-info">
             <h3 class="has-text-left">Delivery Information</h3>
             <label class="field artemis-input-field">
-              <input class="artemis-input" type="text" placeholder="Your email here" required>
+              <input class="artemis-input" name="email" type="text" placeholder="Your email here" required>
               <span class="label-wrap">
                 <span class="label-text">Email to send the receipt</span>
               </span>
@@ -176,9 +176,9 @@ if (isset($_POST['logout'])) {
           </div>
           <div class="payhere-config">
             <input type="hidden" name="merchant_id" value="1214666">
-            <input type="hidden" name="return_url" value="/online/summery">
-            <input type="hidden" name="cancel_url" value="/online/summery">
-            <input type="hidden" name="notify_url" value="/online/summery">
+            <input type="hidden" name="return_url" value="http://localhost/online/summery">
+            <input type="hidden" name="cancel_url" value="http://localhost/online/summery">
+            <input type="hidden" name="notify_url" value="http://localhost/online/summery">
             <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
             <input type="text" name="items" value="Eat Me online" style="display: none;">
             <input type="text" name="currency" value="LKR" style="display: none;">
@@ -186,15 +186,16 @@ if (isset($_POST['logout'])) {
             <input type="text" name="amount" value="<?php $OnlineOrderSummeryController->getTotalOrderFee() ?>" style="display: none;">
             <input type="text" name="first_name" value="<?php $OnlineOrderSummeryController->getUserFname($_SESSION['user_phone']) ?>" style="display: none;">
             <input type="text" name="last_name" value="<?php $OnlineOrderSummeryController->getUserLname($_SESSION['user_phone']) ?>" style="display: none;">
-            <input type="text" name="email" value="<?php $OnlineOrderSummeryController->getUserEmail($_SESSION['user_phone']) ?>" style="display: none;">
             <input type="text" name="phone" value="<?php echo $_SESSION['user_phone'] ?>" style="display: none;">
+            <input type="text" name="item_count" value="<?php $OnlineOrderSummeryController->getItemCount() ?>" style="display: none;">
+            <input type="text" name="delivery_fee" value="<?php $OnlineOrderSummeryController->getDeliveryFee() ?>" style="display: none;">
           </div>
           <div class="mt-1 payment-buttons">
             <?php
             if ($payment_method == 'payhere') {
               echo '<button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>';
             } else {
-              echo '<button class="payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>';
+              echo '<button class="payment-button" value="ok" type="submit" name="place-order"><img class="payment-option" src="../../img/paycash.png" alt=""></button>';
             }
             ?>
           </div>
