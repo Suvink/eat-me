@@ -38,7 +38,7 @@ if (isset($_POST['logout'])) {
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fas fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Cashier <?= $_SESSION['staffId'] ?> </span>
+        <span class="mr-1">Staff <?= $_SESSION['staffId'] ?> </span>
         <form class="d-inline" action="/cashier" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>
@@ -70,11 +70,11 @@ if (isset($_POST['logout'])) {
             <table id="ongoing-orders-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Order ID</th>
                   <th>Customer</th>
                   <th>Items</th>
-                  <th>Price</th>
-                  <th>Table No</th>
+                  <th>Amount</th>
+                  <th>Order Type</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -104,7 +104,7 @@ if (isset($_POST['logout'])) {
                   ?>
 
                 </button>
-                <table>
+                <!-- <table>
                   <tr>
                     <td>1001</td>
                   </tr>
@@ -114,7 +114,7 @@ if (isset($_POST['logout'])) {
                   <tr>
                     <td>Order Status </td>
                   </tr>
-                </table>
+                </table> -->
               </div>
             </div>
           </section>
@@ -207,13 +207,13 @@ if (isset($_POST['logout'])) {
           method: 'GET',
         });
         let responseData = JSON.parse(await response.text());
-        console.log(responseData);
+        //console.log(responseData);
 
         let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
 
         //Clear the table
-        console.log(tbodyRef.rows.length);
-        for (let d = tbodyRef.rows.length-1; d >= 0; d--) {
+        //console.log(tbodyRef.rows.length);
+        for (let d = tbodyRef.rows.length - 1; d >= 0; d--) {
           tbodyRef.deleteRow(d);
         }
 
@@ -222,19 +222,18 @@ if (isset($_POST['logout'])) {
         responseData.forEach(function(entry) {
           let row = tbodyRef.insertRow(0);
           let id = row.insertCell(0);
-
           let customer = row.insertCell(1);
           let items = row.insertCell(2);
-          let price = row.insertCell(3);
-          let table_No = row.insertCell(4);
+          let amount = row.insertCell(3);
+          let order_type = row.insertCell(4);
           let status = row.insertCell(5);
 
           id.innerHTML = entry.orderId;
           customer.innerHTML = entry.customerId;
           items.innerHTML = entry.orderStatus;
-          price.innerHTML = entry.orderType;
-          table_No.innerHTML = entry.paymentType;
-          status.innerHTML = "Preparing";
+          amount.innerHTML = entry.amount;
+          order_type.innerHTML = entry.orderType;
+          status.innerHTML = returnOrderStatus(entry.orderStatus);
         });
 
       } catch (err) {
@@ -243,7 +242,44 @@ if (isset($_POST['logout'])) {
       }
     }
     fetchOrderDetails();
-    setInterval(function(){ fetchOrderDetails() ; }, 30000);
+    //refresh table
+    setInterval(function() {
+      fetchOrderDetails();
+    }, 30000);
+    //return orderstatus in readable format
+    function returnOrderStatus(num) {
+      switch (num) {
+        case '1':
+          return 'Placed';
+          break;
+        case '2':
+          return 'Accepted';
+          break;
+        case '3':
+          return 'Steward_Assigned';
+          break;
+        case '4':
+          return 'DP_Assigned';
+          break;
+        case '5':
+          return 'Prepared';
+          break;
+        case '6':
+          return 'Served';
+          break;
+        case '7':
+          return 'Delivered';
+          break;
+        case '8':
+          return 'Completed';
+          break;
+        case '9':
+          return 'Canceled';
+          break;
+        default:
+          return 'False Status';
+      }
+    }
   </script>
 
 </body>
