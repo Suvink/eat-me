@@ -33,7 +33,7 @@ class OnlineOrderController extends Controller
         echo '
         <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
           <div class="menu-card-content">
-            <img id="item-picture-'.$row['itemNo'].'" src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+            <img id="item-picture-'.$row['itemNo'].'" src="'.$row['url'].'">
             <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
             <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
           </div>
@@ -50,7 +50,7 @@ class OnlineOrderController extends Controller
         echo '
         <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
           <div class="menu-card-content">
-            <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046786.svg">
+            <img id="item-picture-'.$row['itemNo'].'" src="'.$row['url'].'">
             <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
             <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
           </div>
@@ -67,7 +67,7 @@ class OnlineOrderController extends Controller
         echo '
         <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
           <div class="menu-card-content">
-            <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046781.svg">
+            <img id="item-picture-'.$row['itemNo'].'" src="'.$row['url'].'">
             <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
             <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
           </div>
@@ -84,7 +84,7 @@ class OnlineOrderController extends Controller
         echo '
         <div class="menu-card" id="menu-'.$row['itemNo'].'" onclick="addToCart('.$row['itemNo'].')">
           <div class="menu-card-content">
-            <img id="item-picture-'.$row['itemNo'].'" src="https://www.flaticon.com/svg/static/icons/svg/1046/1046767.svg">
+            <img id="item-picture-'.$row['itemNo'].'" src="'.$row['url'].'">
             <h3 id="name-'.$row['itemNo'].'" class="mt-1 mb-0">'.$row['itemName'].'</h3>
             <h5 id="price-'.$row['itemNo'].'" class="mt-0">LKR '.$row['price'].'</h5>
           </div>

@@ -1,3 +1,19 @@
+<?php
+session_start();
+ob_start();
+
+require_once "./controllers/store/DeliveryPersonController.php";
+$DeliveryPersonController = new DeliveryPersonController();
+
+if(!isset($_SESSION['staffId'])){
+    header('Location: /staff/login');
+}
+
+if( isset( $_POST['logout'] ) ){
+  $DeliveryPersonController->stafflogout();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +36,10 @@
 			</div>
 			<div class="column is-10 has-text-right nav-logout">
 				<i class="fas fa-bicycle" aria-hidden="true"></i>
-				<span class="mr-1">User Name</span>
-				<button class="button is-primary"> Logout </button>
+				<span class="mr-1">DP <?= $_SESSION['staffId'] ?></span>
+				<form class="d-inline" action="/deliveryperson" method="POST">
+					<button class="button is-primary" name="logout">Logout</button>
+				</form>
 			</div>
 		</div>
 	</div>

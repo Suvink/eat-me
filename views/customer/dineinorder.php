@@ -60,7 +60,7 @@ if(!isset($_SESSION['user_phone'])){
             <p class="menu-items">Chicken Ramen x1, Dosai x20, Faluda x2</p>
             <h5 class=" ml-0 mb-0 title">Payment</h5>
             <div class="mt-1 payment-buttons">
-              <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST">
+              <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST" target="_blank">
                 <input type="hidden" name="merchant_id" value="1214666">   
                 <input type="hidden" name="return_url" value="https://eat-me.live/dinein/order">
                 <input type="hidden" name="cancel_url" value="https://eat-me.live/dinein/order">

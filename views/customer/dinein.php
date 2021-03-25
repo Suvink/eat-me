@@ -1,7 +1,6 @@
 <?php
   session_start();
   ob_start();
-  echo $_SESSION['user_phone'];
 
   if(!isset($_SESSION['user_phone'])){
       header('Location: /dinein/login');

@@ -358,6 +358,7 @@
   transition: all .2s;
 }
 .menu-card img {
+  height: 80px;
   width: 80px;
 }
 .menu-card:hover{
