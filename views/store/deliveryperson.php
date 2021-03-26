@@ -10,7 +10,7 @@ if(!isset($_SESSION['staffId'])){
 }
 
 if( isset( $_POST['logout'] ) ){
-  $DeliveryPersonController->stafflogout();
+  $DeliveryPersonController->logoutstaffMem();
 }
 ?>
 

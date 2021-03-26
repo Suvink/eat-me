@@ -5,12 +5,12 @@ ob_start();
 require_once "./controllers/store/StewardController.php";
 $StewardController = new StewardController();
 
-if(!isset($_SESSION['staffId'])){
-    header('Location: /staff/login');
+if (!isset($_SESSION['staffId'])) {
+	header('Location: /staff/login');
 }
 
-if( isset( $_POST['logout'] ) ){
-  $StewardController->stafflogout();
+if (isset($_POST['logout'])) {
+	$StewardController->logoutstaffMem();
 }
 ?>
 
@@ -48,10 +48,13 @@ if( isset( $_POST['logout'] ) ){
 			<div class="container has-text-centered">
 				<div class="card" id="availability">
 					<h1>Set Availability</h1>
-					<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
-					<label for="switch" class="toggle">
-						<p>On &nbsp; &nbsp; Off</p>
-					</label>
+					<form action="" method="POST" name="avalability-switch">
+						<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
+						<input style="display: none;" id="staff" />
+						<label for="switch" class="toggle">
+							<p>On &nbsp; &nbsp; Off</p>
+						</label>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -75,21 +78,7 @@ if( isset( $_POST['logout'] ) ){
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1001</td>
-									<td>Mr.MR</td>
-									<td>Coca Cola</td>
-									<td>LKR 230.00</td>
-									<td>8</td>
-									<td>
-										<select name="Status" id="Status" onchange="popupRate()">
-											<option value="Preparing">Preparing</option>
-											<option value="Prepared">Prepared</option>
-											<option value="Served">Served</option>
-											<option value="Completed">Completed</option>
-										</select>
-									</td>
-								</tr>
+								<?php $StewardController->renderAssignedOrders() ?>
 							</tbody>
 						</table>
 					</section>
@@ -150,7 +139,7 @@ if( isset( $_POST['logout'] ) ){
 					document.getElementById("star_2").classList.toggle("filled-color");
 					disableButtons();
 					break;
-				case 3:					
+				case 3:
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
 					document.getElementById("star_3").classList.toggle("filled-color");
@@ -173,21 +162,45 @@ if( isset( $_POST['logout'] ) ){
 			}
 		}
 
-		function disableButtons(){
-			document.getElementById("star_1").disabled= true;
-			document.getElementById("star_2").disabled= true;
-			document.getElementById("star_3").disabled= true;
-			document.getElementById("star_4").disabled= true;
-			document.getElementById("star_5").disabled= true;
+		function disableButtons() {
+			document.getElementById("star_1").disabled = true;
+			document.getElementById("star_2").disabled = true;
+			document.getElementById("star_3").disabled = true;
+			document.getElementById("star_4").disabled = true;
+			document.getElementById("star_5").disabled = true;
 		}
 
-		function blurBackground(){
+		function blurBackground() {
 			let blurEliment = document.getElementById("detailTable");
 			blurEliment.classList.toggle("blur");
 		}
-		function changeAvailability(){
+
+		function changeAvailability() {
 
 		}
+
+		function availability() {
+			document.getElementById("switch").value = getAvailability();
+		}
+
+		async function getAvailability(sId) {
+
+			try {
+				const response = await fetch('/api/v1/minorStaffAvailability?staff_id=' + sId, {
+					method: 'GET',
+				});
+				let responseData = JSON.parse(await response.text());
+				console.log(responseData);
+
+			} catch (err) {
+				console.log(err)
+				artemisAlert.alert('error', 'Something went wrong!')
+			}
+		}
+		getAvailability(<?= $_SESSION['staffId'] ?>);
+		setInterval(function() {
+			getAvailability(<?= $_SESSION['staffId'] ?>);
+		}, 30000);
 	</script>
 
 </body>

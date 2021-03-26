@@ -38,7 +38,7 @@ if (isset($_POST['logout'])) {
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fas fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Staff <?= $_SESSION['staffId'] ?> </span>
+        <span class="mr-1">Cashier <?= $_SESSION['staffId'] ?> </span>
         <form class="d-inline" action="/cashier" method="POST">
           <button class="button is-primary" name="logout">Logout</button>
         </form>

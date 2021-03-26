@@ -43,6 +43,7 @@ $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
 $reservetable= 'api/v1/TableReservation.php';
 $ongoingorders= 'api/v1/Ongoingorders.php';
+$minorStaffAvailability= 'api/v1/MinorStaffAvailability.php';
 
 //controllers
 $dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
@@ -155,6 +156,9 @@ switch ($request) {
     case '/api/v1/ongoingorders' :
         require($ongoingorders);
         break;
+    case '/api/v1/minorStaffAvailability' :
+            require($minorStaffAvailability);
+            break;
     default:
         http_response_code(404);
         require($errorPage);
