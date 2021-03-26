@@ -39,8 +39,8 @@ class Model {
     public function getAllDataWhere($tableName, $column, $data){
         $sql = 'SELECT * FROM '.$tableName.' WHERE '.$column.'="'.$data.'"';
         $result =  $this->con->query($sql);
-        
-        if ($this->con->query($sql) === FALSE) {
+        //echo $sql;
+        if ($result === FALSE) {
             echo "No data";
           } else {
             return $result; 
@@ -95,8 +95,6 @@ class Model {
             return $result; 
         }
     }
-
-
 
     //ඔබගේ වෙනත් සියලු අවශ්‍යතාවයන් සඳහා මෙමෙ Function එක භාවිත කරන්න
     public function executeSql($query){

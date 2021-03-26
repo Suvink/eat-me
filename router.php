@@ -13,14 +13,15 @@ $staffManage='views/admin/staffmanage.php';
 $menuUpdate='views/admin/menuupdate.php';
 
 //Customer
-$dineinLogin = 'views/customer/dineinlogin.php';
-$dinein = 'views/customer/dinein.php';
-$dineinorder = 'views/customer/dineinorder.php';
-$dineinSummery = 'views/customer/dineinsummery.php';
-$onlineOrderLogin = 'views/customer/onlineorderlogin.php';
-$onlineSummery = 'views/customer/onlineordersummery.php';
-$onlineOrder = 'views/customer/onlineorder.php';
-$onlineProfile = 'views/customer/onlinecustomerprofile.php';
+$dineinLogin = 'views/customer/DineinLogin.php';
+$dinein = 'views/customer/Dinein.php';
+$dineinorder = 'views/customer/DineinOrder.php';
+$dineinSummery = 'views/customer/DineinSummery.php';
+
+$onlineOrderLogin = 'views/customer/OnlineOrderLogin.php';
+$onlineSummery = 'views/customer/OnlineOrderSummery.php';
+$onlineOrder = 'views/customer/OnlineOrder.php';
+$onlineProfile = 'views/customer/OnlineCustomerProfile.php';
 
 //Store
 $cashier = 'views/store/cashier.php';
@@ -43,6 +44,7 @@ $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
 $reservetable= 'api/v1/TableReservation.php';
 $ongoingorders= 'api/v1/Ongoingorders.php';
+$customerorders= 'api/v1/CustomerOrders.php';
 
 //controllers
 $dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
@@ -154,6 +156,9 @@ switch ($request) {
         break;
     case '/api/v1/ongoingorders' :
         require($ongoingorders);
+        break;
+    case '/api/v1/customerorders' :
+        require($customerorders);
         break;
     default:
         http_response_code(404);

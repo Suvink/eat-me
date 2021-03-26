@@ -1,14 +1,58 @@
+<?php
+
+require_once './controllers/customer/DineinOrderController.php';
+//Initiate an instance of controller
+$DineinOrderController = new DineinOrderController();
+
+if(!isset($_SESSION['user_phone'])){
+  header('Location: /dinein/login');
+}
+
+if (isset($_POST['place-order'])) {
+  
+  $orderData = $_REQUEST['orderArray'];
+  $orderTotal = $_REQUEST['totalValue'];
+
+  $DineinOrderController->setOrderArray($orderData);
+  $DineinOrderController->setorderTotal($orderTotal);
+  
+  //Insert the Order into DB
+  $customer_id = $DineinOrderController->getCustomerID($_SESSION['user_phone']);
+  $DineinOrderController->setOrderDetails($DineinOrderController->getUnformattedOrderID(), $customer_id, 'dinein', $orderTotal, 'cash'); //Set the default payment method to cash to avoid breakdows
+
+  //Log the order
+  $DineinOrderController->setDineinOrder($DineinOrderController->getUnformattedOrderID(), 6);
+
+  //Insert order items into the table
+  foreach ($DineinOrderController->getOrderItems() as $key => $value) {
+    $DineinOrderController->setOrderItems($key, $value, $DineinOrderController->getUnformattedOrderID());
+   }
+
+}else if (isset($_GET['existing_order'])) {
+  
+  $orderData = $DineinOrderController->getOrderById($_GET['order_id']);
+  $orderTotal = $DineinOrderController->getOrderAmountById($_GET['order_id']);
+
+  $DineinOrderController->setOrderArray($orderData);
+  $DineinOrderController->setorderTotal($orderTotal);
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- Global Styles -->
   <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- Local Styles -->
-  <link rel="stylesheet" href="../../css/dineinSummeryStyles.css">
-  <title>Dine-in Summery</title>
+  <link rel="stylesheet" href="../../css/dineinorderstyles.css">
+  <title>Your Order</title>
 </head>
 
 <body>
@@ -20,76 +64,64 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span class="mr-1">Suvin Nimnaka</span>
-        <button class="button is-primary">Logout</button>
+        <?php
+        $DineinOrderController->renderNavBar($_SESSION['user_phone']);
+        ?>
+        <form class="d-inline" action="/online" method="POST">
+          <button class="button is-primary" name="logout">Logout</button>
+        </form>
       </div>
     </div>
   </div>
+
+
 
   <section>
     <div class="columns group">
       <div class="column is-2"></div>
       <div class="column is-8">
-        <div class="card">
-          <h1 class="orange-color mt-0 mb-1">Order Summery</h1>
-          <div class="menu-items" id="selected-menu">
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
+        <div class="card pl-2 pr-2">
+          <h1 class="orange-color mt-0 mb-1">My Order</h1>
+          <img class="status-image" src="../../img/preparing.gif" alt="">
+          <h5 class="title mb-0">Your order is preparing...</h5>
+          <h6 class="title mt-0" id="order-id">#
+            <?php 
+              if (isset($_POST['place-order'])){
+                $DineinOrderController->getOrderID();
+              }else{
+                echo $_GET['order_id'];
+              }
+            ?>
+          </h6>
+          <div class="content has-text-left">
+            <h5 class=" ml-0 mb-0 title">Order Items</h5>
+            <p class="menu-items"><?php $DineinOrderController->getOrderItemsString(); ?></p>
+            <h5 class=" ml-0 mb-0 title">Order Total</h5>
+            <p class="menu-items">LKR <?php $DineinOrderController->getOrderTotal(); ?></p>
+            <h5 class=" ml-0 mb-0 title">Payment</h5>
+            <div class="mt-1 payment-buttons">
+              <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST" target="_blank">
+                <input type="hidden" name="merchant_id" value="1214666">   
+                <input type="hidden" name="return_url" value="https://www.eat-me.live/online/profile">
+                <input type="hidden" name="cancel_url" value="https://www.eat-me.live/dinein/summery">
+                <input type="hidden" name="notify_url" value="https://www.eat-me.live/dinein/summery"> 
+                <input type="text" name="address" value="Obama Restaurent, Veyangoda" style="display: none;">
+                <input type="text" name="city" value="Colombo" style="display: none;">
+                <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
+                <input type="text" name="currency" value="LKR" style="display: none;">
+                <input type="text" name="items" value="Eat Me Dine-in" style="display: none;">
+                <?php $DineinOrderController->renderFinalOrder() ?>
+                <input type="text" name="order_id" value="<?php $DineinOrderController->getOrderID(); ?>" style="display: none;">
+                <input type="text" name="amount" value="<?php $DineinOrderController->getOrderTotal(); ?>" style="display: none;">  
+                <input type="text" name="first_name" value="<?php $DineinOrderController->getUserFname($_SESSION['user_phone']); ?>" style="display: none;">
+                <input type="text" name="last_name" value="<?php $DineinOrderController->getUserLname($_SESSION['user_phone']); ?>" style="display: none;">
+                <input type="text" name="email" value="<?php $DineinOrderController->getUserEmail($_SESSION['user_phone']); ?>" style="display: none;">
+                <input type="text" name="phone" value="<?php echo $_SESSION['user_phone'] ?>" style="display: none;">
+  
+                <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              </form>
+              <button class="payment-button" type="submit" name="place-order" onclick="payByCash();"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
-            <div class="menu-selected-item">
-              <div class="menu-selected-row">
-                <div class="menu-selected-row-delete"><i class="fas fa-trash-alt"></i></div>
-                <div class="menu-selected-row-image">
-                  <img src="https://image.flaticon.com/icons/svg/184/184406.svg">
-                </div>
-                <div class="menu-selected-row-description has-text-left">
-                  <h4 class="mb-0 mt-0">Chinese Ramen</h4>
-                  <select>
-                    <option>Small</option>
-                    <option>Regular</option>
-                    <option>Large</option>
-                  </select>
-                </div>
-                <div class="menu-selected-row-price">
-                  <h4 class="mb-0 mt-0">350.00</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="total-box d-flex">
-            <div class="title-col">
-              <h3 class="mt-1 mb-1">Total Amount</h3>
-            </div>
-            <div class="price-col has-text-right mr-1">
-            <h3 class="mt-1 mb-1">450.00</h3>
-            </div>
-          </div>
-          <div class="row status-badge-orange mt-1">
-            <h2>Preparing</h2>
-          </div>
-          <div class="row status-badge-green mt-1">
-            <h2>Served! Enjoy your meal!</h2>
-          </div>
-          <div class="pay-buttons mt-1">
-            <a href=""><button class="button is-link">Review Order</button></a>
-            <a href=""><button class="button is-primary">Pay Online</button></a>
-            <a href=""><button class="button is-primary">Pay in Cash</button></a>
           </div>
         </div>
       </div>
@@ -97,5 +129,124 @@
     </div>
   </section>
 
+  <div class="popout" onclick="stopEvent();">
+    <div class="popout-btn" id="popout-btn">
+      <i class="icon fab fa-tripadvisor"></i>
+    </div>
+    <div class="panel" id="popout-panel">
+      <div class="panel-header">
+        <center>
+          <h5 class="title header-title mt-0 mb-0">Take a moment to review us!</h5>
+        </center>
+      </div>
+      <div class="panel-body">
+        <h5 class="title">How would you like to rate your EatMe<sup>TM</sup> experience?</h5>
 
+        <div class="rating">
+          <input type="radio" name="rating" id="rating-5">
+          <label for="rating-5" onclick="getRating(5);"></label>
+          <input type="radio" name="rating" id="rating-4">
+          <label for="rating-4" onclick="getRating(4);"></label>
+          <input type="radio" name="rating" id="rating-3">
+          <label for="rating-3" onclick="getRating(3);"></label>
+          <input type="radio" name="rating" id="rating-2">
+          <label for="rating-2" onclick="getRating(2);"></label>
+          <input type="radio" name="rating" id="rating-1">
+          <label for="rating-1" onclick="getRating(1);"></label>
+          <div class="emoji-wrapper">
+            <div class="emoji">
+              <img src="../../img/r0.svg" class="rating-0" alt="">
+              <img src="../../img/r1.svg" class="rating-1" alt="">
+              <img src="../../img/r2.svg" class="rating-2" alt="">
+              <img src="../../img/r3.svg" class="rating-3" alt="">
+              <img src="../../img/r4.svg" class="rating-4" alt="">
+              <img src="../../img/r5.svg" class="rating-5" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="review-box">
+          <p class="subtitle mb-0 mt-2 pl-0 ml-0">Tell us more!</p>
+          <div class="notification-holder" id="notification-holder" style="display: none">
+            <div class="artemis-notification notification-success" id="notification-type">
+              <p id="notification-message">Hello</p>
+            </div>
+          </div>
+          <textarea type="text" class="review-input mt-1" id="review-text" rows="3"></textarea>
+        </div>
+        <button class="button is-primary mt-1" onclick="submitReview();">Submit</button>
+        <div class="row has-text-right">
+          Find More at Trip Advisor <i class="icon fab fa-tripadvisor"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
+  <script>
+    window.onbeforeunload = function() { return "Your work will be lost."; };
+  </script>
+  <script>
+    let reviewStatus = false;
+    let rating = 0;
+
+    if (!reviewStatus) {
+      setTimeout(triggerReview, 5000);
+    }
+
+    function triggerReview() {
+      document.getElementById('popout-btn').click();
+    }
+
+    function getRating(value) {
+      rating = value;
+    }
+
+    function stopEvent() {
+      //override the default close behaviour
+      event.stopPropagation();
+    }
+    document.getElementById('popout-btn').addEventListener('click', function() {
+      document.getElementById('popout-btn').classList.add("active");
+      document.getElementById('popout-panel').classList.add("active");
+      event.stopPropagation();
+    })
+    document.body.addEventListener("click", function(e) {
+      document.getElementById('popout-btn').classList.remove("active");
+      document.getElementById('popout-panel').classList.remove("active");
+      event.stopPropagation();
+    });
+
+    async function submitReview() {
+      let review = document.getElementById('review-text').value;
+      let orderId = document.getElementById('order-id').innerHTML.replace(/#\b/g, "");
+      let data = {
+        "rating": rating,
+        "review": review,
+        "id": orderId
+      }
+      try {
+        const response = await fetch('/api/v1/review', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        let dataJson = JSON.parse(await response.text());
+        document.getElementById("notification-holder").style.display = "block";
+        document.getElementById("notification-type").className = "artemis-notification notification-success";
+        document.getElementById("notification-message").innerHTML = "Successfully Submitted"
+        document.getElementById('review-text').value = "";
+      } catch (err) {
+        document.getElementById("notification-holder").style.display = "block";
+        document.getElementById("notification-type").className = "artemis-notification notification-danger";
+        document.getElementById("notification-message").innerHTML = "Something went wrong!"
+      }
+    }
+
+    function payByCash(){
+      artemisAlert.alert('success', 'Cash Payment Request Sent!')
+    }
+
+  </script>
 </body>
+
+</html>

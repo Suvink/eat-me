@@ -92,9 +92,9 @@ class OnlineCustomerProfileController extends Controller{
     }
   }
 
-  public function setOnlineOrder($order_id, $address)
+  public function setOnlineOrder($order_id, $address, $delivery_fee)
   {
-    $sql = "INSERT INTO `online_order` (`orderId`, `address`) VALUES (".$order_id.",'".$address."') ";
+    $sql = "INSERT INTO `online_order` (`orderId`, `address`, `delivery_fee`) VALUES (".$order_id.",'".$address."',".$delivery_fee.") ";
     $result = $this->OnlineCustomerProfileModel->executeSql($sql);
     if ($result) {
     }else{
@@ -102,13 +102,14 @@ class OnlineCustomerProfileController extends Controller{
     }
   }
 
-  public function setOrderDetails($order_id, $customer_id, $order_total, $payment_type, $delivery_fee)
+  public function setOrderDetails($order_id, $customer_id, $order_type, $order_total, $payment_type)
   {
-    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `delivey_fee`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$payment_type."',".$order_total.",'".$payment_type."',".$delivery_fee.", 1) ";
+    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', ".time().",0,0,1) ";
     $result = $this->OnlineCustomerProfileModel->executeSql($sql);
     if ($result == TRUE) {
     }else{
-      echo "<script>alert('1st something went wrong!')</script>";
+      echo "<script>alert('Something went wrong!')</script>";
+      //Add a redirect here
 
     }
   }

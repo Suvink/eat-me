@@ -94,6 +94,26 @@ class OnlineOrderController extends Controller
     }
   }
 
+  public function getCustomerID($phone)
+  {
+    $result = $this->OnlineOrderModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        return $row['customerId'];
+      }
+    }
+  }
+
+  public function hasExistingOrder($phone){
+    $customer_id = $this->getCustomerID($phone);
+    $result = $this->OnlineOrderModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8');
+    if ($result->num_rows > 0) {
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+
 
 
 }

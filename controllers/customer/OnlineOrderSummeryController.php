@@ -32,6 +32,8 @@ class OnlineOrderSummeryController extends Controller
       while ($row = $result->fetch_assoc()) {
         echo $row['orderId'] + 1;
       }
+    }else{
+      echo 5000;
     }
   }
 
