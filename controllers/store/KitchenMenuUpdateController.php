@@ -10,7 +10,7 @@
         }
 
         public function renderMainMenu(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'show');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -36,7 +36,7 @@
             }
           }
         public function renderMainMenuHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'hide');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -60,7 +60,7 @@
             }
           }
         public function renderStarters(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'show');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -86,7 +86,7 @@
             }
           }
         public function renderStartersHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'hide');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -110,7 +110,7 @@
             }
           }
         public function renderBeverages(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'show');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -136,7 +136,7 @@
             }
           }
         public function renderBeveragesHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'hide');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -160,7 +160,7 @@
             }
           }
         public function renderDesserts(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'show');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -186,7 +186,7 @@
             }
           }
         public function renderDessertsHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'hide');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -212,19 +212,19 @@
 
         public function updateAvailabilityHide($ans)
         {
-            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'hide'));
+            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'false'));
         }
         public function updateAvailabilityShow($ans)
         {
-            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'show'));
+            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
         }
         public function hideAllItems()
         {
-            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="hide" WHERE 1');
+            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="false" WHERE 1');
         }
         public function showAllItems()
         {
-            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="show" WHERE 1');
+            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="true" WHERE 1');
         }
     }
 ?>

@@ -4,7 +4,7 @@
      $staffid=$_SESSION['staffId'];
      $name_first=$_SESSION['firstName'];
      $name_last=$_SESSION['lastName'];
-
+     $roleId = $_SESSION['roleId'];
     require_once './controllers/store/KitchenRetrieveController.php'; 
     $KitchenRetriveController=new KitchenRetrieveController();
     $result4=null;
@@ -77,7 +77,7 @@
 
 <!----------- navigatable buttons------------>
     <?php
-      if($staffid==2)
+      if($roleId=="2")
       {
         
         ?>
@@ -160,55 +160,58 @@
                     {
                       while($row=mysqli_fetch_assoc($result4))
                       {
-                        ?>
-                          <form  method="POST" action="/kitchen/retrieve">
-                          <div class="container">
-                              <div class="menu-card">
-                                <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                                <div class="columns group">
-                                  <div class="column is-6">
-                                    <h3 class="mt-1 mb-0">Item_ID :</h3>
-                                  </div>
-                                  <div class="column is-6">
-                                    <input type="hidden" name="itemId" value="<?php echo $row['inventoryId'];?>">
-                                    <h3 class="mt-1 mb-0"><?php echo $row['inventoryId'];?></h3>
-                                  </div>
-                                  <div class="column is-12">
-                                    <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              <div class="menu-card retrieve-box mt-2 ml-2 card-zoom">
-                                <div class="columns group">
-                                  <div class="column is-7">
-                                    <h3 class="mt-1 mb-0 ml-0">Current Quantity:</h3>
-                                  </div>
-                                  <div class="column is-5">
-                                    <input type="hidden" name="oldq" value="<?php echo $row['quantity'];?>">
-                                    <input type="hidden" name="unitId" value="<?php echo $row['unitId'];?>">
-                                    <h3 class="mt-1 mb-0"><?php  
-                                                            echo $KitchenRetriveController->getRoundOfVal($row['unitId'],$row['quantity']);
-                                                            echo "(".$KitchenRetriveController->getMeasurementUnit($row['unitId']).")";
-                                                          ?>
-                                    </h3>
+                        if($row['tag']!="deleted")
+                        {
+                          ?>
+                            <form  method="POST" action="/kitchen/retrieve">
+                            <div class="container">
+                                <div class="menu-card">
+                                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                                  <div class="columns group">
+                                    <div class="column is-6">
+                                      <h3 class="mt-1 mb-0">Item_ID :</h3>
+                                    </div>
+                                    <div class="column is-6">
+                                      <input type="hidden" name="itemId" value="<?php echo $row['inventoryId'];?>">
+                                      <h3 class="mt-1 mb-0"><?php echo $row['inventoryId'];?></h3>
+                                    </div>
+                                    <div class="column is-12">
+                                      <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="columns group">
-                                  <div class="column is-12">
-                                      <h3 class="mt-1 mb-0 f-size"><input type="text" name="newq" class="retreive-quantity-txtbox" ><?php echo "(".$KitchenRetriveController->getMeasurementUnit($row['unitId']).")" ?></h3>
+                                
+                                <div class="menu-card retrieve-box mt-2 ml-2 card-zoom">
+                                  <div class="columns group">
+                                    <div class="column is-7">
+                                      <h3 class="mt-1 mb-0 ml-0">Current Quantity:</h3>
+                                    </div>
+                                    <div class="column is-5">
+                                      <input type="hidden" name="oldq" value="<?php echo $row['quantity'];?>">
+                                      <input type="hidden" name="unitId" value="<?php echo $row['unitId'];?>">
+                                      <h3 class="mt-1 mb-0"><?php  
+                                                              echo $KitchenRetriveController->getRoundOfVal($row['unitId'],$row['quantity']);
+                                                              echo "(".$KitchenRetriveController->getMeasurementUnit($row['unitId']).")";
+                                                            ?>
+                                      </h3>
+                                    </div>
+                                  </div>
+                                  <div class="columns group">
+                                    <div class="column is-12">
+                                        <h3 class="mt-1 mb-0 f-size"><input type="text" name="newq" class="retreive-quantity-txtbox" ><?php echo "(".$KitchenRetriveController->getMeasurementUnit($row['unitId']).")" ?></h3>
+                                    </div>
+                                  </div>
+                                  <div class="columns group">
+                                    <div class="column is-12">
+                                      <h3 class="mt-1 mb-0"><button name="sendbtn" class="retreive-quantity-addbtn">Retrieve</button></h3>
+                                    </div>
+                                    </form>
                                   </div>
                                 </div>
-                                <div class="columns group">
-                                  <div class="column is-12">
-                                    <h3 class="mt-1 mb-0"><button name="sendbtn" class="retreive-quantity-addbtn">Retrieve</button></h3>
-                                  </div>
-                                  </form>
-                                </div>
-                              </div>
-                            <!-- </div> -->
-                          </div>
-                        <?php
+                              <!-- </div> -->
+                            </div>
+                          <?php
+                        }
                       }
                     }
                     ?>  

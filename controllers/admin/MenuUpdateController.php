@@ -9,7 +9,7 @@
             $this->MenuUpdateModel =new MenuUpdateModel();
         }
         public function renderMainMenu(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'show');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -35,7 +35,7 @@
             }
           }
         public function renderMainMenuHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'hide');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -156,7 +156,7 @@
             }
           }
         public function renderStarters(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'show');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -182,7 +182,7 @@
             }
           }
         public function renderStartersHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'hide');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -303,7 +303,7 @@
             }
           }
         public function renderBeverages(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'show');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -329,7 +329,7 @@
             }
           }
         public function renderBeveragesHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'hide');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -450,7 +450,7 @@
             }
           }
         public function renderDesserts(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'show');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'true');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -476,7 +476,7 @@
             }
           }
         public function renderDessertsHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'hide');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'false');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo '
@@ -599,7 +599,7 @@
 
           public function updateAvailabilityHide($ans)
           {
-              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'hide'));
+              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'false'));
           }
           public function deleteMenu($ans)
           {
@@ -607,7 +607,7 @@
           }
           public function updateAvailabilityShow($ans)
           {
-              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'show'));
+              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
           }
           public function updateAvailabilityUpdate($ans)
           {
@@ -615,11 +615,11 @@
           }
           public function hideAllItems()
           {
-              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="hide" WHERE 1');
+              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="false" WHERE 1');
           }
           public function showAllItems()
           {
-              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="show" WHERE 1');
+              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="true" WHERE 1');
           }
           public function takeNewID()
           {
@@ -692,7 +692,7 @@
              
             if($check2==1)
             {
-              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability","$itemNumber, '$itemName', $itemPrice, '$itemType','hide'");
+              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability","$itemNumber, '$itemName', $itemPrice, '$itemType','false'");
               // echo "done";
             }
             else
@@ -708,12 +708,12 @@
              
               if($check==1)
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'show', 'type' => $itemType));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'true', 'type' => $itemType));
                 // echo "done";
               }
               else
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'show'));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
                     // echo" ";
                     // echo "=> updated to old status";
               }

@@ -11,7 +11,7 @@ class KitchenDisplayOrdersController extends Controller
 
     public function getOrderDetails()
     {
-        $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT * FROM `order_details` WHERE orderType="on" AND orderStatus !="decline"');
+        $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT * FROM `order_details` WHERE orderType="online" AND orderStatus !="9"');
         return $result;
     }
     public function getOrderItems($ans)
@@ -31,7 +31,17 @@ class KitchenDisplayOrdersController extends Controller
     }
     public function getDateAndTime($id)
     {
-        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('dateAndTime','order_includes_menu','orderId',$id);
+        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('timestamp','order_details','orderId',$id);
+        return $result;
+    }
+    public function getAssignedDateAndTime($id)
+    {
+        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('assignedTime','order_details','orderId',$id);
+        return $result;
+    }
+    public function getPreparedDateAndTime($id)
+    {
+        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('preparedTime','order_details','orderId',$id);
         return $result;
     }
     public function getAddress($id)
@@ -41,12 +51,12 @@ class KitchenDisplayOrdersController extends Controller
     }
     public function updateToAccept($id)
     {
-        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "accepted"));
+        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "2"));
         return $result;
     }
     public function updateToDecline($id)
     {
-        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "decline"));
+        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "9"));
         return $result;
     }
     public function getOrderStatusBtn($ans)
@@ -56,8 +66,9 @@ class KitchenDisplayOrdersController extends Controller
     }
     public function getRiders()
     {
-        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('staffId','staff','roleId',"5");
+        $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT staffId FROM `staff` WHERE roleId="5" AND tag !="deleted"');
         return $result;
+        
     }
     public function getRiderStatus($staffId)
     {
@@ -83,14 +94,22 @@ class KitchenDisplayOrdersController extends Controller
         $result = $this->KitchenDisplayOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "notAvailable"));
         return $result;
     }
-    public function updateToAssigned($assOrId)
+    public function updateToAssigned($assOrId,$dateAndTime)
     {
-        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$assOrId, array('orderStatus' => "assigned"));
+        date_default_timezone_set("Asia/Colombo");
+        $timestamp = date($dateAndTime);
+        $timestamp=time();
+        // echo date('Y/m/d H:i:s', $timestamp);
+        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$assOrId, array('orderStatus' => "4",'assignedTime' => $timestamp));
         return $result;
     }
     public function updateToPrepared($orId)
     {
-        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$orId, array('orderStatus' => "prepared"));
+        date_default_timezone_set("Asia/Colombo");
+        $datetime2 = date("Y-m-d,h:i");
+        $timestamp2 = date($datetime2);
+        $timestamp2=time();
+        $result = $this->KitchenDisplayOrdersModel->updateData('order_details','orderId',$orId, array('orderStatus' => "5",'preparedTime' => $timestamp2));
         return $result;
     }
 }

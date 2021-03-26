@@ -4,6 +4,7 @@
      $staffid=$_SESSION['staffId'];
      $name_first=$_SESSION['firstName'];
      $name_last=$_SESSION['lastName'];
+     $roleId = $_SESSION['roleId'];
     require_once ("./controllers/store/KitchenDisplayDineinOrdersController.php"); 
     $KitchenDisplayDineinOrdersController =new KitchenDisplayDineinOrdersController();
 
@@ -25,14 +26,14 @@
       $id = $ans;
       $orderStatusBtn = $KitchenDisplayDineinOrdersController->getOrderStatusBtn($ans);
       $row = mysqli_fetch_assoc($orderStatusBtn);
-      if ($row['orderStatus'] == "accepted") {
+      if ($row['orderStatus'] == "2") {
         $style2 = "style=display:none";
         $style3 = "style=display:block";
-      } else if ($row['orderStatus'] == "assigned") {
+      } else if ($row['orderStatus'] == "3") {
         $style2 = "style=display:none";
         $style3 = "style=display:none";
         $style7 = "style=display:block";
-      } else if ($row['orderStatus'] == "prepared") {
+      } else if ($row['orderStatus'] == "5") {
         $style2 = "style=display:none";
         $style3 = "style=display:none";
         $style6 = "style=display:none";
@@ -92,7 +93,7 @@
       $id = $assOrId;
       $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($assOrId);
       $style6 = "style=display:block";
-      $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId);
+      $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId,$dateAndTime);
       $KitchenDisplayDineinOrdersController->updateRiderStatus($assSId);
     }
     if (isset($_POST['prepared1'])) {
@@ -148,7 +149,7 @@
 
 <!----------- navigatable buttons------------>
   <?php
-    if($staffid==2)
+    if($roleId=="2")
     {
       
       ?>
@@ -214,7 +215,7 @@
                       </div>
                     </div>
                     <?php
-                    if ($row['orderStatus'] == "accepted") {
+                    if ($row['orderStatus'] == "2") {
                     ?>
                       <div class="columns group ">
                         <div class="column is-12">
@@ -222,7 +223,7 @@
                         </div>
                       </div>
                     <?php
-                    } else if ($row['orderStatus'] == "assigned") {
+                    } else if ($row['orderStatus'] == "3") {
                     ?>
                       <div class="columns group ">
                         <div class="column is-12">
@@ -235,7 +236,7 @@
                         </div>
                       </div>
                     <?php
-                    } else if ($row['orderStatus'] == "prepared") {
+                    } else if ($row['orderStatus'] == "5") {
                     ?>
                       <div class="columns group">
                         <div class="column is-12">
@@ -315,8 +316,10 @@
           <div class="total-box d-flex">
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
-              <h3 class="mt-1 mb-1">Arived Time</h3>
               <h3 class="mt-1 mb-1">Table Num</h3>
+              <h3 class="mt-1 mb-1">Arived Time</h3>
+              <h3 class="mt-1 mb-1">Assigned Time</h3>
+              <h3 class="mt-1 mb-1">prepared Time</h3>
             </div>
             <div class="price-col has-text-right mr-1">
               <h3 class="mt-1 mb-1">
@@ -329,20 +332,48 @@
               </h3>
               <h3 class="mt-1 mb-1">
                 <?php
-                $result5 = $KitchenDisplayDineinOrdersController->getDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                echo $row5['dateAndTime'];
-
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
-                <?php
                 $result6 = $KitchenDisplayDineinOrdersController->getAddress($id);
                 $row6 = mysqli_fetch_assoc($result6);
                 echo $row6['tableNo'];
 
                 ?>
               </h3>
+              <h3 class="mt-1 mb-1">
+                <?php
+                $result5 = $KitchenDisplayDineinOrdersController->getDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                $arrivedTime= $row5['timestamp'];
+                date_default_timezone_set("Asia/Colombo");
+                echo date('Y/m/d H:i:s',  $arrivedTime);
+
+                ?>
+              </h3>
+              <h3 class="mt-1 mb-1" >
+                <?php
+                $result5 = $KitchenDisplayDineinOrdersController->getAssignedDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                if( $row5['assignedTime'] != null)
+                {
+                  $assignedTime= $row5['assignedTime'];
+                  date_default_timezone_set("Asia/Colombo");
+                  echo date('Y/m/d H:i:s',   $assignedTime);
+                }
+                ?>
+              </h3>
+              <h3 class="mt-1 mb-1">
+                <?php
+                $result5 = $KitchenDisplayDineinOrdersController->getPreparedDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                if( $row5['preparedTime'] != null)
+                {
+                  $preparedTime= $row5['preparedTime'];
+                  date_default_timezone_set("Asia/Colombo");
+                  echo date('Y/m/d H:i:s',  $preparedTime);
+  
+                }
+                ?>
+              </h3>
+              
             </div>
           </div>
           <div class="columns group font">

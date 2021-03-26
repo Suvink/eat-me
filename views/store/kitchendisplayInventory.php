@@ -4,6 +4,7 @@
    $staffid=$_SESSION['staffId'];
    $name_first=$_SESSION['firstName'];
    $name_last=$_SESSION['lastName'];
+   $roleId = $_SESSION['roleId'];
   require_once './controllers/store/KitchenDisplayInventoryController.php'; 
   $kitchenDisplayInventoryController = new KitchenDisplayInventoryController();
 
@@ -69,7 +70,7 @@
 <!--------xx-----navi bar --------xx------->
 <!----------- navigatable buttons------------>
   <?php
-      if($staffid==2)
+      if($roleId=="2")
       {
         
         ?>
@@ -145,46 +146,49 @@
                     {
                       while($row=mysqli_fetch_assoc($result4))
                       {
-                        ?>
-                          <div class="container">
-                            <div class="rotate-card">
-                              <div class="menu-card front-face">
-                                <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                                <div class="columns group">
-                                  <div class="column is-6">
-                                    <h3 class="mt-1 mb-0">Item_ID :</h3>
-                                  </div>
-                                  <div class="column is-6">
-                                    <h3 class="mt-1 mb-0"><?php echo $row['inventoryId'];?></h3>
-                                  </div>
-                                  <div class="column is-12">
-                                    <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
+                        if($row['tag']!="deleted")
+                        {
+                          ?>
+                            <div class="container">
+                              <div class="rotate-card">
+                                <div class="menu-card front-face">
+                                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                                  <div class="columns group">
+                                    <div class="column is-6">
+                                      <h3 class="mt-1 mb-0">Item_ID :</h3>
+                                    </div>
+                                    <div class="column is-6">
+                                      <h3 class="mt-1 mb-0"><?php echo $row['inventoryId'];?></h3>
+                                    </div>
+                                    <div class="column is-12">
+                                      <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="menu-card back-face mt-2 ">
-                                <div class="columns group">
-                                  <div class="column is-6">
-                                    <h3 class="mt-1 mb-0">Quantity:</h3>
-                                  </div>
-                                  <div class="column is-6">
-                                    <h3 class="mt-1 mb-0"><?php  
-                                                            echo $kitchenDisplayInventoryController->getRoundOfVal($row['unitId'],$row['quantity']);
-                                                            echo "(".$kitchenDisplayInventoryController->getMeasurementUnit($row['unitId']).")";
-                                                          ?>
-                                    </h3>
-                                  </div>
-                                  <div class="column is-12">
-                                    <h3 class="mt-1 mb-0">Last_Retrieve_Date</h3>
-                                  </div>
-                                  <div class="column is-12">
-                                    <h3 class="mt-1 mb-0"><?php echo $kitchenDisplayInventoryController->getLastRetrieveData($row['inventoryId']);?></h3>
+                                <div class="menu-card back-face mt-2 ">
+                                  <div class="columns group">
+                                    <div class="column is-6">
+                                      <h3 class="mt-1 mb-0">Quantity:</h3>
+                                    </div>
+                                    <div class="column is-6">
+                                      <h3 class="mt-1 mb-0"><?php  
+                                                              echo $kitchenDisplayInventoryController->getRoundOfVal($row['unitId'],$row['quantity']);
+                                                              echo "(".$kitchenDisplayInventoryController->getMeasurementUnit($row['unitId']).")";
+                                                            ?>
+                                      </h3>
+                                    </div>
+                                    <div class="column is-12">
+                                      <h3 class="mt-1 mb-0">Last_Retrieve_Date</h3>
+                                    </div>
+                                    <div class="column is-12">
+                                      <h3 class="mt-1 mb-0"><?php echo $kitchenDisplayInventoryController->getLastRetrieveData($row['inventoryId']);?></h3>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        <?php
+                          <?php
+                        }
                       }
                     }
                     ?>       
@@ -218,6 +222,8 @@
                  for($i=1;$i<=($displayItems+1);$i++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
+                  if($row['tag']!="deleted")
+                  {
                     ?>
                     <div class="container">
                       <div class="rotate-card">
@@ -258,6 +264,7 @@
                       </div>
                     </div>
                     <?php
+                  }
                  }
                 ?>    
                 </div>
@@ -267,6 +274,8 @@
                  for($j=$i;$j<=($displayItems*2);$j++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
+                  if($row['tag']!="deleted")
+                  {
                     ?>
                        <div class="container">
                       <div class="rotate-card">
@@ -307,6 +316,7 @@
                       </div>
                     </div>
                     <?php
+                  }
                  }
                 ?>   
                 </div>
@@ -315,6 +325,8 @@
                  for($z=$j;$z<=($displayItems*3);$z++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
+                  if($row['tag']!="deleted")
+                  {
                    if($row==null)
                    {
                     break;
@@ -363,6 +375,7 @@
                     </div>
                     <?php
                    }
+                  }
                  }
                 ?>  
                 </div>

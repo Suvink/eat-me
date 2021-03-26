@@ -10,7 +10,7 @@
         }
         public function getInventoryDetails()
         {
-            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE flag NOT LIKE 'deleted%' ");
+            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE tag NOT LIKE 'deleted%' ");
             return $result;
         }
         public function getUnits($id)
@@ -105,10 +105,12 @@
                 if($unitcheck==1)
                 {
                     $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$id,array('itemName' => $itemName2, 'quantity' => $_SESSION['$updatedQuantity'], 'unitId' => $unitType2));
-                    // echo '<script language="javascript">';
-                    // echo 'alert("'.$id.'"+" "+"'.$itemName2.'"+" " +"updated !")';
-                    // echo '</script>';
-                    return $result2;
+                    date_default_timezone_set("Asia/Colombo");
+                    $date = new DateTime();
+                    $intDate= $date->getTimestamp();
+                    $result=$this->InventoryModel->writeData("disposed_item","inventoryId,quantity,timestamp","$id,'$quantity2',$intDate");
+                    return $result;
+
                 }
             }
             else
@@ -160,14 +162,15 @@
         }
         public function deleteItem($ans)
         {
-            $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$ans,array('flag' =>"deleted"));
+            $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$ans,array('tag' =>"deleted"));
             return $result2;
         }
 
         public function getInventoryLowItem($lowThan)
         {
-            $result=$this->InventoryModel-> executeSql("SELECT * FROM `inventory` WHERE quantity < $lowThan");
+            $result=$this->InventoryModel-> executeSql("SELECT * FROM `inventory` WHERE quantity < $lowThan AND tag != 'deleted'");
             return $result;
         }
+       
     }
 ?>  

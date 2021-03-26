@@ -4,7 +4,7 @@ ob_start();
 $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
-
+$roleId = $_SESSION['roleId'];
 require_once("./controllers/store/KitchenDisplayOrdersController.php");
 $KitchenDisplayOrdersController = new KitchenDisplayOrdersController();
 
@@ -26,14 +26,14 @@ if (isset($_POST['click'])) {
   $id = $ans;
   $orderStatusBtn = $KitchenDisplayOrdersController->getOrderStatusBtn($ans);
   $row = mysqli_fetch_assoc($orderStatusBtn);
-  if ($row['orderStatus'] == "accepted") {
+  if ($row['orderStatus'] == "2") {
     $style2 = "style=display:none";
     $style3 = "style=display:block";
-  } else if ($row['orderStatus'] == "assigned") {
+  } else if ($row['orderStatus'] == "4") {
     $style2 = "style=display:none";
     $style3 = "style=display:none";
     $style7 = "style=display:block";
-  } else if ($row['orderStatus'] == "prepared") {
+  } else if ($row['orderStatus'] == "5") {
     $style2 = "style=display:none";
     $style3 = "style=display:none";
     $style6 = "style=display:none";
@@ -93,19 +93,21 @@ if (isset($_POST['asignesOrders'])) {
   $id = $assOrId;
   $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
   $style6 = "style=display:block";
-  $KitchenDisplayOrdersController->updateToAssigned($assOrId);
+  $KitchenDisplayOrdersController->updateToAssigned($assOrId,$dateAndTime);
   $KitchenDisplayOrdersController->updateRiderStatus($assSId);
 }
+// $style8 = "style=display:none";
 if (isset($_POST['prepared1'])) {
   $orId = $_POST['orId'];
   $KitchenDisplayOrdersController->updateToPrepared($orId);
   $style6= "style=display:none";
-
+  // $style8 = "style=display:display";
 }
 if (isset($_POST['prepared2'])) {
   $orId = $_POST['orId'];
   $KitchenDisplayOrdersController->updateToprepared($orId);
   $style6= "style=display:none";
+  // $style8 = "style=display:display";
 }
 ?>
 
@@ -150,7 +152,7 @@ if (isset($_POST['prepared2'])) {
 
   <!----------- navigatable buttons------------>
   <?php
-  if ($staffid == 2) {
+  if ($roleId == "2") {
 
   ?>
     <section>
@@ -210,7 +212,7 @@ if (isset($_POST['prepared2'])) {
                       </div>
                     </div>
                     <?php
-                    if ($row['orderStatus'] == "accepted") {
+                    if ($row['orderStatus'] == "2") {
                     ?>
                       <div class="columns group ">
                         <div class="column is-12">
@@ -218,7 +220,7 @@ if (isset($_POST['prepared2'])) {
                         </div>
                       </div>
                     <?php
-                    } else if ($row['orderStatus'] == "assigned") {
+                    } else if ($row['orderStatus'] == "4") {
                     ?>
                       <div class="columns group ">
                         <div class="column is-12">
@@ -231,7 +233,7 @@ if (isset($_POST['prepared2'])) {
                         </div>
                       </div>
                     <?php
-                    } else if ($row['orderStatus'] == "prepared") {
+                    } else if ($row['orderStatus'] == "5") {
                     ?>
                       <div class="columns group">
                         <div class="column is-12">
@@ -314,8 +316,10 @@ if (isset($_POST['prepared2'])) {
           <div class="total-box d-flex">
             <div class="title-col">
               <h3 class="mt-1 mb-1">Total Amount</h3>
-              <h3 class="mt-1 mb-1">Arived Time</h3>
               <h3 class="mt-1 mb-1">Order Location</h3>
+              <h3 class="mt-1 mb-1">Arived Time</h3>
+              <h3 class="mt-1 mb-1" >Assigned Time</h3>
+              <h3 class="mt-1 mb-1" >Prepared Time</h3>
             </div>
             <div class="price-col has-text-right mr-1">
               <h3 class="mt-1 mb-1">
@@ -328,18 +332,45 @@ if (isset($_POST['prepared2'])) {
               </h3>
               <h3 class="mt-1 mb-1">
                 <?php
-                $result5 = $KitchenDisplayOrdersController->getDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                echo $row5['dateAndTime'];
+                $result6 = $KitchenDisplayOrdersController->getAddress($id);
+                $row6 = mysqli_fetch_assoc($result6);
+                echo $row6['address'];
 
                 ?>
               </h3>
               <h3 class="mt-1 mb-1">
                 <?php
-                $result6 = $KitchenDisplayOrdersController->getAddress($id);
-                $row6 = mysqli_fetch_assoc($result6);
-                echo $row6['address'];
+                $result5 = $KitchenDisplayOrdersController->getDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                $arrivedTime= $row5['timestamp'];
+                date_default_timezone_set("Asia/Colombo");
+                echo date('Y/m/d H:i:s',  $arrivedTime);
 
+                ?>
+              </h3>
+              <h3 class="mt-1 mb-1" >
+                <?php
+                $result5 = $KitchenDisplayOrdersController->getAssignedDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                if( $row5['assignedTime'] != null)
+                {
+                  $assignedTime= $row5['assignedTime'];
+                  date_default_timezone_set("Asia/Colombo");
+                  echo date('Y/m/d H:i:s',   $assignedTime);
+                }
+                ?>
+              </h3>
+              <h3 class="mt-1 mb-1">
+                <?php
+                $result5 = $KitchenDisplayOrdersController->getPreparedDateAndTime($id);
+                $row5 = mysqli_fetch_assoc($result5);
+                if( $row5['preparedTime'] != null)
+                {
+                  $preparedTime= $row5['preparedTime'];
+                  date_default_timezone_set("Asia/Colombo");
+                  echo date('Y/m/d H:i:s',  $preparedTime);
+  
+                }
                 ?>
               </h3>
             </div>

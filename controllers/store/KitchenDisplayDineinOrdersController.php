@@ -11,7 +11,7 @@
         
         public function getOrderDetails()
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->executeSql('SELECT * FROM `order_details` WHERE orderType="di" AND orderStatus !="decline"');
+            $result = $this->KitchenDisplayDineinOrdersModel->executeSql('SELECT * FROM `order_details` WHERE orderType="dinein" AND orderStatus !="9"');
             return $result;
         }
         public function getOrderItems($ans)
@@ -31,7 +31,17 @@
         }
         public function getDateAndTime($id)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('dateAndTime','order_includes_menu','orderId',$id);
+            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('timestamp','order_details','orderId',$id);
+            return $result;
+        }
+        public function getAssignedDateAndTime($id)
+        {
+            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('assignedTime','order_details','orderId',$id);
+            return $result;
+        }
+        public function getPreparedDateAndTime($id)
+        {
+            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('preparedTime','order_details','orderId',$id);
             return $result;
         }
         public function getAddress($id)
@@ -41,12 +51,12 @@
         }
         public function updateToAccept($id)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "accepted"));
+            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "2"));
             return $result;
         }
         public function updateToDecline($id)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "decline"));
+            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$id, array('orderStatus' => "9"));
             return $result;
         }
         public function getOrderStatusBtn($ans)
@@ -56,7 +66,7 @@
         }
         public function getRiders()
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('staffId','staff','roleId',"3");
+            $result = $this->KitchenDisplayDineinOrdersModel->executeSql('SELECT staffId FROM `staff` WHERE roleId="3" AND tag !="deleted"');
             return $result;
         }
         public function getRiderStatus($staffId)
@@ -83,15 +93,24 @@
             $result = $this->KitchenDisplayDineinOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "notAvailable"));
             return $result;
         }
-        public function updateToAssigned($assOrId)
+        public function updateToAssigned($assOrId,$dateAndTime)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$assOrId, array('orderStatus' => "assigned"));
+            date_default_timezone_set("Asia/Colombo");
+            $timestamp = date($dateAndTime);
+            $timestamp=time();
+            // echo date('Y/m/d H:i:s', $timestamp);
+            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$assOrId, array('orderStatus' => "3",'assignedTime' => $timestamp));
             return $result;
         }
         public function updateToPrepared($orId)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$orId, array('orderStatus' => "prepared"));
+            date_default_timezone_set("Asia/Colombo");
+            $datetime2 = date("Y-m-d,h:i");
+            $timestamp2 = date($datetime2);
+            $timestamp2=time();
+            $result = $this->KitchenDisplayDineinOrdersModel->updateData('order_details','orderId',$orId, array('orderStatus' => "5",'preparedTime' => $timestamp2));
             return $result;
         }
+        
     }
 ?>

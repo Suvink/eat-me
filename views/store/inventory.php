@@ -4,6 +4,7 @@
     $staffid=$_SESSION['staffId'];
     $name_first=$_SESSION['firstName'];
     $name_last=$_SESSION['lastName'];
+    $roleId = $_SESSION['roleId'];
     require_once './controllers/store/InventoryController.php';
     $InventoryController = new InventoryController();
 
@@ -132,7 +133,7 @@
     <!--------xx-----navi bar --------xx------->
     <!----------- navigatable buttons------------>
     <?php
-      if($staffid==1)
+      if($roleId=="1")
       {     
         ?>
          <section>
