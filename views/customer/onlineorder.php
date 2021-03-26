@@ -114,9 +114,12 @@
           </div>
           <form action="/online/summery" method="POST">
             <!-- Log the order array and total amount -->
-            <input id="confirmed-total" name="totalValue" value="0" style="display:none">
-            <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
-            <button class="button is-primary mt-1 fadeInRight" name="orderdetails">Place Order</button>
+            <input id="confirmed-total" name="totalValue" style="display:none" required>
+            <input id="order-array" type="text" name="orderArray" style="display:none" required>
+            <div class="mt-1 payment-buttons fadeInRight">
+              <button class="payment-button" type="submit" name="orderdetails-payhere"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              <button class="payment-button" type="submit" name="orderdetails-cash"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+            </div>
           </form>
           
         </div>

@@ -13,6 +13,7 @@ class Model {
     //INSERT INTO customer ('id', 'phone', 'nic') VALUES ('1212', 'sumanapala', '1231231')
     public function writeData($tableName, $columns, $data){
         $sql = 'INSERT INTO '.$tableName.' ('.$columns.' ) VALUES ('.$data.');';
+
         // echo $sql;
         $result =  $this->con->query($sql);
         
@@ -47,6 +48,7 @@ class Model {
             return $result; 
         }
     }
+
     //getAllDataWhere('customer', 'phone', '0771655198', 'id', '11001')
     //SELECT * FROM customer WHERE phone=0771655198 AND id=11001
     public function getAllDataWhereAnd($tableName, $column1, $data1,$column2, $data2){
@@ -89,11 +91,13 @@ class Model {
         }
     
         $sql = "UPDATE {$tableName} SET {$set} WHERE {$key} = {$keyvalue}";
+
         $result =  $this->con->query($sql);
         //   echo $sql;
         // if(!$this->con->query($sql, $data)->error()) {
         //     return true;
         // }
+
     
         return false;
     }
@@ -113,11 +117,9 @@ class Model {
 
 
 
-    //ona magulak meken puluwan
-    public function executeSql($query){ 
-        // echo $query;
+    //ඔබගේ වෙනත් සියලු අවශ්‍යතාවයන් සඳහා මෙමෙ Function එක භාවිත කරන්න
+    public function executeSql($query){
         $result =  $this->con->query($query);
-        
         if ($result === FALSE) {
             echo $this->con->error;
           } else {
