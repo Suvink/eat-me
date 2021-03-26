@@ -48,9 +48,9 @@ if (isset($_POST['logout'])) {
 			<div class="container has-text-centered">
 				<div class="card" id="availability">
 					<h1>Set Availability</h1>
+					<input style="display: none;" id="staff" />
 					<form action="" method="POST" name="avalability-switch">
 						<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
-						<input style="display: none;" id="staff" />
 						<label for="switch" class="toggle">
 							<p>On &nbsp; &nbsp; Off</p>
 						</label>
@@ -179,10 +179,6 @@ if (isset($_POST['logout'])) {
 
 		}
 
-		function availability() {
-			document.getElementById("switch").value = getAvailability();
-		}
-
 		async function getAvailability(sId) {
 
 			try {
@@ -197,7 +193,9 @@ if (isset($_POST['logout'])) {
 				artemisAlert.alert('error', 'Something went wrong!')
 			}
 		}
-		getAvailability(<?= $_SESSION['staffId'] ?>);
+		//save value of availability input tag
+		document.getElementById("switch").value= getAvailability(<?= $_SESSION['staffId'] ?>);
+		//refresh availability data in 30s
 		setInterval(function() {
 			getAvailability(<?= $_SESSION['staffId'] ?>);
 		}, 30000);
