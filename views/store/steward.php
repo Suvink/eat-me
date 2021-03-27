@@ -221,7 +221,7 @@ if (isset($_POST['logout'])) {
 				let responseData = JSON.parse(await response.text());
 				console.log(responseData);
 				if(responseData.status=='AVAILABLE'){
-					// document.querySelector("#switch")
+					document.querySelector("#switch").style
 					return '1';
 				}
 
