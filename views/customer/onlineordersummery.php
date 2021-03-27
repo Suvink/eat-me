@@ -115,9 +115,9 @@ if (isset($_POST['logout'])) {
             </label>
             <label class="field artemis-input-field">
               <select name="city" class="artemis-input artemis-select" type="text" required>
-                <option value="saab">Colombo</option>
-                <option value="mercedes">Gampaha</option>
-                <option value="audi">Veyangoda</option>
+                <option value="Colombo">Colombo</option>
+                <option value="Gampaha">Gampaha</option>
+                <option value="Veyangoda">Veyangoda</option>
               </select>
               <span class="label-wrap">
                 <span class="label-text">Your city</span>

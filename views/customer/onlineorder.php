@@ -10,6 +10,12 @@
   //Initiate an instance of controller
   $OnlineOrderController = new OnlineOrderController();
 
+  //Check for existing orders and redirect
+  $has_ongoing = $OnlineOrderController->hasExistingOrder($_SESSION['user_phone']);
+  if($has_ongoing){
+    header('Location: /online/profile');
+  }
+
   if ( isset( $_POST['logout'] ) ){
     $OnlineOrderController->logout();
   }
