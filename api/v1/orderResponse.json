@@ -1,0 +1,59 @@
+[
+    {
+        "orderId": 1002,
+        "orderType": "online",
+        "totalAmount": 520,
+        "paymentType": "cash",
+        "deliveryFee": 100,
+        "tableNo": "NULL",
+        "timestamp":1616560879,
+        "orderStatus" : 1,
+        "address": "35, Kalegana, Galle",
+        "delivery": {
+            "name": "Hasantha Lakshan",
+            "phone": "0771655198"
+        },
+        "items":[
+            {
+                "itemNo": 5002,
+                "itemQty": 4
+            },
+            {
+                "itemNo": 5001,
+                "itemQty": 1
+            },
+            {
+                "itemNo": 5009,
+                "itemQty": 2
+            }
+        ] 
+    },
+    {
+        "orderId": 1005,
+        "orderType": "dinein",
+        "totalAmount": 600,
+        "paymentType": "payhere",
+        "deliveryFee": "NULL",
+        "timestamp":1616560879,
+        "orderStatus" : 1,
+        "address": "NULL",
+        "delivery": {
+            "name": "NULL",
+            "phone": "NULL"
+        },
+        "items":[
+            {
+                "itemNo": 5002,
+                "itemQty": 4
+            },
+            {
+                "itemNo": 5001,
+                "itemQty": 1
+            },
+            {
+                "itemNo": 5009,
+                "itemQty": 2
+            }
+        ] 
+    }
+]

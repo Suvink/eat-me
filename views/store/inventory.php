@@ -4,6 +4,7 @@
     $staffid=$_SESSION['staffId'];
     $name_first=$_SESSION['firstName'];
     $name_last=$_SESSION['lastName'];
+    $roleId = $_SESSION['roleId'];
     require_once './controllers/store/InventoryController.php';
     $InventoryController = new InventoryController();
 
@@ -25,7 +26,7 @@
         $style2 = "style=display:block";
        $newID=$InventoryController->getNewInventoryID();
       }
-
+   
     function ext($i_id)
     {
         $itemID = $i_id;
@@ -132,7 +133,7 @@
     <!--------xx-----navi bar --------xx------->
     <!----------- navigatable buttons------------>
     <?php
-      if($staffid==1)
+      if($roleId=="1")
       {     
         ?>
          <section>
@@ -381,6 +382,11 @@
                             <button class="width-adjust font zoom">Create Report</button>
                         </div>
                     </div>
+                    <!-- <div class="columns group">
+                        <div class="column is-12">
+                            <button class="width-adjust font zoom" name="imageUploader">Image Uploader</button>
+                        </div>
+                    </div> -->
                     <div class="columns group">
                         <div class="column is-12">
                             <button class="width-adjust font color-org zoom">Refresh</button>
@@ -466,10 +472,11 @@
         }
 
         function closepopup01() {
-            document.getElementById("popup-1").style.display = "none";
+            document.getElementById("popup-3").style.display = "none";
         }
     </script>
     <!---------xx---pop up orders-----xx--------->
+    
 
 
     <!-- --------kitchen display js file -->
