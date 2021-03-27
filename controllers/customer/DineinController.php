@@ -27,7 +27,8 @@ class DineinController extends Controller
   }
 
   public function renderMainMenu(){
-    $result = $this->DineinModel->getAllDataWhere('menu', 'type', 'mains');
+    $sql = "SELECT * FROM menu WHERE type='mains' AND availability='TRUE'";
+    $result = $this->DineinModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -44,7 +45,8 @@ class DineinController extends Controller
   }
 
   public function renderSidesMenu(){
-    $result = $this->DineinModel->getAllDataWhere('menu', 'type', 'starters');
+    $sql = "SELECT * FROM menu WHERE type='starters' AND availability='TRUE'";
+    $result = $this->DineinModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -61,7 +63,8 @@ class DineinController extends Controller
   }
 
   public function renderBeveragesMenu(){
-    $result = $this->DineinModel->getAllDataWhere('menu', 'type', 'beverages');
+    $sql = "SELECT * FROM menu WHERE type='beverages' AND availability='TRUE'";
+    $result = $this->DineinModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -78,7 +81,8 @@ class DineinController extends Controller
   }
 
   public function renderDessertMenu(){
-    $result = $this->DineinModel->getAllDataWhere('menu', 'type', 'desserts');
+    $sql = "SELECT * FROM menu WHERE type='desserts' AND availability='TRUE'";
+    $result = $this->DineinModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
