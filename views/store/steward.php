@@ -66,19 +66,17 @@ if (isset($_POST['logout'])) {
 				<div class="card">
 					<h1 class="title"> <span class="orange-color">Order</span> Details </h1>
 					<section class="mt-1 pl-1 pr-1">
-						<table>
+						<table id="assigned-order">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Customer</th>
-									<th>Items</th>
 									<th>Price</th>
 									<th>Table No</th>
 									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php $StewardController->renderAssignedOrders() ?>
 							</tbody>
 						</table>
 					</section>
@@ -178,7 +176,42 @@ if (isset($_POST['logout'])) {
 		function changeAvailability() {
 
 		}
+		async function getAssignedOrders(sId) {
+			try {
+				const response = await fetch('/api/v1/minorStaffOrder?staff_id=' + sId, {
+					method: 'GET',
+				});
+				let responseOrderData = JSON.parse(await response.text());
+				console.log(responseOrderData);
+				let tbodyOrderRef = document.getElementById("assigned-order").getElementsByTagName('tbody')[0];
 
+				//Clear the table
+				console.log(tbodyOrderRef.rows.length);
+				for (let d = tbodyOrderRef.rows.length - 1; d >= 0; d--) {
+					tbodyOrderRef.deleteRow(d);
+
+				}
+
+				//insert order details
+				if (responseOrderData.orderStatus == '1'||responseOrderData.orderStatus == '2'||responseOrderData.orderStatus == '3'||responseOrderData.orderStatus == '4'||responseOrderData.orderStatus == '5') {
+					let row = tbodyOrderRef.insertRow(0);
+					let id = row.insertCell(0);
+					let customer = row.insertCell(1);
+					let amount = row.insertCell(2);
+					let status = row.insertCell(3);
+
+					id.innerHTML = responseOrderData.orderId;
+					customer.innerHTML = responseOrderData.firstName + ' ' + responseOrderData.lastName;
+					amount.innerHTML = 'Rs.' + responseOrderData.amount + '.00';
+					status.innerHTML = returnOrderStatus(responseOrderData.orderStatus);
+				}
+
+
+			} catch (err) {
+				console.log(err)
+				artemisAlert.alert('error', 'Something went wrong!')
+			}
+		}
 		async function getAvailability(sId) {
 
 			try {
@@ -187,6 +220,9 @@ if (isset($_POST['logout'])) {
 				});
 				let responseData = JSON.parse(await response.text());
 				console.log(responseData);
+				if(responseData.status=='AVAILABLE'){
+					return '1';
+				}
 
 			} catch (err) {
 				console.log(err)
@@ -194,11 +230,47 @@ if (isset($_POST['logout'])) {
 			}
 		}
 		//save value of availability input tag
-		document.getElementById("switch").value= getAvailability(<?= $_SESSION['staffId'] ?>);
+		document.getElementById("switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
 		//refresh availability data in 30s
 		setInterval(function() {
+			console.log(document.getElementById("switch").value );
 			getAvailability(<?= $_SESSION['staffId'] ?>);
-		}, 30000);
+			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
+		}, 10000);
+
+		function returnOrderStatus(num) {
+			switch (num) {
+				case '1':
+					return 'Placed';
+					break;
+				case '2':
+					return 'Accepted';
+					break;
+				case '3':
+					return 'Steward_Assigned';
+					break;
+				case '4':
+					return 'DP_Assigned';
+					break;
+				case '5':
+					return 'Prepared';
+					break;
+				case '6':
+					return 'Served';
+					break;
+				case '7':
+					return 'Delivered';
+					break;
+				case '8':
+					return 'Completed';
+					break;
+				case '9':
+					return 'Canceled';
+					break;
+				default:
+					return 'False Status';
+			}
+		}
 	</script>
 
 </body>

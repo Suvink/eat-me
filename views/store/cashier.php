@@ -72,9 +72,8 @@ if (isset($_POST['logout'])) {
                 <tr>
                   <th>Order ID</th>
                   <th>Customer</th>
-                  <th>Items</th>
-                  <th>Amount</th>
                   <th>Order Type</th>
+                  <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -223,16 +222,14 @@ if (isset($_POST['logout'])) {
           let row = tbodyRef.insertRow(0);
           let id = row.insertCell(0);
           let customer = row.insertCell(1);
-          let items = row.insertCell(2);
+          let order_type = row.insertCell(2);
           let amount = row.insertCell(3);
-          let order_type = row.insertCell(4);
-          let status = row.insertCell(5);
+          let status = row.insertCell(4);
 
           id.innerHTML = entry.orderId;
-          customer.innerHTML = entry.customerId;
-          items.innerHTML = entry.orderStatus;
-          amount.innerHTML = entry.amount;
+          customer.innerHTML = entry.firstName+' '+entry.lastName;
           order_type.innerHTML = entry.orderType;
+          amount.innerHTML = 'Rs.'+entry.amount+'.00';
           status.innerHTML = returnOrderStatus(entry.orderStatus);
         });
 

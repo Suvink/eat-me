@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$staff_id=$_GET['staff_id'];
 
   //Get details of relevent staff member
-  $sql = "SELECT availabilityId FROM `minor_staff` WHERE staffId='$staff_id'";
+  $sql = "SELECT status FROM `minor_staff` WHERE staffId='$staff_id'";
   $result = $con->query($sql);
 
   if ($result !== NULL) {
