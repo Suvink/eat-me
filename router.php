@@ -37,6 +37,7 @@ $kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $steward = 'views/store/steward.php';
 $staffLogin = 'views/store/stafflogin.php';
 $grn='views/store/grn.php';
+$imageUploader='views/store/imageUploader.php';
 
 
 //API
@@ -134,6 +135,9 @@ switch ($request) {
         break;
     case '/grn':
         require($grn);
+        break;
+    case '/imageuploader':
+        require($imageUploader);
         break;
    case '/steward' :
         require($steward);

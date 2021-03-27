@@ -38,12 +38,7 @@
         
         public function getInputVal($newq, $oldq, $unitId, $itemId)
         {
-            //  echo "item id = " . $_SESSION["itemId"] . "<br>";
-            //  echo "new = " . $_SESSION["newq"] . "<br>";
-            //  echo "old = " . $_SESSION["oldq"] . "<br>";
-            //  echo "unitId = " . $_SESSION["unitId"] . "<br>";
-            //  echo date("Y-m-d")."<br>";
-            //  echo date("h:i")."<br>";
+            
             date_default_timezone_set("Asia/Colombo");
             $datetime = date("Y-m-d,h:i");
             //  echo $newupdateq."<br>";
@@ -72,7 +67,23 @@
                 $this->GrnModel->writeData("add_stock","`added_quntity`,`date&time`,inventoryId","$newq,'$datetime',$itemId");
                 // $this->GrnModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
                 $this->GrnModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
-                return "inserted";
+                $unitName2=null;
+                if($unitId=="1")
+                {
+                    $unitName2="(kg)";
+                }
+                else if($unitId=="2")
+                {
+                    $unitName2="(l)";
+                }
+                else if($unitId=="3")
+                {
+                    $unitName2="(items)";
+                }
+
+                echo '<script language="javascript">';
+                echo 'alert("'.$itemId.'"+" "+"filled with "+"'.$newq.'"+" "+"'.$unitName2.'")';
+                echo '</script>';
 
             } 
             else 
