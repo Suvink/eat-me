@@ -4,37 +4,42 @@ require_once './controllers/customer/DineinOrderController.php';
 //Initiate an instance of controller
 $DineinOrderController = new DineinOrderController();
 
-if(!isset($_SESSION['user_phone'])){
+if (!isset($_SESSION['user_phone'])) {
   header('Location: /dinein/login');
 }
 
 if (isset($_POST['place-order'])) {
-  
+
   $orderData = $_REQUEST['orderArray'];
   $orderTotal = $_REQUEST['totalValue'];
 
   $DineinOrderController->setOrderArray($orderData);
   $DineinOrderController->setorderTotal($orderTotal);
-  
+
   //Insert the Order into DB
   $customer_id = $DineinOrderController->getCustomerID($_SESSION['user_phone']);
+  $_SESSION['order_id'] = $DineinOrderController->getUnformattedOrderID();
   $DineinOrderController->setOrderDetails($DineinOrderController->getUnformattedOrderID(), $customer_id, 'dinein', $orderTotal, 'cash'); //Set the default payment method to cash to avoid breakdows
 
   //Log the order
-  $DineinOrderController->setDineinOrder($DineinOrderController->getUnformattedOrderID(), 6);
+  //minus one because the order is already there on `order_details` table
+  $DineinOrderController->setDineinOrder($DineinOrderController->getUnformattedOrderID() - 1, 6);
 
   //Insert order items into the table
   foreach ($DineinOrderController->getOrderItems() as $key => $value) {
-    $DineinOrderController->setOrderItems($key, $value, $DineinOrderController->getUnformattedOrderID());
-   }
+    $DineinOrderController->setOrderItems($key, $value, $DineinOrderController->getUnformattedOrderID() - 1);
+  }
+} else if (isset($_GET['existing_order'])) {
 
-}else if (isset($_GET['existing_order'])) {
-  
+  $_SESSION['order_id'] = $_GET['order_id'];
+
   $orderData = $DineinOrderController->getOrderById($_GET['order_id']);
   $orderTotal = $DineinOrderController->getOrderAmountById($_GET['order_id']);
 
   $DineinOrderController->setOrderArray($orderData);
   $DineinOrderController->setorderTotal($orderTotal);
+} else {
+  header('Location: /dinein');
 }
 
 
@@ -83,28 +88,29 @@ if (isset($_POST['place-order'])) {
         <div class="card pl-2 pr-2">
           <h1 class="orange-color mt-0 mb-1">My Order</h1>
           <img class="status-image" src="../../img/preparing.gif" alt="">
-          <h5 class="title mb-0">Your order is preparing...</h5>
+          <h5 class="title mb-0" id="order-status">Your order is preparing...</h5>
           <h6 class="title mt-0" id="order-id">#
-            <?php 
-              if (isset($_POST['place-order'])){
-                $DineinOrderController->getOrderID();
-              }else{
-                echo $_GET['order_id'];
-              }
+            <?php
+            if (isset($_POST['place-order'])) {
+              $DineinOrderController->getOrderID();
+            } else {
+              echo $_GET['order_id'];
+            }
             ?>
           </h6>
           <div class="content has-text-left">
             <h5 class=" ml-0 mb-0 title">Order Items</h5>
-            <p class="menu-items"><?php $DineinOrderController->getOrderItemsString(); ?></p>
+            <p class="menu-items"><?php $DineinOrderController->getOrderItemsString($_SESSION['order_id']); ?></p>
             <h5 class=" ml-0 mb-0 title">Order Total</h5>
             <p class="menu-items">LKR <?php $DineinOrderController->getOrderTotal(); ?></p>
             <h5 class=" ml-0 mb-0 title">Payment</h5>
+            <p class="menu-items" id="payment-indicator" style="display:none">Paid Successfully!</p>
             <div class="mt-1 payment-buttons">
               <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST" target="_blank">
-                <input type="hidden" name="merchant_id" value="1214666">   
+                <input type="hidden" name="merchant_id" value="1214666">
                 <input type="hidden" name="return_url" value="https://www.eat-me.live/online/profile">
                 <input type="hidden" name="cancel_url" value="https://www.eat-me.live/dinein/summery">
-                <input type="hidden" name="notify_url" value="https://www.eat-me.live/dinein/summery"> 
+                <input type="hidden" name="notify_url" value="https://www.eat-me.live/dinein/summery">
                 <input type="text" name="address" value="Obama Restaurent, Veyangoda" style="display: none;">
                 <input type="text" name="city" value="Colombo" style="display: none;">
                 <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
@@ -112,15 +118,15 @@ if (isset($_POST['place-order'])) {
                 <input type="text" name="items" value="Eat Me Dine-in" style="display: none;">
                 <?php $DineinOrderController->renderFinalOrder() ?>
                 <input type="text" name="order_id" value="<?php $DineinOrderController->getOrderID(); ?>" style="display: none;">
-                <input type="text" name="amount" value="<?php $DineinOrderController->getOrderTotal(); ?>" style="display: none;">  
+                <input type="text" name="amount" value="<?php $DineinOrderController->getOrderTotal(); ?>" style="display: none;">
                 <input type="text" name="first_name" value="<?php $DineinOrderController->getUserFname($_SESSION['user_phone']); ?>" style="display: none;">
                 <input type="text" name="last_name" value="<?php $DineinOrderController->getUserLname($_SESSION['user_phone']); ?>" style="display: none;">
                 <input type="text" name="email" value="<?php $DineinOrderController->getUserEmail($_SESSION['user_phone']); ?>" style="display: none;">
                 <input type="text" name="phone" value="<?php echo $_SESSION['user_phone'] ?>" style="display: none;">
-  
-                <button class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+
+                <button id="payhere-button" class="pl-0 payment-button" type="submit" name="place-order"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
               </form>
-              <button class="payment-button" type="submit" name="place-order" onclick="payByCash();"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+              <button id="cash-paymt-button" class="payment-button" type="submit" name="place-order" onclick="payByCash();"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
           </div>
         </div>
@@ -183,7 +189,9 @@ if (isset($_POST['place-order'])) {
 
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
-    window.onbeforeunload = function() { return "Your work will be lost."; };
+    window.onbeforeunload = function() {
+      return "Your work will be lost.";
+    };
   </script>
   <script>
     let reviewStatus = false;
@@ -242,10 +250,72 @@ if (isset($_POST['place-order'])) {
       }
     }
 
-    function payByCash(){
+    function getOrderStatus(statusCode) {
+      switch (statusCode) {
+        case "1":
+          return "Order Successfully Placed!";
+          break;
+        case "2":
+          return "Your order has been accepted!";
+          break;
+        case "3":
+          return "Your steward is attending your order!";
+          break;
+        case "4":
+          return "A driver has been assigned!";
+          break;
+        case "5":
+          return "Your Order is ready!";
+          break;
+        case "6":
+          return "Enjoy Your Meal! Bon Appétit";
+          break;
+        case "7":
+          return "Order Deliverded";
+          break;
+        case "8":
+          return "Order Completed! Please take a moment to review us!";
+          break;
+        default:
+          return "Loading..."
+      }
+    }
+
+    async function updateOrderStatus() {
+      //Extract the numerical part
+      let order_id = document.getElementById('order-id').innerHTML.match(/\d+/)[0];
+      try {
+
+        let requestURL = '/api/v1/getdineinorder?order_id=' + order_id;
+        const response = await fetch(requestURL, {
+          method: 'GET',
+        });
+        let responseData = JSON.parse(await response.text());
+
+        document.getElementById("order-status").innerHTML = getOrderStatus(responseData[0].orderStatus);
+        if (responseData[0].payment_status === "COMPLETED") {
+          document.getElementById("payhere-button").disabled = true;
+          document.getElementById("cash-paymt-button").disabled = true;
+          document.getElementById("payment-indicator").style.display = "block";
+        } else {
+          document.getElementById("payhere-button").disabled = false;
+          document.getElementById("cash-paymt-button").disabled = false;
+          document.getElementById("payment-indicator").style.display = "none";
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    function payByCash() {
       artemisAlert.alert('success', 'Cash Payment Request Sent!')
     }
 
+    setInterval(function() {
+      updateOrderStatus();
+    }, 10000);
   </script>
 </body>
 

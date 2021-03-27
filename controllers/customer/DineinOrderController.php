@@ -52,7 +52,7 @@ class DineinOrderController extends Controller
 
   public function getOrderID()
   {
-    $result = $this->DineinOrderModel->executeSql('SELECT * FROM `online_order` ORDER BY `orderId` DESC LIMIT 1');
+    $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo $row['orderId'] + 1;
@@ -64,7 +64,7 @@ class DineinOrderController extends Controller
 
   public function getUnformattedOrderID()
   {
-    $result = $this->DineinOrderModel->executeSql('SELECT * FROM `online_order` ORDER BY `orderId` DESC LIMIT 1');
+    $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         return $row['orderId'] + 1;
@@ -127,9 +127,9 @@ class DineinOrderController extends Controller
         while ($row = $result->fetch_assoc()) {
           $orderString = $orderString.$row['itemName']." x".$item_qty.",  ";
         }
-        echo $orderString;
       }
     }
+    echo $orderString;
   }
 
   public function getItemCount(){
@@ -170,6 +170,7 @@ class DineinOrderController extends Controller
   public function setOrderItems($item_no, $item_qty, $order_id)
   {
     $sql = "INSERT INTO `order_includes_menu` (`orderId`, `itemNo`, `qty`, `dateAndTime`) VALUES (".$order_id.",".$item_no.",".$item_qty.",".time().") ";
+    //echo $sql;
     $result = $this->DineinOrderModel->executeSql($sql);
     if ($result) {
     }else{
@@ -180,6 +181,7 @@ class DineinOrderController extends Controller
   public function setDineinOrder($order_id, $tableNo)
   {
     $sql = "INSERT INTO `dine_in_order` (`orderId`, `tableNo`) VALUES (".$order_id.",'".$tableNo."') ";
+    //echo $sql;
     $result = $this->DineinOrderModel->executeSql($sql);
     if ($result) {
     }else{
@@ -189,7 +191,7 @@ class DineinOrderController extends Controller
 
   public function setOrderDetails($order_id, $customer_id, $order_type, $order_total, $payment_type)
   {
-    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', ".time().",0,0,1) ";
+    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `payment_status`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', 'PENDING', ".time().",0,0,1) ";
     $result = $this->DineinOrderModel->executeSql($sql);
     if ($result == TRUE) {
     }else{
@@ -240,10 +242,14 @@ class DineinOrderController extends Controller
       return 00.00;
     }
   }
+ 
+  
 
 
 
 
+  
+  
 
 
 

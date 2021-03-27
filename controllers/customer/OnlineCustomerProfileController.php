@@ -104,7 +104,7 @@ class OnlineCustomerProfileController extends Controller{
 
   public function setOrderDetails($order_id, $customer_id, $order_type, $order_total, $payment_type)
   {
-    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', ".time().",0,0,1) ";
+    $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `payment_status`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', 'PENDING', ".time().",0,0,1) ";
     $result = $this->OnlineCustomerProfileModel->executeSql($sql);
     if ($result == TRUE) {
     }else{

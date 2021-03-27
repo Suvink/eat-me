@@ -27,7 +27,7 @@ class OnlineOrderSummeryController extends Controller
 
   public function getOrderID()
   {
-    $result = $this->OnlineOrderSummeryModel->executeSql('SELECT * FROM `online_order` ORDER BY `orderId` DESC LIMIT 1');
+    $result = $this->OnlineOrderSummeryModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo $row['orderId'] + 1;
