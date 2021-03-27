@@ -10,7 +10,7 @@ if(!isset($_SESSION['staffId'])){
 }
 
 if( isset( $_POST['logout'] ) ){
-  $CashierPlaceOrderController->stafflogout();
+  $CashierPlaceOrderController->logoutstaffMem();
 }
 
 if(isset($_POST['placeorder-btn'])){
@@ -39,12 +39,12 @@ if(isset($_POST['placeorder-btn'])){
         <img src="../../img/logo.png" height="56" width="224" />
       </div>
       <div class="column is-10 has-text-right nav-logout">
-        <i class="fas fa-bicycle" aria-hidden="true"></i>
-        <span class="mr-1">User Name</span>
-        <form class="d-inline" action="/cashier" method="POST">
-          <button class="button is-primary" name="logout">Logout</button>
-        </form>
-      </div>
+				<i class="fas fa-user" aria-hidden="true"></i>
+				<span class="mr-1">Cashier <?= $_SESSION['staffId'] ?> </span>
+				<form class="d-inline" action="/cashier" method="POST">
+					<button class="button is-primary" name="logout">Logout</button>
+				</form>
+			</div>
     </div>
   </div>
   <button class="button is-primary is-2 mr-1" onclick="returnHome()">Home</button>

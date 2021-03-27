@@ -10,7 +10,7 @@ require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
 
 if (isset($_POST['logout'])) {
-  $CashierController->stafflogout();
+  $CashierController->logoutstaffMem();
 }
 
 ?>
@@ -70,18 +70,16 @@ if (isset($_POST['logout'])) {
             <table id="ongoing-orders-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Order ID</th>
                   <th>Customer</th>
-                  <th>Items</th>
-                  <th>Price</th>
-                  <th>Table No</th>
+                  <th>Order Type</th>
+                  <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
             </table>
-            <button class="button is-primary mt-1" onclick="fetchOrderDetails()">Refresh</button>
           </section>
         </div>
         <?php
@@ -105,7 +103,7 @@ if (isset($_POST['logout'])) {
                   ?>
 
                 </button>
-                <table>
+                <!-- <table>
                   <tr>
                     <td>1001</td>
                   </tr>
@@ -115,7 +113,7 @@ if (isset($_POST['logout'])) {
                   <tr>
                     <td>Order Status </td>
                   </tr>
-                </table>
+                </table> -->
               </div>
             </div>
           </section>
@@ -201,19 +199,20 @@ if (isset($_POST['logout'])) {
       }
 
     }
+    //order details table
     async function fetchOrderDetails() {
       try {
         const response = await fetch('/api/v1/ongoingorders', {
           method: 'GET',
         });
         let responseData = JSON.parse(await response.text());
-        console.log(responseData);
+        //console.log(responseData);
 
         let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
 
         //Clear the table
-        console.log(tbodyRef.rows.length);
-        for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+        //console.log(tbodyRef.rows.length);
+        for (let d = tbodyRef.rows.length - 1; d >= 0; d--) {
           tbodyRef.deleteRow(d);
         }
 
@@ -222,24 +221,60 @@ if (isset($_POST['logout'])) {
         responseData.forEach(function(entry) {
           let row = tbodyRef.insertRow(0);
           let id = row.insertCell(0);
-
           let customer = row.insertCell(1);
-          let items = row.insertCell(2);
-          let price = row.insertCell(3);
-          let table_No = row.insertCell(4);
-          let status = row.insertCell(5);
+          let order_type = row.insertCell(2);
+          let amount = row.insertCell(3);
+          let status = row.insertCell(4);
 
           id.innerHTML = entry.orderId;
-          customer.innerHTML = entry.customerId;
-          items.innerHTML = entry.orderStatus;
-          price.innerHTML = entry.orderType;
-          table_No.innerHTML = entry.paymentType;
-          status.innerHTML = "Preparing";
+          customer.innerHTML = entry.firstName+' '+entry.lastName;
+          order_type.innerHTML = entry.orderType;
+          amount.innerHTML = 'Rs.'+entry.amount+'.00';
+          status.innerHTML = returnOrderStatus(entry.orderStatus);
         });
 
       } catch (err) {
         console.log(err)
         artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+    fetchOrderDetails();
+    //refresh table
+    setInterval(function() {
+      fetchOrderDetails();
+    }, 30000);
+    //return orderstatus in readable format
+    function returnOrderStatus(num) {
+      switch (num) {
+        case '1':
+          return 'Placed';
+          break;
+        case '2':
+          return 'Accepted';
+          break;
+        case '3':
+          return 'Steward_Assigned';
+          break;
+        case '4':
+          return 'DP_Assigned';
+          break;
+        case '5':
+          return 'Prepared';
+          break;
+        case '6':
+          return 'Served';
+          break;
+        case '7':
+          return 'Delivered';
+          break;
+        case '8':
+          return 'Completed';
+          break;
+        case '9':
+          return 'Canceled';
+          break;
+        default:
+          return 'False Status';
       }
     }
   </script>

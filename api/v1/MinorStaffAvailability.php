@@ -9,21 +9,20 @@ $con = $DBConnection->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
-  //Add the review into the table
-  $sql = "SELECT order_details.orderId, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId ";
+	//get staff id
+	$staff_id=$_GET['staff_id'];
+
+  //Get details of relevent staff member
+  $sql = "SELECT status FROM `minor_staff` WHERE staffId='$staff_id'";
   $result = $con->query($sql);
 
   if ($result !== NULL) {
 
-    //Convert result set to JSON
-    $rows = array();
-    while ($r = $result->fetch_assoc()) {
-      $rows[] = $r;
-    }
-    
+		$row=$result->fetch_assoc();
+
     header("HTTP/1.1 200 OK");
     http_response_code(200);
-    echo stripslashes(json_encode($rows));
+    echo stripslashes(json_encode($row));
     return;
     
   } else {
