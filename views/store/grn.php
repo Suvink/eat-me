@@ -34,7 +34,7 @@ if (isset($_POST['sendbtn'])) {
     $oldq = $_POST['oldq'];
     $unitId = $_POST['unitId'];
     $itemId = $_POST['itemId'];
-    echo $GrnController->getInputVal($newq, $oldq, $unitId, $itemId);
+    $GrnController->getInputVal($newq, $oldq, $unitId, $itemId);
 }
 
 ?>
@@ -152,7 +152,7 @@ if (isset($_POST['sendbtn'])) {
                                                 <form method="POST" action="/grn">
                                                     <div class="container">
                                                         <div class="menu-card">
-                                                            <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                                                            <img src="<?php echo $row['url']?>">
                                                             <div class="columns group">
                                                                 <div class="column is-6">
                                                                     <h3 class="mt-1 mb-0">Item_ID :</h3>

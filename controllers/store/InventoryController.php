@@ -125,7 +125,7 @@
             $row3= mysqli_fetch_assoc($result3);
             $date=$row3['date&time'];
             $d=strtotime($date);
-            $date2=date("Y-m-d h:i:sa", $d);
+            $date2=date("Y-m-d h:i", $d);
             if($date2>2020-01-01)
             {
                 return $date2;
@@ -137,7 +137,7 @@
             $row3= mysqli_fetch_assoc($result3);
             $date=$row3['retrieved_date&time'];
             $d=strtotime($date);
-            $date2=date("Y-m-d h:i:sa", $d);
+            $date2=date("Y-m-d h:i", $d);
             if($date2>2020-01-01)
             {
                 return $date2;
@@ -155,9 +155,14 @@
         public function addNewItem($itemName3,$id3,$unitid3)
         {
             $result=$this->InventoryModel->writeData("inventory","inventoryId,itemName,unitId","$id3,'$itemName3',$unitid3");
-            echo '<script language="javascript">';
-            echo 'alert("'.$id3.'"+" "+"'.$itemName3.'"+" " +"Added to the Inventory")';
-            echo '</script>';
+            $_SESSION['imgeUploadTo']="inventory";
+            $_SESSION['idUpload']=$id3;
+            $_SESSION['itemNameUpload']=$itemName3;
+
+            // echo '<script language="javascript">';
+            // echo 'alert("'.$id3.'"+" "+"'.$itemName3.'"+" " +"Added to the Inventory")';
+            // echo '</script>';
+            header('Location: ./imageuploader');
             return $result;
         }
         public function deleteItem($ans)

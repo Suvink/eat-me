@@ -166,7 +166,7 @@
                             <form  method="POST" action="/kitchen/retrieve">
                             <div class="container">
                                 <div class="menu-card">
-                                  <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                                  <img src="<?php echo  "../../".$row['url'];?>">
                                   <div class="columns group">
                                     <div class="column is-6">
                                       <h3 class="mt-1 mb-0">Item_ID :</h3>

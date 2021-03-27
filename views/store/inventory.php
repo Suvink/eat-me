@@ -26,7 +26,7 @@
         $style2 = "style=display:block";
        $newID=$InventoryController->getNewInventoryID();
       }
-
+   
     function ext($i_id)
     {
         $itemID = $i_id;
@@ -382,6 +382,11 @@
                             <button class="width-adjust font zoom">Create Report</button>
                         </div>
                     </div>
+                    <!-- <div class="columns group">
+                        <div class="column is-12">
+                            <button class="width-adjust font zoom" name="imageUploader">Image Uploader</button>
+                        </div>
+                    </div> -->
                     <div class="columns group">
                         <div class="column is-12">
                             <button class="width-adjust font color-org zoom">Refresh</button>
@@ -467,10 +472,11 @@
         }
 
         function closepopup01() {
-            document.getElementById("popup-1").style.display = "none";
+            document.getElementById("popup-3").style.display = "none";
         }
     </script>
     <!---------xx---pop up orders-----xx--------->
+    
 
 
     <!-- --------kitchen display js file -->

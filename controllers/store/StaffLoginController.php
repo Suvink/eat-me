@@ -23,7 +23,7 @@ class StaffLoginController extends Controller
     {
       while ($row = $result->fetch_assoc()) 
       {
-        if( $password === $row["password"])
+        if( MD5($password) === $row["password"])
         {
           if ($row['tag']=="active") 
           {

@@ -101,8 +101,8 @@
         public function addStaff($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password)
         {
             $val2=$this->validation($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
-            $password2= MD5('$password');
-            // echo $password2;
+            $password2= MD5($password);
+            echo $password2;
             if($val2==1)
             {
                 $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','active')";    
@@ -135,18 +135,25 @@
                 $result3=$this->StaffManageModel-> getSpecificDataWhere('status','minor_staff','staffId', $staffid);
                 $row3= mysqli_fetch_assoc($result3);
                 $status=$row3['status'];
-                if($status=="available")
+                if($roleid==5 || $roleid==3)
                 {
-                    $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5('$password')));
-                    
+                    if($status=="available")
+                    {
+                        $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
+                        
+                    }
+                    else
+                    {
+                        echo '<script language="javascript">';
+                        echo 'alert("'.$firstname.'"+" "+"has already assigned to a work. wait unti the job finish!")';
+                        echo '</script>';
+                    }
                 }
                 else
                 {
-                    echo '<script language="javascript">';
-                    echo 'alert("'.$firstname.'"+" "+"has already assigned to a work. wait unti the job finish!")';
-                    echo '</script>';
+                    $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
+                        
                 }
-
 
             }
             else
