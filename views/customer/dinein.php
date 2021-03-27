@@ -14,6 +14,14 @@
     $DineinController->logout();
   }
 
+    //Check for existing orders and redirect
+    $has_ongoing = $DineinController->hasExistingOrder($_SESSION['user_phone']);
+    if($has_ongoing){
+      $order_id = $DineinController->getOrderIdByCustomerId($_SESSION['user_phone']);
+      $redirectURL = 'Location: /dinein/summery?existing_order=true&order_id='.$order_id;
+      header($redirectURL);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +36,7 @@
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/onlineOrderStyles.css">
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
-  <title>Online Order</title>
+  <title>Dinein Order</title>
 </head>
 
 <body>
@@ -112,10 +120,12 @@
             <h3 id="price-tag" class="mt-1 mb-1">0.00</h3>
             </div>
           </div>
-          <form action="/dinein/order" method="POST">
-            <input id="confirmed-total" name="totalValue" value="0" style="display:none">
-            <input id="order-array" type="text" name="orderArray" value="0" style="display:none">
-            <button class="button is-primary mt-1 fadeInRight">Place Order</button>
+          <form action="/dinein/summery" method="POST">
+            <input id="confirmed-total" name="totalValue" style="display:none" required>
+            <input id="order-array" type="text" name="orderArray" style="display:none" required>
+            <div class="mt-1 payment-buttons fadeInRight">
+            <button class="button is-primary mt-1 fadeInRight" type="submit" name="place-order">Place Order</button>
+            </div>
           </form>
           
         </div>

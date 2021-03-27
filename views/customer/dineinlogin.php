@@ -1,9 +1,9 @@
 <?php
-require_once "./controllers/customer/OnlineOrderLoginController.php";
+require_once "./controllers/customer/DineinLoginController.php";
 if (isset($_POST['submit'])) {
   $token =  $_REQUEST['token'];
   $otp =  $_REQUEST['otp'];
-  
+
   $DineinLoginController = new DineinLoginController();
   $DineinLoginController->submitLogin($token, $otp);
 }
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
         <button class="button is-primary" onclick="sendOTP();">Send OTP</button>
       </div>
 
-      <form action="/online/login" id="otpDiv" style="display: none" method="POST">
+      <form action="/dinein/login" id="otpDiv" style="display: none" method="POST">
         <label class="field artemis-input-field">
           <input class="artemis-input" type="text" placeholder="Your OTP here" name="otp" autocomplete="one-time-code" required>
           <span class="label-wrap">

@@ -20,9 +20,7 @@ class OnlineOrderLoginController extends Controller
       while ($row = $result->fetch_assoc()) {
         if ($token === $row["token"]) {
           $deleteQuery = $this->OnlineOrderLoginModel->deleteData('otp_temp', 'token', $token);
-          echo $row["phone"];
           $_SESSION['user_phone'] = $row["phone"];
-          echo '<script>alert("wade hari")</script>';
           header('Location: /online');
         } else {
           $this->triggerError('Login Failed!');

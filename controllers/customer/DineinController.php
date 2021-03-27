@@ -94,6 +94,37 @@ class DineinController extends Controller
     }
   }
 
+  public function getCustomerID($phone)
+  {
+    $result = $this->DineinModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        return $row['customerId'];
+      }
+    }
+  }
+
+  public function getOrderIdByCustomerId($phone){
+    $customer_id = $this->getCustomerID($phone);
+    $result = $this->DineinModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8 AND `orderType`="dinein"');
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo $row['orderId'];
+        return $row['orderId'];
+      }
+    }
+  }
+
+  public function hasExistingOrder($phone){
+    $customer_id = $this->getCustomerID($phone);
+    $result = $this->DineinModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8 AND `orderType`="dinein"');
+    if ($result->num_rows > 0) {
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+
 
 
 }
