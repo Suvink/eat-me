@@ -9,8 +9,9 @@ if (!isset($_SESSION['staffId'])) {
 	header('Location: /staff/login');
 }
 
-if (isset($_POST['logout'])) {
-	$StewardController->logoutstaffMem();
+
+if( isset( $_POST['logout'] ) ){
+  $StewardController->logoutstaffMem();
 }
 ?>
 

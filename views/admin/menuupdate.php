@@ -4,6 +4,7 @@ ob_start();
 $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
+$roleId = $_SESSION['roleId'];
 require_once './controllers/admin/MenuUpdateController.php';
 $MenuUpdateController = new MenuUpdateController();
 
@@ -109,7 +110,7 @@ if (isset($_POST['hideMenu'])) {
 
     <!----------- navigatable buttons------------>
     <?php
-    if ($staffid == 1) {
+    if ($roleId == "1") {
     ?>
         <section>
             <div class="row buttons-row">

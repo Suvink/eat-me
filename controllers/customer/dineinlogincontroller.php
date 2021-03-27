@@ -20,7 +20,6 @@ class DineinLoginController extends Controller
       while ($row = $result->fetch_assoc()) {
         if ($token === $row["token"]) {
           $deleteQuery = $this->DineinLoginModelModel->deleteData('otp_temp', 'token', $token);
-          echo $row["phone"];
           $_SESSION['user_phone'] = $row["phone"];
           header('Location: /dinein');
         } else {

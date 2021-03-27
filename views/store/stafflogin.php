@@ -4,7 +4,7 @@ require_once "./controllers/store/StaffLoginController.php";
 if (isset($_POST['submit'])) {
   $userid =  $_REQUEST['user_id'];
   $password =  $_REQUEST['password'];
-  
+
   $StaffLoginController = new StaffLoginController();
   $StaffLoginController->submitLogin($userid, $password);
 }

@@ -21,6 +21,7 @@ table th {
   background-color: unset;
   font-size: 0.9rem;
   font-family: "Baloo-Thambi 2", cursive;
+  margin-bottom: 15px !important;
 }
 /*Table details box*/
 .invisible-box {
@@ -57,4 +58,7 @@ table th {
   }
 .blur {
   filter: blur(1px);
+}
+#popup-background-2{
+  justify-content: center !important;
 }

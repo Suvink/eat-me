@@ -4,7 +4,7 @@
     $staffid=$_SESSION['staffId'];
     $name_first=$_SESSION['firstName'];
     $name_last=$_SESSION['lastName'];
-
+    $roleId = $_SESSION['roleId'];
     require_once './controllers/store/KitchenMenuUpdateController.php';
     $KitchenMenuUpdateController = new KitchenMenuUpdateController();
 
@@ -68,7 +68,7 @@
     <!--------xx-----navi bar --------xx------->
     <!----------- navigatable buttons------------>
     <?php
-      if(isset($staffid))
+      if($roleId=="2")
       {
         
         ?>

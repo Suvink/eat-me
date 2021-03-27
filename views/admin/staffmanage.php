@@ -4,6 +4,7 @@ ob_start();
 $staffid=$_SESSION['staffId'];
 $name_first=$_SESSION['firstName'];
 $name_last=$_SESSION['lastName'];
+$roleId = $_SESSION['roleId'];
 require_once './controllers/admin/staffManageController.php';
 $staffManageController = new StaffManageController();
 // echo $params;
@@ -11,6 +12,10 @@ $staffManageController = new StaffManageController();
 
 if( isset( $_POST['logout'] ) ){
     $staffManageController->logoutstaffMem();
+  }
+if( isset( $_POST['delete'] ) ){
+    $staffid3=$_POST['staffId'];
+    $staffManageController->deleteStaff($staffid3);
   }
 
 if(isset($_POST['submit'])){
@@ -33,8 +38,16 @@ if(isset($_POST['updateStafff'])){
     $roleid =$_POST['roleid'];
     $password =$_POST['password'];
     $re_password =$_POST['re_password'];
-
-    $staffManageController->updateStaff($staffid,$firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
+    if($_SESSION['password2']==$password)
+    {
+        echo '<script language="javascript">';
+        echo 'alert("Need to update the Password")';
+        echo '</script>';
+    }
+    else
+    {
+        $staffManageController->updateStaff($staffid,$firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
+    }  
 }
 $staffid2 ="Taken Automatically";
 $firstname2 =null;
@@ -51,7 +64,7 @@ if(isset($_POST['updateToList'])){
     $roleId2 =$_POST['roleId'];
     $email2 =$_POST['email'];
     $password2=$staffManageController->getPassword($staffid2);
-
+    $_SESSION['password2']=$password2;
 }
 ?>
 <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
@@ -111,7 +124,7 @@ if(isset($_POST['updateToList'])){
     
     <!----------- navigatable buttons------------>
        <?php
-      if(isset($staffid))
+      if($roleId=="1")
       {     
         ?>
             <section>
@@ -246,7 +259,7 @@ if(isset($_POST['updateToList'])){
                         </div>    
                             <button class="is-primary ml-2 color-green zoom" name="submit">Add</button>
                             <button class="is-primary zoom ml-2" name="updateStafff">Update</button>
-                            <button class="is-primary color-red zoom ml-2">Delete</button>
+                            <button class="is-primary color-red zoom ml-2" name="delete" onclick="return confirm('Are you sure you want to delete the staff Member?');">Delete</button>
 
                         </form>
                     </div>
