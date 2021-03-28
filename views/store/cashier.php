@@ -2,9 +2,9 @@
 session_start();
 ob_start();
 
-// if (!isset($_SESSION['staffId'])) {
-//   header('Location: /staff/login');
-// }
+if (!isset($_SESSION['staffId'])) {
+  header('Location: /staff/login');
+}
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
