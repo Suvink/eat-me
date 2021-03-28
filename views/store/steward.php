@@ -10,8 +10,8 @@ if (!isset($_SESSION['staffId'])) {
 }
 
 
-if( isset( $_POST['logout'] ) ){
-  $StewardController->logoutstaffMem();
+if (isset($_POST['logout'])) {
+	$StewardController->logoutstaffMem();
 }
 ?>
 
@@ -51,7 +51,7 @@ if( isset( $_POST['logout'] ) ){
 					<h1>Set Availability</h1>
 					<input style="display: none;" id="staff" />
 					<form action="" method="POST" name="avalability-switch">
-						<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
+						<input type="checkbox" id="availability-switch" class="checkbox" onclick="changeAvailability()" />
 						<label for="switch" class="toggle">
 							<p>On &nbsp; &nbsp; Off</p>
 						</label>
@@ -70,7 +70,7 @@ if( isset( $_POST['logout'] ) ){
 						<table id="assigned-order">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>Order ID</th>
 									<th>Customer</th>
 									<th>Price</th>
 									<th>Table No</th>
@@ -78,6 +78,9 @@ if( isset( $_POST['logout'] ) ){
 								</tr>
 							</thead>
 							<tbody>
+								<tr>
+									<p id="loading-details" style="display: block;">Loading...</p>
+								</tr>
 							</tbody>
 						</table>
 					</section>
@@ -88,12 +91,11 @@ if( isset( $_POST['logout'] ) ){
 					<div class="flex-container" id="rate">
 						<h1 class="title">Rate Customer</h1>
 						<div class="d-flex" name="customerRate">
-
-							<button class="" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
-							<button class="" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
-							<button class="" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
-							<button class="" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
-							<button class="" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
+							<button class="rate-button" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
+							<button class="rate-button" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
+							<button class="rate-button" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
+							<button class="rate-button" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
+							<button class="rate-button" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
 						</div>
 						<div class="d-flex" name="customerRate">
 							<form action="">
@@ -112,167 +114,29 @@ if( isset( $_POST['logout'] ) ){
 		</div>
 	</div>
 	</div>
+	<script src="../../js/store/steward.js" type="text/javascript"></script>
 	<script>
-		function popupRate() {
-			var x = document.getElementById("Status").value;
-			if (x == "Completed") {
-				showRating();
-				blurBackground();
-			}
-		}
-
-		function showRating() {
-			let showRating = document.getElementById("rate");
-			showRating.classList.toggle("show");
-
-		}
-
-		function colorButton(buttonNumber) {
-			switch (buttonNumber) {
-				case 1:
-					document.getElementById("star_1").classList.toggle("filled-color");
-					disableButtons();
-					break;
-				case 2:
-					document.getElementById("star_1").classList.toggle("filled-color");
-					document.getElementById("star_2").classList.toggle("filled-color");
-					disableButtons();
-					break;
-				case 3:
-					document.getElementById("star_1").classList.toggle("filled-color");
-					document.getElementById("star_2").classList.toggle("filled-color");
-					document.getElementById("star_3").classList.toggle("filled-color");
-					disableButtons();
-					break;
-				case 4:
-					document.getElementById("star_1").classList.toggle("filled-color");
-					document.getElementById("star_2").classList.toggle("filled-color");
-					document.getElementById("star_3").classList.toggle("filled-color");
-					document.getElementById("star_4").classList.toggle("filled-color");
-					disableButtons();
-					break;
-				case 5:
-					document.getElementById("star_1").classList.toggle("filled-color");
-					document.getElementById("star_2").classList.toggle("filled-color");
-					document.getElementById("star_3").classList.toggle("filled-color");
-					document.getElementById("star_4").classList.toggle("filled-color");
-					document.getElementById("star_5").classList.toggle("filled-color");
-					disableButtons();
-			}
-		}
-
-		function disableButtons() {
-			document.getElementById("star_1").disabled = true;
-			document.getElementById("star_2").disabled = true;
-			document.getElementById("star_3").disabled = true;
-			document.getElementById("star_4").disabled = true;
-			document.getElementById("star_5").disabled = true;
-		}
-
-		function blurBackground() {
-			let blurEliment = document.getElementById("detailTable");
-			blurEliment.classList.toggle("blur");
-		}
-
-		function changeAvailability() {
-
-		}
-		async function getAssignedOrders(sId) {
-			try {
-				const response = await fetch('/api/v1/minorStaffOrder?staff_id=' + sId, {
-					method: 'GET',
-				});
-				let responseOrderData = JSON.parse(await response.text());
-				console.log(responseOrderData);
-				let tbodyOrderRef = document.getElementById("assigned-order").getElementsByTagName('tbody')[0];
-
-				//Clear the table
-				console.log(tbodyOrderRef.rows.length);
-				for (let d = tbodyOrderRef.rows.length - 1; d >= 0; d--) {
-					tbodyOrderRef.deleteRow(d);
-
-				}
-
-				//insert order details
-				if (responseOrderData.orderStatus == '1'||responseOrderData.orderStatus == '2'||responseOrderData.orderStatus == '3'||responseOrderData.orderStatus == '4'||responseOrderData.orderStatus == '5') {
-					let row = tbodyOrderRef.insertRow(0);
-					let id = row.insertCell(0);
-					let customer = row.insertCell(1);
-					let amount = row.insertCell(2);
-					let status = row.insertCell(3);
-
-					id.innerHTML = responseOrderData.orderId;
-					customer.innerHTML = responseOrderData.firstName + ' ' + responseOrderData.lastName;
-					amount.innerHTML = 'Rs.' + responseOrderData.amount + '.00';
-					status.innerHTML = returnOrderStatus(responseOrderData.orderStatus);
-				}
-
-
-			} catch (err) {
-				console.log(err)
-				artemisAlert.alert('error', 'Something went wrong!')
-			}
-		}
-		async function getAvailability(sId) {
-
-			try {
-				const response = await fetch('/api/v1/minorStaffAvailability?staff_id=' + sId, {
-					method: 'GET',
-				});
-				let responseData = JSON.parse(await response.text());
-				console.log(responseData);
-				if(responseData.status=='AVAILABLE'){
-					document.querySelector("#switch").style
-					return '1';
-				}
-
-			} catch (err) {
-				console.log(err)
-				artemisAlert.alert('error', 'Something went wrong!')
-			}
-		}
 		//save value of availability input tag
-		document.getElementById("switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
+		document.getElementById("availability-switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
 		//refresh availability data in 30s
 		setInterval(function() {
-			console.log(document.getElementById("switch").value );
+			//console.log(document.getElementById("availability-switch").value);
 			getAvailability(<?= $_SESSION['staffId'] ?>);
 			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
 		}, 10000);
-
-		function returnOrderStatus(num) {
-			switch (num) {
-				case '1':
-					return 'Placed';
-					break;
-				case '2':
-					return 'Accepted';
-					break;
-				case '3':
-					return 'Steward_Assigned';
-					break;
-				case '4':
-					return 'DP_Assigned';
-					break;
-				case '5':
-					return 'Prepared';
-					break;
-				case '6':
-					return 'Served';
-					break;
-				case '7':
-					return 'Delivered';
-					break;
-				case '8':
-					return 'Completed';
-					break;
-				case '9':
-					return 'Canceled';
-					break;
-				default:
-					return 'False Status';
-			}
+		window.onload = function() {
+			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
 		}
+	</script>
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script>
+		window.OneSignal = window.OneSignal || [];
+		OneSignal.push(function() {
+			OneSignal.init({
+				appId: "950f0adf-2de5-4613-a7b0-8790f3104caa",
+				safari_web_id: 'web.onesignal.auto.20cc36d3-e742-47b9-8fc8-37c27a32926f'
+			});
+		});
 	</script>
 
 </body>

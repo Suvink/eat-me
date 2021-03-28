@@ -200,7 +200,7 @@ if (isset($_POST['prepared2'])) {
               ?>
                 <form class="click-btn" action="" method="POST">
                   <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()" name="menu-card-details">
-                    <button name="click" class="click-btn" value="<?php echo $row['orderId'] ?>">
+                    <button name="click" class="click-btn" id="online-order-id-btn" value="<?php echo $row['orderId'] ?>">
                       <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
                     </button>
                     <div class="columns group">
@@ -208,7 +208,7 @@ if (isset($_POST['prepared2'])) {
                         <h3 class="mt-1 mb-0">Order ID:</h3>
                       </div>
                       <div class="column is-6">
-                        <h3 class="mt-1 mb-0" name="orderId"><?php echo $row['orderId'] ?></h3>
+                        <h3 class="mt-1 mb-0" id="card-orderId" name="orderId"><?php echo $row['orderId'] ?></h3>
                       </div>
                     </div>
                     <?php
@@ -563,6 +563,29 @@ if (isset($_POST['prepared2'])) {
 
   <!-- --------kitchen display js file -->
   <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
+  <script>
+    async function fetchOrderDetails() {
+      try {
+        const response = await fetch('/api/v1/kmonlineorders', {
+          method: 'GET',
+        });
+        let responseData = JSON.parse(await response.text());
+        console.log(responseData);
+
+        responseData.forEach(function (entry) {
+        //console.log(entry);
+        document.getElementById("card-orderId").innerText=entry.orderId;
+			});
+
+    } catch (err) {
+        console.log(err)
+        artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+    setInterval(function() {
+      fetchOrderDetails();
+    }, 3000);
+  </script>
 </body>
 
 </html>

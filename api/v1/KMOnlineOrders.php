@@ -9,21 +9,21 @@ $con = $DBConnection->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
-	//get staff id
-	$staff_id=$_GET['staff_id'];
-
-  //Get details of relevent staff member
-  $sql = "SELECT status FROM `minor_staff` WHERE staffId='$staff_id'";
+  //Add the review into the table
+  $sql = "SELECT * FROM `order_details` WHERE orderType='online' AND orderStatus !='9'";
   $result = $con->query($sql);
 
   if ($result !== NULL) {
-   
+
     //Convert result set to JSON
-    $r = $result->fetch_assoc();
-  
+    $rows = array();
+    while ($r = $result->fetch_assoc()) {
+      $rows[] = $r;
+    }
+    
     header("HTTP/1.1 200 OK");
     http_response_code(200);
-    echo stripslashes(json_encode($r));
+    echo stripslashes(json_encode($rows));
     return;
     
   } else {
@@ -34,10 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     return;
   }
 
-}else if ($_SERVER['REQUEST_METHOD'] == "POST"){
-
-}
-else{
+}else{
     header("HTTP/1.1 405 Method Not Allowed");
     http_response_code(405);
     $message = '{"message": "Method Not Allowed"}';

@@ -9,8 +9,8 @@ $errorPage = '404.html';
 //Admin
 $adminDashboard = 'views/admin/dashboard.php';
 $staffDetails = 'views/admin/managestaffdetails.php';
-$staffManage='views/admin/staffmanage.php';
-$menuUpdate='views/admin/menuupdate.php';
+$staffManage = 'views/admin/staffmanage.php';
+$menuUpdate = 'views/admin/menuupdate.php';
 
 //Customer
 $dineinLogin = 'views/customer/DineinLogin.php';
@@ -36,43 +36,44 @@ $kitchenRetrieve = 'views/store/kitchenretrieve.php';
 $kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $steward = 'views/store/steward.php';
 $staffLogin = 'views/store/stafflogin.php';
-$grn='views/store/grn.php';
-$imageUploader='views/store/imageUploader.php';
+$grn = 'views/store/grn.php';
+$imageUploader = 'views/store/imageUploader.php';
 
 
 //API
 $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
-$reservetable= 'api/v1/TableReservation.php';
-$ongoingorders= 'api/v1/Ongoingorders.php';
-$minorStaffAvailability= 'api/v1/MinorStaffAvailability.php';
-$minorStaffOrder= 'api/v1/MinorStaffOrder.php';
-$customerorders= 'api/v1/CustomerOrders.php';
-$getdineinorder= 'api/v1/DineinOrder.php';
+$reservetable = 'api/v1/TableReservation.php';
+$ongoingorders = 'api/v1/Ongoingorders.php';
+$minorStaffAvailability = 'api/v1/MinorStaffAvailability.php';
+$minorStaffOrder = 'api/v1/MinorStaffOrder.php';
+$customerorders = 'api/v1/CustomerOrders.php';
+$getdineinorder = 'api/v1/DineinOrder.php';
+$kmonlineorders = 'api/v1/KMOnlineOrders.php';
 
 //controllers
-$dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
+$dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
 
 //Get the incoming request
 $request = $_SERVER['REQUEST_URI'];
 
 //extract the params and clean the URL
-if(strpos($request, "?")){
+if (strpos($request, "?")) {
     $params = explode('?', $request)[1];
     $request = explode('?', $request)[0];
-}else{
+} else {
     $params = "";
 }
 
 
 switch ($request) {
-    case '/' :
-        require($homepage.$params);
+    case '/':
+        require($homepage . $params);
         break;
-    case '' :
+    case '':
         require($homepage);
         break;
-    case '/admin' :
+    case '/admin':
         require($adminDashboard);
         break;
     case '/admin/staffmanage':
@@ -81,31 +82,31 @@ switch ($request) {
     case '/admin/menu/update':
         require($menuUpdate);
         break;
-    case '/dinein/login' :
+    case '/dinein/login':
         require($dineinLogin);
         break;
-    case '/dinein/order' :
+    case '/dinein/order':
         require($dineinorder);
         break;
-    case '/dinein/summery' :
+    case '/dinein/summery':
         require($dineinSummery);
         break;
-    case '/dinein' :
+    case '/dinein':
         require($dinein);
         break;
-    case '/online/login' :
+    case '/online/login':
         require($onlineOrderLogin);
         break;
-    case '/online/summery' :
+    case '/online/summery':
         require($onlineSummery);
         break;
-    case '/online/profile' :
+    case '/online/profile':
         require($onlineProfile);
         break;
-    case '/online' :
+    case '/online':
         require($onlineOrder);
         break;
-    case '/cashier' :
+    case '/cashier':
         require($cashier);
         break;
     case '/cashier/placeorder':
@@ -114,7 +115,7 @@ switch ($request) {
     case '/cashier/checkorders':
         require($cashierCheckOrders);
         break;
-    case '/deliveryperson' :
+    case '/deliveryperson':
         require($deliveryPerson);
         break;
     case '/inventory':
@@ -141,40 +142,43 @@ switch ($request) {
     case '/imageuploader':
         require($imageUploader);
         break;
-   case '/steward' :
+    case '/steward':
         require($steward);
         break;
-    case '/dineinlogincontroller' :
+    case '/dineinlogincontroller':
         require($dineinlogincontroller);
         break;
-    case '/api/v1/verify' :
+    case '/api/v1/verify':
         require($verify);
         break;
-    case '/staff/login' :
+    case '/staff/login':
         require($staffLogin);
         break;
-    case '/staff/details' :
+    case '/staff/details':
         require($staffDetails);
-    case '/api/v1/review' :
+    case '/api/v1/review':
         require($review);
         break;
-    case '/api/v1/reserve/table' :
+    case '/api/v1/reserve/table':
         require($reservetable);
         break;
-    case '/api/v1/ongoingorders' :
+    case '/api/v1/ongoingorders':
         require($ongoingorders);
         break;
-    case '/api/v1/minorStaffAvailability' :
-            require($minorStaffAvailability);
-            break;        
-    case '/api/v1/minorStaffOrder' :
-                require($minorStaffOrder);
-                break;
-    case '/api/v1/customerorders' :
+    case '/api/v1/minorStaffAvailability':
+        require($minorStaffAvailability);
+        break;
+    case '/api/v1/minorStaffOrder':
+        require($minorStaffOrder);
+        break;
+    case '/api/v1/customerorders':
         require($customerorders);
         break;
-    case '/api/v1/getdineinorder' :
+    case '/api/v1/getdineinorder':
         require($getdineinorder);
+        break;
+    case '/api/v1/kmonlineorders':
+        require($kmonlineorders);
         break;
     default:
         http_response_code(404);
