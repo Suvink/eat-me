@@ -318,8 +318,32 @@ if (isset($_POST['place-order'])) {
 
     }
 
-    function payByCash() {
-      artemisAlert.alert('success', 'Cash Payment Request Sent!')
+    async function payByCash() {
+      let messageStr = "Order No: " + document.getElementById('order-id').innerHTML.replace(/#\b/g, "") + " needs the receipt!";
+      let data = {
+        "message": messageStr.replace(/\s+/g, " "),
+        "header": "Receipt Request"
+      }
+      try {
+        const response = await fetch('/api/v1/notify', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        let dataJson = JSON.parse(await response.text());
+        if (dataJson.recipients > 0) {
+          artemisAlert.alert('success', 'Cash Payment Request Sent!');
+        } else {
+          artemisAlert.alert('warning', 'Please contact a steward!');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+    }
+
+    window.onload = function(){
+      updateOrderStatus();
     }
 
     setInterval(function() {

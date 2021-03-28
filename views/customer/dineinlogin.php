@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
   $DineinLoginController = new DineinLoginController();
   $DineinLoginController->submitLogin($token, $otp);
 }
+
 ?>
 
 <!DOCTYPE html>
