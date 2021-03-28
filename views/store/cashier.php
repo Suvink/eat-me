@@ -2,9 +2,9 @@
 session_start();
 ob_start();
 
-if (!isset($_SESSION['staffId'])) {
-  header('Location: /staff/login');
-}
+// if (!isset($_SESSION['staffId'])) {
+//   header('Location: /staff/login');
+// }
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
@@ -48,6 +48,7 @@ if (isset($_POST['logout'])) {
   <div class="d-flex justify-content-center" id="popup-background-2">
     <button class="button is-primary is-2 mr-1" onclick="checkOrder()"> Check Orders </button>
     <button class="button is-primary is-2 mr-1" onclick="placeOrder()"> Place Order </button>
+    <button class="button is-primary is-2 mr-1" onclick="showSetTableModal()"> Set Table </button>
   </div>
   <div class="coloumns">
     <div class="column is-12">
@@ -123,9 +124,48 @@ if (isset($_POST['logout'])) {
       </div>
     </div>
   </div>
+
+  <section id="section-table">
+    <div class="invisible-box" id="settable-description">
+      <div class="box-content">
+        <div class="row">
+          <span class="close" onclick="hideSetTableModal()">&times;</span>
+        </div>
+        <center>
+          <p>Set table number on this device</p>
+        </center>
+      </div>
+      <center>
+        <label class="field artemis-input-field">
+          <input class="artemis-input" type="text" placeholder="Table Number" id="table_number_input" required>
+          <span class="label-wrap">
+            <span class="label-text">Table Number</span>
+          </span>
+        </label>
+        <button class="button is-primary" onclick="setTableToStorage();"> Set Table </button>
+      </center>
+    </div>
+  </section>
+
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     let closeBtn = document.getElementsByClassName("close");
+
+    window.onload = function(){
+      if(localStorage.getItem("table_number")){
+        document.getElementById("table_number_input").value = localStorage.getItem("table_number");
+      }
+    }
+
+    function setTableToStorage(){
+      let table_number = document.getElementById("table_number_input").value;
+      if(table_number !== ""){
+        localStorage.setItem("table_number", table_number);
+        hideSetTableModal();
+      }else{
+        artemisAlert.alert('warning', 'A table number is required!')
+      }
+    }
 
     function placeOrder() {
       window.location.href = '/cashier/placeorder';
@@ -133,6 +173,18 @@ if (isset($_POST['logout'])) {
 
     function checkOrder() {
       window.location.href = '/cashier/checkorders';
+    }
+
+    function showSetTableModal() {
+      const table = document.querySelector("#section-table" + " #settable-description");
+      table.style.display = "block";
+      blurBackground();
+    }
+
+    function hideSetTableModal() {
+      const table = document.querySelector("#section-table" + " #settable-description");
+      table.style.display = "none";
+      blurBackground();
     }
 
     function showTableDetails(tableNumber) {
@@ -227,9 +279,9 @@ if (isset($_POST['logout'])) {
           let status = row.insertCell(4);
 
           id.innerHTML = entry.orderId;
-          customer.innerHTML = entry.firstName+' '+entry.lastName;
+          customer.innerHTML = entry.firstName + ' ' + entry.lastName;
           order_type.innerHTML = entry.orderType;
-          amount.innerHTML = 'Rs.'+entry.amount+'.00';
+          amount.innerHTML = 'Rs.' + entry.amount + '.00';
           status.innerHTML = returnOrderStatus(entry.orderStatus);
         });
 
