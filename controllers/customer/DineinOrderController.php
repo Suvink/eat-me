@@ -55,7 +55,7 @@ class DineinOrderController extends Controller
     $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
-        echo $row['orderId'] + 1;
+        echo $row['orderId'];
       }
     }else{
       echo 5000;
