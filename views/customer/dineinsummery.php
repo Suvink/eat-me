@@ -342,6 +342,10 @@ if (isset($_POST['place-order'])) {
 
     }
 
+    window.onload = function(){
+      updateOrderStatus();
+    }
+
     setInterval(function() {
       updateOrderStatus();
     }, 10000);
