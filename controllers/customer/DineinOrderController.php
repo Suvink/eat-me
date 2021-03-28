@@ -55,7 +55,7 @@ class DineinOrderController extends Controller
     $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
-        echo $row['orderId'] + 1;
+        echo $row['orderId'];
       }
     }else{
       echo 5000;
@@ -194,6 +194,8 @@ class DineinOrderController extends Controller
     $sql = "INSERT INTO `order_details`(`orderId`, `customerId`, `orderType`, `amount`, `paymentType`, `payment_status`, `timestamp`, `assignedTime`, `preparedTime`, `orderStatus`) VALUES (".$order_id.",".$customer_id.",'".$order_type."',".$order_total.",'".$payment_type."', 'PENDING', ".time().",0,0,1) ";
     $result = $this->DineinOrderModel->executeSql($sql);
     if ($result == TRUE) {
+      $notification_string = 'You have a new order! Order ID: #'.$order_id;
+      $this->sendPushNotification($notification_string);
     }else{
       echo "<script>alert('Something went wrong!')</script>";
       //Add a redirect here

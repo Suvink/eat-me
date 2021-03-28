@@ -28,7 +28,7 @@ class OnlineOrderController extends Controller
 
   public function renderMainMenu(){
     $sql = "SELECT * FROM menu WHERE type='mains' AND availability='TRUE'";
-    $result = $this->DineinModel->executeSql($sql);
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -46,7 +46,7 @@ class OnlineOrderController extends Controller
 
   public function renderSidesMenu(){
     $sql = "SELECT * FROM menu WHERE type='starters' AND availability='TRUE'";
-    $result = $this->DineinModel->executeSql($sql);
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -64,7 +64,7 @@ class OnlineOrderController extends Controller
 
   public function renderBeveragesMenu(){
     $sql = "SELECT * FROM menu WHERE type='beverages' AND availability='TRUE'";
-    $result = $this->DineinModel->executeSql($sql);
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -82,7 +82,7 @@ class OnlineOrderController extends Controller
 
   public function renderDessertMenu(){
     $sql = "SELECT * FROM menu WHERE type='desserts' AND availability='TRUE'";
-    $result = $this->DineinModel->executeSql($sql);
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '

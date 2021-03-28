@@ -6,17 +6,20 @@ $CashierCheckOrderController = new CashierCheckOrderController();
 if (!isset($_SESSION['staffId'])) {
 	header('Location: /staff/login');
 }
-if( isset( $_POST['logout'] ) ){
-	$CashierCheckOrderController->stafflogout();
+if (isset($_POST['logout'])) {
+	$CashierCheckOrderController->logoutstaffMem();
 }
 
 $display = null;
 $row = null;
+
 if (isset($_POST['search-btn'])) {
 	$searchedId = $_POST['search'];
 	$display = $CashierCheckOrderController->getOrderDetails($searchedId);
-	$row = mysqli_fetch_assoc($display);
+} else {
+	$display = $CashierCheckOrderController->getOrderDetails("");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +41,8 @@ if (isset($_POST['search-btn'])) {
 				<img src="../../img/logo.png" height="56" width="224" />
 			</div>
 			<div class="column is-10 has-text-right nav-logout">
-				<i class="fas fa-bicycle" aria-hidden="true"></i>
-				<span class="mr-1">User Name</span>
+				<i class="fas fa-user" aria-hidden="true"></i>
+				<span class="mr-1">Cashier <?= $_SESSION['staffId'] ?> </span>
 				<form class="d-inline" action="/cashier" method="POST">
 					<button class="button is-primary" name="logout">Logout</button>
 				</form>
@@ -70,15 +73,7 @@ if (isset($_POST['search-btn'])) {
 								<th>Customer ID</th>
 							</thead>
 							<tbody>
-								<tr>
-									<td> <?php echo $row['orderId']  ?></td>
-									<td> <?php echo $row['amount']  ?></td>
-									<td> <?php echo $row['paymentType']  ?></td>
-									<td> <?php echo $row['orderStatus']  ?></td>
-									<td> <?php echo $row['orderType']  ?></td>
-									<td> <?php echo $row['customerId']  ?></td>
-								</tr>
-
+								<?php $CashierCheckOrderController->renderOrdersDetails($display) ?>
 							</tbody>
 						</table>
 
@@ -91,6 +86,40 @@ if (isset($_POST['search-btn'])) {
 	<script>
 		function returnHome() {
 			window.location.href = '/cashier';
+		}
+
+		function returnOrderStatus(num) {
+			switch (num) {
+				case '1':
+					return 'Placed';
+					break;
+				case '2':
+					return 'Accepted';
+					break;
+				case '3':
+					return 'Steward_Assigned';
+					break;
+				case '4':
+					return 'DP_Assigned';
+					break;
+				case '5':
+					return 'Prepared';
+					break;
+				case '6':
+					return 'Served';
+					break;
+				case '7':
+					return 'Delivered';
+					break;
+				case '8':
+					return 'Completed';
+					break;
+				case '9':
+					return 'Canceled';
+					break;
+				default:
+					return 'False Status';
+			}
 		}
 	</script>
 </body>

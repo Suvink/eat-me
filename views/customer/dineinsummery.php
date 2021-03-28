@@ -12,6 +12,7 @@ if (isset($_POST['place-order'])) {
 
   $orderData = $_REQUEST['orderArray'];
   $orderTotal = $_REQUEST['totalValue'];
+  $tableNo = $_REQUEST['tableNumber'];
 
   $DineinOrderController->setOrderArray($orderData);
   $DineinOrderController->setorderTotal($orderTotal);
@@ -23,7 +24,7 @@ if (isset($_POST['place-order'])) {
 
   //Log the order
   //minus one because the order is already there on `order_details` table
-  $DineinOrderController->setDineinOrder($DineinOrderController->getUnformattedOrderID() - 1, 6);
+  $DineinOrderController->setDineinOrder($DineinOrderController->getUnformattedOrderID() - 1, $tableNo);
 
   //Insert order items into the table
   foreach ($DineinOrderController->getOrderItems() as $key => $value) {
@@ -135,6 +136,11 @@ if (isset($_POST['place-order'])) {
     </div>
   </section>
 
+  <?php
+  unset($orderData);
+
+  ?>
+
   <div class="popout" onclick="stopEvent();">
     <div class="popout-btn" id="popout-btn">
       <i class="icon fab fa-tripadvisor"></i>
@@ -192,6 +198,9 @@ if (isset($_POST['place-order'])) {
     window.onbeforeunload = function() {
       return "Your work will be lost.";
     };
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
   </script>
   <script>
     let reviewStatus = false;
@@ -309,8 +318,32 @@ if (isset($_POST['place-order'])) {
 
     }
 
-    function payByCash() {
-      artemisAlert.alert('success', 'Cash Payment Request Sent!')
+    async function payByCash() {
+      let messageStr = "Order No: " + document.getElementById('order-id').innerHTML.replace(/#\b/g, "") + " needs the receipt!";
+      let data = {
+        "message": messageStr.replace(/\s+/g, " "),
+        "header": "Receipt Request"
+      }
+      try {
+        const response = await fetch('/api/v1/notify', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        let dataJson = JSON.parse(await response.text());
+        if (dataJson.recipients > 0) {
+          artemisAlert.alert('success', 'Cash Payment Request Sent!');
+        } else {
+          artemisAlert.alert('warning', 'Please contact a steward!');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+    }
+
+    window.onload = function(){
+      updateOrderStatus();
     }
 
     setInterval(function() {

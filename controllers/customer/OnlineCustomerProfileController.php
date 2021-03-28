@@ -87,6 +87,8 @@ class OnlineCustomerProfileController extends Controller{
     $sql = "INSERT INTO `order_includes_menu` (`orderId`, `itemNo`, `qty`, `dateAndTime`) VALUES (".$order_id.",".$item_no.",".$item_qty.",".time().") ";
     $result = $this->OnlineCustomerProfileModel->executeSql($sql);
     if ($result) {
+      $notification_string = 'You have a new order! Order ID: #'.$order_id;
+      $this->sendPushNotification($notification_string);
     }else{
       echo "<script>alert('something went wrong!')</script>";
     }

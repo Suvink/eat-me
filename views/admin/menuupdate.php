@@ -139,8 +139,33 @@ if (isset($_POST['hideMenu'])) {
     ?>
     <!-----XX------ navigatable buttons-----XX------->
     <section>
+    <div class="content-admin adjust-place-two">
+                <div class="columns group">
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two add-new-items-btn zoom" name="addNewItem">Add New Item</button>
+                        </div>
+                    </form>
+                <!-- </div>
+                <div class="columns group"> -->
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two zoom" name="hideAllItems">Hide all items</button>
+                        </div>
+                    </form>
+                <!-- </div>
+                <div class="columns group"> -->
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two show-all-items-btn zoom" name="showAllItems">Show all items</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </section>
+    <section>
         <div class="columns group">
-            <div class="content">
+            <div class="content-admin">
                 <div class="column is-3">
                     <h2>Men<span class="change-menu-color">ue</span></h2>
 
@@ -172,27 +197,6 @@ if (isset($_POST['hideMenu'])) {
                     $MenuUpdateController->renderDessertsHide();
                     $MenuUpdateController->renderDessertsUpdate(); ?>
 
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn add-new-items-btn" name="addNewItem">Add New Item</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn" name="hideAllItems">Hide all items</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn show-all-items-btn" name="showAllItems">Show all items</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

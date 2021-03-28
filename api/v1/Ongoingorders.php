@@ -10,7 +10,7 @@ $con = $DBConnection->getConnection();
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
   //Add the review into the table
-  $sql = "SELECT * FROM `order_details`";
+  $sql = "SELECT order_details.orderId, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId ";
   $result = $con->query($sql);
 
   if ($result !== NULL) {
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     while ($r = $result->fetch_assoc()) {
       $rows[] = $r;
     }
-
+    
     header("HTTP/1.1 200 OK");
     http_response_code(200);
     echo stripslashes(json_encode($rows));

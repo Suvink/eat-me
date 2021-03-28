@@ -196,66 +196,78 @@ if (isset($_POST['prepared2'])) {
             <div class="menu-cards">
               <?php
               $result = $KitchenDisplayOrdersController->getOrderDetails();
-              while ($row = mysqli_fetch_assoc($result)) {
-              ?>
-                <form class="click-btn" action="" method="POST">
-                  <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()" name="menu-card-details">
-                    <button name="click" class="click-btn" value="<?php echo $row['orderId'] ?>">
-                      <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    </button>
-                    <div class="columns group">
-                      <div class="column is-6">
-                        <h3 class="mt-1 mb-0">Order ID:</h3>
+              while ($row = mysqli_fetch_assoc($result)) 
+              {
+                $arrivedTime= $row['timestamp'];
+                date_default_timezone_set("Asia/Colombo");
+                $orderDate=date('Y/m/d',  $arrivedTime);
+                $today= date('Y/m/d');
+                if($orderDate==$today)
+                {
+                ?>
+                  <form class="click-btn" action="" method="POST">
+                    <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()" name="menu-card-details">
+                      <button name="click" class="click-btn" value="<?php echo $row['orderId'] ?>">
+                        <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                      </button>
+                      <div class="columns group">
+                        <div class="column is-6">
+                          <h3 class="mt-1 mb-0">Order ID:</h3>
+                        </div>
+                        <div class="column is-6">
+                          <h3 class="mt-1 mb-0" name="orderId"><?php echo $row['orderId'] ?></h3>
+                        </div>
                       </div>
-                      <div class="column is-6">
-                        <h3 class="mt-1 mb-0" name="orderId"><?php echo $row['orderId'] ?></h3>
-                      </div>
+                      <?php
+                      if ($row['orderStatus'] == "2") {
+                      ?>
+                        <div class="columns group ">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                      <?php
+                      } else if ($row['orderStatus'] == "4") {
+                      ?>
+                        <div class="columns group ">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                          </div>
+                        </div>
+                      <?php
+                      } else if ($row['orderStatus'] == "5") {
+                      ?>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
+                          </div>
+                        </div>
+                      <?php
+                      }
+                      ?>
                     </div>
-                    <?php
-                    if ($row['orderStatus'] == "2") {
-                    ?>
-                      <div class="columns group ">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                    <?php
-                    } else if ($row['orderStatus'] == "4") {
-                    ?>
-                      <div class="columns group ">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
-                        </div>
-                      </div>
-                    <?php
-                    } else if ($row['orderStatus'] == "5") {
-                    ?>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
-                        </div>
-                      </div>
-                    <?php
-                    }
-                    ?>
-                  </div>
-                </form>
-              <?php
+                  </form>
+                <?php
+                }
+                // else
+                // {
+                //   // echo "No any online orders for today: ".$today;
+                // }
               }
               ?>
             </div>
@@ -291,7 +303,15 @@ if (isset($_POST['prepared2'])) {
                 <div class="order-selected-item">
                   <div class="order-selected-row">
                     <div class="order-selected-row-image">
-                      <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
+                      <!-- <img src="https://image.flaticon.com/icons/svg/184/184410.svg" alt="no image"> -->
+                      <?php
+                        $result9 = $KitchenDisplayOrdersController->getItemImage($row2['itemNo']);
+                        $row9 = mysqli_fetch_assoc($result9); 
+                        ?>
+                            <img src="<?php echo"../../".$row9['url'];?>" alt="no image">
+                        <?php
+                        
+                        ?>
                     </div>
                     <div class="order-selected-row-description has-text-left">
                       <h4 class="mb-0 mt-0">
@@ -312,69 +332,93 @@ if (isset($_POST['prepared2'])) {
               }
             }
             ?>
+            <!-- <div class="columns group font">
+              <div class="column is-12">
+                <button name="more">More Details</button>
+              </div>
+            </div> -->
           </div>
-          <div class="total-box d-flex">
-            <div class="title-col">
-              <h3 class="mt-1 mb-1">Total Amount</h3>
-              <h3 class="mt-1 mb-1">Order Location</h3>
-              <h3 class="mt-1 mb-1">Arived Time</h3>
-              <h3 class="mt-1 mb-1" >Assigned Time</h3>
-              <h3 class="mt-1 mb-1" >Prepared Time</h3>
+          <div class="card hide-scrol-bar" style="height:120px; overflow:auto">
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Total Amount</h3>
+              </div>
+              <div class="column is-6" ><h3>
+                <?php
+                  $result4 = $KitchenDisplayOrdersController->getTotal($id);
+                  $row4 = mysqli_fetch_assoc($result4);
+                  echo "Rs " . $row4['amount'];
+
+                  ?></h3>
+              </div>
             </div>
-            <div class="price-col has-text-right mr-1">
-              <h3 class="mt-1 mb-1">
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Order Location</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result4 = $KitchenDisplayOrdersController->getTotal($id);
-                $row4 = mysqli_fetch_assoc($result4);
-                echo "Rs " . $row4['amount'];
+                  $result6 = $KitchenDisplayOrdersController->getAddress($id);
+                  $row6 = mysqli_fetch_assoc($result6);
+                  echo $row6['address'];
 
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Arived Time</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result6 = $KitchenDisplayOrdersController->getAddress($id);
-                $row6 = mysqli_fetch_assoc($result6);
-                echo $row6['address'];
-
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
+                  $result5 = $KitchenDisplayOrdersController->getDateAndTime($id);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if($row5['timestamp'] !=0)
+                  { 
+                    $arrivedTime= $row5['timestamp'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',  $arrivedTime);
+                  }
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1" >Assigned Time<h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result5 = $KitchenDisplayOrdersController->getDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                $arrivedTime= $row5['timestamp'];
-                date_default_timezone_set("Asia/Colombo");
-                echo date('Y/m/d H:i:s',  $arrivedTime);
-
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1" >
+                  $result5 = $KitchenDisplayOrdersController->getAssignedDateAndTime($id);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if( $row5['assignedTime'] != 0)
+                  {
+                    $assignedTime= $row5['assignedTime'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',   $assignedTime);
+                  }
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1" >Prepared Time</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result5 = $KitchenDisplayOrdersController->getAssignedDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                if( $row5['assignedTime'] != null)
-                {
-                  $assignedTime= $row5['assignedTime'];
-                  date_default_timezone_set("Asia/Colombo");
-                  echo date('Y/m/d H:i:s',   $assignedTime);
-                }
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
-                <?php
-                $result5 = $KitchenDisplayOrdersController->getPreparedDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                if( $row5['preparedTime'] != null)
-                {
-                  $preparedTime= $row5['preparedTime'];
-                  date_default_timezone_set("Asia/Colombo");
-                  echo date('Y/m/d H:i:s',  $preparedTime);
-  
-                }
-                ?>
-              </h3>
+                  $result5 = $KitchenDisplayOrdersController->getPreparedDateAndTime($id);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if($row5['preparedTime'] != 0)
+                  {
+                    $preparedTime= $row5['preparedTime'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',  $preparedTime);
+    
+                  }
+                  ?></h3>
+              </div>
             </div>
           </div>
+          <!-- </div> -->
           <div class="columns group font">
             <div class="column is-6" id="btnAccept" <?php echo $style2 ?>>
               <button class="button is-primary mt-1 zoom  resizebtn" onclick="hideAcceptDecline()" name="accept-btn">Accept</button>
@@ -438,7 +482,7 @@ if (isset($_POST['prepared2'])) {
                         $result7 = $KitchenDisplayOrdersController->getRiderStatus($row6['staffId']);
                         $row7 = mysqli_fetch_assoc($result7);
                         // echo $id;
-                        if($row7['status']=="available")
+                        if($row7['status']=="AVAILABLE")
                         {
                           ?>
                             <button name="click-2" value="<?php echo $row6['staffId']; ?>"  class="availibity-btn mb-2"><?php echo $row7['status'];?></button>

@@ -27,18 +27,7 @@ else if($_SESSION['imgeUploadTo']=="menu")
     // echo '</script>';
 }
 
-// if($ctype==1)
-// {
-//     $pathImg="../../img/inventory/";
-// }
-// else if($ctype==2)
-// {
-//     $pathImg="../../img/menu/";
-// }
-// else if($ctype==3)
-// {
-//     $pathImg="../../img/managemnt/";
-// }
+
 if(isset($_POST['back']))
 {
     if($_SESSION['imgeUploadTo']=="inventory")

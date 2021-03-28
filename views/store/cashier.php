@@ -2,9 +2,9 @@
 session_start();
 ob_start();
 
-if (!isset($_SESSION['staffId'])) {
-  header('Location: /staff/login');
-}
+// if (!isset($_SESSION['staffId'])) {
+//   header('Location: /staff/login');
+// }
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
@@ -28,6 +28,18 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="../../css/cashierStyles.css">
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <title>Cashier Dashboard </title>
+
+  <!-- //Push Notification Subscription -->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "950f0adf-2de5-4613-a7b0-8790f3104caa",
+        safari_web_id: 'web.onesignal.auto.20cc36d3-e742-47b9-8fc8-37c27a32926f'
+      });
+    });
+  </script>
 </head>
 
 <body>
@@ -48,6 +60,7 @@ if (isset($_POST['logout'])) {
   <div class="d-flex justify-content-center" id="popup-background-2">
     <button class="button is-primary is-2 mr-1" onclick="checkOrder()"> Check Orders </button>
     <button class="button is-primary is-2 mr-1" onclick="placeOrder()"> Place Order </button>
+    <button class="button is-primary is-2 mr-1" onclick="showSetTableModal()"> Set Table </button>
   </div>
   <div class="coloumns">
     <div class="column is-12">
@@ -70,18 +83,16 @@ if (isset($_POST['logout'])) {
             <table id="ongoing-orders-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Order ID</th>
                   <th>Customer</th>
-                  <th>Items</th>
-                  <th>Price</th>
-                  <th>Table No</th>
+                  <th>Order Type</th>
+                  <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
             </table>
-            <button class="button is-primary mt-1" onclick="fetchOrderDetails()">Refresh</button>
           </section>
         </div>
         <?php
@@ -105,7 +116,7 @@ if (isset($_POST['logout'])) {
                   ?>
 
                 </button>
-                <table>
+                <!-- <table>
                   <tr>
                     <td>1001</td>
                   </tr>
@@ -115,7 +126,7 @@ if (isset($_POST['logout'])) {
                   <tr>
                     <td>Order Status </td>
                   </tr>
-                </table>
+                </table> -->
               </div>
             </div>
           </section>
@@ -125,9 +136,48 @@ if (isset($_POST['logout'])) {
       </div>
     </div>
   </div>
+
+  <section id="section-table">
+    <div class="invisible-box" id="settable-description">
+      <div class="box-content">
+        <div class="row">
+          <span class="close" onclick="hideSetTableModal()">&times;</span>
+        </div>
+        <center>
+          <p>Set table number on this device</p>
+        </center>
+      </div>
+      <center>
+        <label class="field artemis-input-field">
+          <input class="artemis-input" type="text" placeholder="Table Number" id="table_number_input" required>
+          <span class="label-wrap">
+            <span class="label-text">Table Number</span>
+          </span>
+        </label>
+        <button class="button is-primary" onclick="setTableToStorage();"> Set Table </button>
+      </center>
+    </div>
+  </section>
+
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
     let closeBtn = document.getElementsByClassName("close");
+
+    window.onload = function() {
+      if (localStorage.getItem("table_number")) {
+        document.getElementById("table_number_input").value = localStorage.getItem("table_number");
+      }
+    }
+
+    function setTableToStorage() {
+      let table_number = document.getElementById("table_number_input").value;
+      if (table_number !== "") {
+        localStorage.setItem("table_number", table_number);
+        hideSetTableModal();
+      } else {
+        artemisAlert.alert('warning', 'A table number is required!')
+      }
+    }
 
     function placeOrder() {
       window.location.href = '/cashier/placeorder';
@@ -135,6 +185,18 @@ if (isset($_POST['logout'])) {
 
     function checkOrder() {
       window.location.href = '/cashier/checkorders';
+    }
+
+    function showSetTableModal() {
+      const table = document.querySelector("#section-table" + " #settable-description");
+      table.style.display = "block";
+      blurBackground();
+    }
+
+    function hideSetTableModal() {
+      const table = document.querySelector("#section-table" + " #settable-description");
+      table.style.display = "none";
+      blurBackground();
     }
 
     function showTableDetails(tableNumber) {
@@ -201,19 +263,20 @@ if (isset($_POST['logout'])) {
       }
 
     }
+    //order details table
     async function fetchOrderDetails() {
       try {
         const response = await fetch('/api/v1/ongoingorders', {
           method: 'GET',
         });
         let responseData = JSON.parse(await response.text());
-        console.log(responseData);
+        //console.log(responseData);
 
         let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
 
         //Clear the table
-        console.log(tbodyRef.rows.length);
-        for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+        //console.log(tbodyRef.rows.length);
+        for (let d = tbodyRef.rows.length - 1; d >= 0; d--) {
           tbodyRef.deleteRow(d);
         }
 
@@ -222,24 +285,60 @@ if (isset($_POST['logout'])) {
         responseData.forEach(function(entry) {
           let row = tbodyRef.insertRow(0);
           let id = row.insertCell(0);
-
           let customer = row.insertCell(1);
-          let items = row.insertCell(2);
-          let price = row.insertCell(3);
-          let table_No = row.insertCell(4);
-          let status = row.insertCell(5);
+          let order_type = row.insertCell(2);
+          let amount = row.insertCell(3);
+          let status = row.insertCell(4);
 
           id.innerHTML = entry.orderId;
-          customer.innerHTML = entry.customerId;
-          items.innerHTML = entry.orderStatus;
-          price.innerHTML = entry.orderType;
-          table_No.innerHTML = entry.paymentType;
-          status.innerHTML = "Preparing";
+          customer.innerHTML = entry.firstName + ' ' + entry.lastName;
+          order_type.innerHTML = entry.orderType;
+          amount.innerHTML = 'Rs.' + entry.amount + '.00';
+          status.innerHTML = returnOrderStatus(entry.orderStatus);
         });
 
       } catch (err) {
         console.log(err)
         artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+    fetchOrderDetails();
+    //refresh table
+    setInterval(function() {
+      fetchOrderDetails();
+    }, 30000);
+    //return orderstatus in readable format
+    function returnOrderStatus(num) {
+      switch (num) {
+        case '1':
+          return 'Placed';
+          break;
+        case '2':
+          return 'Accepted';
+          break;
+        case '3':
+          return 'Steward_Assigned';
+          break;
+        case '4':
+          return 'DP_Assigned';
+          break;
+        case '5':
+          return 'Prepared';
+          break;
+        case '6':
+          return 'Served';
+          break;
+        case '7':
+          return 'Delivered';
+          break;
+        case '8':
+          return 'Completed';
+          break;
+        case '9':
+          return 'Canceled';
+          break;
+        default:
+          return 'False Status';
       }
     }
   </script>

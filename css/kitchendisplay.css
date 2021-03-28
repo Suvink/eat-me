@@ -774,4 +774,7 @@ transform: scale(1.1);
 .availibity-btn:hover{
   background-color: #f5a540 !important;
 }
+.hide-scrol-bar::-webkit-scrollbar {
+  display: none;
+}
 

@@ -19,6 +19,11 @@ class KitchenDisplayOrdersController extends Controller
         $result = $this->KitchenDisplayOrdersModel->getAllDataWhere('order_includes_menu',' orderId',$ans);
         return $result;
     }
+    public function getItemImage($itemNo)
+    {
+        $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('url',' menu','itemNo',$itemNo);
+        return $result;
+    }
     public function getItemName($itemNo)
     {
         $result = $this->KitchenDisplayOrdersModel->getSpecificDataWhere('itemName',' menu','itemNo',$itemNo);
@@ -91,7 +96,7 @@ class KitchenDisplayOrdersController extends Controller
     }
     public function updateRiderStatus($assSId)
     {
-        $result = $this->KitchenDisplayOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "notAvailable"));
+        $result = $this->KitchenDisplayOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "NOTAVAILABLE"));
         return $result;
     }
     public function updateToAssigned($assOrId,$dateAndTime)

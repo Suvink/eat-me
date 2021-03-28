@@ -757,12 +757,12 @@
              
               if($check==1)
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'TRUE', 'type' => $itemType));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'TRUE', 'type' => $itemType,'tag' =>"ACTIVE"));
                 // echo "done";
               }
               else
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'TRUE'));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
                     // echo" ";
                     // echo "=> updated to old status";
               }

@@ -5,9 +5,10 @@ ob_start();
 require_once "./controllers/store/StewardController.php";
 $StewardController = new StewardController();
 
-if(!isset($_SESSION['staffId'])){
-    header('Location: /staff/login');
+if (!isset($_SESSION['staffId'])) {
+	header('Location: /staff/login');
 }
+
 
 if( isset( $_POST['logout'] ) ){
   $StewardController->logoutstaffMem();
@@ -48,10 +49,13 @@ if( isset( $_POST['logout'] ) ){
 			<div class="container has-text-centered">
 				<div class="card" id="availability">
 					<h1>Set Availability</h1>
-					<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
-					<label for="switch" class="toggle">
-						<p>On &nbsp; &nbsp; Off</p>
-					</label>
+					<input style="display: none;" id="staff" />
+					<form action="" method="POST" name="avalability-switch">
+						<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability()" />
+						<label for="switch" class="toggle">
+							<p>On &nbsp; &nbsp; Off</p>
+						</label>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -63,33 +67,17 @@ if( isset( $_POST['logout'] ) ){
 				<div class="card">
 					<h1 class="title"> <span class="orange-color">Order</span> Details </h1>
 					<section class="mt-1 pl-1 pr-1">
-						<table>
+						<table id="assigned-order">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Customer</th>
-									<th>Items</th>
 									<th>Price</th>
 									<th>Table No</th>
 									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1001</td>
-									<td>Mr.MR</td>
-									<td>Coca Cola</td>
-									<td>LKR 230.00</td>
-									<td>8</td>
-									<td>
-										<select name="Status" id="Status" onchange="popupRate()">
-											<option value="Preparing">Preparing</option>
-											<option value="Prepared">Prepared</option>
-											<option value="Served">Served</option>
-											<option value="Completed">Completed</option>
-										</select>
-									</td>
-								</tr>
 							</tbody>
 						</table>
 					</section>
@@ -150,7 +138,7 @@ if( isset( $_POST['logout'] ) ){
 					document.getElementById("star_2").classList.toggle("filled-color");
 					disableButtons();
 					break;
-				case 3:					
+				case 3:
 					document.getElementById("star_1").classList.toggle("filled-color");
 					document.getElementById("star_2").classList.toggle("filled-color");
 					document.getElementById("star_3").classList.toggle("filled-color");
@@ -173,20 +161,117 @@ if( isset( $_POST['logout'] ) ){
 			}
 		}
 
-		function disableButtons(){
-			document.getElementById("star_1").disabled= true;
-			document.getElementById("star_2").disabled= true;
-			document.getElementById("star_3").disabled= true;
-			document.getElementById("star_4").disabled= true;
-			document.getElementById("star_5").disabled= true;
+		function disableButtons() {
+			document.getElementById("star_1").disabled = true;
+			document.getElementById("star_2").disabled = true;
+			document.getElementById("star_3").disabled = true;
+			document.getElementById("star_4").disabled = true;
+			document.getElementById("star_5").disabled = true;
 		}
 
-		function blurBackground(){
+		function blurBackground() {
 			let blurEliment = document.getElementById("detailTable");
 			blurEliment.classList.toggle("blur");
 		}
-		function changeAvailability(){
 
+		function changeAvailability() {
+
+		}
+		async function getAssignedOrders(sId) {
+			try {
+				const response = await fetch('/api/v1/minorStaffOrder?staff_id=' + sId, {
+					method: 'GET',
+				});
+				let responseOrderData = JSON.parse(await response.text());
+				console.log(responseOrderData);
+				let tbodyOrderRef = document.getElementById("assigned-order").getElementsByTagName('tbody')[0];
+
+				//Clear the table
+				console.log(tbodyOrderRef.rows.length);
+				for (let d = tbodyOrderRef.rows.length - 1; d >= 0; d--) {
+					tbodyOrderRef.deleteRow(d);
+
+				}
+
+				//insert order details
+				if (responseOrderData.orderStatus == '1'||responseOrderData.orderStatus == '2'||responseOrderData.orderStatus == '3'||responseOrderData.orderStatus == '4'||responseOrderData.orderStatus == '5') {
+					let row = tbodyOrderRef.insertRow(0);
+					let id = row.insertCell(0);
+					let customer = row.insertCell(1);
+					let amount = row.insertCell(2);
+					let status = row.insertCell(3);
+
+					id.innerHTML = responseOrderData.orderId;
+					customer.innerHTML = responseOrderData.firstName + ' ' + responseOrderData.lastName;
+					amount.innerHTML = 'Rs.' + responseOrderData.amount + '.00';
+					status.innerHTML = returnOrderStatus(responseOrderData.orderStatus);
+				}
+
+
+			} catch (err) {
+				console.log(err)
+				artemisAlert.alert('error', 'Something went wrong!')
+			}
+		}
+		async function getAvailability(sId) {
+
+			try {
+				const response = await fetch('/api/v1/minorStaffAvailability?staff_id=' + sId, {
+					method: 'GET',
+				});
+				let responseData = JSON.parse(await response.text());
+				console.log(responseData);
+				if(responseData.status=='AVAILABLE'){
+					document.querySelector("#switch").style
+					return '1';
+				}
+
+			} catch (err) {
+				console.log(err)
+				artemisAlert.alert('error', 'Something went wrong!')
+			}
+		}
+		//save value of availability input tag
+		document.getElementById("switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
+		//refresh availability data in 30s
+		setInterval(function() {
+			console.log(document.getElementById("switch").value );
+			getAvailability(<?= $_SESSION['staffId'] ?>);
+			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
+		}, 10000);
+
+		function returnOrderStatus(num) {
+			switch (num) {
+				case '1':
+					return 'Placed';
+					break;
+				case '2':
+					return 'Accepted';
+					break;
+				case '3':
+					return 'Steward_Assigned';
+					break;
+				case '4':
+					return 'DP_Assigned';
+					break;
+				case '5':
+					return 'Prepared';
+					break;
+				case '6':
+					return 'Served';
+					break;
+				case '7':
+					return 'Delivered';
+					break;
+				case '8':
+					return 'Completed';
+					break;
+				case '9':
+					return 'Canceled';
+					break;
+				default:
+					return 'False Status';
+			}
 		}
 	</script>
 

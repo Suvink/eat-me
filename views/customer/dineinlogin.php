@@ -3,10 +3,18 @@ require_once "./controllers/customer/DineinLoginController.php";
 if (isset($_POST['submit'])) {
   $token =  $_REQUEST['token'];
   $otp =  $_REQUEST['otp'];
+  $tableNo = $_REQUEST['tableNo'];
+
+  if(!$tableNo){
+    echo 'alert("Device not assigned to a table")';
+  }else{
+    $_SESSION['table_number'] = $tableNo;
+  }
 
   $DineinLoginController = new DineinLoginController();
   $DineinLoginController->submitLogin($token, $otp);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +65,7 @@ if (isset($_POST['submit'])) {
       <form action="/dinein/login" id="otpDiv" style="display: none" method="POST">
         <label class="field artemis-input-field">
           <input class="artemis-input" type="text" placeholder="Your OTP here" name="otp" autocomplete="one-time-code" required>
+          <input name="tableNo" id="table-no" style="display: none;">
           <span class="label-wrap">
             <span class="label-text">OTP</span>
           </span>
@@ -71,7 +80,24 @@ if (isset($_POST['submit'])) {
   </div>
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
+
+  
+
+    window.onload = function(){
+      if(!localStorage.getItem("table_number")){
+        artemisAlert.alert('error', 'No table number is assigned! Please contact the cashier.')
+      }
+    }
+
     async function sendOTP() {
+
+      let tableNo = localStorage.getItem("table_number");
+      document.getElementById("table-no").value = tableNo;
+
+      if(!tableNo){
+        artemisAlert.alert('error', 'No table number is assigned! Please contact the cashier.');
+        return;
+      }
 
       let phone_no = document.getElementById('phone_number_input').value;
       if (!/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/.test(phone_no)) {

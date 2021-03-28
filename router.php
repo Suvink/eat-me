@@ -43,11 +43,13 @@ $imageUploader = 'views/store/imageUploader.php';
 //API
 $verify = 'api/v1/OTP.php';
 $review = 'api/v1/Review.php';
-$reservetable = 'api/v1/TableReservation.php';
-$ongoingorders = 'api/v1/Ongoingorders.php';
-$customerorders = 'api/v1/CustomerOrders.php';
-$getdineinorder = 'api/v1/DineinOrder.php';
-$getonlineorders = 'api/v1/KMOnlineOrders.php';
+$reservetable= 'api/v1/TableReservation.php';
+$ongoingorders= 'api/v1/Ongoingorders.php';
+$minorStaffAvailability= 'api/v1/MinorStaffAvailability.php';
+$minorStaffOrder= 'api/v1/MinorStaffOrder.php';
+$customerorders= 'api/v1/CustomerOrders.php';
+$getdineinorder= 'api/v1/DineinOrder.php';
+$notify= 'api/v1/PushNotifications.php';
 
 //controllers
 $dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
@@ -163,14 +165,20 @@ switch ($request) {
     case '/api/v1/ongoingorders':
         require($ongoingorders);
         break;
-    case '/api/v1/customerorders':
+    case '/api/v1/minorStaffAvailability' :
+            require($minorStaffAvailability);
+            break;        
+    case '/api/v1/minorStaffOrder' :
+                require($minorStaffOrder);
+                break;
+    case '/api/v1/customerorders' :
         require($customerorders);
         break;
     case '/api/v1/getdineinorder':
         require($getdineinorder);
         break;
-    case '/api/v1/kmonlineorders':
-        require($getonlineorders);
+    case '/api/v1/notify' :
+        require($notify);
         break;
     default:
         http_response_code(404);
