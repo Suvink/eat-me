@@ -14,13 +14,13 @@
     $DineinController->logout();
   }
 
-    //Check for existing orders and redirect
-    $has_ongoing = $DineinController->hasExistingOrder($_SESSION['user_phone']);
-    if($has_ongoing){
-      $order_id = $DineinController->getOrderIdByCustomerId($_SESSION['user_phone']);
-      $redirectURL = 'Location: /dinein/summery?existing_order=true&order_id='.$order_id;
-      header($redirectURL);
-    }
+  //Check for existing orders and redirect
+  $has_ongoing = $DineinController->hasExistingOrder($_SESSION['user_phone']);
+  if($has_ongoing){
+    $order_id = $DineinController->getOrderIdByCustomerId($_SESSION['user_phone']);
+    $redirectURL = 'Location: /dinein/summery?existing_order=true&order_id='.$order_id;
+    header($redirectURL);
+  }
 
 ?>
 
@@ -123,6 +123,7 @@
           <form action="/dinein/summery" method="POST">
             <input id="confirmed-total" name="totalValue" style="display:none" required>
             <input id="order-array" type="text" name="orderArray" style="display:none" required>
+            <input id="table-number" name="tableNumber" style="display:none" required>
             <div class="mt-1 payment-buttons fadeInRight">
             <button class="button is-primary mt-1 fadeInRight" type="submit" name="place-order">Place Order</button>
             </div>
@@ -139,6 +140,10 @@
   let counter = false;
   let total = 0;
   let order = {};
+
+  window.onload = function(){
+    document.getElementById("table-number").value = localStorage.getItem("table_number");
+  }
 
   function addToCart(itemId){
 

@@ -5,12 +5,26 @@ $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
+
 require_once './controllers/admin/DashBoardController.php';
 $DashBoardController = new DashBoardController();
 
 if (isset($_POST['logout'])) {
   $DashBoardController->logoutstaffMem();
 }
+
+//Import Koolreport
+require_once "./koolreport/core/autoload.php";
+require_once "./config/koolreportconfig.php";
+
+use \koolreport\datasources\PdoDataSource;
+use \koolreport\widgets\google\ColumnChart;
+use \koolreport\widgets\google\BarChart;
+use \koolreport\widgets\google\PieChart;
+use \koolreport\widgets\google\LineChart;
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +42,7 @@ if (isset($_POST['logout'])) {
 
 <body>
 
-<!-- -----navi bar ---------- -->
+  <!-- -----navi bar ---------- -->
   <form action="" method="POST">
     <div class="navbar">
       <div class="columns group">
@@ -46,10 +60,10 @@ if (isset($_POST['logout'])) {
     </div>
   </form>
   <!--------xx-----navi bar --------xx------->
-  
+
   <!----------- navigatable buttons------------>
   <?php
-  if ($roleId=="1") {
+  if ($roleId == "1") {
   ?>
     <section>
       <div class="row buttons-row">
@@ -169,6 +183,44 @@ if (isset($_POST['logout'])) {
         </tr>
       </tbody>
     </table>
+  </section>
+
+  <section class="mt-2 pl-1 pr-1">
+    <h1 class="title has-text-centered ">Store <span class="orange-color">Status</span></h1>
+
+    <div class="columns group">
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Ongoing Orders</h1>
+          <?php
+          PieChart::create(array(
+            "dataSource" => (new PdoDataSource($connection))->query("
+              SELECT orderType ,COUNT(orderType) as Count FROM order_details GROUP BY orderType
+              "),
+            "options" => array(
+              "is3D" => true
+            )
+          ));
+          ?>
+      </div>
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Staff Distribution</h1>
+          <?php
+          ColumnChart::create(array(
+            "dataSource" => (new PdoDataSource($connection))->query("
+                SELECT roleId, COUNT(roleId) AS count FROM staff GROUP BY roleId")
+          ));
+          ?>
+      </div>
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Payment Types</h1>
+        <?php
+          ColumnChart::create(array(
+            "dataSource"=>(new PdoDataSource($connection))->query("
+            SELECT paymentType, COUNT(paymentType) AS count FROM order_details GROUP BY paymentType"),
+          ));
+        ?>
+      </div>
+    </div>
   </section>
 </body>
 
