@@ -15,6 +15,7 @@ function showRating() {
 }
 
 function colorButton(buttonNumber) {
+	console.log('rate called');
 	switch (buttonNumber) {
 		case 1:
 			clearButtons();
@@ -55,76 +56,12 @@ function clearButtons() {
 	document.getElementById("star_4").classList.remove("filled-color");
 	document.getElementById("star_5").classList.remove("filled-color");
 }
-// function colorButton(buttonNumber) {
-// 	switch (buttonNumber) {
-// 		case 1:
-// 			document.getElementById("star_1").classList.toggle("filled-color");
-// 			disableButtons();
-// 			break;
-// 		case 2:
-// 			document.getElementById("star_1").classList.toggle("filled-color");
-// 			document.getElementById("star_2").classList.toggle("filled-color");
-// 			disableButtons();
-// 			break;
-// 		case 3:
-// 			document.getElementById("star_1").classList.toggle("filled-color");
-// 			document.getElementById("star_2").classList.toggle("filled-color");
-// 			document.getElementById("star_3").classList.toggle("filled-color");
-// 			disableButtons();
-// 			break;
-// 		case 4:
-// 			document.getElementById("star_1").classList.toggle("filled-color");
-// 			document.getElementById("star_2").classList.toggle("filled-color");
-// 			document.getElementById("star_3").classList.toggle("filled-color");
-// 			document.getElementById("star_4").classList.toggle("filled-color");
-// 			disableButtons();
-// 			break;
-// 		case 5:
-// 			document.getElementById("star_1").classList.toggle("filled-color");
-// 			document.getElementById("star_2").classList.toggle("filled-color");
-// 			document.getElementById("star_3").classList.toggle("filled-color");
-// 			document.getElementById("star_4").classList.toggle("filled-color");
-// 			document.getElementById("star_5").classList.toggle("filled-color");
-// 			disableButtons();
-// 	}
-// }
-
-// function disableButtons() {
-// 	document.getElementById("star_1").disabled = true;
-// 	document.getElementById("star_2").disabled = true;
-// 	document.getElementById("star_3").disabled = true;
-// 	document.getElementById("star_4").disabled = true;
-// 	document.getElementById("star_5").disabled = true;
-// }
 
 function blurBackground() {
 	let blurEliment = document.getElementById("detailTable");
 	blurEliment.classList.toggle("blur");
 }
 
-async function changeAvailability(sId) {
-	let switchState = "";
-	if (document.getElementById("availability-switch").checked) {
-		//if steward is available right now
-		document.getElementById("availability-switch").checked = false;
-		switchState = "NOTAVAILABLE";
-	} else {
-		//if steward is not available right now
-		document.getElementById("availability-switch").checked = true;
-		switchState = "AVAILABLE";
-	}
-	try {
-		const response = await fetch('/api/v1/minorStaffAvailability', {
-			method: 'POST',
-		});
-		let responseOrderData = JSON.parse(await response.text());
-		//console.log(responseOrderData);
-	} catch (err) {
-		console.log(err)
-		artemisAlert.alert('error', 'Something went wrong!')
-	}
-
-}
 async function getAssignedOrders(sId) {
 	try {
 		const response = await fetch('/api/v1/minorStaffOrder?staff_id=' + sId, {
@@ -171,6 +108,37 @@ async function getAssignedOrders(sId) {
 		artemisAlert.alert('error', 'Something went wrong!')
 	}
 }
+
+async function changeAvailability(sId) {
+	let switchState = "";
+	if (document.getElementById("switch").checked) {
+		//if steward is not available right now
+		document.getElementById("switch").checked = true;
+		switchState = "AVAILABLE";
+	} else {
+		//if steward is available right now
+		document.getElementById("switch").checked = false;
+		switchState = "NOTAVAILABLE";
+	}
+	let jsonObj = {
+		"state": switchState,
+		"staffId":sId
+	  }
+	try {
+		const response = await fetch('/api/v1/minorStaffAvailability', {
+			method: 'POST',
+			body: JSON.stringify(jsonObj)
+		});
+
+		let responseData = JSON.parse(await response.text());
+		//console.log(responseData);
+
+	} catch (err) {
+		console.log(err)
+		artemisAlert.alert('error', 'Something went wrong!')
+	}
+}
+
 async function getAvailability(sId) {
 
 	try {
@@ -180,9 +148,9 @@ async function getAvailability(sId) {
 		let responseData = JSON.parse(await response.text());
 		//console.log(responseData);
 		if (responseData.status == 'AVAILABLE') {
-			document.getElementById("availability-switch").checked = true;
+			document.getElementById("switch").checked = true;
 		} else {
-			document.getElementById("availability-switch").checked = false;
+			document.getElementById("switch").checked = false;
 		}
 
 	} catch (err) {

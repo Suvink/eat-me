@@ -51,7 +51,7 @@ if (isset($_POST['logout'])) {
 					<h1>Set Availability</h1>
 					<input style="display: none;" id="staff" />
 					<form action="" method="POST" name="avalability-switch">
-						<input type="checkbox" id="availability-switch" class="checkbox" onclick="changeAvailability()" />
+						<input type="checkbox" id="switch" class="checkbox" onclick="changeAvailability(<?= $_SESSION['staffId'] ?>)" />
 						<label for="switch" class="toggle">
 							<p>On &nbsp; &nbsp; Off</p>
 						</label>
@@ -115,20 +115,21 @@ if (isset($_POST['logout'])) {
 	</div>
 	</div>
 	<script src="../../js/store/steward.js" type="text/javascript"></script>
+	<script src="../../plugins/ArtemisAlert/ArtemisAlert.js" type="text/javascript"></script>
 	<script>
 		//save value of availability input tag
-		document.getElementById("availability-switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
-		//refresh availability data in 30s
+		document.getElementById("switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
+		// //refresh availability data in 30s
 		setInterval(function() {
-			//console.log(document.getElementById("availability-switch").value);
+			//console.log(document.getElementById("switch").value);
 			getAvailability(<?= $_SESSION['staffId'] ?>);
 			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
-		}, 10000);
+		}, 5000);
 		window.onload = function() {
 			getAssignedOrders(<?= $_SESSION['staffId'] ?>);
 		}
 	</script>
-	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 	<script>
 		window.OneSignal = window.OneSignal || [];
 		OneSignal.push(function() {
@@ -137,7 +138,8 @@ if (isset($_POST['logout'])) {
 				safari_web_id: 'web.onesignal.auto.20cc36d3-e742-47b9-8fc8-37c27a32926f'
 			});
 		});
-	</script>
+	</script> -->
+	
 
 </body>
 

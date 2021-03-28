@@ -35,9 +35,31 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
   }
 
 }else if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    
+    $rawdata = file_get_contents('php://input');
+    $receivedData = json_decode($rawdata);
 
-}
-else{
+    print_r($receivedData);
+
+    //Update availability to the database
+    $sql = "UPDATE `minor_staff` SET `status`='".$receivedData->state."' WHERE `staffId`=".$receivedData->staffId."";
+		$result = $con->query($sql);
+		
+		if ($result == true) {
+
+			header("HTTP/1.1 200 OK");
+			http_response_code(200);
+			echo stripslashes(json_encode($result));
+			return;
+		} else {
+			header("HTTP/1.1 400 Bad Request");
+			http_response_code(400);
+			$message = '{"message": "Could not fetch orders"}';
+			echo stripslashes(json_encode($message));
+			return;
+		}	
+
+}else{
     header("HTTP/1.1 405 Method Not Allowed");
     http_response_code(405);
     $message = '{"message": "Method Not Allowed"}';
