@@ -2,9 +2,9 @@
 session_start();
 ob_start();
 
-if (!isset($_SESSION['staffId'])) {
-  header('Location: /staff/login');
-}
+// if (!isset($_SESSION['staffId'])) {
+//   header('Location: /staff/login');
+// }
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
@@ -28,6 +28,18 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="../../css/cashierStyles.css">
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <title>Cashier Dashboard </title>
+
+  <!-- //Push Notification Subscription -->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "950f0adf-2de5-4613-a7b0-8790f3104caa",
+        safari_web_id: 'web.onesignal.auto.20cc36d3-e742-47b9-8fc8-37c27a32926f'
+      });
+    });
+  </script>
 </head>
 
 <body>
@@ -151,18 +163,18 @@ if (isset($_POST['logout'])) {
   <script>
     let closeBtn = document.getElementsByClassName("close");
 
-    window.onload = function(){
-      if(localStorage.getItem("table_number")){
+    window.onload = function() {
+      if (localStorage.getItem("table_number")) {
         document.getElementById("table_number_input").value = localStorage.getItem("table_number");
       }
     }
 
-    function setTableToStorage(){
+    function setTableToStorage() {
       let table_number = document.getElementById("table_number_input").value;
-      if(table_number !== ""){
+      if (table_number !== "") {
         localStorage.setItem("table_number", table_number);
         hideSetTableModal();
-      }else{
+      } else {
         artemisAlert.alert('warning', 'A table number is required!')
       }
     }
