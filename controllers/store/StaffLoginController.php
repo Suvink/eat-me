@@ -25,7 +25,7 @@ class StaffLoginController extends Controller
       {
         if( MD5($password) === $row["password"])
         {
-          if ($row['tag']=="active") 
+          if ($row['tag']=="ACTIVE") 
           {
               $_SESSION['staffId']=$row['staffId'];
               $_SESSION['firstName']=$row['firstName'];

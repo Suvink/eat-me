@@ -563,6 +563,50 @@ if (isset($_POST['prepared2'])) {
 
   <!-- --------kitchen display js file -->
   <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
+  <script>
+  async function fetchOnlineOrderDetails() {
+      try {
+        const response = await fetch('/api/v1/kmonlineorders', {
+          method: 'GET',
+        });
+        let responseData = JSON.parse(await response.text());
+        console.log(responseData);
+
+        // let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
+
+        // //Clear the table
+        // console.log(tbodyRef.rows.length);
+        // for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+        //   tbodyRef.deleteRow(d);
+        // }
+
+        // //Insert data to table
+
+        // responseData.forEach(function(entry) {
+        //   let row = tbodyRef.insertRow(0);
+        //   let id = row.insertCell(0);
+
+        //   let customer = row.insertCell(1);
+        //   let items = row.insertCell(2);
+        //   let price = row.insertCell(3);
+        //   let table_No = row.insertCell(4);
+        //   let status = row.insertCell(5);
+
+        //   id.innerHTML = entry.orderId;
+        //   customer.innerHTML = entry.customerId;
+        //   items.innerHTML = entry.orderStatus;
+        //   price.innerHTML = entry.orderType;
+        //   table_No.innerHTML = entry.paymentType;
+        //   status.innerHTML = "Preparing";
+        // });
+
+      } catch (err) {
+        console.log(err)
+        artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+    fetchOnlineOrderDetails();
+  </script>
 </body>
 
 </html>

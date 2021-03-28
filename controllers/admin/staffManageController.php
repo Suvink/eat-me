@@ -9,7 +9,7 @@
         }
         public function getStaffDetails()
         {
-            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='deleted'");
+            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='DELETED'");
             return $result;
         }
         public function deleteStaff($staffid3)
@@ -20,7 +20,7 @@
             if($status=="available")
             {
                 $result1=$this->StaffManageModel->deleteData('minor_staff', 'staffId', $staffid3);
-                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"deleted"));
+                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"DELETED"));
             }
             else
             {
@@ -105,7 +105,7 @@
             echo $password2;
             if($val2==1)
             {
-                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','active')";    
+                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','ACTIVE')";    
                 $this->StaffManageModel->executeSql($sqlQ);
                 $sqlQ2="SELECT max(staffId) FROM `staff`";
                 $newlyAddedID=$this->StaffManageModel->executeSql($sqlQ2);

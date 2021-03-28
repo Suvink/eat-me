@@ -64,17 +64,36 @@ class KitchenRetrieveController extends Controller
                     $val = 1;
                 }
             } else {
-                return "can't retreive more than ". $oldq;
+                // return "can't retreive more than ". $oldq;
+                echo '<script language="javascript">';
+                echo 'alert("can not retreive more than "+" "+ "'.$oldq.'")';
+                echo '</script>';
             }
         } else {
 
-            return "not a positive integer";
+            echo '<script language="javascript">';
+            echo 'alert("Not a positive Number")';
+            echo '</script>';
         }
         if ($val == 1) {                                                
             $this->KitchenRetrieveModel->writeData("retrieve_stock","retrieve_quantity,`retrieved_date&time`,inventoryId","$newq,'$datetime',$itemId");
             // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
             $this->KitchenRetrieveModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
-            return "inserted";
+            if($unitId=="1")
+            {
+                $unitName2="(kg)";
+            }
+            else if($unitId=="2")
+            {
+                $unitName2="(l)";
+            }
+            else if($unitId=="3")
+            {
+                $unitName2="(items)";
+            }
+            echo '<script language="javascript">';
+            echo 'alert("'.$itemId.'"+" "+"Retrieve with "+"'.$newq.'"+" "+"'.$unitName2.'")';
+            echo '</script>';
            
 
         } else {

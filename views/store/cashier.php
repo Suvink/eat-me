@@ -10,7 +10,7 @@ require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
 
 if (isset($_POST['logout'])) {
-  $CashierController->stafflogout();
+  $CashierController->logoutstaffMem();
 }
 
 ?>
