@@ -19,11 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     if ($result !== NULL) {
 
-        $row = $result->fetch_assoc();
+        $rows = array();
+        while ($r = $result->fetch_assoc()) {
+            $rows[] = $r;
+        }
 
         header("HTTP/1.1 200 OK");
         http_response_code(200);
-        echo stripslashes(json_encode($row));
+        echo stripslashes(json_encode($rows));
         return;
     } else {
         header("HTTP/1.1 400 Bad Request");

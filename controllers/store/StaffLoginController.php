@@ -23,10 +23,10 @@ class StaffLoginController extends Controller
     {
       while ($row = $result->fetch_assoc()) 
       {
-        if( MD5($password) === $row["password"])
+        if( $password === $row["password"])
         {
-          if ($row['tag']=="active") 
-          {
+          // if ($row['tag']=="active") 
+          // {
               $_SESSION['staffId']=$row['staffId'];
               $_SESSION['firstName']=$row['firstName'];
               $_SESSION['lastName']=$row['lastName'];
@@ -58,13 +58,13 @@ class StaffLoginController extends Controller
               
             }
           
-          } 
-          else 
-          {
-            echo '<script language="javascript">';
-            echo 'alert("Account Deactivated")';
-            echo '</script>';
-          }
+          // } 
+          // else 
+          // {
+          //   echo '<script language="javascript">';
+          //   echo 'alert("Account Deactivated")';
+          //   echo '</script>';
+          // }
         }
         else
         {
