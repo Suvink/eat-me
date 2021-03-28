@@ -49,6 +49,7 @@ $minorStaffAvailability= 'api/v1/MinorStaffAvailability.php';
 $minorStaffOrder= 'api/v1/MinorStaffOrder.php';
 $customerorders= 'api/v1/CustomerOrders.php';
 $getdineinorder= 'api/v1/DineinOrder.php';
+$notify= 'api/v1/PushNotifications.php';
 
 //controllers
 $dineinlogincontroller='PHP/customer/dineinlogincontroller.php';
@@ -175,6 +176,9 @@ switch ($request) {
         break;
     case '/api/v1/getdineinorder' :
         require($getdineinorder);
+        break;
+    case '/api/v1/notify' :
+        require($notify);
         break;
     default:
         http_response_code(404);
