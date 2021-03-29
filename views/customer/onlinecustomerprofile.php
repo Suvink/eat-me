@@ -221,7 +221,7 @@ if (isset($_POST['place-order'])) {
             <div class="columns group">
               <div class="column is-6 has-text-left">
                 <h5 class=" ml-0 mb-0 title">Payment</h5>
-                <img class="payment-option" src="` + (order_item.paymentType == "payhere" ? "../../img/ayhere.png" : "../../img/paycash.png") + `" alt="">
+                <img class="payment-option" src="` + (order_item.paymentType == "payhere" ? "../../img/payhere.png" : "../../img/paycash.png") + `" alt="">
               </div>
               <div class="column is-6 has-text-right"></div>
             </div>

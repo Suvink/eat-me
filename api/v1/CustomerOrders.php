@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $customer_phone = $_GET['phone'];
 
     //Get the basic order details
-    $sql = "SELECT * FROM `order_details` WHERE customerId = (SELECT customerId FROM `customer` WHERE `contactNo`='" . $customer_phone . "')";
+    $sql = "SELECT * FROM `order_details` WHERE customerId = (SELECT customerId FROM `customer` WHERE `contactNo`='" . $customer_phone . "') ORDER BY `orderId` DESC";
     $result = $con->query($sql);
 
     //Final array to be exported
