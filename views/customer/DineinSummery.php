@@ -109,9 +109,9 @@ if (isset($_POST['place-order'])) {
             <div class="mt-1 payment-buttons">
               <form class="mb-0" action="https://sandbox.payhere.lk/pay/checkout" method="POST" target="_blank">
                 <input type="hidden" name="merchant_id" value="1214666">
-                <input type="hidden" name="return_url" value="https://www.eat-me.live/online/profile">
+                <input type="hidden" name="return_url" value="<?php echo 'https://www.eat-me.live/dinein/summery?existing_order=true&order_id='.$DineinOrderController->getOrderIDUnformatted() ?>">
                 <input type="hidden" name="cancel_url" value="https://www.eat-me.live/dinein/summery">
-                <input type="hidden" name="notify_url" value="https://www.eat-me.live/dinein/summery">
+                <input type="hidden" name="notify_url" value="https://www.eat-me.live/api/v1/dinein/payment">
                 <input type="text" name="address" value="Obama Restaurent, Veyangoda" style="display: none;">
                 <input type="text" name="city" value="Colombo" style="display: none;">
                 <input type="hidden" name="country" value="Sri Lanka" style="display: none;">
