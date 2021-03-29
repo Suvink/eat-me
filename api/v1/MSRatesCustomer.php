@@ -1,0 +1,33 @@
+<?php
+header("Content-Type:application/json");
+header("Access-Control-Allow-Methods: POST");
+
+require_once "./core/DBConnection.php";
+
+$DBConnection = new DBConnection();
+$con = $DBConnection->getConnection();
+
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  $inputData = file_get_contents('php://input');
+  $data = json_decode($inputData);
+
+  //Add the review into the table
+  $sql = "INSERT INTO `minor_rates_customer`(`customerRating`, `orderId`, `customerId`) VALUES (" . $data->rateNum . ",'" . $data->review . "'," . $data->id . ")";
+  //$result = $con->query($sql);
+
+  if ($result === TRUE) {
+    header("HTTP/1.1 200 OK");
+    http_response_code(200);
+    $messageString = '{"message": "Review Added"}';
+    $message = json_decode($messageString);
+    echo stripslashes(json_encode($message));
+    return;
+  } else {
+    header("HTTP/1.1 400 Bad Request");
+    http_response_code(400);
+    $message = '{"message": "Failed to add review"}';
+    echo stripslashes(json_encode($message));
+    return;
+  }
+}

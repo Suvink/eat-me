@@ -14,8 +14,9 @@ function showRating() {
 
 }
 
-function colorButton(buttonNumber) {
-	console.log('rate called');
+function colorBtnAndRate(buttonNumber) {
+	console.log(buttonNumber);
+	rateCustomer(buttonNumber);
 	switch (buttonNumber) {
 		case 1:
 			clearButtons();
@@ -123,20 +124,15 @@ async function changeAvailability(sId) {
 	let jsonObj = {
 		"state": switchState,
 		"staffId":sId
-	  }
-	try {
-		const response = await fetch('/api/v1/minorStaffAvailability', {
-			method: 'POST',
-			body: JSON.stringify(jsonObj)
-		});
-
-		let responseData = JSON.parse(await response.text());
-		//console.log(responseData);
-
-	} catch (err) {
-		console.log(err)
-		artemisAlert.alert('error', 'Something went wrong!')
 	}
+	
+	const response = await fetch('/api/v1/minorStaffAvailability', {
+		method: 'POST',
+		body: JSON.stringify(jsonObj)
+	});
+
+	let responseData = JSON.parse(await response.text());
+	//console.log(responseData);
 }
 
 async function getAvailability(sId) {
@@ -156,6 +152,22 @@ async function getAvailability(sId) {
 	} catch (err) {
 		console.log(err)
 		artemisAlert.alert('error', 'Something went wrong!')
+	}
+}
+async function rateCustomer(rateNo){
+	let data={
+		"rateNum":rateNo
+	}
+	try {
+		const response = await fetch('/api/v1/minorStaff/RateCustomer', {
+			method: 'POST',
+		});
+		let responseData = JSON.parse(await response.text());
+		//console.log(responseData);
+
+	} catch (err) {
+		console.log(err)
+		artemisAlert.alert('error', 'Error in updating rating!')
 	}
 }
 function returnOrderStatus(num) {

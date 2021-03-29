@@ -25,8 +25,8 @@ class StaffLoginController extends Controller
       {
         if( $password === $row["password"])
         {
-          // if ($row['tag']=="active") 
-          // {
+          if ($row['tag']=="ACTIVE") 
+          {
               $_SESSION['staffId']=$row['staffId'];
               $_SESSION['firstName']=$row['firstName'];
               $_SESSION['lastName']=$row['lastName'];
@@ -58,23 +58,24 @@ class StaffLoginController extends Controller
               
             }
           
-          // } 
-          // else 
-          // {
-          //   echo '<script language="javascript">';
-          //   echo 'alert("Account Deactivated")';
-          //   echo '</script>';
-          // }
+          } 
+          else 
+          {
+            echo "<h1 style='display:none'></h1>";
+            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            echo "<script> artemisAlert.alert('error', 'Account Already Deleted') </script>";
+            return;
+          }
         }
         else
         {
-          $this->triggerError('Login Failed!');
+          header("Location: /staff/login?attempt=false");
         }
       }
     } 
     else 
     {
-      $this->triggerError('Login Failed!');
+      header("Location: /staff/login?attempt=false");
     }
   }
 }
