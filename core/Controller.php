@@ -12,7 +12,7 @@ class Controller
   public function triggerError($message)
   {
     echo '<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>';
-    echo "artemisAlert.alert('error', '{$message}')";
+    echo "<script> artemisAlert.alert('error', '{$message}') </script>";
   }
 
   public function logout()

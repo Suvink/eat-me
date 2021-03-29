@@ -22,6 +22,7 @@ if (isset($_POST['logout'])) {
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, intial scale=1.0" />
 	<!-- Add global styles -->
+	<link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
 	<link rel="stylesheet" href="../../css/style.css">
 	<!-- local styles -->
 	<link rel="stylesheet" href="../../css/stewardStyles.css">
@@ -91,11 +92,11 @@ if (isset($_POST['logout'])) {
 					<div class="flex-container" id="rate">
 						<h1 class="title">Rate Customer</h1>
 						<div class="d-flex" name="customerRate">
-							<button class="rate-button" id="star_1" onclick="colorButton(1)"><i class="far fa-star"><br> Worse</i></button>
-							<button class="rate-button" id="star_2" onclick="colorButton(2)"><i class="far fa-star"><br>Bad</i></button>
-							<button class="rate-button" id="star_3" onclick="colorButton(3)"><i class="far fa-star"><br> Average</i></button>
-							<button class="rate-button" id="star_4" onclick="colorButton(4)"><i class="far fa-star"><br> Good</i></button>
-							<button class="rate-button" id="star_5" onclick="colorButton(5)"><i class="far fa-star"><br> Great</i></button>
+							<button class="rate-button" id="star_1" onclick="colorBtnAndRate(1)"><i class="far fa-star"><br> Worse</i></button>
+							<button class="rate-button" id="star_2" onclick="colorBtnAndRate(2)"><i class="far fa-star"><br>Bad</i></button>
+							<button class="rate-button" id="star_3" onclick="colorBtnAndRate(3)"><i class="far fa-star"><br> Average</i></button>
+							<button class="rate-button" id="star_4" onclick="colorBtnAndRate(4)"><i class="far fa-star"><br> Good</i></button>
+							<button class="rate-button" id="star_5" onclick="colorBtnAndRate(5)"><i class="far fa-star"><br> Great</i></button>
 						</div>
 						<div class="d-flex" name="customerRate">
 							<form action="">

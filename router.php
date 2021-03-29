@@ -51,6 +51,7 @@ $customerorders = 'api/v1/CustomerOrders.php';
 $getdineinorder = 'api/v1/DineinOrder.php';
 $kmonlineorders = 'api/v1/KMOnlineOrders.php';
 $notify= 'api/v1/PushNotifications.php';
+$mStaffRatesCus= 'api/v1/MSRatesCustomer.php';
 
 //controllers
 $dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
@@ -180,8 +181,11 @@ switch ($request) {
         break;
     case '/api/v1/kmonlineorders':
         require($kmonlineorders);
-    case '/api/v1/notify' :
+    case '/api/v1/notify':
         require($notify);
+        break;
+    case '/api/v1/minorStaff/RateCustomer':
+        require($mStaffRatesCus);
         break;
     default:
         http_response_code(404);
