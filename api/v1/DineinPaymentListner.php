@@ -15,20 +15,12 @@ $md5sig                = $_POST['md5sig'];
 
 $merchant_secret = '8RgzQCkjxgY8Qq84PCz7cj4vXOLzVKmlU8gcbHWbIPdF'; // Replace with your Merchant Secret (Can be found on your PayHere account's Settings page)
 
-$local_md5sig = strtoupper (md5 ( $merchant_id . $order_id . $payhere_amount . $payhere_currency . $status_code . strtoupper(md5($merchant_secret)) ) );
+$local_md5sig = strtoupper(md5($merchant_id . $order_id . $payhere_amount . $payhere_currency . $status_code . strtoupper(md5($merchant_secret))));
 
-if (($local_md5sig === $md5sig) AND ($status_code == 2) ){
-        //TODO: Update your database as payment success
-        echo $order_id;
-        echo $payhere_amount;
-        echo $payhere_currency;
-        echo $status_code;
-        if($status_code == 2 || $status_code == 0){
-            $sql = "UPDATE `order_details` SET `paymentType` = 'payhere', `payment_status` = 'COMPLETED' WHERE `orderId`=".$order_id;
-            $result = $con->query($sql);
-        }
-        
-
-
-
+if (($local_md5sig === $md5sig) and ($status_code == 2)) {
+    //TODO: Update your database as payment success
+    if ($status_code == 2 || $status_code == 0) {
+        $sql = "UPDATE `order_details` SET `paymentType` = 'payhere', `payment_status` = 'COMPLETED' WHERE `orderId`=" . $order_id;
+        $result = $con->query($sql);
+    }
 }
