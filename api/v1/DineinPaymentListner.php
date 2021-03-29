@@ -5,7 +5,6 @@ require_once "./core/DBConnection.php";
 $DBConnection = new DBConnection();
 $con = $DBConnection->getConnection();
 
-
 $merchant_id         = $_POST['merchant_id'];
 $order_id             = $_POST['order_id'];
 $payhere_amount     = $_POST['payhere_amount'];

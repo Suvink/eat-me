@@ -4,6 +4,5 @@ $db_config = array(
     'username' => 'eatme',
     'password' => 'weM2KxUZriR9',
     'dbname' => 'eat_me'
-
 );
 ?>

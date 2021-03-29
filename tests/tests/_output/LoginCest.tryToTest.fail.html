@@ -1,15 +1,3 @@
-<?php
-require_once "./controllers/customer/OnlineOrderLoginController.php";
-
-if (isset($_POST['submit'])) {
-  $token =  $_REQUEST['token'];
-  $otp =  $_REQUEST['otp'];
-  
-  $OnlineOrderLoginController = new OnlineOrderLoginController();
-  $OnlineOrderLoginController->submitLogin($token, $otp);
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,12 +28,7 @@ if (isset($_POST['submit'])) {
     <center>
       <div id="error-block"></div>
 
-      <?php
-      // if ($isError) {
-      //   echo '<div class="row artemis-notification notification-danger bounceIn"><p>Error: Invalid OTP!</p></div>';
-      // }
-      ?>
-
+      
       <div id="loginInfoDiv" style="display: block">
         <label class="field artemis-input-field">
           <label for="phone_number_input">Phone</label>
