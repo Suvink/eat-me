@@ -29,6 +29,7 @@ if (isset($_POST['search-btn'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Add global styles -->
 	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" href="../../css/artemis.css">
 	<!-- local styles -->
 	<link rel="stylesheet" href="../../css/cashierCheckOrderStyles.css">
 	<title>Check Orders</title>
@@ -66,11 +67,14 @@ if (isset($_POST['search-btn'])) {
 						<table>
 							<thead>
 								<th>Order ID</th>
-								<th>Amount</th>
+								<th>Customer Name</th>
+								<th>Items</th>
+								<th>Qty</th>
 								<th>Payment Type</th>
 								<th>Order Status</th>
 								<th>Order Type</th>
-								<th>Customer Name</th>
+								<th>Amount</th>								
+								
 							</thead>
 							<tbody>
 								<?php $CashierCheckOrderController->renderOrdersDetails($display) ?>
