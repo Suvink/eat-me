@@ -113,8 +113,8 @@
   animation-name: content-1;
   -webkit-animation-direction: normal;
   animation-direction: normal;
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
+  /* -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s; */
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
   -webkit-animation-iteration-count: 1;

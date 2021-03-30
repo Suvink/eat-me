@@ -78,7 +78,7 @@ use \koolreport\widgets\google\LineChart;
           <button class="button is-primary left-radius right-radius idle">GRN</button>
         </a>
         <a href="/admin/menu/update">
-          <button class="button is-primary left-radius right-radius idle">Menue</button>
+          <button class="button is-primary left-radius right-radius idle">Menu</button>
         </a>
         <a href="/admin/staffmanage">
           <button class="button is-primary left-radius idle">Staff Manage</button>

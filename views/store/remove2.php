@@ -5,20 +5,8 @@ $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
-
-$page = $_SERVER['PHP_SELF'];
-$sec = "30";
-header("Refresh: $sec; url=/kitchendisplay/orders"); 
-
-
 require_once("./controllers/store/KitchenDisplayOrdersController.php");
 $KitchenDisplayOrdersController = new KitchenDisplayOrdersController();
-
-//refresh part
-$count1=$KitchenDisplayOrdersController->gettheCount();
-
-
-
 
 if (isset($_POST['logout'])) {
   $KitchenDisplayOrdersController->logoutstaffMem();
@@ -28,73 +16,70 @@ function ext($i_id)
   $itemID = $i_id;
   return $itemID;
 }
-// $_SESSION['popup-1']="style=display:none";
-// $_SESSION['prepared-btn-two']="style=display:none";
+$style = "style=display:none";
+$style7="style=display:none";
 $id = null;
 $getOrderItems = null;
 if (isset($_POST['click'])) {
-  $_SESSION['popup-1'] = "style=display:display";
+  $style = "style=display:display";
   $ans = ext($_REQUEST['click']);
   $id = $ans;
-  $_SESSION['id']=$id;
-  $orderStatusBtn = $KitchenDisplayOrdersController->getOrderStatusBtn($_SESSION['id']);
+  $orderStatusBtn = $KitchenDisplayOrdersController->getOrderStatusBtn($ans);
   $row = mysqli_fetch_assoc($orderStatusBtn);
   if ($row['orderStatus'] == "2") {
-    $_SESSION['accpt-dec-btns'] = "style=display:none";
-    $_SESSION['rider-btn'] = "style=display:block";
+    $style2 = "style=display:none";
+    $style3 = "style=display:block";
   } else if ($row['orderStatus'] == "4") {
-   $_SESSION['accpt-dec-btns'] = "style=display:none";
-    $_SESSION['rider-btn'] = "style=display:none";
-    $_SESSION['prepared-btn-two'] = "style=display:block";
+    $style2 = "style=display:none";
+    $style3 = "style=display:none";
+    $style7 = "style=display:block";
   } else if ($row['orderStatus'] == "5") {
-   $_SESSION['accpt-dec-btns'] = "style=display:none";
-    $_SESSION['rider-btn'] = "style=display:none";
-    $_SESSION['prepared-btn-one'] = "style=display:none";
-    $_SESSION['prepared-btn-two'] = "style=display:none";
+    $style2 = "style=display:none";
+    $style3 = "style=display:none";
+    $style6 = "style=display:none";
+    $style7 = "style=display:none";
   } else {
-   $_SESSION['accpt-dec-btns'] = "style=display:display";
+    $style2 = "style=display:display";
   }
-  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($_SESSION['id']);
+  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($ans);
 }
 if (isset($_POST['accept-btn'])) {
   $orId = $_POST['orId'];
-  $_SESSION['popup-1'] = "style=display:none";
   $KitchenDisplayOrdersController->updateToAccept($orId);
 }
 if (isset($_POST['decline-btn'])) {
   $orId = $_POST['orId'];
-  $_SESSION['popup-1'] = "style=display:none";
   $KitchenDisplayOrdersController->updateToDecline($orId);
   // need to romve the orer from the list
 }
-
+$style4 = "style=display:none";
 $getRiders = null;
 if (isset($_POST['riders'])) {
-  $_SESSION['popup-rider'] = "style=display:display";
-  $_SESSION['popup-1'] = "style=display:display";
-  $_SESSION['accpt-dec-btns'] = "style=display:none";
-  $_SESSION['rider-btn'] = "style=display:block";
+  $style4 = "style=display:display";
+  $style = "style=display:display";
+  $style2 = "style=display:none";
+  $style3 = "style=display:block";
   $orId = $_POST['orId'];
   $id = $orId;
   $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($orId);
   $getRiders = $KitchenDisplayOrdersController->getRiders();
 }
-//  $_SESSION['popup-summery'] = "style=display:none";
+$style5 = "style=display:none";
 if (isset($_POST['click-2'])) {
   $ans = ext($_REQUEST['click-2']);
-  $_SESSION['sid'] = $ans;
+  $sid = $ans;
   $ordeId=$_POST['ordeId'];
-  // echo $ordeId." ".$_SESSION['sid'];
-   $_SESSION['popup-summery'] = "style=display:display";
-   $_SESSION['popup-rider'] = "style=display:display";
-   $_SESSION['popup-1'] = "style=display:display";
-  $_SESSION['accpt-dec-btns'] = "style=display:none";
-  $_SESSION['rider-btn'] = "style=display:block";
+  // echo $ordeId." ".$sid;
+  $style5 = "style=display:display";
+  $style4 = "style=display:display";
+  $style = "style=display:display";
+  $style2 = "style=display:none";
+  $style3 = "style=display:block";
   $id = $ordeId;
   $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($ordeId);
   $getRiders = $KitchenDisplayOrdersController->getRiders();
 }
-//$_SESSION['prepared-btn-one']= "style=display:none";
+$style6= "style=display:none";
 if (isset($_POST['asignesOrders'])) {
   $assOrId= $_POST['assOrId'];
   $dateAndTime= $_POST['dateAndTime'];
@@ -102,14 +87,12 @@ if (isset($_POST['asignesOrders'])) {
   $assSId= $_POST['assSId'];
   // echo $assOrId,$dateAndTime,$fName,$assSId;
   $KitchenDisplayOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
-  $_SESSION['popup-1'] = "style=display:display";
- $_SESSION['accpt-dec-btns'] = "style=display:none";
-  $_SESSION['rider-btn'] = "style=display:none";
-  $_SESSION['popup-rider'] = "style=display:none";
-  $_SESSION['popup-summery'] = "style=display:none";
+  $style = "style=display:display";
+  $style2 = "style=display:none";
+  $style3 = "style=display:none";
   $id = $assOrId;
   $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
-  $_SESSION['prepared-btn-one'] = "style=display:block";
+  $style6 = "style=display:block";
   $KitchenDisplayOrdersController->updateToAssigned($assOrId,$dateAndTime);
   $KitchenDisplayOrdersController->updateRiderStatus($assSId);
 }
@@ -117,29 +100,15 @@ if (isset($_POST['asignesOrders'])) {
 if (isset($_POST['prepared1'])) {
   $orId = $_POST['orId'];
   $KitchenDisplayOrdersController->updateToPrepared($orId);
-  $_SESSION['prepared-btn-one']= "style=display:none";
-  $_SESSION['prepared-btn-two']= "style=display:none";
-  $_SESSION['popup-1'] = "style=display:none";
+  $style6= "style=display:none";
   // $style8 = "style=display:display";
 }
 if (isset($_POST['prepared2'])) {
   $orId = $_POST['orId'];
   $KitchenDisplayOrdersController->updateToprepared($orId);
-  $_SESSION['prepared-btn-one']= "style=display:none";
-  $_SESSION['prepared-btn-two']= "style=display:none";
-  $_SESSION['popup-1'] = "style=display:none";
+  $style6= "style=display:none";
   // $style8 = "style=display:display";
 }
-if (isset($_POST['close-btn'])) {
-  $_SESSION['accpt-dec-btns'] = "style=display:none";
-  $_SESSION['rider-btn'] = "style=display:none";
-  $_SESSION['popup-1'] = "style=display:none";
-  $_SESSION['popup-rider'] = "style=display:none";
-  $_SESSION['popup-summery'] = "style=display:none";
-  $_SESSION['prepared-btn-two']= "style=display:none";
-  $_SESSION['prepared-btn-one']= "style=display:none";
-}
-
 ?>
 
 
@@ -318,17 +287,14 @@ if (isset($_POST['close-btn'])) {
   <!------------pop up orders-------------->
   <section>
     <form action="" method="POST">
-      <div <?php echo $_SESSION['popup-1'] ?> class="popup-update" id="popup-1">
+      <div <?php echo $style ?> class="popup-update" id="popup-1">
         <div class="popup-overlay-update" id="editOverlay"></div>
         <div class="pop-content-update placement-top">
-          <button name="close-btn">
           <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div>
-          </button>
           <div class="card">
-            <h2 class="orange-color mt-0 mb-1">Order <?php echo $_SESSION['id']; ?> </h2>
-            <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="orId">
+            <h2 class="orange-color mt-0 mb-1">Order <?php echo $id; ?> </h2>
+            <input type="hidden" value="<?php echo $id; ?>" name="orId">
             <?php
-             $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($_SESSION['id']);
             if ($getOrderItems != null) {
               while ($row2 = mysqli_fetch_assoc($getOrderItems)) {
             ?>
@@ -379,7 +345,7 @@ if (isset($_POST['close-btn'])) {
               </div>
               <div class="column is-6" ><h3>
                 <?php
-                  $result4 = $KitchenDisplayOrdersController->getTotal($_SESSION['id']);
+                  $result4 = $KitchenDisplayOrdersController->getTotal($id);
                   $row4 = mysqli_fetch_assoc($result4);
                   echo "Rs " . $row4['amount'];
 
@@ -392,7 +358,7 @@ if (isset($_POST['close-btn'])) {
               </div>
               <div class="column is-6" ><h3>
                 <?php
-                  $result6 = $KitchenDisplayOrdersController->getAddress($_SESSION['id']);
+                  $result6 = $KitchenDisplayOrdersController->getAddress($id);
                   $row6 = mysqli_fetch_assoc($result6);
                   echo $row6['address'];
 
@@ -405,7 +371,7 @@ if (isset($_POST['close-btn'])) {
               </div>
               <div class="column is-6" ><h3>
                 <?php
-                  $result5 = $KitchenDisplayOrdersController->getDateAndTime($_SESSION['id']);
+                  $result5 = $KitchenDisplayOrdersController->getDateAndTime($id);
                   $row5 = mysqli_fetch_assoc($result5);
                   if($row5['timestamp'] !=0)
                   { 
@@ -422,7 +388,7 @@ if (isset($_POST['close-btn'])) {
               </div>
               <div class="column is-6" ><h3>
                 <?php
-                  $result5 = $KitchenDisplayOrdersController->getAssignedDateAndTime($_SESSION['id']);
+                  $result5 = $KitchenDisplayOrdersController->getAssignedDateAndTime($id);
                   $row5 = mysqli_fetch_assoc($result5);
                   if( $row5['assignedTime'] != 0)
                   {
@@ -439,7 +405,7 @@ if (isset($_POST['close-btn'])) {
               </div>
               <div class="column is-6" ><h3>
                 <?php
-                  $result5 = $KitchenDisplayOrdersController->getPreparedDateAndTime($_SESSION['id']);
+                  $result5 = $KitchenDisplayOrdersController->getPreparedDateAndTime($id);
                   $row5 = mysqli_fetch_assoc($result5);
                   if($row5['preparedTime'] != 0)
                   {
@@ -454,21 +420,21 @@ if (isset($_POST['close-btn'])) {
           </div>
           <!-- </div> -->
           <div class="columns group font">
-            <div class="column is-6" id="btnAccept" <?php echo$_SESSION['accpt-dec-btns'] ?>>
+            <div class="column is-6" id="btnAccept" <?php echo $style2 ?>>
               <button class="button is-primary mt-1 zoom  resizebtn" onclick="hideAcceptDecline()" name="accept-btn">Accept</button>
             </div>
-            <div class="column is-6" id="btnDecline" <?php echo$_SESSION['accpt-dec-btns'] ?>>
+            <div class="column is-6" id="btnDecline" <?php echo $style2 ?>>
               <button class="button is-danger mt-1 zoom resizebtn" onclick="return confirm('Are you sure you want to decline this order?');" id="switch-decline-orders" name="decline-btn">Decline</button>
             </div>
           </div>
           <div class="columns group font">
-            <div class="column is-12" id="btnRiders" <?php echo $_SESSION['rider-btn'] ?>>
+            <div class="column is-12" id="btnRiders" <?php echo $style3 ?>>
               <button class="button is-link mt-1 zoom mr-1 resizebtn" name="riders">Riders</button>
             </div>
-            <div class="column is-12" id="btnPrepared"  <?php echo $_SESSION['prepared-btn-one'] ?> >
+            <div class="column is-12" id="btnPrepared"  <?php echo $style6 ?> >
               <button class="button is-success mt-1 mr-1 zoom resizebtn" name="prepared1">Prepared</button>
             </div>
-            <div class="column is-12" id="btnPrepared"   <?php echo $_SESSION['prepared-btn-two'] ?>>
+            <div class="column is-12" id="btnPrepared"   <?php echo $style7 ?>>
               <button class="button is-success mt-1 mr-1 zoom resizebtn" name="prepared2">Prepared</button>
             </div>
           </div>
@@ -486,7 +452,6 @@ if (isset($_POST['close-btn'])) {
 
     function closepopup02() {
       document.getElementById("popup-2").style.display = "none";
-      document.getElementById("popup-3").style.display = "none";
     }
     function closepopup03() {
       document.getElementById("popup-3").style.display = "none";
@@ -496,12 +461,11 @@ if (isset($_POST['close-btn'])) {
 
   <!----------pop up delivery people ----------------->
   <section>
-    <div <?php echo $_SESSION['popup-rider'];?> class="popup-update" id="popup-2">
+    <div <?php echo $style4 ?> class="popup-update" id="popup-2">
       <div class="pop-content-update-riders">
         <!-- <div class="card"> -->
-          <div class="close-btn-update zoom" onclick="closepopup02()">&times;</div>
+        <div class="close-btn-update-riders zoom" onclick="closepopup02()">&times;</div>
         <?php
-        $getRiders = $KitchenDisplayOrdersController->getRiders();
         if ($getRiders != null) {
           while ($row6 = mysqli_fetch_assoc($getRiders)) {
         ?>
@@ -553,7 +517,7 @@ if (isset($_POST['close-btn'])) {
 
   <!----------pop up 03/ summery ----------------->
   <form action="" method="POST">
-  <div class="popup" id="popup-3" <?php echo  $_SESSION['popup-summery'] ?>>
+  <div class="popup" id="popup-3" <?php echo $style5 ?>>
     <div class="pop-content3">
     <div class="close-btn-update-riders zoom" onclick="closepopup03()">&times;</div>
 
@@ -561,19 +525,12 @@ if (isset($_POST['close-btn'])) {
       <div class="menu-cards">
         <div class="asiggned-summery-card">
           <div class="columns group">
-            <div class="column is-3 mr-1">
+            <div class="column is-6">
               <h3 class="mt-1 mb-2">Order Id</h3>
             </div>
-            <div class="column is-2 mr-1 ml-0">
-              <h3 class="mt-1 mb-2 rider-status"><?php echo$_SESSION['id'];?></h3>
-              <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="assOrId" >
-            </div>
-            <div class="column is-3 ml-1 mr-1">
-            <h3 class="mt-1 mb-2">Rider ID</h3>
-            </div>
-            <div class="column is-2 ml-0">
-              <h3 class="mt-1 mb-2 rider-status"><?php echo $_SESSION['sid'];?></h3>
-              <input type="hidden" value="<?php echo $_SESSION['sid'];?>" name="assSId" >
+            <div class="column is-6">
+              <h3 class="mt-1 mb-2 rider-status"><?php echo $ordeId;?></h3>
+              <input type="hidden" value="<?php echo $ordeId;?>" name="assOrId" >
             </div>
           </div>
           <div class="columns group">
@@ -587,28 +544,37 @@ if (isset($_POST['close-btn'])) {
                                                     <input type="hidden" value="<?php echo $datetime;?>" name="dateAndTime" >
             </div>
           </div>
-          <!-- <div class="columns group">
+          <div class="columns group">
             <div class="column is-6">
               <h3 class="mt-1 mb-2">Location</h3>
             </div>
             <div class="column is-6">
             <h3 class="mt-1 mb-2 rider-status">
                                                   <?php
-                                                    $result6 = $KitchenDisplayOrdersController->getAddress($_SESSION['id']);
+                                                    $result6 = $KitchenDisplayOrdersController->getAddress($ordeId);
                                                     $row6 = mysqli_fetch_assoc($result6);
                                                     echo $row6['address'];
 
                                                     ?>
                                                   </h3>
             </div>
-          </div> -->
+          </div>
           <div class="columns group">
             <div class="column is-6">
-              <h3 class="mt-1 mb-2">Rider Name</h3>
+            <h3 class="mt-1 mb-2">Rider ID</h3>
+            </div>
+            <div class="column is-6">
+              <h3 class="mt-1 mb-2 rider-status"><?php echo $sid;?></h3>
+              <input type="hidden" value="<?php echo $sid;?>" name="assSId" >
+            </div>
+          </div>
+          <div class="columns group">
+            <div class="column is-6">
+              <h3 class="mt-1 mb-2">Name</h3>
             </div>
             <div class="column is-6">
               <h3 class="mt-1 mb-2 rider-status"> <?php
-                                                    $result8 = $KitchenDisplayOrdersController->riderName($_SESSION['sid']);
+                                                    $result8 = $KitchenDisplayOrdersController->riderName($sid);
                                                     $row8 = mysqli_fetch_assoc($result8);
                                                     echo $row8['firstName'];
                                                       ?>
@@ -620,15 +586,15 @@ if (isset($_POST['close-btn'])) {
           </div>
           <div class="columns group">
             <div class="column is-6">
-              <h3 class="mt-0 mb-2">Mobile Num</h3>
+              <h3 class="mt-1 mb-2">Mobile Num</h3>
             </div>
             <div class="column is-6">
-              <h3 class="mt-0 mb-2 rider-status"><?php echo "0".$row8['contactNo']; ?></h3>
+              <h3 class="mt-1 mb-2 rider-status"><?php echo "0".$row8['contactNo']; ?></h3>
             </div>
           </div>
           <div class="columns group">
             <div class="column is-10">
-              <button class="button is-primary ml-4 mt-0 zoom" name="asignesOrders">Asigned Order</button>
+              <button class="button is-primary ml-4 mt-1 zoom" name="asignesOrders">Asigned Order</button>
             </div>
           </div>
           </div>
@@ -641,7 +607,50 @@ if (isset($_POST['close-btn'])) {
 
   <!-- --------kitchen display js file -->
   <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
+  <script>
+  async function fetchOnlineOrderDetails() {
+      try {
+        const response = await fetch('/api/v1/kmonlineorders', {
+          method: 'GET',
+        });
+        let responseData = JSON.parse(await response.text());
+        console.log(responseData);
 
+        // let tbodyRef = document.getElementById("ongoing-orders-table").getElementsByTagName('tbody')[0];
+
+        // //Clear the table
+        // console.log(tbodyRef.rows.length);
+        // for (let d = tbodyRef.rows.length - 1; d > 0; d--) {
+        //   tbodyRef.deleteRow(d);
+        // }
+
+        // //Insert data to table
+
+        // responseData.forEach(function(entry) {
+        //   let row = tbodyRef.insertRow(0);
+        //   let id = row.insertCell(0);
+
+        //   let customer = row.insertCell(1);
+        //   let items = row.insertCell(2);
+        //   let price = row.insertCell(3);
+        //   let table_No = row.insertCell(4);
+        //   let status = row.insertCell(5);
+
+        //   id.innerHTML = entry.orderId;
+        //   customer.innerHTML = entry.customerId;
+        //   items.innerHTML = entry.orderStatus;
+        //   price.innerHTML = entry.orderType;
+        //   table_No.innerHTML = entry.paymentType;
+        //   status.innerHTML = "Preparing";
+        // });
+
+      } catch (err) {
+        console.log(err)
+        artemisAlert.alert('error', 'Something went wrong!')
+      }
+    }
+    fetchOnlineOrderDetails();
+  </script>
 </body>
 
 </html>

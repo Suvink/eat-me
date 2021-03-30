@@ -734,7 +734,7 @@
              
             if($check2==1)
             {
-              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability","$itemNumber, '$itemName', $itemPrice, '$itemType','FALSE'");
+              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability,tag","$itemNumber, '$itemName', $itemPrice, '$itemType','FALSE','ACTIVE'");
                 $_SESSION['imgeUploadTo']="menu";
                 $_SESSION['idUpload']=$itemNumber;
                 $_SESSION['itemNameUpload']=$itemName;

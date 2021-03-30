@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     while ($r = $result->fetch_assoc()) {
       $rows[] = $r;
     }
-
+    
     header("HTTP/1.1 200 OK");
     http_response_code(200);
     echo stripslashes(json_encode($rows));

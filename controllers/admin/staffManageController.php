@@ -12,6 +12,13 @@
             $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='DELETED'");
             return $result;
         }
+        public function getRoleName($id)
+        {
+            $result=$this->StaffManageModel->executeSql(" SELECT roleName FROM `staff_roles` WHERE roleId =$id");
+            $row3= mysqli_fetch_assoc($result);
+            $name=$row3['roleName'];
+            return $name;
+        }
         public function deleteStaff($staffid3)
         {
             $result3=$this->StaffManageModel-> getSpecificDataWhere('status','minor_staff','staffId', $staffid3);

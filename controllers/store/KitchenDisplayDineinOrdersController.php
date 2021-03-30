@@ -19,6 +19,11 @@
             $result = $this->KitchenDisplayDineinOrdersModel->getAllDataWhere('order_includes_menu',' orderId',$ans);
             return $result;
         }
+        public function getItemImage($itemNo)
+        {
+            $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('url',' menu','itemNo',$itemNo);
+            return $result;
+        }
         public function getItemName($itemNo)
         {
             $result = $this->KitchenDisplayDineinOrdersModel->getSpecificDataWhere('itemName',' menu','itemNo',$itemNo);
@@ -90,7 +95,7 @@
         }
         public function updateRiderStatus($assSId)
         {
-            $result = $this->KitchenDisplayDineinOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "notAvailable"));
+            $result = $this->KitchenDisplayDineinOrdersModel->updateData('minor_staff','staffId',$assSId, array('status' => "NOTAVAILABLE"));
             return $result;
         }
         public function updateToAssigned($assOrId,$dateAndTime)
