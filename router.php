@@ -54,6 +54,9 @@ $customerorders = 'api/v1/CustomerOrders.php';
 $getdineinorder = 'api/v1/DineinOrder.php';
 $kmonlineorders = 'api/v1/KMOnlineOrders.php';
 $notify= 'api/v1/PushNotifications.php';
+$mStaffRatesCus= 'api/v1/MSRatesCustomer.php';
+$payhereListner = 'api/v1/DineinPaymentListner.php';
+$backups = 'services/backup.php';
 
 //controllers
 $dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
@@ -192,8 +195,17 @@ switch ($request) {
         break;
     case '/api/v1/kmonlineorders':
         require($kmonlineorders);
-    case '/api/v1/notify' :
+    case '/api/v1/notify':
         require($notify);
+        break;
+    case '/api/v1/minorStaff/RateCustomer':
+        require($mStaffRatesCus);
+        break;
+    case '/api/v1/dinein/payment':
+        require($payhereListner);
+        break;
+    case '/backup':
+        require($backups);
         break;
     default:
         http_response_code(404);

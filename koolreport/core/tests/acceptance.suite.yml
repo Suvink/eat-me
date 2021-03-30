@@ -8,6 +8,6 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: 'http://localhost/Reporting/koolreport/tests/_cases'
+            url: 'http://localhost'
             browser: phantomjs
         - \Helper\Acceptance
