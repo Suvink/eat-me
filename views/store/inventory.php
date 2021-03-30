@@ -129,6 +129,7 @@ if (isset($_POST['ratings'])) {
     <link rel="stylesheet" href="../../css/inventory.css">
     <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
     <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>Inventory</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -517,10 +518,10 @@ if (isset($_POST['ratings'])) {
                     </div>
                     <div class="columns group">
                         <div class="column is-12" <?php echo  $styleGRNCreateRepoBtn;?>>
-                            <button name="createGrnReport" class=" ml-1 is-primary  createReport-btn zoom"> Create GRN Report</button>
+                            <button name="createGrnReport" class=" ml-0 is-primary  createReport-btn zoom"> Create GRN Report</button>
                         </div>
                         <div class="column is-12" <?php echo  $styleRetCreateRepoBtn;?>>
-                            <button name="createRetrieveReport" class=" ml-0 is-primary  createReport-btn zoom"> Create Retrieve Report</button>
+                            <button name="createRetrieveReport" class=" mr-1 is-primary  createReport-btn zoom"> Create Retrieve Report</button>
                         </div>
                 </form>
                 <form action="" method="POST">
@@ -552,5 +553,12 @@ if (isset($_POST['ratings'])) {
     <!-- --------kitchen display js file -->
     <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

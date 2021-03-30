@@ -43,7 +43,10 @@ class StaffLoginController extends Controller
               case 2:
                 $_SESSION['popup-1'] = "style=display:none";
                 $_SESSION['popup-rider'] = "style=display:none";
-                $_SESSION['popup-summery'] = "style=display:none"; 
+                $_SESSION['popup-summery'] = "style=display:none";
+                $_SESSION['popup-1-dinein'] = "style=display:none";
+                $_SESSION['popup-rider-dinein'] = "style=display:none";
+                $_SESSION['popup-summery-dinein'] = "style=display:none"; 
                 header('Location: /kitchendisplay/orders');
               break;
               case 3: 
@@ -73,7 +76,10 @@ class StaffLoginController extends Controller
         }
         else
         {
-          header("Location: /staff/login?attempt=false");
+          echo "<h1 style='display:none'></h1>";
+          echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+          echo "<script> artemisAlert.alert('error', 'Incorrect password for the User') </script>";
+          return;
         }
       }
     } 

@@ -7,7 +7,7 @@ require_once './controllers/admin/RatingsReportController.php';
 $RatingsReportController = new RatingsReportController();
 
 
-$repName = $_SESSION['reportName'];
+// $repName = $_SESSION['reportName'];
 if (isset($_POST['back'])) {
     header('Location: ./inventory');
 }

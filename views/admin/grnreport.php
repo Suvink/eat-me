@@ -87,6 +87,9 @@ if (isset($_POST['back'])) {
             <div class="column is-4 font">
                 <button  class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(2)">Sort by Quantity</button>
             </div>
+            <div class="column is-4 font">
+                <button  class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;" onclick="window.print();">Print</button>
+            </div>
         </div>
     </section>
 

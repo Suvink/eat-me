@@ -245,10 +245,18 @@
         public function hideAllItems()
         {
             $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="FALSE" WHERE `tag` !="DELETED"');
+            echo "<h1 style='display:none'></h1>";
+            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            echo '<script> artemisAlert.alert("warning", " Hide All Menu Items From Custmoers!") </script>';
+            return; 
         }
         public function showAllItems()
         {
             $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="TRUE" WHERE `tag` !="DELETED"');
+            echo "<h1 style='display:none'></h1>";
+            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            echo '<script> artemisAlert.alert("success", " Make it Available All Menu Items From Custmoers!") </script>';
+            return;
         }
     }
 ?>

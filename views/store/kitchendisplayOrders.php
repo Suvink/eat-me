@@ -14,8 +14,7 @@ header("Refresh: $sec; url=/kitchendisplay/orders");
 require_once("./controllers/store/KitchenDisplayOrdersController.php");
 $KitchenDisplayOrdersController = new KitchenDisplayOrdersController();
 
-//refresh part
-$count1=$KitchenDisplayOrdersController->gettheCount();
+
 
 
 
@@ -65,7 +64,7 @@ if (isset($_POST['decline-btn'])) {
   $orId = $_POST['orId'];
   $_SESSION['popup-1'] = "style=display:none";
   $KitchenDisplayOrdersController->updateToDecline($orId);
-  // need to romve the orer from the list
+
 }
 
 $getRiders = null;
@@ -233,7 +232,7 @@ if (isset($_POST['close-btn'])) {
                 date_default_timezone_set("Asia/Colombo");
                 $orderDate=date('Y/m/d',  $arrivedTime);
                 $today= date('Y/m/d');
-                if($orderDate==$today)
+                if($orderDate==$today && $row['orderStatus'] !=8)
                 {
                 ?>
                   <form class="click-btn" action="" method="POST">

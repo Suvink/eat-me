@@ -28,39 +28,44 @@
             $oldQuantity=$row2['quantity'];
             // echo $oldQuantity;
             // echo $quantity2;
+            if($quantity2==null){$quantity2=0;}
+
             if(is_numeric($quantity2) && $quantity2>=0)
             {
                 $_SESSION['$updatedQuantity']=($oldQuantity-$quantity2);
             }
             else
             {
-                //echo "updated to old qunantity level";
-                echo '<script language="javascript">';
-                echo 'alert("'.$id.'"+" "+"'.$itemName2.'"+" " +"updated to old qunantity level")';
-                echo '</script>';
                 $check=1;
                 $_SESSION['$updatedQuantity']=$oldQuantity;
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("warning", "Not an Valid insert. "+"'.$id.'"+" "+"'.$itemName2.'"+" " +"updated to old qunantity level") </script>';
+                return;
             }
-            // if(ctype_alpha(str_replace(' ', '', $itemName2)) === true)
-            // {
-                 if( $_SESSION['$updatedQuantity']>=0)
-                 {
-                    $check=1;
-                 }
-                 else
-                 {
-                   // echo "can't reduce more than the current amount";
-                    echo '<script language="javascript">';
-                    echo 'alert("'.$itemName2.'"+" " +"can not reduce more than the current amount"+"\n"+"current amount: "+"'.$oldQuantity.'"+"'.$unit2.'"+"\n"+"try to reduce by :"+"'.$quantity2.'"+"'.$unit2.'")';
-                    echo '</script>';
-                    $check=0;
-                 }
-            // }
-            // else
-            // {
-            //     echo "Item name must contains only latters & spaces";
-            //     $check=0;
-            // }
+                if(ctype_alpha(str_replace(' ', '', $itemName2)) === true)
+                {
+                    if( $_SESSION['$updatedQuantity']>=0)
+                    {
+                        $check=1;
+                    }
+                    else
+                    {
+                        $check=0;
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", "'.$itemName2.'"+" " +"can not reduce more than the current amount"+"\n"+"current amount: "+"'.$oldQuantity.'"+"'.$unit2.'"+"\n"+"try to reduce by :"+"'.$quantity2.'"+"'.$unit2.'") </script>';
+                        return;
+                    }
+                }
+                else
+                {
+                    echo "<h1 style='display:none'></h1>";
+                    echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                    echo '<script> artemisAlert.alert("error", "'.$itemName2.'"+" "+" can contains only letters and numbers.") </script>';
+                    return;
+                }
+                
             return $check;
         }
         public function updateInven($id,$itemName2,$quantity2,$unit2,$unitType2)
@@ -93,9 +98,13 @@
                     else 
                     {
                        // echo "not a whole number";
-                       echo '<script language="javascript">';
-                       echo 'alert("'.$id.'"+": "+"'.$itemName2.'"+" " +"Input quantity: "+"'.$quantity2.'"+" "+" Updated quantity: "+"'.$_SESSION['$updatedQuantity'].'"+"\n"+"Not a whole number"+"\n"+"updated to old qunantity level")';
-                       echo '</script>';
+                    //    echo '<script language="javascript">';
+                    //    echo 'alert("'.$id.'"+": "+"'.$itemName2.'"+" " +"Input quantity: "+"'.$quantity2.'"+" "+" Updated quantity: "+"'.$_SESSION['$updatedQuantity'].'"+"\n"+"Not a whole number"+"\n"+"updated to old qunantity level")';
+                    //    echo '</script>';
+                       echo "<h1 style='display:none'></h1>";
+                       echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                       echo '<script> artemisAlert.alert("error", "'.$id.'"+": "+"'.$itemName2.'"+" " +"Input quantity: "+"'.$quantity2.'"+" "+" "+"Invalid data."+" "+"updated to old qunantity level") </script>';
+                       return;
                     }
                 }
                 else
@@ -111,10 +120,10 @@
                         $date = new DateTime();
                         $intDate= $date->getTimestamp();
                         $result=$this->InventoryModel->writeData("disposed_item","inventoryId,quantity,timestamp","$id,'$quantity2',$intDate");
-                        echo '<script language="javascript">';
-                        echo 'alert("'.$id.'"+" "+"'.$itemName2.'"+" " +"Successfully Updated!")';
-                        echo '</script>';
-                        return $result;
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("success", "'.$id.'"+" "+"'.$itemName2.'"+" " +"Successfully Updated!") </script>';
+                        return;
                     }
                    
 
@@ -161,21 +170,35 @@
         }
         public function addNewItem($itemName3,$id3,$unitid3)
         {
-            $result=$this->InventoryModel->writeData("inventory","inventoryId,itemName,unitId,quantity,tag","$id3,'$itemName3',$unitid3,'0','ACTIVE'");
-            $_SESSION['imgeUploadTo']="inventory";
-            $_SESSION['idUpload']=$id3;
-            $_SESSION['itemNameUpload']=$itemName3;
+           
 
             // echo '<script language="javascript">';
             // echo 'alert("'.$id3.'"+" "+"'.$itemName3.'"+" " +"Added to the Inventory")';
             // echo '</script>';
-            header('Location: ./imageuploader');
-            return $result;
+            if(ctype_alpha(str_replace(' ', '', $itemName3)) === true)
+            {
+                $result=$this->InventoryModel->writeData("inventory","inventoryId,itemName,unitId,quantity,tag","$id3,'$itemName3',$unitid3,'0','ACTIVE'");
+                $_SESSION['imgeUploadTo']="inventory";
+                $_SESSION['idUpload']=$id3;
+                $_SESSION['itemNameUpload']=$itemName3;
+                header('Location: ./imageuploader');
+                return $result;
+            }
+            {
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "'.$itemName3.'"+" "+" can contains only letters and numbers.") </script>';
+                return;
+            }
+            
         }
         public function deleteItem($ans)
         {
             $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$ans,array('tag' =>"DELETED"));
-            return $result2;
+            echo "<h1 style='display:none'></h1>";
+            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            echo '<script> artemisAlert.alert("success", "'.$ans.'"+" "+" Successfully Deleted!") </script>';
+            return;
         }
 
         public function getInventoryLowItem($lowThan)

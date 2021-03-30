@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="../../css/style.css" />
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>kitchen Menu</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -159,5 +160,12 @@
         }
     </script>
 </body>
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

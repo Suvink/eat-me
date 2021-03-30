@@ -50,6 +50,7 @@ if (isset($_POST['sendbtn'])) {
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/kitchenInventory.css">
     <link rel="stylesheet" href="../../css/inventory.css">
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>GRN</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -222,5 +223,11 @@ if (isset($_POST['sendbtn'])) {
     <!-- --------kitchen display js file -->
     <script type="text/javascript" src="../../js/kitchenretrieve.js"></script>
 </body>
-
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 </html>
