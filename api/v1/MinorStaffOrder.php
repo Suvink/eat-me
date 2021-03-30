@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $staff_id = $_GET['staff_id'];
 
     //Get order details of assigned order
-    $sql = "SELECT staff_order.orderId, customer.firstName, customer.lastName, order_details.amount,order_details.orderStatus FROM `staff_order` JOIN order_details ON staff_order.orderId=order_details.orderId JOIN customer ON order_details.customerId=customer.customerId WHERE staff_order.staffId='$staff_id'";
+    $sql = "SELECT staff_order.orderId,customer.customerId, customer.firstName, customer.lastName, order_details.amount,order_details.orderStatus,dine_in_order.tableNo FROM `staff_order` JOIN order_details ON staff_order.orderId=order_details.orderId JOIN customer ON order_details.customerId=customer.customerId JOIN dine_in_order ON dine_in_order.orderId=order_details.orderId WHERE (staff_order.staffId=$staff_id AND order_details.orderStatus<9)";
 
     $result = $con->query($sql);
 

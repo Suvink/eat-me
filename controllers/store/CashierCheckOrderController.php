@@ -13,10 +13,10 @@
         //check whether order searched
         public function getOrderDetails($searchedId){
             if($searchedId==""){
-                $result = $this->CashierCheckOrderModel->getAllData('order_details');    
-            }else{
-                $result = $this->CashierCheckOrderModel->getAllDataWhere('order_details','orderId',$searchedId);
-            }
+							$result=$this->CashierCheckOrderModel->executeSql("SELECT order_details.orderId,order_details.paymentType, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus,menu.itemName,order_includes_menu.qty FROM order_details JOIN customer ON order_details.customerId=customer.customerId JOIN order_includes_menu ON order_details.orderId=order_includes_menu.orderId JOIN menu ON menu.itemNo=order_includes_menu.itemNo");	
+							}else{
+							$result=$this->CashierCheckOrderModel->executeSql("SELECT order_details.orderId,order_details.paymentType, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus,menu.itemName,order_includes_menu.qty FROM order_details JOIN customer ON order_details.customerId=customer.customerId JOIN order_includes_menu ON order_details.orderId=order_includes_menu.orderId JOIN menu ON menu.itemNo=order_includes_menu.itemNo WHERE order_details.orderId=$searchedId");	
+							}
             return $result;
         }
         public function orderStatus($num){
@@ -56,17 +56,31 @@
         public function renderOrdersDetails($display){
             if($display->num_rows>0){
                 while ($row = $display->fetch_assoc()) {
+								$cusName='';
+								$fName=$row['firstName'];
+								$searchStr='user-';
                  $stateOrder=$this->orderStatus($row['orderStatus']);
-                echo '<tr>
-                        <td>'.$row['orderId'].'</td>
-                        <td>'.$row['amount'].'</td>
-                        <td>'.$row['paymentType'].'</td>
-                        <td>'.$stateOrder.'</td>
-                        <td>'.$row['orderType'].'</td>
-                        <td>'.$row['customerId'].'</td>
+                 if(strpos($fName,$searchStr)!==false){
+										$cusName=$row['firstName'];
+								 }else{
+									$cusName=$row['firstName'].' '. $row['lastName'];
+								 }
+
+				echo '<tr>
+						<td>' . $row['orderId'] . '</td>
+						<td>' . $cusName . '</td>
+						<td>' . $row['itemName'] . '</td>
+						<td>' . $row['qty'] . '</td>
+                        <td>' . $row['paymentType'] . '</td>
+                        <td>' . $stateOrder . '</td>
+						<td>' . $row['orderType'] . '</td>
+						<td>Rs.' . $row['amount'] . '.00</td>                        
                     </tr>';
                 }
-            }
+            }else{	
+
+				print "<center> <div class='artemis-notification notification-danger'><p>Invalid OrderID!</p></div></center>";
+			}
         }
         
     }
