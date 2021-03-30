@@ -33,6 +33,13 @@
             {
                 $searchq=preg_replace("#[^0-9a-z]#i","",$searchq);
                 $result4=$this->KitchenDisplayInventoryModel->executeSql("SELECT * FROM inventory WHERE itemName LIKE '%$searchq%' OR inventoryId LIKE '%$searchq%' ");
+                if ($result4->num_rows <= 0) 
+                {
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("warning", "No such an Inventory Item!") </script>';
+                        return;
+                }
                 return  $result4;
             }
         }

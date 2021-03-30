@@ -77,7 +77,7 @@
                             {
                                 echo "<h1 style='display:none'></h1>";
                                 echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
-                                echo '<script> artemisAlert.alert("error", "'.$password.'"+" "+"!="+" "+"'.$re_password.'"+" " +" Passwords are not match") </script>';
+                                echo '<script> artemisAlert.alert("error", " Passwords are not match") </script>';
                                 return;
                             }
                         } 
