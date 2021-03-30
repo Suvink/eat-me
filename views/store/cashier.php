@@ -2,9 +2,9 @@
 session_start();
 ob_start();
 
-// if (!isset($_SESSION['staffId'])) {
-//   header('Location: /staff/login');
-// }
+if (!isset($_SESSION['staffId'])) {
+  header('Location: /staff/login');
+}
 
 require_once './controllers/store/CashierController.php';
 $CashierController = new CashierController();
@@ -171,11 +171,11 @@ if (isset($_POST['logout'])) {
 
     function setTableToStorage() {
       let table_number = document.getElementById("table_number_input").value;
-      if (table_number !== "") {
+      if (table_number !== "" && table_number < 9) {
         localStorage.setItem("table_number", table_number);
         hideSetTableModal();
       } else {
-        artemisAlert.alert('warning', 'A table number is required!')
+        artemisAlert.alert('warning', 'A Valid table number is required!')
       }
     }
 
@@ -291,7 +291,7 @@ if (isset($_POST['logout'])) {
           let status = row.insertCell(4);
 
           id.innerHTML = entry.orderId;
-          customer.innerHTML = entry.firstName + ' ' + entry.lastName;
+          customer.innerHTML = (entry.firstName.includes("user-") ? entry.firstName : (entry.firstName + ' ' + entry.lastName));
           order_type.innerHTML = entry.orderType;
           amount.innerHTML = 'Rs.' + entry.amount + '.00';
           status.innerHTML = returnOrderStatus(entry.orderStatus);
