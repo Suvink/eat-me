@@ -27,6 +27,10 @@ if (isset($_POST['addItem'])) {
 if (isset($_POST['logout'])) {
     $MenuUpdateController->logoutstaffMem();
 }
+if (isset($_POST['close-btn'])) {
+    $ans = ext($_REQUEST['close-btn']);
+    $MenuUpdateController->updateUpdateStatusToHide($ans);
+}
 
 function ext($i_id)
 {
@@ -83,6 +87,7 @@ if (isset($_POST['hideMenu'])) {
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
     <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>kitchen Menu</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -143,7 +148,7 @@ if (isset($_POST['hideMenu'])) {
                 <div class="columns group">
                     <form action="" method="POST">
                         <div class="column is-4">
-                            <button class="hide-all-items-btn-two add-new-items-btn zoom" name="addNewItem">Add New Item</button>
+                            <button class="hide-all-items-btn-two add-new-items-btn zoom mt-1" name="addNewItem">Add New Item</button>
                         </div>
                     </form>
                 <!-- </div>
@@ -304,5 +309,13 @@ if (isset($_POST['hideMenu'])) {
     <!-- --------kitchen display js file -->
     <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
+  <?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

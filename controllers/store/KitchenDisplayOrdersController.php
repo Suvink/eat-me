@@ -9,11 +9,11 @@ class KitchenDisplayOrdersController extends Controller
         $this->KitchenDisplayOrdersModel = new KitchenDisplayOrdersModel();
     }
 
-    public function gettheCount()
-    {
-        $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT COUNT(*) FROM `order_details` WHERE orderType="online" AND orderStatus !="9"');
-        return $result;
-    }
+    // public function gettheCount()
+    // {
+    //     $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT COUNT(*) FROM `order_details` WHERE orderType="online" AND orderStatus !="9"');
+    //     return $result;
+    // }
     public function getOrderDetails()
     {
         $result = $this->KitchenDisplayOrdersModel->executeSql('SELECT * FROM `order_details` WHERE orderType="online" AND orderStatus !="9"');

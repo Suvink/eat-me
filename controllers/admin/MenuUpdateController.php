@@ -76,7 +76,11 @@
                             <div class="popup-overlay-update" id="editOverlay"></div>
                             <form action="" method="POST">
                             <div class="pop-content-update">
-                                <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                                <form action="" method="POST">
+                                    <button name="close-btn" value="'.$row['itemNo'].'">
+                                        <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                                    </button>
+                                </from> 
                                     <div class="columns group">
                                         <div class="column is-12">
                                             <h2>Item <span  class="mt-1 mb-0 font-color">'.$row['itemNo'].'</span></h2>
@@ -232,7 +236,11 @@
                             <div class="popup-overlay-update" id="editOverlay"></div>
                             <form action="" method="POST">
                             <div class="pop-content-update">
-                                <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                            <form action="" method="POST">
+                                <button name="close-btn" value="'.$row['itemNo'].'">
+                                    <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                                </button>
+                            </from> 
                                     <div class="columns group">
                                         <div class="column is-12">
                                             <h2>Item <span  class="mt-1 mb-0 font-color">'.$row['itemNo'].'</span></h2>
@@ -388,7 +396,11 @@
                             <div class="popup-overlay-update" id="editOverlay"></div>
                             <form action="" method="POST">
                             <div class="pop-content-update">
-                                <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                            <form action="" method="POST">
+                                <button name="close-btn" value="'.$row['itemNo'].'">
+                                    <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                                </button>
+                            </from> 
                                     <div class="columns group">
                                         <div class="column is-12">
                                             <h2>Item <span  class="mt-1 mb-0 font-color">'.$row['itemNo'].'</span></h2>
@@ -549,11 +561,15 @@
                             <div class="popup-overlay-update" id="editOverlay"></div>
                             <form action="" method="POST">
                             <div class="pop-content-update">
-                                <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                            <form action="" method="POST">
+                                <button name="close-btn" value="'.$row['itemNo'].'">
+                                    <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div> 
+                                </button>
+                            </from>
                                     <div class="columns group">
                                         <div class="column is-12">
                                             <h2>Item <span  class="mt-1 mb-0 font-color">'.$row['itemNo'].'</span></h2>
-                                        </div>
+                                            </div>
                                     </div>
                                     <div class="columns group font">
                                         <div class="column is-4 arrange-position font-color">
@@ -641,11 +657,22 @@
           public function updateAvailabilityHide($ans)
           {
               $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
+            //   echo "<h1 style='display:none'></h1>";
+            //   echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            //   echo '<script> artemisAlert.alert("success", "Item: "+"'.$ans.'"+" Hide From Customer Menu!") </script>';
+            //   return; 
+          }
+          public function updateUpdateStatusToHide($ans)
+          {
+              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE')); 
           }
           public function deleteMenu($ans)
           {
             $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => "FALSE",'tag' =>"DELETED"));
-                   
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "'.$ans.'"+" Deleted Menu Item!") </script>';
+                return;      
           }
           public function updateAvailabilityShow($ans)
           {
@@ -658,10 +685,18 @@
           public function hideAllItems()
           {
               $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="FALSE" WHERE `tag` !="DELETED"');
+              echo "<h1 style='display:none'></h1>";
+              echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+              echo '<script> artemisAlert.alert("warning", " Hide All Menu Items From Custmoers!") </script>';
+              return;  
           }
           public function showAllItems()
           {
               $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="TRUE" WHERE `tag` !="DELETED" ');
+              echo "<h1 style='display:none'></h1>";
+              echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+              echo '<script> artemisAlert.alert("success", " Make it Available All Menu Items From Custmoers!") </script>';
+              return; 
           }
           public function takeNewID()
           {
@@ -704,27 +739,36 @@
                   else
                   {
                      // echo "Item Price must contains only numbers";
-                      echo '<script language="javascript">';
-                      echo 'alert("'.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Price must be a whole number"+"\n"+"=> Invalid data")';
-                      echo '</script>';
+                    //   echo '<script language="javascript">';
+                    //   echo 'alert("'.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Price must be a whole number"+"\n"+"=> Invalid data")';
+                    //   echo '</script>';
                       $send=0;
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", " '.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Price must be a whole number"+"\n"+"=> Invalid data") </script>';
+                        return; 
                   }
                 }
                 else
                 {
                     // echo "Item name must contains only latters & spaces";
-                    echo '<script language="javascript">';
-                    echo 'alert("'.$itemName.'"+" " +"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data")';
-                    echo '</script>';
+                    // echo '<script language="javascript">';
+                    // echo 'alert("'.$itemName.'"+" " +"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data")';
+                    // echo '</script>';
                     $send=0;
+                    echo "<h1 style='display:none'></h1>";
+                    echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                    echo '<script> artemisAlert.alert("error", " '.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data") </script>';
+                    return; 
                 }
             }
             else
             {
-                echo '<script language="javascript">';
-                echo 'alert("'.$itemName.'"+" "+"'.$itemNumber.'"+" "+"Item number must be a integer"+"\n"+"=> Invalid data")';
-                echo '</script>';
                 $send=0;
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "'.$itemName.'"+" "+"'.$itemNumber.'"+" "+"Item number must be a integer"+"\n"+"=> Invalid data") </script>';
+                return;
             }
             return $send;
           }
@@ -758,13 +802,18 @@
               if($check==1)
               {
                 $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'TRUE', 'type' => $itemType,'tag' =>"ACTIVE"));
-                // echo "done";
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "'.$itemName.'"+" Updated!") </script>';
+                return;
               }
               else
               {
                 $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
-                    // echo" ";
-                    // echo "=> updated to old status";
+                // echo "<h1 style='display:none'></h1>";
+                // echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                // echo '<script> artemisAlert.alert("warning", "'.$itemName.'"+" Updated to old status"+"\n"+"=> Invalid data") </script>';
+                // return;
               }
            
           }

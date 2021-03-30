@@ -60,6 +60,13 @@ if (isset($_POST['submit'])) {
     </center>
   </div>
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
+  <?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
   
 
 </html>
