@@ -10,7 +10,7 @@
         }
         public function getInventoryDetails()
         {
-            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE tag NOT LIKE 'deleted%' ");
+            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE tag NOT LIKE 'DELETED%' ");
             return $result;
         }
         public function getUnits($id)
@@ -105,11 +105,18 @@
                 if($unitcheck==1)
                 {
                     $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$id,array('itemName' => $itemName2, 'quantity' => $_SESSION['$updatedQuantity'], 'unitId' => $unitType2));
-                    date_default_timezone_set("Asia/Colombo");
-                    $date = new DateTime();
-                    $intDate= $date->getTimestamp();
-                    $result=$this->InventoryModel->writeData("disposed_item","inventoryId,quantity,timestamp","$id,'$quantity2',$intDate");
-                    return $result;
+                    if($quantity2 !=null)
+                    {
+                        date_default_timezone_set("Asia/Colombo");
+                        $date = new DateTime();
+                        $intDate= $date->getTimestamp();
+                        $result=$this->InventoryModel->writeData("disposed_item","inventoryId,quantity,timestamp","$id,'$quantity2',$intDate");
+                        echo '<script language="javascript">';
+                        echo 'alert("'.$id.'"+" "+"'.$itemName2.'"+" " +"Successfully Updated!")';
+                        echo '</script>';
+                        return $result;
+                    }
+                   
 
                 }
             }
@@ -154,7 +161,7 @@
         }
         public function addNewItem($itemName3,$id3,$unitid3)
         {
-            $result=$this->InventoryModel->writeData("inventory","inventoryId,itemName,unitId","$id3,'$itemName3',$unitid3");
+            $result=$this->InventoryModel->writeData("inventory","inventoryId,itemName,unitId,quantity,tag","$id3,'$itemName3',$unitid3,'0','ACTIVE'");
             $_SESSION['imgeUploadTo']="inventory";
             $_SESSION['idUpload']=$id3;
             $_SESSION['itemNameUpload']=$itemName3;
@@ -167,13 +174,13 @@
         }
         public function deleteItem($ans)
         {
-            $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$ans,array('tag' =>"deleted"));
+            $result2=$this->InventoryModel-> updateData('inventory','inventoryId',$ans,array('tag' =>"DELETED"));
             return $result2;
         }
 
         public function getInventoryLowItem($lowThan)
         {
-            $result=$this->InventoryModel-> executeSql("SELECT * FROM `inventory` WHERE quantity < $lowThan AND tag != 'deleted'");
+            $result=$this->InventoryModel-> executeSql("SELECT * FROM `inventory` WHERE quantity < $lowThan AND tag != 'DELETED'");
             return $result;
         }
        

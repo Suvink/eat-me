@@ -33,7 +33,7 @@
       $oldq=$_POST['oldq'];
       $unitId=$_POST['unitId'];
       $itemId=$_POST['itemId'];
-      echo $KitchenRetriveController->getInputVal($newq,$oldq,$unitId,$itemId);
+      $KitchenRetriveController->getInputVal($newq,$oldq,$unitId,$itemId);
     }
 
 ?>

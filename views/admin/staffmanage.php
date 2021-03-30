@@ -140,7 +140,7 @@ if(isset($_POST['updateToList'])){
                         <button class="button is-primary left-radius right-radius idle">GRN</button>
                     </a>
                     <a href="/admin/menu/update">
-                        <button class="button is-primary left-radius right-radius idle">Menue</button>
+                        <button class="button is-primary left-radius right-radius idle">Menu</button>
                     </a>
                     <a href="/admin/staffmanage">
                         <button class="button is-primary  button-is-active  left-radius idle">Staff Manage</button>
@@ -186,7 +186,7 @@ if(isset($_POST['updateToList'])){
                                 <td><input name="lastName" type="hidden" value="<?php echo $row['lastName']; ?>"><?php echo $row['lastName']; ?></td>
                                 <td><input name="contactNo" type="hidden" value="<?php echo $row['contactNo']; ?>"><?php echo $row['contactNo']; ?></td>
                                 <td><input name="email" type="hidden" value="<?php echo $row['email']; ?>"><?php echo $row['email']; ?></td>
-                                <td><input name="roleId" type="hidden" value="<?php echo $row['roleId']; ?>"><?php echo $row['roleId']; ?></td>
+                                <td><input name="roleId" type="hidden" value="<?php echo $row['roleId']; ?>"><?php echo $staffManageController->getRoleName($row['roleId']); ?></td>
                                 <!-- <td id="stuff"> <button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom">update</button></td> -->
                                 <td id="stuff"><button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom" >update</button></td>
                                 </form>

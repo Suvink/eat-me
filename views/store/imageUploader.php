@@ -27,18 +27,7 @@ else if($_SESSION['imgeUploadTo']=="menu")
     // echo '</script>';
 }
 
-// if($ctype==1)
-// {
-//     $pathImg="../../img/inventory/";
-// }
-// else if($ctype==2)
-// {
-//     $pathImg="../../img/menu/";
-// }
-// else if($ctype==3)
-// {
-//     $pathImg="../../img/managemnt/";
-// }
+
 if(isset($_POST['back']))
 {
     if($_SESSION['imgeUploadTo']=="inventory")
@@ -105,7 +94,7 @@ if(isset($_POST['back']))
                                     </div>
                                     <div class="columns group mt-1 ">    
                                         <div class="column is-12">
-                                            <button style="width:300px" type="submit" name="back" id="auto" value="menu" onclick="return confirm('Are you sure you want to add the item with out an image ?');">Back</button>
+                                            <button style="width:300px" type="submit" name="back" id="auto" value="menu" onclick="return confirm('Are you sure that you want to go back?');">Back</button>
                                         </div>
                                     </div>
                                 </div>

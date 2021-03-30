@@ -9,10 +9,10 @@
             $this->MenuUpdateModel =new MenuUpdateModel();
         }
         public function renderMainMenu(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'true');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -38,10 +38,10 @@
             }
           }
         public function renderMainMenuHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'false');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -69,7 +69,7 @@
             $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'update');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="popup-update" id="popup-1">
@@ -165,10 +165,10 @@
             }
           }
         public function renderStarters(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'true');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -194,10 +194,10 @@
             }
           }
         public function renderStartersHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'false');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -225,7 +225,7 @@
             $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'update');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="popup-update" id="popup-1">
@@ -321,10 +321,10 @@
             }
           }
         public function renderBeverages(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'true');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -350,10 +350,10 @@
             }
           }
         public function renderBeveragesHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'false');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -381,7 +381,7 @@
             $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'update');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="popup-update" id="popup-1">
@@ -482,10 +482,10 @@
             }
           }
         public function renderDesserts(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'true');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -511,10 +511,10 @@
             }
           }
         public function renderDessertsHide(){
-            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'false');
+            $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                         <div class="tray">
@@ -542,7 +542,7 @@
             $result = $this->MenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'update');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                  if($row['tag'] !="deleted")
+                  if($row['tag'] !="DELETED")
                   {
                         echo '
                         <div class="popup-update" id="popup-1">
@@ -640,16 +640,16 @@
 
           public function updateAvailabilityHide($ans)
           {
-              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'false'));
+              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
           }
           public function deleteMenu($ans)
           {
-            $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => "false",'tag' =>"deleted"));
+            $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => "FALSE",'tag' =>"DELETED"));
                    
           }
           public function updateAvailabilityShow($ans)
           {
-              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
+              $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'TRUE'));
           }
           public function updateAvailabilityUpdate($ans)
           {
@@ -657,11 +657,11 @@
           }
           public function hideAllItems()
           {
-              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="false" WHERE `tag` !="deleted"');
+              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="FALSE" WHERE `tag` !="DELETED"');
           }
           public function showAllItems()
           {
-              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="true" WHERE `tag` !="deleted" ');
+              $result = $this->MenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="TRUE" WHERE `tag` !="DELETED" ');
           }
           public function takeNewID()
           {
@@ -734,7 +734,7 @@
              
             if($check2==1)
             {
-              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability","$itemNumber, '$itemName', $itemPrice, '$itemType','false'");
+              $result = $this->MenuUpdateModel->writeData("menu","itemNo,itemName,price,type,availability,tag","$itemNumber, '$itemName', $itemPrice, '$itemType','FALSE','ACTIVE'");
                 $_SESSION['imgeUploadTo']="menu";
                 $_SESSION['idUpload']=$itemNumber;
                 $_SESSION['itemNameUpload']=$itemName;
@@ -757,12 +757,12 @@
              
               if($check==1)
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'true', 'type' => $itemType));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('itemName' => $itemName, 'price' => $itemPrice,'availability' => 'TRUE', 'type' => $itemType,'tag' =>"ACTIVE"));
                 // echo "done";
               }
               else
               {
-                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
+                $result = $this->MenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
                     // echo" ";
                     // echo "=> updated to old status";
               }

@@ -23,7 +23,7 @@ class StaffLoginController extends Controller
     {
       while ($row = $result->fetch_assoc()) 
       {
-        if( $password === $row["password"])
+        if( MD5($password) === $row["password"])
         {
           if ($row['tag']=="ACTIVE") 
           {
@@ -31,15 +31,19 @@ class StaffLoginController extends Controller
               $_SESSION['firstName']=$row['firstName'];
               $_SESSION['lastName']=$row['lastName'];
               $_SESSION['roleId']=$row['roleId'];
-              $_SESSION['lastUpdated']="------";
+              
               // $_SESSION['lastName']=$row['staffId'];
 
             switch ($row["roleId"]) 
             {
               case 1: 
+                $_SESSION['lastUpdated']="------";
                 header('Location: /admin');
               break;
-              case 2: 
+              case 2:
+                $_SESSION['popup-1'] = "style=display:none";
+                $_SESSION['popup-rider'] = "style=display:none";
+                $_SESSION['popup-summery'] = "style=display:none"; 
                 header('Location: /kitchendisplay/orders');
               break;
               case 3: 

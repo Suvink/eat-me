@@ -1,6 +1,6 @@
 
 /* container */
-.content
+.content-admin
 {
   box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
   border-radius: 15px;
@@ -11,7 +11,8 @@
   /* margin-bottom: 20px; */
   align-self: center;
   cursor: pointer;
-  overflow: auto;
+  /* background-color: rgb(172, 168, 168); */
+  overflow:auto;
 }
 /* tray cards */
 
@@ -269,4 +270,20 @@
   {
     font-size: 1.5em;
   
+  }
+  .hide-all-items-btn-two{
+    width: 350px;
+    box-shadow: 4px 6px 25px -8px rgba(0,0,0,0.75);
+    border: none;
+    cursor:pointer;
+    outline:none;
+    font-family: 'Baloo Thambi 2', cursive;
+  }
+  .adjust-place-two{
+    z-index: 3;
+    background-color: rgba(173, 171, 167, 0.356);
+    overflow: hidden;
+    position: fixed;
+    top:84%;
+    width: 90%;
   }

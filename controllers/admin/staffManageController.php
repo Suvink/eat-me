@@ -9,18 +9,25 @@
         }
         public function getStaffDetails()
         {
-            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='deleted'");
+            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='DELETED'");
             return $result;
+        }
+        public function getRoleName($id)
+        {
+            $result=$this->StaffManageModel->executeSql(" SELECT roleName FROM `staff_roles` WHERE roleId =$id");
+            $row3= mysqli_fetch_assoc($result);
+            $name=$row3['roleName'];
+            return $name;
         }
         public function deleteStaff($staffid3)
         {
             $result3=$this->StaffManageModel-> getSpecificDataWhere('status','minor_staff','staffId', $staffid3);
             $row3= mysqli_fetch_assoc($result3);
             $status=$row3['status'];
-            if($status=="available")
+            if($status=="AVAILABLE")
             {
                 $result1=$this->StaffManageModel->deleteData('minor_staff', 'staffId', $staffid3);
-                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"deleted"));
+                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"DELETED"));
             }
             else
             {
@@ -48,7 +55,7 @@
                 {
                     if ($tpnumbereCount == 10) 
                     {
-                        if ($roleid < 6 && 0 < $roleid) 
+                        if ($roleid < 15 && 0 < $roleid) 
                         {
                             if($password===$re_password)
                             {
@@ -64,7 +71,7 @@
                         else 
                         {
                             echo '<script language="javascript">';
-                            echo 'alert("'.$roleid.'"+" "+" Role Id must less than 10")';
+                            echo 'alert("Role ID: "+"'.$roleid.'"+" "+"Need to be less than 15")';
                             echo '</script>';
                         }
                     } 
@@ -102,20 +109,26 @@
         {
             $val2=$this->validation($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
             $password2= MD5($password);
-            echo $password2;
+            // echo $password2;
             if($val2==1)
             {
-                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','active')";    
+                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','ACTIVE')";    
                 $this->StaffManageModel->executeSql($sqlQ);
+
+                echo '<script language="javascript">';
+                echo 'alert("'.$firstname.'"+"  "+"'.$lastname.'"+" Adeed to the staff Sucsessfully!")';
+                echo '</script>';
+
                 $sqlQ2="SELECT max(staffId) FROM `staff`";
                 $newlyAddedID=$this->StaffManageModel->executeSql($sqlQ2);
                 $row3 = mysqli_fetch_assoc($newlyAddedID);
                 $maxID= $row3['max(staffId)'];
+                // echo $maxID;
                 // echo $roleid;
-                if($roleid=="3" || $roleid=="5")
+                if($roleid=="3"||$roleid=="5")
                 {
-                     $result=$this->StaffManageModel->writeData("minor_staff","staffId,status","$maxID,'available'");
-                    
+                     $result=$this->StaffManageModel->writeData("minor_staff","staffId,status","$maxID,'AVAILABLE'");
+                     $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null;
                 }
 
             }
@@ -137,22 +150,29 @@
                 $status=$row3['status'];
                 if($roleid==5 || $roleid==3)
                 {
-                    if($status=="available")
+                    if($status=="AVAILABLE")
                     {
                         $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
-                        
+                        $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null;
+                        echo '<script language="javascript">';
+                        echo 'alert("'.$firstname.'"+" "+"'.$lastname.'"+" Updated Sucsessfully!")';
+                        echo '</script>';  
                     }
                     else
                     {
+                        $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null;
                         echo '<script language="javascript">';
-                        echo 'alert("'.$firstname.'"+" "+"has already assigned to a work. wait unti the job finish!")';
+                        echo 'alert("User has already assigned to a work. wait unti the job finish!")';
                         echo '</script>';
                     }
                 }
                 else
                 {
                     $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
-                        
+                    $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null; 
+                    echo '<script language="javascript">';
+                    echo 'alert("'.$firstname.'"+"  "+"'.$lastname.'"+" Updated Sucsessfully!")';
+                    echo '</script>';  
                 }
 
             }

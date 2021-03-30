@@ -121,6 +121,7 @@ class Model {
 
     //ඔබගේ වෙනත් සියලු අවශ්‍යතාවයන් සඳහා මෙමෙ Function එක භාවිත කරන්න
     public function executeSql($query){
+        // echo $query;
         $result =  $this->con->query($query);
         if ($result === FALSE) {
             echo $this->con->error;

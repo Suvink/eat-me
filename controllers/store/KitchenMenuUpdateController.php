@@ -10,10 +10,10 @@
         }
 
         public function renderMainMenu(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'true');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -39,10 +39,10 @@
             }
           }
         public function renderMainMenuHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'false');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'mains', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -66,10 +66,10 @@
             }
           }
         public function renderStarters(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'true');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -95,10 +95,10 @@
             }
           }
         public function renderStartersHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'false');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'starters', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -122,10 +122,10 @@
             }
           }
         public function renderBeverages(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'true');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -151,10 +151,10 @@
             }
           }
         public function renderBeveragesHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'false');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'beverages', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -178,10 +178,10 @@
             }
           }
         public function renderDesserts(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'true');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'TRUE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -207,10 +207,10 @@
             }
           }
         public function renderDessertsHide(){
-            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'false');
+            $result = $this->KitchenMenuUpdateModel->getAllDataWhereAnd('menu', 'type', 'desserts', 'availability', 'FALSE');
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                if($row['tag'] !="deleted")
+                if($row['tag'] !="DELETED")
                 {
                     echo '
                     <div class="tray">
@@ -236,19 +236,19 @@
 
         public function updateAvailabilityHide($ans)
         {
-            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'false'));
+            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'FALSE'));
         }
         public function updateAvailabilityShow($ans)
         {
-            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'true'));
+            $result = $this->KitchenMenuUpdateModel->updateData('menu','itemNo',$ans, array('availability' => 'TRUE'));
         }
         public function hideAllItems()
         {
-            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="false" WHERE `tag` !="deleted"');
+            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="FALSE" WHERE `tag` !="DELETED"');
         }
         public function showAllItems()
         {
-            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="true" WHERE `tag` !="deleted"');
+            $result = $this->KitchenMenuUpdateModel->executeSql('UPDATE `menu` SET `availability`="TRUE" WHERE `tag` !="DELETED"');
         }
     }
 ?>
