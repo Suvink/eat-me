@@ -70,7 +70,7 @@ if (isset($_POST['search-btn'])) {
 								<th>Payment Type</th>
 								<th>Order Status</th>
 								<th>Order Type</th>
-								<th>Customer ID</th>
+								<th>Customer Name</th>
 							</thead>
 							<tbody>
 								<?php $CashierCheckOrderController->renderOrdersDetails($display) ?>

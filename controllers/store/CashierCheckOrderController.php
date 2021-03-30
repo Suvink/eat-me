@@ -13,9 +13,9 @@
         //check whether order searched
         public function getOrderDetails($searchedId){
             if($searchedId==""){
-                $result = $this->CashierCheckOrderModel->getAllData('order_details');    
+                $result = $this->CashierCheckOrderModel->executeSql("SELECT order_details.orderId,order_details.paymentType, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId");    
             }else{
-                $result = $this->CashierCheckOrderModel->getAllDataWhere('order_details','orderId',$searchedId);
+                $result = $this->CashierCheckOrderModel->executeSql("SELECT order_details.orderId,order_details.paymentType, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId WHERE order_details.orderId=$searchedId");
             }
             return $result;
         }
@@ -56,17 +56,29 @@
         public function renderOrdersDetails($display){
             if($display->num_rows>0){
                 while ($row = $display->fetch_assoc()) {
+								$cusName='';
+								$fName=$row['firstName'];
+								$searchStr='user-';
                  $stateOrder=$this->orderStatus($row['orderStatus']);
+                 if(strpos($fName,$searchStr)!==false){
+										$cusName=$row['firstName'];
+								 }else{
+									$cusName=$row['firstName'].' '. $row['lastName'];
+								 }
+								 
                 echo '<tr>
                         <td>'.$row['orderId'].'</td>
-                        <td>'.$row['amount'].'</td>
+                        <td>Rs.'.$row['amount'].'.00</td>
                         <td>'.$row['paymentType'].'</td>
                         <td>'.$stateOrder.'</td>
                         <td>'.$row['orderType'].'</td>
-                        <td>'.$row['customerId'].'</td>
+                        <td>'.$cusName.'</td>
                     </tr>';
                 }
-            }
+            }else{
+							echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+							echo "<script>artemisAlert.alert('error','OrderID is invalid!') </script>";
+						}
         }
         
     }
