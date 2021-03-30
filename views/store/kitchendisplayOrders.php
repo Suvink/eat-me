@@ -642,5 +642,14 @@ if (isset($_POST['close-btn'])) {
   <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 
 </body>
-
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script>
+		window.OneSignal = window.OneSignal || [];
+		OneSignal.push(function() {
+			OneSignal.init({
+				appId: "950f0adf-2de5-4613-a7b0-8790f3104caa",
+				safari_web_id: 'web.onesignal.auto.20cc36d3-e742-47b9-8fc8-37c27a32926f'
+			});
+		});
+	</script>
 </html>

@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- <link rel="stylesheet" href="../../css/kitchendisplay.css"> -->
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
@@ -406,5 +407,11 @@
 <!-- --------kitchen display js file -->
 <script type="text/javascript" src="../../js/kitchendisplayinventory.js"></script>
 </body>
-
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 </html>
