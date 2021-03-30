@@ -76,6 +76,7 @@ if (isset($_POST['logout'])) {
 									<th>Price</th>
 									<th>Table No</th>
 									<th>Status</th>
+									<th style="display: none;">CustomerId</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -100,12 +101,6 @@ if (isset($_POST['logout'])) {
 						</div>
 						<div class="d-flex" name="customerRate">
 							<form action="">
-								<label class="field artemis-input-field">
-									<input class="artemis-input" type="text" placeholder="Description Here" name="description">
-									<span class="label-wrap">
-										<span class="label-text">Description</span>
-									</span>
-								</label>
 								<button class="button is-primary" name="submit">Submit</button>
 							</form>
 						</div>

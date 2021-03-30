@@ -10,7 +10,7 @@ $con = $DBConnection->getConnection();
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
   //Add the review into the table
-  $sql = "SELECT order_details.orderId, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId ";
+  $sql = "SELECT order_details.orderId, customer.firstName, customer.lastName, order_details.orderType, order_details.amount,order_details.orderStatus FROM order_details JOIN customer ON order_details.customerId=customer.customerId WHERE (order_details.orderStatus<8) ";
   $result = $con->query($sql);
 
   if ($result !== NULL) {
