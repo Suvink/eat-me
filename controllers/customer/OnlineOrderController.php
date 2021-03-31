@@ -110,7 +110,7 @@ class OnlineOrderController extends Controller
 
   public function hasExistingOrder($phone){
     $customer_id = $this->getCustomerID($phone);
-    $result = $this->OnlineOrderModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8');
+    $result = $this->OnlineOrderModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8 AND `orderStatus`!=9 ');
     if ($result->num_rows > 0) {
       return TRUE;
     }else{

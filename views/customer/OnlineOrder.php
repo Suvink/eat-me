@@ -123,8 +123,8 @@
             <input id="confirmed-total" name="totalValue" style="display:none" required>
             <input id="order-array" type="text" name="orderArray" style="display:none" required>
             <div class="mt-1 payment-buttons fadeInRight">
-              <button class="payment-button" type="submit" name="orderdetails-payhere"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
-              <button class="payment-button" type="submit" name="orderdetails-cash"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
+              <button class="payment-button mb-0 pb-0" type="submit" name="orderdetails-payhere"><img class="payment-option" src="../../img/payhere.png" alt=""></button>
+              <button class="payment-button mt-0" type="submit" name="orderdetails-cash"><img class="payment-option" src="../../img/paycash.png" alt=""></button>
             </div>
           </form>
           
