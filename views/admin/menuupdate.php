@@ -16,7 +16,6 @@ if (isset($_POST['addNewItem'])) {
     $newID=$MenuUpdateController->takeNewID(); 
 }
 if (isset($_POST['addItem'])) {
-
     $itemNumber = $_POST['itemNumberAdd'];
     $itemName = $_POST['itemNameAdd'];
     $itemPrice = $_POST['itemPriceAdd'];
@@ -218,10 +217,10 @@ if (isset($_POST['hideMenu'])) {
                             <h2>Item Number :</h2>
                         </div>
                         <div class="column is-8 field artemis-input-field arrange-position">
-                            <input class="artemis-input zoom font-color font-size" type="text" placeholder="Item Number" name="itemNumberAdd"  value ="<?php echo $newID;?>" required>
-                            <span class="label-wrap">
+                            <input class="artemis-input zoom font-color font-size" type="number" placeholder="Item Number" name="itemNumberAdd"  value ="<?php echo $newID;?>" required disabled>
+                            <!-- <span class="label-wrap">
                                 <span class="label-text">Item Number</span>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                     <div class="columns group font">
@@ -230,9 +229,9 @@ if (isset($_POST['hideMenu'])) {
                         </div>
                         <div class="column is-8 field artemis-input-field arrange-position">
                             <input class="artemis-input zoom" type="text" placeholder="Item Name" name="itemNameAdd" required>
-                            <span class="label-wrap">
+                            <!-- <span class="label-wrap">
                                 <span class="label-text">Item Name</span>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                     <div class="columns group font">
@@ -241,9 +240,9 @@ if (isset($_POST['hideMenu'])) {
                         </div>
                         <div class="column is-8 field artemis-input-field arrange-position">
                             <input class="artemis-input zoom" type="text" placeholder="Item Price" name="itemPriceAdd"  required>
-                            <span class="label-wrap">
+                            <!-- <span class="label-wrap">
                                 <span class="label-text">Item Price</span>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                     <div class="columns group font">
