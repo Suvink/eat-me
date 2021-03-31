@@ -150,6 +150,9 @@ if (isset($_POST['place-order'])) {
         case "8":
           return "Completed";
           break;
+        case "9":
+          return "Cancelled";
+          break;
         default:
           return "None"
       }
@@ -168,6 +171,8 @@ if (isset($_POST['place-order'])) {
     function getButtonClass(code) {
       if (code == "8") {
         return "is-success"
+      } else if(code == "9"){
+        return "is-danger"
       } else {
         return "is-warning"
       }

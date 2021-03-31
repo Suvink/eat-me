@@ -93,7 +93,7 @@ class OnlineOrderSummeryController extends Controller
                   <div class="menu-selected-row">
                     <div class="menu-selected-row-delete"><i class="check-icon fas fa-check-circle"></i></div>
                     <div class="menu-selected-row-image">
-                      <img src="' . $row['url'] . '">
+                      <img src="../' . $row['url'] . '">
                     </div>
                     <div class="menu-selected-row-description has-text-left">
                       <h4 class="mb-0 mt-0">' . $row['itemName'] . '</h4>
