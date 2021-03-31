@@ -25,7 +25,7 @@ if (isset($_POST['logout'])) {
 	<link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
 	<link rel="stylesheet" href="../../css/style.css">
 	<!-- local styles -->
-	<link rel="stylesheet" href="../../css/stewardStyles.css">
+	<link rel="stylesheet" href="../../css/minorStaffStyles.css">
 	<link rel="stylesheet" href="../../css/ratingStyles.css">
 	<title>Steward Home </title>
 </head>

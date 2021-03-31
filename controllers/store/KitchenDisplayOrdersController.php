@@ -103,6 +103,7 @@ class KitchenDisplayOrdersController extends Controller
             if($status>3 && $status<6)
             {
                 $i++;
+                echo $row1['orderId'];"  ";$row2['orderStatus'];
 
             }
         }
