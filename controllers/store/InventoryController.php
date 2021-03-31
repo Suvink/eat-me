@@ -62,7 +62,7 @@
                 {
                     echo "<h1 style='display:none'></h1>";
                     echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
-                    echo '<script> artemisAlert.alert("error", "'.$itemName2.'"+" "+" can contains only letters and numbers.") </script>';
+                    echo '<script> artemisAlert.alert("error", "'.$itemName2.'"+" "+" can contains only letters and Spaces.") </script>';
                     return;
                 }
                 
@@ -181,6 +181,7 @@
                 $_SESSION['imgeUploadTo']="inventory";
                 $_SESSION['idUpload']=$id3;
                 $_SESSION['itemNameUpload']=$itemName3;
+                $_SESSION['uploadStatus']="upload";
                 header('Location: ./imageuploader');
                 return $result;
             }

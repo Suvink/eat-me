@@ -40,6 +40,11 @@ if (isset($_POST['back'])) {
                 </div>
                 <div class="column is-10 font">
                 </div>
+                <div class="column is-8 font">
+                </div>
+                <div class="column is-2 font">
+                    <button  class="zoom" style="font-family: 'Baloo Thambi 2', cursive;" onclick="window.print();">Print</button>
+                </div>
             </div>
         </form>
     </section>

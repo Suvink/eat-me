@@ -11,21 +11,49 @@ $ImageUploaderController= new ImageUploaderController();
 
 $style1= "style=display:none";
 $style2= "style=display:none";
-if($_SESSION['imgeUploadTo']=="inventory")
+$style3= "style=display:none";
+$style4= "style=display:none";
+if($_SESSION['uploadStatus']=="upload")
 {
-    $style1="style=display:block";
-    $style2= "style=display:none";
-    echo '<p class="mt-2 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'" Added to the menu</p>';
+    if($_SESSION['imgeUploadTo']=="inventory")
+    {
+        $style1="style=display:block";
+        $style2= "style=display:none";
+        $style3= "style=display:none";
+        $style4= "style=display:none";
+        echo '<p class="mt-2 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'" Added to the menu</p>';
+    }
+    else if($_SESSION['imgeUploadTo']=="menu")
+    {
+        $style1= "style=display:none";
+        $style2= "style=display:none";
+        $style3= "style=display:block";
+        $style4= "style=display:none";
+        echo '<p class="mt-2 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'" Added to the menu</p>';
+        // echo '<script language="javascript">';
+        // echo 'alert("Item ID: "+"'.$_SESSION['idUpload'].'"+" "+"'. $_SESSION['itemNameUpload'].'"+" "+" Added to the menu. Now you can upload an image ")';
+        // echo '</script>';
+    }
 }
-else if($_SESSION['imgeUploadTo']=="menu")
+if($_SESSION['uploadStatus']=="manage")
 {
-    $style1= "style=display:none";
-    $style2= "style=display:block";
-    echo '<p class="mt-2 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'" Added to the menu</p>';
-    // echo '<script language="javascript">';
-    // echo 'alert("Item ID: "+"'.$_SESSION['idUpload'].'"+" "+"'. $_SESSION['itemNameUpload'].'"+" "+" Added to the menu. Now you can upload an image ")';
-    // echo '</script>';
+    if($_SESSION['imgeUploadTo']=="inventory")
+    {
+        $style1="style=display:block";
+        $style2= "style=display:none";
+        echo '<p class="mt-2 mr-5" align=center>Going to upload new Image for   Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'"</p>';
+    }
+    else if($_SESSION['imgeUploadTo']=="menu")
+    {
+        $style1= "style=display:none";
+        $style2= "style=display:block";
+        echo '<p class="mt-2 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'" Added to the menu</p>';
+        // echo '<script language="javascript">';
+        // echo 'alert("Item ID: "+"'.$_SESSION['idUpload'].'"+" "+"'. $_SESSION['itemNameUpload'].'"+" "+" Added to the menu. Now you can upload an image ")';
+        // echo '</script>';
+    }
 }
+
 
 
 if(isset($_POST['back']))
@@ -90,6 +118,16 @@ if(isset($_POST['back']))
                                     <div class="columns group mt-1 " <?php echo $style2 ?>>    
                                         <div class="column is-12">
                                             <button style="width:300px" type="submit" name="submit" id="auto" value="menu">Uplaod Image To Menu</button>
+                                        </div>
+                                    </div>
+                                    <div class="columns group mt-1" <?php echo $style3 ?>>    
+                                        <div class="column is-12">
+                                            <button style="width:300px " type="submit" name="submit" id="auto" value="inventory">Upload New Image to Inventroy</button>
+                                        </div>
+                                    </div>
+                                    <div class="columns group mt-1 " <?php echo $style4 ?>>    
+                                        <div class="column is-12">
+                                            <button style="width:300px" type="submit" name="submit" id="auto" value="menu">Upload New Image to Menu</button>
                                         </div>
                                     </div>
                                     <div class="columns group mt-1 ">    
