@@ -13,6 +13,10 @@ if (isset($_POST['logout'])) {
   $CashierController->logoutstaffMem();
 }
 
+$page = $_SERVER['PHP_SELF'];
+$sec = "12";
+header("Refresh: $sec; url=/cashier");
+
 ?>
 
 <!DOCTYPE html>
