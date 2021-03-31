@@ -36,9 +36,12 @@ if (isset($_POST['back'])) {
         <form action="" method="POST">
             <div class="columns group">
                 <div class="column is-2 font">
-                    <button name="back" class="zoom" style="background-color:#b41d09" >Back</button>
+                    <button name="back" class="zoom;" style="background-color:#b41d09;font-family: 'Baloo Thambi 2', cursive;" >Back</button>
                 </div>
-                <div class="column is-10 font">
+                <div class="column is-8 font">
+                </div>
+                <div class="column is-2 font">
+                    <button  class="zoom" style="font-family: 'Baloo Thambi 2', cursive;" onclick="window.print();">Print</button>
                 </div>
             </div>
         </form>
@@ -86,9 +89,6 @@ if (isset($_POST['back'])) {
             </div>
             <div class="column is-4 font">
                 <button  class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(2)">Sort by Quantity</button>
-            </div>
-            <div class="column is-4 font">
-                <button  class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;" onclick="window.print();">Print</button>
             </div>
         </div>
     </section>

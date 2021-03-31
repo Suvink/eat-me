@@ -86,6 +86,7 @@ if (isset($_POST['go'])) {
 $styleRepotPopOne = "style=display:none";
 $styleGRNCreateRepoBtn = "style=display:none";
 $styleRetCreateRepoBtn = "style=display:none";
+$topic=null;
 if (isset($_POST['GRN-Report'])) {
     $styleRepotPopOne = "style=display:display";
     $topic="GRN";
@@ -102,11 +103,12 @@ if (isset($_POST['Retrieve-Report'])) {
     $topic="Retrieve";
     $styleRetCreateRepoBtn = "style=display:display";
 }
-if (isset($_POST['createRetrieveReport'])) {
-    $_SESSION['startDate']=$_POST['startDate'];
-    $_SESSION['endDate']=$_POST['endDate'];
-    $_SESSION['reportName']="Retrieve";
-    header('Location: ./retrievereport');
+if (isset($_POST['changeImage'])) {
+    $_SESSION['imgeUploadTo']="inventory";
+    $_SESSION['idUpload']=$_POST['id2'];
+    $_SESSION['itemNameUpload']=$_POST['itemName2'];
+    $_SESSION['uploadStatus']="manage";
+    header('Location: ./imageuploader');
  }
 if (isset($_POST['ratings'])) {
     header('Location: ./ratingsreport');
@@ -345,14 +347,18 @@ if (isset($_POST['ratings'])) {
                             </div>
                             <div class="columns group">
                                 <div class="column is-12">
-                                    <button name="updateInven" class="width-adjust">Update</button>
+                                    <button name="updateInven" class="width-adjust zoom">Update</button>
 
                                 </div>
                             </div>
                             <div class="columns group">
                                 <div class="column is-12">
-                                    <button class="width-adjust">Up</button>
-
+                                    <button name="changeImage" class="is-primary zoom width-adjust">Change Images</button>
+                                </div>
+                            </div>
+                            <div class="columns group">
+                                <div class="column is-12">
+                                    <button class="width-adjust zoom">Up</button>
                                 </div>
                             </div>
                         </div>
@@ -472,9 +478,9 @@ if (isset($_POST['ratings'])) {
                     </div>
                     <br>
                     <div class="columns group">
-                        <div class="column is-5">
+                        <div class="column is-4">
                         </div>
-                        <div class="column is-3">
+                        <div class="column is-4">
                             <button name="addItem" class="is-primary zoom"> Add New Item</button>
                         </div>
         </form>
