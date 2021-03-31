@@ -1,16 +1,14 @@
 <?php
-session_start();
-ob_start();
+    session_start();
+    ob_start();
 
+    require_once './controllers/admin/RatingsReportController.php';
+    $RatingsReportController = new RatingsReportController();
 
-require_once './controllers/admin/RatingsReportController.php';
-$RatingsReportController = new RatingsReportController();
-
-
-// $repName = $_SESSION['reportName'];
-if (isset($_POST['back'])) {
-    header('Location: ./inventory');
-}
+    // $repName = $_SESSION['reportName'];
+    if (isset($_POST['back'])) {
+        header('Location: ./inventory');
+    }
 
 ?>
 <!DOCTYPE html>
@@ -26,6 +24,7 @@ if (isset($_POST['back'])) {
     <link rel="stylesheet" href="../../css/adminStyles.css">
     <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
     <link rel="stylesheet" href="css/index.css" />
+    <link rel="icon" type="image/png" href="../../img/favicon.png" />
     <title>Report</title>
 </head>
 
@@ -47,7 +46,14 @@ if (isset($_POST['back'])) {
     </section>
 
     <section class="mt-1 pl-1 pr-1">
-        <h1 class="title has-text-centered ">Customer Ratings <span class="orange-color">REPORTS</span></h1>
+        <h1 class="title has-text-centered mb-2">Customer Ratings <span class="orange-color">Report</span></h1>
+       
+            <div class="row d-flex mb-1" style="justify-content: flex-end;">
+                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"onclick="sortTableNumbers(0)">Sort by Customer ID</button>
+                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"  onclick="sortTableLetters(1)">Sort by Customer Name</button>
+                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(2)">Sort by Order ID</button>
+            </div>
+       
         <table id="myTable">
             <thead>
                 <tr>
@@ -77,19 +83,6 @@ if (isset($_POST['back'])) {
                 ?>
             </tbody>
         </table>
-    </section>
-    <section>
-        <div class="columns group">
-            <div class="column is-4 font">
-                <button class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;"onclick="sortTableNumbers(0)">Sort by Customer ID</button>
-            </div>
-            <div class="column is-4 font">
-                <button class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;"  onclick="sortTableLetters(1)">Sort by Customer Name</button>
-            </div>
-            <div class="column is-4 font">
-                <button  class="zoom" style="width:400px;font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(2)">Sort by Order ID</button>
-            </div>
-        </div>
     </section>
 
     <!---------Foter part ----------->

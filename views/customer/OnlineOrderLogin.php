@@ -48,7 +48,6 @@ if (isset($_POST['submit'])) {
 
       <div id="loginInfoDiv" style="display: block">
         <label class="field artemis-input-field">
-          <label for="phone_number_input">Phone</label>
           <input class="artemis-input" type="text" placeholder="Your Phone Number here" id="phone_number_input" required>
           <span class="label-wrap">
             <span class="label-text">Phone Number</span>

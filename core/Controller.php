@@ -22,6 +22,13 @@ class Controller
     header("Location: /online", TRUE, 302);
   }
 
+  public function dineinLogout()
+  {
+    session_destroy();
+    unset($_SESSION['user_phone']);
+    header("Location: /dinein/login", TRUE, 302);
+  }
+
   public function logoutstaffMem()
   {
     session_destroy();

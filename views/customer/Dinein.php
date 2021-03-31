@@ -11,16 +11,16 @@
   $DineinController = new DineinController();
 
   if( isset( $_POST['logout'] ) ){
-    $DineinController->logout();
+    $DineinController->dineinLogout();
   }
 
   //Check for existing orders and redirect
-  // $has_ongoing = $DineinController->hasExistingOrder($_SESSION['user_phone']);
-  // if($has_ongoing){
-  //   $order_id = $DineinController->getOrderIdByCustomerId($_SESSION['user_phone']);
-  //   $redirectURL = 'Location: /dinein/summery?existing_order=true&order_id='.$order_id;
-  //   header($redirectURL);
-  // }
+  $has_ongoing = $DineinController->hasExistingOrder($_SESSION['user_phone']);
+  if($has_ongoing){
+    $order_id = $DineinController->getOrderIdByCustomerId($_SESSION['user_phone']);
+    $redirectURL = 'Location: /dinein/summery?existing_order=true&order_id='.$order_id;
+    header($redirectURL);
+  }
 
 ?>
 
