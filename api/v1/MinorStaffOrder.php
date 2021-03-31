@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     //Get order details of assigned order of steward
     $sql = "SELECT staff_order.orderId,customer.customerId, customer.firstName, customer.lastName, order_details.amount,order_details.orderStatus,dine_in_order.tableNo FROM `staff_order` JOIN order_details ON staff_order.orderId=order_details.orderId JOIN customer ON order_details.customerId=customer.customerId JOIN dine_in_order ON dine_in_order.orderId=order_details.orderId WHERE (staff_order.staffId=$staff_id AND order_details.orderStatus<9)";
     //Get order details of assigned order of DP
-    $sql2 = "SELECT staff_order.orderId,customer.customerId, customer.firstName, customer.lastName, order_details.amount,order_details.orderStatus,online_order.address,online_order.delivery_fee FROM `staff_order` JOIN order_details ON staff_order.orderId=order_details.orderId JOIN customer ON order_details.customerId=customer.customerId JOIN online_order ON online_order.orderId=order_details.orderId WHERE (staff_order.staffId=1004 AND order_details.orderStatus<9)";
+    $sql2 = "SELECT staff_order.orderId,customer.customerId, customer.firstName, customer.lastName, order_details.amount,order_details.orderStatus,online_order.address,online_order.delivery_fee FROM `staff_order` JOIN order_details ON staff_order.orderId=order_details.orderId JOIN customer ON order_details.customerId=customer.customerId JOIN online_order ON online_order.orderId=order_details.orderId WHERE (staff_order.staffId=$staff_id AND order_details.orderStatus<9)";
 
     $result = $con->query($sql);
     $result2 = $con->query($sql2);
