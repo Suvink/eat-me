@@ -121,7 +121,7 @@ class DineinController extends Controller
 
   public function hasExistingOrder($phone){
     $customer_id = $this->getCustomerID($phone);
-    $result = $this->DineinModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8 AND `orderType`="dinein"');
+    $result = $this->DineinModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8 AND `orderStatus`!=9 AND `orderType`="dinein"');
     if ($result->num_rows > 0) {
       return TRUE;
     }else{

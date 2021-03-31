@@ -88,7 +88,7 @@ if (isset($_POST['place-order'])) {
       <div class="column is-8">
         <div class="card pl-2 pr-2">
           <h1 class="orange-color mt-0 mb-1">My Order</h1>
-          <img class="status-image" src="../../img/preparing.gif" alt="">
+          <img id="status-image" class="status-image" src="../../img/preparing.gif" alt="">
           <h5 class="title mb-0" id="order-status">Your order is preparing...</h5>
           <h6 class="title mt-0" id="order-id">#
             <?php
@@ -99,6 +99,7 @@ if (isset($_POST['place-order'])) {
             }
             ?>
           </h6>
+          <h1 id="go-back-link" style="display: none;"><a href="/dinein" style="text-decoration: none;color: black;"><i class="fas fa-arrow-left mr-1"></i>Order Again</a></h1>
           <div class="content has-text-left">
             <h5 class=" ml-0 mb-0 title">Order Items</h5>
             <p class="menu-items"><?php $DineinOrderController->getOrderItemsString($_SESSION['order_id']); ?></p>
@@ -284,6 +285,9 @@ if (isset($_POST['place-order'])) {
         case "8":
           return "Order Completed! Please take a moment to review us!";
           break;
+        case "9":
+          return "Sorry! Your has been cancelled!";
+          break;
         default:
           return "Loading..."
       }
@@ -309,6 +313,15 @@ if (isset($_POST['place-order'])) {
           document.getElementById("payhere-button").disabled = false;
           document.getElementById("cash-paymt-button").disabled = false;
           document.getElementById("payment-indicator").style.display = "none";
+        }
+        if(responseData[0].orderStatus == 9){
+          document.getElementById("go-back-link").style.display = 'block';
+          document.getElementById('status-image').src = "https://c.tenor.com/PDTWgB1tQJ4AAAAj/apologies-excuse.gif";
+        }else if(responseData[0].orderStatus == 8){
+          document.getElementById("go-back-link").style.display = 'block';
+          document.getElementById('status-image').src = 'https://magoz.blog/wp-content/uploads/2018/02/magoz-wetransfer-animation-cheers-drinks-characters-transfer-completed.gif';
+        }else{
+          document.getElementById("go-back-link").style.display = 'none';
         }
 
       } catch (error) {

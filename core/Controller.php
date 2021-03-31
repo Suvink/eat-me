@@ -27,6 +27,7 @@ class Controller
     session_destroy();
     unset($_SESSION['user_phone']);
     header("Location: /dinein/login", TRUE, 302);
+    
   }
 
   public function logoutstaffMem()

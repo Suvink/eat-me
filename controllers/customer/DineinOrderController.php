@@ -190,6 +190,17 @@ class DineinOrderController extends Controller
     }
   }
 
+  public function reserveTable($tableNo)
+  {
+    $sql = "UPDATE `table_details` SET reservation='Reserved' WHERE tableNo=".$tableNo;
+    //echo $sql;
+    $result = $this->DineinOrderModel->executeSql($sql);
+    if ($result) {
+    }else{
+      echo "<script>alert('dinein_order_error!')</script>";
+    }
+  }
+
   public function setDineinOrder($order_id, $tableNo)
   {
     $sql = "INSERT INTO `dine_in_order` (`orderId`, `tableNo`) VALUES (".$order_id.",'".$tableNo."') ";
