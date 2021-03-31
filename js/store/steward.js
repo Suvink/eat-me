@@ -11,8 +11,24 @@ function popupRate(oId) {
 	if (x == "Completed") {
 		showRating();
 		blurBackground();
+	}else if (x == "Served") {
+		//console.log("Served");
+		updateOrderStatus();
 	}
 }
+async function updateOrderStatus() {
+	try {
+		const response = await fetch('/api/v1/steward/UpdateServed?update=true&order_id='+oIdNo, {
+			method: 'GET',
+		});
+		let responseOrderData = JSON.parse(await response.text());
+		//console.log(responseOrderData);
+		
+		} catch (err) {
+			console.log(err)
+			artemisAlert.alert('error', 'Something went wrong!')
+		}
+	}
 
 function showRating() {
 	let showRating = document.getElementById("rate");
@@ -100,8 +116,9 @@ async function getAssignedOrders(sId) {
 		//insert order details
 		responseOrderData.forEach(function (entry) {
 			//console.log(entry);
-
-			if (entry.orderStatus == '1' || entry.orderStatus == '2' || entry.orderStatus == '3' || entry.orderStatus == '4' || entry.orderStatus == '5') {
+			
+			//filter by order status for the UI
+			if (entry.orderStatus == '1' || entry.orderStatus == '2' || entry.orderStatus == '3' || entry.orderStatus == '4' || entry.orderStatus == '5'||entry.orderStatus == '6') {
 				let row = tbodyOrderRef.insertRow(0);
 				let id = row.insertCell(0);
 				let customer = row.insertCell(1);
