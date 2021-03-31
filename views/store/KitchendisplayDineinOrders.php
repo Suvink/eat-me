@@ -7,7 +7,7 @@
      $roleId = $_SESSION['roleId'];
 
     $page = $_SERVER['PHP_SELF'];
-    $sec = "20";
+    $sec = "10";
     header("Refresh: $sec; url=/kitchendisplay/dinein/orders"); 
 
     require_once ("./controllers/store/KitchenDisplayDineinOrdersController.php"); 

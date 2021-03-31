@@ -49,9 +49,9 @@
         <h1 class="title has-text-centered mb-2">Sales <span class="orange-color">Report</span></h1>
       
             <div class="row d-flex mb-1" style="justify-content: flex-end;">
-                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"onclick="sortTableNumbers(0)">Sort by Customer ID</button>
+                <!-- <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"onclick="sortTableNumbers(0)">Sort by Customer ID</button> -->
+                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(0)">Sort by Order ID</button>
                 <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"  onclick="sortTableLetters(1)">Sort by Customer Name</button>
-                <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;" onclick="sortTableFloat(2)">Sort by Order ID</button>
             </div>
        
         <table id="myTable">
