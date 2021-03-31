@@ -102,6 +102,7 @@ if (isset($_POST['Retrieve-Report'])) {
     $styleRepotPopOne = "style=display:display";
     $topic="Retrieve";
     $styleRetCreateRepoBtn = "style=display:display";
+    header('Location: ./retrievereport');
 }
 if (isset($_POST['changeImage'])) {
     $_SESSION['imgeUploadTo']="inventory";
