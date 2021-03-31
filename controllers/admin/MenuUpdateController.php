@@ -700,9 +700,13 @@
           }
           public function takeNewID()
           {
-                $result=$this->MenuUpdateModel->executeSql('SELECT MAX(itemNo) FROM menu');
+                
+                $result=$this->MenuUpdateModel->executeSql('SELECT MAX(itemNo) AS item_no FROM menu');
+                //print_r($result);
                 $row= mysqli_fetch_assoc($result);
-                $val=$row['MAX(itemNo)'];
+                //print_r($row);
+                $val=$row['item_no'];
+                // echo $val;
                 return ($val+1);
           }
           public function validation($itemNumber,$itemName,$itemPrice,$itemType)

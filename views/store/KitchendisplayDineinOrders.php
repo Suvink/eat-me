@@ -231,8 +231,8 @@
         <input type="radio" id="tab1" name="tab-control" >
           <input type="radio" id="tab2" name="tab-control" checked>
           <ul>
-            <li title="O_Orders"><label for="tab1" role="button"><a href="/kitchendisplay/orders"><br><span>O_Oders</span></a></label></li>
-            <li title="D_Orders"><label for="tab2" role="button"><br><span>D_Oders</span></label></li>
+            <li title="O_Orders"><label for="tab1" role="button"><a href="/kitchendisplay/orders"><br><span>Online Oders</span></a></label></li>
+            <li title="D_Orders"><label for="tab2" role="button"><br><span>Dinein Oders</span></label></li>
           </ul>
           <div class="slider">
             <div class="indicator"></div>

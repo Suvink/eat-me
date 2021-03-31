@@ -10,10 +10,11 @@ $MenuUpdateController = new MenuUpdateController();
 
 $style = "style=display:none";
 
-$newID=null;
+// $newID=null;
 if (isset($_POST['addNewItem'])) {
     $style = "style=display:display";
     $newID=$MenuUpdateController->takeNewID(); 
+    $_SESSION['setNewID']=$newID;
 }
 if (isset($_POST['addItem'])) {
     $itemNumber = $_POST['itemNumberAdd'];
@@ -217,7 +218,8 @@ if (isset($_POST['hideMenu'])) {
                             <h2>Item Number :</h2>
                         </div>
                         <div class="column is-8 field artemis-input-field arrange-position">
-                            <input class="artemis-input zoom font-color font-size" type="number" placeholder="Item Number" name="itemNumberAdd"  value ="<?php echo $newID;?>" required disabled>
+                        <?php echo $_SESSION['setNewID'];?>
+                            <input class="artemis-input zoom font-color font-size" type="number" placeholder="Item Number" name="itemNumberAdd"  value ="<?php echo $_SESSION['setNewID'];?>" >
                             <!-- <span class="label-wrap">
                                 <span class="label-text">Item Number</span>
                             </span> -->
@@ -265,7 +267,7 @@ if (isset($_POST['hideMenu'])) {
                         <div class="column is-5">
                         </div>
                         <div class="column is-3">
-                            <button name="addItem"class="is-primary zoom"> Add New Item</button>
+                            <button name="addItem"class="is-primary zoom" type="submit"> Add New Item</button>
                         </div>
      </form>
                         <div class="column is-4">
