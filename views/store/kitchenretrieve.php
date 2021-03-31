@@ -33,7 +33,7 @@
       $oldq=$_POST['oldq'];
       $unitId=$_POST['unitId'];
       $itemId=$_POST['itemId'];
-      echo $KitchenRetriveController->getInputVal($newq,$oldq,$unitId,$itemId);
+      $KitchenRetriveController->getInputVal($newq,$oldq,$unitId,$itemId);
     }
 
 ?>
@@ -48,6 +48,7 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <!-- <link rel="stylesheet" href="../../css/kitchendisplay.css"> -->
   <title>kitchen Retrieve</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
@@ -238,5 +239,12 @@
 <!-- --------kitchen display js file -->
 <script type="text/javascript" src="../../js/kitchenretrieve.js"></script>
 </body>
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

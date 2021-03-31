@@ -11,6 +11,10 @@ $adminDashboard = 'views/admin/dashboard.php';
 $staffDetails = 'views/admin/managestaffdetails.php';
 $staffManage = 'views/admin/staffmanage.php';
 $menuUpdate = 'views/admin/menuupdate.php';
+$grnReport = 'views/admin/grnreport.php';
+$retrievereport = 'views/admin/retrievereport.php';
+$ratingsreport = 'views/admin/ratingsreport.php';
+$salesreport = 'views/admin/salesreport.php';
 
 //Customer
 $dineinLogin = 'views/customer/DineinLogin.php';
@@ -29,9 +33,9 @@ $cashierPlaceOrder = 'views/store/cashierplaceorder.php';
 $cashierCheckOrders = 'views/store/cashiercheckorders.php';
 $deliveryPerson = 'views/store/deliveryperson.php';
 $inventory = 'views/store/inventory.php';
-$kitchendisplayOrders = 'views/store/kitchendisplayorders.php';
-$kitchendisplayDineinOrders = 'views/store/kitchendisplaydineinorders.php';
-$kitchendisplayInventory = 'views/store/kitchendisplayinventory.php';
+$kitchendisplayOrders = 'views/store/kitchendisplayOrders.php';
+$kitchendisplayDineinOrders = 'views/store/KitchendisplayDineinOrders.php';
+$kitchendisplayInventory = 'views/store/kitchendisplayInventory.php';
 $kitchenRetrieve = 'views/store/kitchenretrieve.php';
 $kitchenMenuUpdate = 'views/store/kitchenMenuUpdate.php';
 $steward = 'views/store/steward.php';
@@ -52,6 +56,8 @@ $getdineinorder = 'api/v1/DineinOrder.php';
 $kmonlineorders = 'api/v1/KMOnlineOrders.php';
 $notify= 'api/v1/PushNotifications.php';
 $mStaffRatesCus= 'api/v1/MSRatesCustomer.php';
+$payhereListner = 'api/v1/DineinPaymentListner.php';
+$backups = 'services/backup.php';
 
 //controllers
 $dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
@@ -83,6 +89,18 @@ switch ($request) {
         break;
     case '/admin/menu/update':
         require($menuUpdate);
+        break;
+    case '/grnreport':
+        require($grnReport);
+        break;
+    case '/salesreport':
+        require($salesreport);
+        break;
+    case '/ratingsreport':
+        require($ratingsreport);
+        break;
+    case '/retrievereport':
+        require($retrievereport);
         break;
     case '/dinein/login':
         require($dineinLogin);
@@ -186,6 +204,12 @@ switch ($request) {
         break;
     case '/api/v1/minorStaff/RateCustomer':
         require($mStaffRatesCus);
+        break;
+    case '/api/v1/dinein/payment':
+        require($payhereListner);
+        break;
+    case '/backup':
+        require($backups);
         break;
     default:
         http_response_code(404);

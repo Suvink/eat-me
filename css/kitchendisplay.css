@@ -113,8 +113,8 @@
   animation-name: content-1;
   -webkit-animation-direction: normal;
   animation-direction: normal;
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
+  /* -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s; */
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
   -webkit-animation-iteration-count: 1;
@@ -773,5 +773,8 @@ transform: scale(1.1);
 }
 .availibity-btn:hover{
   background-color: #f5a540 !important;
+}
+.hide-scrol-bar::-webkit-scrollbar {
+  display: none;
 }
 

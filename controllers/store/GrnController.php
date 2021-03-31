@@ -14,6 +14,13 @@
             } else {
                 $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
                 $result = $this->GrnModel->executeSql("SELECT * FROM inventory WHERE itemName LIKE '%$searchq%' OR inventoryId LIKE '%$searchq%'");
+                if ($result->num_rows <= 0) 
+                {
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("warning", "No such an Inventory Item!") </script>';
+                        return;
+                }
                 return $result;
             }
         }
@@ -51,7 +58,10 @@
                     if (fmod($newq, 1) == 0) {
                         $val = 1;
                     } else {
-                        return "not a whole number";
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", "Item count must be a whole number") </script>';
+                        return;
                     }
                 } else if ($unitId == 1) {
                     $val = 1;
@@ -60,7 +70,10 @@
                 }
             } else {
 
-                return "not a positive integer";
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "Not a Positive Integer") </script>';
+                return;
             }
             if ($val == 1) 
             {                                                
@@ -81,9 +94,10 @@
                     $unitName2="(items)";
                 }
 
-                echo '<script language="javascript">';
-                echo 'alert("'.$itemId.'"+" "+"filled with "+"'.$newq.'"+" "+"'.$unitName2.'")';
-                echo '</script>';
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "Item: "+"'.$itemId.'"+" "+"filled with "+"'.$newq.'"+" "+"'.$unitName2.'") </script>';
+                return;
 
             } 
             else 

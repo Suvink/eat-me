@@ -62,6 +62,18 @@ class DineinOrderController extends Controller
     }
   }
 
+  public function getOrderIDUnformatted()
+  {
+    $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        return $row['orderId'];
+      }
+    }else{
+      return 5000;
+    }
+  }
+
   public function getUnformattedOrderID()
   {
     $result = $this->DineinOrderModel->executeSql('SELECT * FROM `order_details` ORDER BY `orderId` DESC LIMIT 1');

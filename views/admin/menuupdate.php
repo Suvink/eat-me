@@ -27,6 +27,10 @@ if (isset($_POST['addItem'])) {
 if (isset($_POST['logout'])) {
     $MenuUpdateController->logoutstaffMem();
 }
+if (isset($_POST['close-btn'])) {
+    $ans = ext($_REQUEST['close-btn']);
+    $MenuUpdateController->updateUpdateStatusToHide($ans);
+}
 
 function ext($i_id)
 {
@@ -83,6 +87,7 @@ if (isset($_POST['hideMenu'])) {
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
     <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>kitchen Menu</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -125,7 +130,7 @@ if (isset($_POST['hideMenu'])) {
                     <button class="button is-primary left-radius right-radius idle">GRN</button>
                 </a>
                 <a href="/admin/menu/update">
-                    <button class="button is-primary button-is-active  left-radius right-radius idle">Menue</button>
+                    <button class="button is-primary button-is-active  left-radius right-radius idle">Menu</button>
                 </a>
                 <a href="/admin/staffmanage">
                     <button class="button is-primary left-radius idle">Staff Manage</button>
@@ -139,8 +144,33 @@ if (isset($_POST['hideMenu'])) {
     ?>
     <!-----XX------ navigatable buttons-----XX------->
     <section>
+    <div class="content-admin adjust-place-two">
+                <div class="columns group">
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two add-new-items-btn zoom mt-1" name="addNewItem">Add New Item</button>
+                        </div>
+                    </form>
+                <!-- </div>
+                <div class="columns group"> -->
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two zoom" name="hideAllItems">Hide all items</button>
+                        </div>
+                    </form>
+                <!-- </div>
+                <div class="columns group"> -->
+                    <form action="" method="POST">
+                        <div class="column is-4">
+                            <button class="hide-all-items-btn-two show-all-items-btn zoom" name="showAllItems">Show all items</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </section>
+    <section>
         <div class="columns group">
-            <div class="content">
+            <div class="content-admin">
                 <div class="column is-3">
                     <h2>Men<span class="change-menu-color">ue</span></h2>
 
@@ -172,27 +202,6 @@ if (isset($_POST['hideMenu'])) {
                     $MenuUpdateController->renderDessertsHide();
                     $MenuUpdateController->renderDessertsUpdate(); ?>
 
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn add-new-items-btn" name="addNewItem">Add New Item</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn" name="hideAllItems">Hide all items</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="columns group">
-                    <form action="" method="POST">
-                        <div class="column is-12">
-                            <button class="hide-all-items-btn show-all-items-btn" name="showAllItems">Show all items</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -300,5 +309,13 @@ if (isset($_POST['hideMenu'])) {
     <!-- --------kitchen display js file -->
     <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
+  <?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

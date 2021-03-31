@@ -9,24 +9,43 @@
         }
         public function getStaffDetails()
         {
-            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='deleted'");
+            $result=$this->StaffManageModel->executeSql(" SELECT * FROM `staff` WHERE tag !='DELETED'");
             return $result;
+        }
+        public function needToProvideNewpassowrd()
+        {
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("warning", "Need to provide New Password") </script>';
+                return;
+        }
+        public function getRoleName($id)
+        {
+            $result=$this->StaffManageModel->executeSql(" SELECT roleName FROM `staff_roles` WHERE roleId =$id");
+            $row3= mysqli_fetch_assoc($result);
+            $name=$row3['roleName'];
+            return $name;
         }
         public function deleteStaff($staffid3)
         {
             $result3=$this->StaffManageModel-> getSpecificDataWhere('status','minor_staff','staffId', $staffid3);
             $row3= mysqli_fetch_assoc($result3);
             $status=$row3['status'];
-            if($status=="available")
+            if(($status=="NOTAVAILABLE"))
             {
-                $result1=$this->StaffManageModel->deleteData('minor_staff', 'staffId', $staffid3);
-                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"deleted"));
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "'.$staffid3.'"+" "+"has already assigned to a work. wait unti the job finish!") </script>';
+                return;
             }
             else
             {
-                echo '<script language="javascript">';
-                echo 'alert("'.$staffid3.'"+" "+"has already assigned to a work. wait unti the job finish!")';
-                echo '</script>';
+                $result1=$this->StaffManageModel->deleteData('minor_staff', 'staffId', $staffid3);
+                $this->StaffManageModel->updateData('staff','staffId',$staffid3, array('tag' =>"DELETED"));
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "'.$staffid3.'"+" "+"has deleted from the staff") </script>';
+                return;
             }
         }
         public function getPassword($staffid2)
@@ -48,7 +67,7 @@
                 {
                     if ($tpnumbereCount == 10) 
                     {
-                        if ($roleid < 6 && 0 < $roleid) 
+                        if ($roleid < 15 && 0 < $roleid) 
                         {
                             if($password===$re_password)
                             {
@@ -56,44 +75,54 @@
                             }
                             else
                             {
-                                echo '<script language="javascript">';
-                                echo 'alert("'.$password.'"+" "+"!="+" "+"'.$re_password.'"+" " +" Passwords are not match")';
-                                echo '</script>';
+                                echo "<h1 style='display:none'></h1>";
+                                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                                echo '<script> artemisAlert.alert("error", " Passwords are not match") </script>';
+                                return;
                             }
                         } 
                         else 
                         {
-                            echo '<script language="javascript">';
-                            echo 'alert("'.$roleid.'"+" "+" Role Id must less than 10")';
-                            echo '</script>';
+                            echo "<h1 style='display:none'></h1>";
+                            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                            echo '<script> artemisAlert.alert("error", "Role ID: "+"'.$roleid.'"+" "+"Need to be less than 15") </script>';
+                            return;
                         }
                     } 
                     else 
                     {
-                        echo '<script language="javascript">';
-                        echo 'alert("Input contact number size : "+" "+"'.$tpnumbereCount.'"+" "+" contact number must have 10 numbers")';
-                        echo '</script>';
+                      
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", "Input contact number size : "+" "+"'.$tpnumbereCount.'"+" "+" contact number must include 10 numbers") </script>';
+                        return;
                     }
                 } 
                 else 
                 {
-                    echo '<script language="javascript">';
-                    echo 'alert("'.$cnumber.'"+" "+" contact-number need to be a number")';
-                    echo '</script>';
+        
+                    echo "<h1 style='display:none'></h1>";
+                    echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                    echo '<script> artemisAlert.alert("error", "'.$cnumber.'"+" "+" contact-number need to be a number") </script>';
+                    return;
                 }
                 }
                 else
                 {
-                    echo '<script language="javascript">';
-                    echo 'alert("'.$lastname.'"+" "+" Last names need to be a letters and not contains spaces")';
-                    echo '</script>';
+                   
+                    echo "<h1 style='display:none'></h1>";
+                    echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                    echo '<script> artemisAlert.alert("error", "'.$lastname.'"+" "+" Last names need to be a letters and not contains spaces") </script>';
+                    return;
                 }
             }
             else
             {
-                echo '<script language="javascript">';
-                echo 'alert("'.$firstname.'"+" "+" First names need to be a letters and not contains spaces")';
-                echo '</script>';
+              
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "'.$firstname.'"+" "+" First names need to be a letters and not contains spaces") </script>';
+                return;
             }
             return $val;
 
@@ -102,20 +131,28 @@
         {
             $val2=$this->validation($firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
             $password2= MD5($password);
-            echo $password2;
+            // echo $password2;
             if($val2==1)
             {
-                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','active')";    
+                $sqlQ="INSERT INTO `staff`(`firstName`, `lastName`, `contactNo`, `email`, `roleId`, `password`,`tag`) VALUES ('$firstname','$lastname',$cnumber,'$email',$roleid,'$password2','ACTIVE')";    
                 $this->StaffManageModel->executeSql($sqlQ);
+
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "'.$firstname.'"+"  "+"'.$lastname.'"+" Adeed to the staff Sucsessfully!") </script>';
+                return;
+                
+
                 $sqlQ2="SELECT max(staffId) FROM `staff`";
                 $newlyAddedID=$this->StaffManageModel->executeSql($sqlQ2);
                 $row3 = mysqli_fetch_assoc($newlyAddedID);
                 $maxID= $row3['max(staffId)'];
+                // echo $maxID;
                 // echo $roleid;
-                if($roleid=="3" || $roleid=="5")
+                if($roleid=="3"||$roleid=="5")
                 {
-                     $result=$this->StaffManageModel->writeData("minor_staff","staffId,status","$maxID,'available'");
-                    
+                     $result=$this->StaffManageModel->writeData("minor_staff","staffId,status","$maxID,'AVAILABLE'");
+                     $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null;
                 }
 
             }
@@ -137,22 +174,30 @@
                 $status=$row3['status'];
                 if($roleid==5 || $roleid==3)
                 {
-                    if($status=="available")
+                    if($status=="NOTAVAILABLE")
                     {
-                        $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
-                        
+                       
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("success", "User has already assigned to a work. wait unti the job finish!") </script>';
+                        return;
                     }
                     else
                     {
-                        echo '<script language="javascript">';
-                        echo 'alert("'.$firstname.'"+" "+"has already assigned to a work. wait unti the job finish!")';
-                        echo '</script>';
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("success", "'.$firstname.'"+" "+"'.$lastname.'"+" Updated Sucsessfully!") </script>';
+                        return; 
                     }
+
                 }
                 else
                 {
                     $this->StaffManageModel->updateData('staff','staffId',$staffid, array('firstName' =>$firstname, 'lastName' =>$lastname, 'contactNo' =>$cnumber, 'email' =>$email,'roleId' =>$roleid,'password' =>MD5($password)));
-                        
+                    $_SESSION['one']=null;$_SESSION['two']=null;$_SESSION['three']=null;$_SESSION['four']=null;$_SESSION['five']=null;$_SESSION['six']=null;$_SESSION['seven']=null; 
+                    echo '<script language="javascript">';
+                    echo 'alert("'.$firstname.'"+"  "+"'.$lastname.'"+" Updated Sucsessfully!")';
+                    echo '</script>';  
                 }
 
             }

@@ -16,6 +16,13 @@ class KitchenRetrieveController extends Controller
         } else {
             $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
             $result = $this->KitchenRetrieveModel->executeSql("SELECT * FROM inventory WHERE itemName LIKE '%$searchq%' OR inventoryId LIKE '%$searchq%'");
+            if ($result->num_rows <= 0) 
+                {
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("warning", "No such an Inventory Item!") </script>';
+                        return;
+                }
             return $result;
         }
     }
@@ -56,7 +63,10 @@ class KitchenRetrieveController extends Controller
                     if (fmod($newq, 1) == 0) {
                         $val = 1;
                     } else {
-                        return "not a whole number";
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", "Item count must be a whole number") </script>';
+                        return;
                     }
                 } else if ($unitId == 1) {
                     $val = 1;
@@ -64,17 +74,39 @@ class KitchenRetrieveController extends Controller
                     $val = 1;
                 }
             } else {
-                return "can't retreive more than ". $oldq;
+                // return "can't retreive more than ". $oldq;
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "Can not retrieve more than current quentity") </script>';
+                return;
             }
         } else {
 
-            return "not a positive integer";
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "Not a Positive Integer") </script>';
+                return;
         }
         if ($val == 1) {                                                
             $this->KitchenRetrieveModel->writeData("retrieve_stock","retrieve_quantity,`retrieved_date&time`,inventoryId","$newq,'$datetime',$itemId");
             // $this->KitchenRetrieveModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
             $this->KitchenRetrieveModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
-            return "inserted";
+            if($unitId=="1")
+            {
+                $unitName2="(kg)";
+            }
+            else if($unitId=="2")
+            {
+                $unitName2="(l)";
+            }
+            else if($unitId=="3")
+            {
+                $unitName2="(items)";
+            }
+            echo "<h1 style='display:none'></h1>";
+            echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+            echo '<script> artemisAlert.alert("success", "Item: "+"'.$itemId.'"+" "+"Retrieve with "+"'.$newq.'"+" "+"'.$unitName2.'") </script>';
+            return;
            
 
         } else {

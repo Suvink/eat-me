@@ -40,16 +40,14 @@ if(isset($_POST['updateStafff'])){
     $re_password =$_POST['re_password'];
     if($_SESSION['password2']==$password)
     {
-        echo '<script language="javascript">';
-        echo 'alert("Need to update the Password")';
-        echo '</script>';
+        $staffManageController->needToProvideNewpassowrd();
     }
     else
     {
         $staffManageController->updateStaff($staffid,$firstname,$lastname,$cnumber,$email,$roleid,$password,$re_password);
     }  
 }
-$staffid2 ="Taken Automatically";
+$staffid2 ="";
 $firstname2 =null;
 $lastName2 =null;
 $contactNo2 =null;
@@ -140,7 +138,7 @@ if(isset($_POST['updateToList'])){
                         <button class="button is-primary left-radius right-radius idle">GRN</button>
                     </a>
                     <a href="/admin/menu/update">
-                        <button class="button is-primary left-radius right-radius idle">Menue</button>
+                        <button class="button is-primary left-radius right-radius idle">Menu</button>
                     </a>
                     <a href="/admin/staffmanage">
                         <button class="button is-primary  button-is-active  left-radius idle">Staff Manage</button>
@@ -186,7 +184,7 @@ if(isset($_POST['updateToList'])){
                                 <td><input name="lastName" type="hidden" value="<?php echo $row['lastName']; ?>"><?php echo $row['lastName']; ?></td>
                                 <td><input name="contactNo" type="hidden" value="<?php echo $row['contactNo']; ?>"><?php echo $row['contactNo']; ?></td>
                                 <td><input name="email" type="hidden" value="<?php echo $row['email']; ?>"><?php echo $row['email']; ?></td>
-                                <td><input name="roleId" type="hidden" value="<?php echo $row['roleId']; ?>"><?php echo $row['roleId']; ?></td>
+                                <td><input name="roleId" type="hidden" value="<?php echo $row['roleId']; ?>"><?php echo $staffManageController->getRoleName($row['roleId']); ?></td>
                                 <!-- <td id="stuff"> <button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom">update</button></td> -->
                                 <td id="stuff"><button name="updateToList"  value="<?php echo $row['staffId']; ?>" class="visibility-hide zoom" >update</button></td>
                                 </form>
@@ -201,27 +199,26 @@ if(isset($_POST['updateToList'])){
         <!-- <div class="columns group"> -->
             <div class="column is-4">
                 <div class="content ml-0  mt-0 mb-0">
-                    <h2>Manage-<span class="change-menu-color">-Staff</span></h2>
                     <div>
                     <form action = '/admin/staffmanage' method = 'POST'>
                         <div class="fill-form">
-                            <div class="columns group  mt-0 mb-0">
-                                <div class="column is-4  mt-0 mb-0">
-                                    <h2> Itam  ID </h2>
+                            <div class="columns group">
+                                <div class="column is-4">
+                                    <span style="font-size:20px" class="mt-0 mb-0"> Staff  ID </span>
                                 </div>
-                                <div class="column is-6 mt-0 mb-0">
+                                <div class="column is-6 ">
                                     <input class=" zoom" type="hidden"  name="staffId" value="<?php echo $staffid2?>"> 
-                                    <h2><span class="change-menu-color"><?php echo $staffid2?></span></h2>
+                                         <span style="font-size:30px" class="change-menu-color mt-0 mb-0"><?php echo $staffid2?></span>
                                 </div>
                             </div>
-                            <label class="field artemis-input-field ml-2">
+                            <label class="field artemis-input-field mt-0 ml-0 ml-2">
                                 <input class="artemis-input zoom" type="text" placeholder="Only first name" name="firstname" value="<?php echo $firstname2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">First Name</span>
                                 </span>
                             </label>
-                            <label class="field artemis-input-field ml-2">
-                                <input class="artemis-input zoom" type="text" placeholder="Onlylast last name" name="lastname" value="<?php echo $lastName2?>" required>
+                            <label class="field artemis-input-field   ml-2">
+                                <input class="artemis-input zoom mt-0 ml-0" type="text" placeholder="Onlylast last name" name="lastname" value="<?php echo $lastName2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Last Name</span>
                                 </span>
@@ -245,13 +242,13 @@ if(isset($_POST['updateToList'])){
                                 </span>
                             </label>
                             <label class="field artemis-input-field ml-2">
-                                <input class="artemis-input zoom" type="text" placeholder="Sfaff member Password here " name="password" value="<?php echo $password2?>" required>
+                                <input class="artemis-input zoom" type="password" placeholder="Sfaff member Password here " name="password" value="<?php echo $password2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Password</span>
                                 </span>
                             </label>
                             <label class="field artemis-input-field ml-2">
-                                <input class="artemis-input zoom" type="text" placeholder="Re-Enter password " name="re_password" value="<?php echo $password2?>" required>
+                                <input class="artemis-input zoom" type="password" placeholder="Re-Enter password " name="re_password" value="<?php echo $password2?>" required>
                                 <span class="label-wrap">
                                     <span class="label-text">Re-Enter Password</span>
                                 </span>
@@ -272,5 +269,13 @@ if(isset($_POST['updateToList'])){
     <!--------XX Main Section------------------>
 
 </body>
+<script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
+  <?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

@@ -5,108 +5,154 @@
      $name_first=$_SESSION['firstName'];
      $name_last=$_SESSION['lastName'];
      $roleId = $_SESSION['roleId'];
+
+    $page = $_SERVER['PHP_SELF'];
+    $sec = "30";
+    header("Refresh: $sec; url=/kitchendisplay/dinein/orders"); 
+
     require_once ("./controllers/store/KitchenDisplayDineinOrdersController.php"); 
     $KitchenDisplayDineinOrdersController =new KitchenDisplayDineinOrdersController();
 
     if( isset( $_POST['logout'] ) ){
       $KitchenDisplayDineinOrdersController->logoutstaffMem();
     }
+
     function ext($i_id)
     {
       $itemID = $i_id;
       return $itemID;
     }
-    $style = "style=display:none";
-    $style7="style=display:none";
+
+    // $_SESSION['popup-1-dinein'] = "style=display:none";
+    // $_SESSION['prepared-btn-two-dinein']="style=display:none";
     $id = null;
     $getOrderItems = null;
     if (isset($_POST['click'])) {
-      $style = "style=display:display";
+      $_SESSION['popup-1-dinein'] = "style=display:display";
       $ans = ext($_REQUEST['click']);
       $id = $ans;
-      $orderStatusBtn = $KitchenDisplayDineinOrdersController->getOrderStatusBtn($ans);
+      $_SESSION['id-dinein']=$id;
+      $orderStatusBtn = $KitchenDisplayDineinOrdersController->getOrderStatusBtn($_SESSION['id-dinein']);
       $row = mysqli_fetch_assoc($orderStatusBtn);
-      if ($row['orderStatus'] == "2") {
-        $style2 = "style=display:none";
-        $style3 = "style=display:block";
+      if ($row['orderStatus'] == "1") {
+         $_SESSION['accpt-dec-btns-dinein'] = "style=display:block";
+        //  $_SESSION['rider-btn-dinein'] = "style=display:block";
+      }else if ($row['orderStatus'] == "2") {
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:block";
       } else if ($row['orderStatus'] == "3") {
-        $style2 = "style=display:none";
-        $style3 = "style=display:none";
-        $style7 = "style=display:block";
+         $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+         $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['prepared-btn-two-dinein'] = "style=display:block";
       } else if ($row['orderStatus'] == "5") {
-        $style2 = "style=display:none";
-        $style3 = "style=display:none";
-        $style6 = "style=display:none";
-        $style7 = "style=display:none";
+         $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+         $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+        $_SESSION['prepared-btn-two-dinein'] = "style=display:none";
       } else {
-        $style2 = "style=display:display";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+       $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+       $_SESSION['prepared-btn-two-dinein'] = "style=display:none";
       }
-      $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($ans);
+      $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($_SESSION['id-dinein']);
     }
     if (isset($_POST['accept-btn'])) {
       $orId = $_POST['orId'];
+      $_SESSION['popup-1-dinein'] = "style=display:none";
       $KitchenDisplayDineinOrdersController->updateToAccept($orId);
     }
     if (isset($_POST['decline-btn'])) {
       $orId = $_POST['orId'];
+      $_SESSION['popup-1-dinein'] = "style=display:none";
       $KitchenDisplayDineinOrdersController->updateToDecline($orId);
-      // need to romve the orer from the list
+      
     }
-    $style4 = "style=display:none";
+    // $_SESSION['popup-rider-dinein'] = "style=display:none";
     $getRiders = null;
     if (isset($_POST['riders'])) {
-      $style4 = "style=display:display";
-      $style = "style=display:display";
-      $style2 = "style=display:none";
-      $style3 = "style=display:block";
+      $_SESSION['popup-rider-dinein'] = "style=display:display";
+      $_SESSION['popup-1-dinein'] = "style=display:display";
+      $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+      $_SESSION['rider-btn-dinein'] = "style=display:block";
       $orId = $_POST['orId'];
       $id = $orId;
       $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($orId);
       $getRiders = $KitchenDisplayDineinOrdersController->getRiders();
     }
-    $style5 = "style=display:none";
+    //$_SESSION['popup-summery-dinein'] = "style=display:none";
     if (isset($_POST['click-2'])) {
       $ans = ext($_REQUEST['click-2']);
-      $sid = $ans;
+      $_SESSION['sid-dinein']= $ans;
       $ordeId=$_POST['ordeId'];
       // echo $ordeId." ".$sid;
-      $style5 = "style=display:display";
-      $style4 = "style=display:display";
-      $style = "style=display:display";
-      $style2 = "style=display:none";
-      $style3 = "style=display:block";
+       $_SESSION['popup-summery-dinein'] = "style=display:display";
+       $_SESSION['popup-rider-dinein'] = "style=display:display";
+       $_SESSION['popup-1-dinein']= "style=display:display";
+       $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+       $_SESSION['rider-btn-dinein'] = "style=display:block";
       $id = $ordeId;
       $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($ordeId);
       $getRiders = $KitchenDisplayDineinOrdersController->getRiders();
     }
-    $style6= "style=display:none";
+  //  $_SESSION['prepared-btn-one-dinein']= "style=display:none";
     if (isset($_POST['asignesOrders'])) {
       $assOrId= $_POST['assOrId'];
       $dateAndTime= $_POST['dateAndTime'];
       $fName= $_POST['fName'];
       $assSId= $_POST['assSId'];
       // echo $assOrId,$dateAndTime,$fName,$assSId;
-      $KitchenDisplayDineinOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
-      $style = "style=display:display";
-      $style2 = "style=display:none";
-      $style3 = "style=display:none";
-      $id = $assOrId;
-      $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($assOrId);
-      $style6 = "style=display:block";
-      $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId,$dateAndTime);
-      $KitchenDisplayDineinOrdersController->updateRiderStatus($assSId);
+      $checkRiderAvail=$KitchenDisplayDineinOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
+      if($checkRiderAvail==1)
+      {
+        $_SESSION['popup-1-dinein'] = "style=display:display";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['popup-rider-dinein'] = "style=display:none";
+        $_SESSION['popup-summery-dinein']="style=display:none";
+        $id = $assOrId;
+        $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($assOrId);
+        $_SESSION['prepared-btn-one-dinein']= "style=display:block";
+      }
+      else if($checkRiderAvail==0)
+      {
+        $_SESSION['popup-1-dinein'] = "style=display:none";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['popup-rider-dinein'] = "style=display:none";
+        $_SESSION['popup-summery-dinein'] = "style=display:none";
+        //  $id = $assOrId;
+        //  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
+        //  $_SESSION['prepared-btn-one'] = "style=display:none";
+      }
+     
+      // $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId,$dateAndTime);
+      // $KitchenDisplayDineinOrdersController->updateRiderStatus($assSId);
     }
     if (isset($_POST['prepared1'])) {
       $orId = $_POST['orId'];
       $KitchenDisplayDineinOrdersController->updateToPrepared($orId);
-      $style6= "style=display:none";
-
+      $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+      $_SESSION['prepared-btn-two-dinein']= "style=display:none";
+      $_SESSION['popup-1-dinein'] = "style=display:none";
     }
     if (isset($_POST['prepared2'])) {
       $orId = $_POST['orId'];
       $KitchenDisplayDineinOrdersController->updateToprepared($orId);
-      $style6= "style=display:none";
+      $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+      $_SESSION['prepared-btn-two-dinein']= "style=display:none";
+      $_SESSION['popup-1-dinein'] = "style=display:none";
     }
+    if (isset($_POST['close-btn'])) {
+      $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+      $_SESSION['rider-btn-dinein'] = "style=display:none";
+      $_SESSION['popup-1-dinein'] = "style=display:none";
+      $_SESSION['popup-rider-dinein'] = "style=display:none";
+      $_SESSION['popup-summery-dinein'] = "style=display:none";
+      $_SESSION['prepared-btn-two-dinein']= "style=display:none";
+      $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+    }
+    
  ?>
   
 
@@ -122,6 +168,8 @@
   <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchendisplay.css">
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -199,69 +247,99 @@
               <div class="menu-cards">
               <?php
               $result = $KitchenDisplayDineinOrdersController->getOrderDetails();
-              while ($row = mysqli_fetch_assoc($result)) {
-              ?>
-                <form class="click-btn" action="" method="POST">
-                  <div class="menu-card card-zoom" name="menu-card-details">
-                    <button name="click" class="click-btn" value="<?php echo $row['orderId'] ?>">
-                      <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                    </button>
-                    <div class="columns group">
-                      <div class="column is-6">
-                        <h3 class="mt-1 mb-0">Order ID:</h3>
+              while ($row = mysqli_fetch_assoc($result)) 
+              {
+                $arrivedTime= $row['timestamp'];
+                date_default_timezone_set("Asia/Colombo");
+                $orderDate=date('Y/m/d',  $arrivedTime);
+                $today= date('Y/m/d');
+                if($orderDate==$today &&  $row['orderStatus'] !=8)
+                {
+                ?>
+                  <form class="click-btn" action="" method="POST">
+                    <div class="menu-card card-zoom" onclick="togglePopup();togglePopup1()" name="menu-card-details">
+                      <button name="click" class="click-btn" value="<?php echo $row['orderId'] ?>">
+                        <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
+                      </button>
+                      <div class="columns group">
+                        <div class="column is-6">
+                          <h3 class="mt-1 mb-0">Order ID:</h3>
+                        </div>
+                        <div class="column is-6">
+                          <h3 class="mt-1 mb-0" name="orderId"><?php echo $row['orderId'] ?></h3>
+                        </div>
                       </div>
-                      <div class="column is-6">
-                        <h3 class="mt-1 mb-0" name="orderId"><?php echo $row['orderId'] ?></h3>
-                      </div>
+                      <?php
+                      if ($row['orderStatus'] == "2") {
+                      ?>
+                        <div class="columns group ">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                      <?php
+                      } else if ($row['orderStatus'] == "3") {
+                      ?>
+                        <div class="columns group ">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                          </div>
+                        </div>
+                      <?php
+                      } else if ($row['orderStatus'] == "5") {
+                      ?>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                          </div>
+                        </div>
+                        <div class="columns group">
+                          <div class="column is-12">
+                            <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
+                          </div>
+                        </div>
+                      <?php
+                      }else if ($row['orderStatus'] > 5){
+                        ?>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
+                            </div>
+                          </div>
+                        <?php
+                        }
+                      ?>
                     </div>
-                    <?php
-                    if ($row['orderStatus'] == "2") {
-                    ?>
-                      <div class="columns group ">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                    <?php
-                    } else if ($row['orderStatus'] == "3") {
-                    ?>
-                      <div class="columns group ">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
-                        </div>
-                      </div>
-                    <?php
-                    } else if ($row['orderStatus'] == "5") {
-                    ?>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
-                        </div>
-                      </div>
-                      <div class="columns group">
-                        <div class="column is-12">
-                          <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
-                        </div>
-                      </div>
-                    <?php
-                    }
-                    ?>
-                  </div>
-                </form>
-              <?php
+                  </form>
+                <?php
+                }
+                // else
+                // {
+                //   // echo "No any online orders for today: ".$today;
+                // }
               }
-              ?>    
-              </div>
+              ?>
+            </div>
              
             </section>
     
@@ -275,14 +353,17 @@
 <!------------pop up orders-------------->
 <section>
     <form action="" method="POST">
-      <div <?php echo $style ?> class="popup-update" id="popup-1">
+      <div <?php echo $_SESSION['popup-1-dinein'] ?> class="popup-update" id="popup-1">
         <div class="popup-overlay-update" id="editOverlay"></div>
         <div class="pop-content-update placement-top">
-          <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div>
+          <button name="close-btn">
+            <div class="close-btn-update zoom" onclick="closepopup01()">&times;</div>
+          </button>
           <div class="card">
-            <h2 class="orange-color mt-0 mb-1">Order <?php echo $id; ?> </h2>
-            <input type="hidden" value="<?php echo $id; ?>" name="orId">
+            <h2 class="orange-color mt-0 mb-1">Order <?php echo $_SESSION['id-dinein']; ?> </h2>
+            <input type="hidden" value="<?php echo $_SESSION['id-dinein']; ?>" name="orId">
             <?php
+            $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($_SESSION['id-dinein']);
             if ($getOrderItems != null) {
               while ($row2 = mysqli_fetch_assoc($getOrderItems)) {
             ?>
@@ -291,7 +372,15 @@
                 <div class="order-selected-item">
                   <div class="order-selected-row">
                     <div class="order-selected-row-image">
-                      <img src="https://image.flaticon.com/icons/svg/184/184410.svg">
+                        <!-- <img src="https://image.flaticon.com/icons/svg/184/184410.svg" alt="no image"> -->
+                        <?php
+                          $result9 =$KitchenDisplayDineinOrdersController->getItemImage($row2['itemNo']);
+                          $row9 = mysqli_fetch_assoc($result9); 
+                          ?>
+                              <img src="<?php echo"../../".$row9['url'];?>" alt="no image">
+                          <?php
+                          
+                        ?>
                     </div>
                     <div class="order-selected-row-description has-text-left">
                       <h4 class="mb-0 mt-0">
@@ -313,85 +402,102 @@
             }
             ?>
           </div>
-          <div class="total-box d-flex">
-            <div class="title-col">
-              <h3 class="mt-1 mb-1">Total Amount</h3>
-              <h3 class="mt-1 mb-1">Table Num</h3>
-              <h3 class="mt-1 mb-1">Arived Time</h3>
-              <h3 class="mt-1 mb-1">Assigned Time</h3>
-              <h3 class="mt-1 mb-1">prepared Time</h3>
+          <div class="card hide-scrol-bar" style="height:120px; overflow:auto">
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Total Amount</h3>
+              </div>
+              <div class="column is-6" ><h3>
+                <?php
+                  $result4 =$KitchenDisplayDineinOrdersController->getTotal($_SESSION['id-dinein']);
+                  $row4 = mysqli_fetch_assoc($result4);
+                  echo "Rs " . $row4['amount'];
+
+                  ?></h3>
+              </div>
             </div>
-            <div class="price-col has-text-right mr-1">
-              <h3 class="mt-1 mb-1">
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Table No</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result4 = $KitchenDisplayDineinOrdersController->getTotal($id);
-                $row4 = mysqli_fetch_assoc($result4);
-                echo "Rs " . $row4['amount'];
+                  $result6 =$KitchenDisplayDineinOrdersController->getAddress($_SESSION['id-dinein']);
+                  $row6 = mysqli_fetch_assoc($result6);
+                  echo $row6['tableNo'];
 
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1">Arived Time</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result6 = $KitchenDisplayDineinOrdersController->getAddress($id);
-                $row6 = mysqli_fetch_assoc($result6);
-                echo $row6['tableNo'];
-
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
+                  $result5 =$KitchenDisplayDineinOrdersController->getDateAndTime($_SESSION['id-dinein']);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if($row5['timestamp'] !=0)
+                  { 
+                    $arrivedTime= $row5['timestamp'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',  $arrivedTime);
+                  }
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1" >Assigned Time<h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result5 = $KitchenDisplayDineinOrdersController->getDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                $arrivedTime= $row5['timestamp'];
-                date_default_timezone_set("Asia/Colombo");
-                echo date('Y/m/d H:i:s',  $arrivedTime);
-
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1" >
+                  $result5 =$KitchenDisplayDineinOrdersController->getAssignedDateAndTime($_SESSION['id-dinein']);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if( $row5['assignedTime'] != 0)
+                  {
+                    $assignedTime= $row5['assignedTime'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',   $assignedTime);
+                  }
+                  ?></h3>
+              </div>
+            </div>
+            <div class="columns group font">
+              <div class="column is-6">
+                <h3 class="mt-1 mb-1" >Prepared Time</h3>
+              </div>
+              <div class="column is-6" ><h3>
                 <?php
-                $result5 = $KitchenDisplayDineinOrdersController->getAssignedDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                if( $row5['assignedTime'] != null)
-                {
-                  $assignedTime= $row5['assignedTime'];
-                  date_default_timezone_set("Asia/Colombo");
-                  echo date('Y/m/d H:i:s',   $assignedTime);
-                }
-                ?>
-              </h3>
-              <h3 class="mt-1 mb-1">
-                <?php
-                $result5 = $KitchenDisplayDineinOrdersController->getPreparedDateAndTime($id);
-                $row5 = mysqli_fetch_assoc($result5);
-                if( $row5['preparedTime'] != null)
-                {
-                  $preparedTime= $row5['preparedTime'];
-                  date_default_timezone_set("Asia/Colombo");
-                  echo date('Y/m/d H:i:s',  $preparedTime);
-  
-                }
-                ?>
-              </h3>
-              
+                  $result5 =$KitchenDisplayDineinOrdersController->getPreparedDateAndTime($_SESSION['id-dinein']);
+                  $row5 = mysqli_fetch_assoc($result5);
+                  if($row5['preparedTime'] != 0)
+                  {
+                    $preparedTime= $row5['preparedTime'];
+                    date_default_timezone_set("Asia/Colombo");
+                    echo date('Y/m/d H:i:s',  $preparedTime);
+    
+                  }
+                  ?></h3>
+              </div>
             </div>
           </div>
           <div class="columns group font">
-            <div class="column is-6" id="btnAccept" <?php echo $style2 ?>>
+            <div class="column is-6" id="btnAccept" <?php echo  $_SESSION['accpt-dec-btns-dinein'] ?>>
               <button class="button is-primary mt-1 zoom  resizebtn"  name="accept-btn">Accept</button>
             </div>
-            <div class="column is-6" id="btnDecline" <?php echo $style2 ?>>
+            <div class="column is-6" id="btnDecline" <?php echo  $_SESSION['accpt-dec-btns-dinein'] ?>>
               <button class="button is-danger mt-1 zoom resizebtn" onclick="return confirm('Are you sure you want to decline this order?');" id="switch-decline-orders" name="decline-btn">Decline</button>
             </div>
           </div>
           <div class="columns group font">
-            <div class="column is-12" id="btnRiders" <?php echo $style3 ?>>
+            <div class="column is-12" id="btnRiders" <?php echo  $_SESSION['rider-btn-dinein'] ?>>
               <button class="button is-link mt-1 zoom mr-1 resizebtn" name="riders">Stewards</button>
             </div>
-            <div class="column is-12" id="btnPrepared"  <?php echo $style6 ?> >
+            <div class="column is-12" id="btnPrepared"  <?php echo$_SESSION['prepared-btn-one-dinein']?> >
               <button class="button is-success mt-1 mr-1 zoom resizebtn" name="prepared1">Prepared</button>
             </div>
-            <div class="column is-12" id="btnPrepared"   <?php echo $style7 ?>>
+            <div class="column is-12" id="btnPrepared"   <?php echo $_SESSION['prepared-btn-two-dinein'] ?>>
               <button class="button is-success mt-1 mr-1 zoom resizebtn" name="prepared2">Prepared</button>
             </div>
           </div>
@@ -409,6 +515,7 @@
 
     function closepopup02() {
       document.getElementById("popup-2").style.display = "none";
+      document.getElementById("popup-3").style.display = "none";
     }
     function closepopup03() {
       document.getElementById("popup-3").style.display = "none";
@@ -418,11 +525,12 @@
 
 <!----------pop up steward ----------------->
 <section>
-    <div <?php echo $style4 ?> class="popup-update" id="popup-2">
+    <div <?php echo $_SESSION['popup-rider-dinein'] ?> class="popup-update" id="popup-2">
       <div class="pop-content-update-riders">
         <!-- <div class="card"> -->
         <div class="close-btn-update-riders zoom" onclick="closepopup02()">&times;</div>
         <?php
+        $getRiders =$KitchenDisplayDineinOrdersController->getRiders();
         if ($getRiders != null) {
           while ($row6 = mysqli_fetch_assoc($getRiders)) {
         ?>
@@ -439,7 +547,7 @@
                         $result7 = $KitchenDisplayDineinOrdersController->getRiderStatus($row6['staffId']);
                         $row7 = mysqli_fetch_assoc($result7);
                         // echo $id;
-                        if($row7['status']=="available")
+                        if($row7['status']=="AVAILABLE")
                         {
                           ?>
                             <button name="click-2" value="<?php echo $row6['staffId']; ?>"  class="availibity-btn mb-2"><?php echo $row7['status'];?></button>
@@ -474,7 +582,7 @@
 
 <!----------pop up 03/ summery ----------------->
 <form action="" method="POST">
-  <div class="popup" id="popup-3" <?php echo $style5 ?>>
+  <div class="popup" id="popup-3" <?php echo  $_SESSION['popup-summery-dinein'] ?>>
     <div class="pop-content3">
     <div class="close-btn-update-riders zoom" onclick="closepopup03()">&times;</div>
 
@@ -482,12 +590,19 @@
       <div class="menu-cards">
         <div class="asiggned-summery-card">
           <div class="columns group">
-            <div class="column is-6">
+            <div class="column is-3 mr-1">
               <h3 class="mt-1 mb-2">Order Id</h3>
             </div>
-            <div class="column is-6">
-              <h3 class="mt-1 mb-2 rider-status"><?php echo $ordeId;?></h3>
-              <input type="hidden" value="<?php echo $ordeId;?>" name="assOrId" >
+            <div class="column is-2 mr-1 ml-0">
+              <h3 class="mt-1 mb-2 rider-status"><?php echo$_SESSION['id-dinein'];?></h3>
+              <input type="hidden" value="<?php echo $_SESSION['id-dinein'];?>" name="assOrId" >
+            </div>
+            <div class="column is-3 ml-1 mr-1">
+            <h3 class="mt-1 mb-2">Rider ID</h3>
+            </div>
+            <div class="column is-2 ml-0">
+              <h3 class="mt-1 mb-2 rider-status"><?php echo $_SESSION['sid-dinein'];?></h3>
+              <input type="hidden" value="<?php echo $_SESSION['sid-dinein'];?>" name="assSId" >
             </div>
           </div>
           <div class="columns group">
@@ -501,37 +616,28 @@
                                                     <input type="hidden" value="<?php echo $datetime;?>" name="dateAndTime" >
             </div>
           </div>
-          <div class="columns group">
+          <!-- <div class="columns group">
             <div class="column is-6">
               <h3 class="mt-1 mb-2">Table Num</h3>
             </div>
             <div class="column is-6">
             <h3 class="mt-1 mb-2 rider-status">
                                                   <?php
-                                                    $result6 = $KitchenDisplayDineinOrdersController->getAddress($ordeId);
+                                                    $result6 = $KitchenDisplayDineinOrdersController->getAddress($_SESSION['id-dinein']);
                                                     $row6 = mysqli_fetch_assoc($result6);
                                                     echo $row6['tableNo'];
 
                                                     ?>
                                                   </h3>
             </div>
-          </div>
-          <div class="columns group">
-            <div class="column is-6">
-            <h3 class="mt-1 mb-2">Rider ID</h3>
-            </div>
-            <div class="column is-6">
-              <h3 class="mt-1 mb-2 rider-status"><?php echo $sid;?></h3>
-              <input type="hidden" value="<?php echo $sid;?>" name="assSId" >
-            </div>
-          </div>
+          </div> -->
           <div class="columns group">
             <div class="column is-6">
               <h3 class="mt-1 mb-2">Name</h3>
             </div>
             <div class="column is-6">
               <h3 class="mt-1 mb-2 rider-status"> <?php
-                                                    $result8 = $KitchenDisplayDineinOrdersController->riderName($sid);
+                                                    $result8 = $KitchenDisplayDineinOrdersController->riderName($_SESSION['sid-dinein']);
                                                     $row8 = mysqli_fetch_assoc($result8);
                                                     echo $row8['firstName'];
                                                       ?>
@@ -565,5 +671,13 @@
 <!-- --------kitchen display js file -->
 <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>
