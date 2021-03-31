@@ -1,14 +1,4 @@
 <?php
-<<<<<<< HEAD
-    session_start();
-    ob_start();
-    $staffid=$_SESSION['staffId'];
-    $name_first=$_SESSION['firstName'];
-    $name_last=$_SESSION['lastName'];
-    $roleId = $_SESSION['roleId'];
-    require_once './controllers/store/InventoryController.php';
-    $InventoryController = new InventoryController();
-=======
 session_start();
 ob_start();
 $staffid = $_SESSION['staffId'];
@@ -17,7 +7,6 @@ $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
 require_once './controllers/store/InventoryController.php';
 $InventoryController = new InventoryController();
->>>>>>> 848f9710d6b5e013d41106632953f8e38b44a037
 
 if (isset($_POST['logout'])) {
     $InventoryController->logoutstaffMem();
