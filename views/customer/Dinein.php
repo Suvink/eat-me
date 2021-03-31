@@ -47,7 +47,7 @@
       </div>
       <div class="column is-10 has-text-right nav-logout">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <a class="navbar-link" href="/online/profile">
+        <a class="navbar-link" href="">
           <?php
             $DineinController->renderNavBar($_SESSION['user_phone']);
           ?> 
