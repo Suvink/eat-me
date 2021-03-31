@@ -177,11 +177,8 @@ if (isset($_POST['close-btn'])) {
   <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchendisplay.css">
-<<<<<<< HEAD
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
-=======
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
->>>>>>> 8ae9e6d8bed3b85ed4f7b10ad8fcaf7616be9249
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
