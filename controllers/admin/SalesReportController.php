@@ -9,9 +9,9 @@
             $this->RatingsReportModel =new SalesReportModel();
         }
 
-        public function getOrderDetails()
+        public function getOrderDetails($s_date, $e_date)
         {
-            $result=$this->RatingsReportModel->getAllData('order_details');
+            $result=$this->RatingsReportModel->executeSql("SELECT * from order_details WHERE date(FROM_UNIXTIME(order_details.timestamp)) BETWEEN '".$s_date."' AND '".$e_date."'");
             return $result;
         }
 

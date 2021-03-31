@@ -61,12 +61,13 @@
                     <th>Customer</th>
                     <th>Date</th>
                     <th>Payment</th>
-                    <th>Amount</th>
+                    <th>Amount(LKR)</th>
                 </tr>
             </thead>
             <tbody>
+            
                 <?php
-                $result = $SalesReportController->getOrderDetails();
+                $result = $SalesReportController->getOrderDetails($_GET['s_date'], $_GET['e_date']);
                 while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                     <tr>
