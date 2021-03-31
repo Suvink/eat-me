@@ -43,6 +43,7 @@
   <!-- Local Styles -->
   <link rel="stylesheet" href="../../css/kitchenInventory.css">
   <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <!-- <link rel="stylesheet" href="../../css/kitchendisplay.css"> -->
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->

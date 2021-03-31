@@ -25,6 +25,7 @@ if( isset( $_POST['logout'] ) ){
 	<!-- local styles -->
 	<link rel="stylesheet" href="../../css/deliveryPersonStyles.css">
 	<link rel="stylesheet" href="../../css/ratingStyles.css">
+	<link rel="icon" type="image/png" href="../../img/favicon.png" />
 	<title>Delivery Home </title>
 </head>
 

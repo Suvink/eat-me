@@ -147,6 +147,7 @@
   <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchendisplay.css">
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 

@@ -50,6 +50,7 @@ if(isset($_POST['back']))
         <link rel="stylesheet" href="../../css/style.css">
         <!-- local styles -->
         <link rel="stylesheet" href="../../css/kitchendisplay.css">
+        <link rel="icon" type="image/png" href="../../img/favicon.png" />
         <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
         <title>Image Uploader</title>
        

@@ -29,6 +29,7 @@ if(isset($_POST['placeorder-btn'])){
   <link rel="stylesheet" href="../../css/style.css">
   <!-- local styles -->
   <link rel="stylesheet" href="../../css/cashierPlaceOrderStyles.css">
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
   <title>Place Order</title>
 </head>
 
