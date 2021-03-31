@@ -149,7 +149,7 @@
                     {
                       while($row=mysqli_fetch_assoc($result4))
                       {
-                        if($row['tag']!="deleted")
+                        if($row['tag']!="DELETED")
                         {
                           ?>
                             <div class="container">
@@ -225,7 +225,7 @@
                  for($i=1;$i<=($displayItems+1);$i++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
-                  if($row['tag']!="deleted")
+                  if($row['tag']!="DELETED")
                   {
                     ?>
                     <div class="container">
@@ -277,7 +277,7 @@
                  for($j=$i;$j<=($displayItems*2);$j++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
-                  if($row['tag']!="deleted")
+                  if($row['tag']!="DELETED")
                   {
                     ?>
                        <div class="container">
@@ -328,7 +328,7 @@
                  for($z=$j;$z<=($displayItems*3);$z++)
                  {                                                               
                   $row=mysqli_fetch_assoc($result2);
-                  if($row['tag']!="deleted")
+                  if($row['tag']!="DELETED")
                   {
                    if($row==null)
                    {

@@ -161,7 +161,7 @@
                     {
                       while($row=mysqli_fetch_assoc($result4))
                       {
-                        if($row['tag']!="deleted")
+                        if($row['tag']!="DELETED")
                         {
                           ?>
                             <form  method="POST" action="/kitchen/retrieve">

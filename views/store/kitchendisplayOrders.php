@@ -237,8 +237,8 @@ if (isset($_POST['close-btn'])) {
         <input type="radio" id="tab1" name="tab-control" checked>
         <input type="radio" id="tab2" name="tab-control">
         <ul>
-          <li title="O_Orders"><label for="tab1" role="button"><br><span>O_Oders</span></label></li>
-          <li title="D_Orders"><label for="tab2" role="button"><br><a href="/kitchendisplay/dinein/orders"><span>D_Oders</a></span></label></li>
+          <li title="O_Orders"><label for="tab1" role="button"><br><span>Online Oders</span></label></li>
+          <li title="D_Orders"><label for="tab2" role="button"><br><a href="/kitchendisplay/dinein/orders"><span>Dinein Oders</a></span></label></li>
         </ul>
 
         <div class="slider">

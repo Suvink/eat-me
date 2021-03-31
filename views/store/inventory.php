@@ -534,7 +534,7 @@ if (isset($_POST['saleReports'])) {
                     </div>
                     <div class="columns group">
                         <div class="column is-6">
-                            <h2 class="ml-1"> S_DATE</h2>
+                            <h2 class="ml-1"> START DATE</h2>
                         </div>
                         <div class="column is-6">
                             <input class="modify mt-2  ml-0" type="date" id="birthday" name="startDate" required>
@@ -542,7 +542,7 @@ if (isset($_POST['saleReports'])) {
                     </div>
                     <div class="columns group">
                         <div class="column is-6">
-                            <h2 class="mt-0 mb-0 ml-1"> E_DATE</h2>
+                            <h2 class="mt-0 mb-0 ml-1"> END DATE</h2>
                         </div>
                         <div class="column is-6">
                             <input class="modify" type="date" id="birthday" name="endDate" required>
