@@ -58,6 +58,8 @@ $notify= 'api/v1/PushNotifications.php';
 $mStaffRatesCus= 'api/v1/MSRatesCustomer.php';
 $payhereListner = 'api/v1/DineinPaymentListner.php';
 $backups = 'services/backup.php';
+$stewardupdateserved= 'api/v1/StewardUpdateServed.php';
+$dpupdatedelivered= 'api/v1/DPUpdateDelivered.php';
 
 //controllers
 $dineinlogincontroller = 'PHP/customer/dineinlogincontroller.php';
@@ -208,6 +210,13 @@ switch ($request) {
     case '/api/v1/dinein/payment':
         require($payhereListner);
         break;
+    case '/api/v1/steward/UpdateServed':
+        require($stewardupdateserved);
+        break;
+    case '/api/v1/DP/UpdateDelivered':
+        require($dpupdatedelivered);
+        break;
+        
     case '/backup':
         require($backups);
         break;
