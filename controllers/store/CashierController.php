@@ -20,15 +20,4 @@ class CashierController extends Controller{
         }
         
     }
-    //get ongoing order details from database
-
-    // public function renderOngoingOrders(){
-    //   $result = $this->CashierModel->getAllData('order_details');
-    //   $row=mysqli_fetch_assoc($result);
-    //   //$count = $this->CashierModel->executeSql("SELECT COUNT(orderid) FROM order_details;");
-    //   print_r($result);
-    //   die();
-    //   return [$result];
-
-    // }
 }

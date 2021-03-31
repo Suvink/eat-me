@@ -14,6 +14,13 @@
             } else {
                 $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
                 $result = $this->GrnModel->executeSql("SELECT * FROM inventory WHERE itemName LIKE '%$searchq%' OR inventoryId LIKE '%$searchq%'");
+                if ($result->num_rows <= 0) 
+                {
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("warning", "No such an Inventory Item!") </script>';
+                        return;
+                }
                 return $result;
             }
         }
@@ -38,12 +45,7 @@
         
         public function getInputVal($newq, $oldq, $unitId, $itemId)
         {
-            //  echo "item id = " . $_SESSION["itemId"] . "<br>";
-            //  echo "new = " . $_SESSION["newq"] . "<br>";
-            //  echo "old = " . $_SESSION["oldq"] . "<br>";
-            //  echo "unitId = " . $_SESSION["unitId"] . "<br>";
-            //  echo date("Y-m-d")."<br>";
-            //  echo date("h:i")."<br>";
+            
             date_default_timezone_set("Asia/Colombo");
             $datetime = date("Y-m-d,h:i");
             //  echo $newupdateq."<br>";
@@ -56,7 +58,10 @@
                     if (fmod($newq, 1) == 0) {
                         $val = 1;
                     } else {
-                        return "not a whole number";
+                        echo "<h1 style='display:none'></h1>";
+                        echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                        echo '<script> artemisAlert.alert("error", "Item count must be a whole number") </script>';
+                        return;
                     }
                 } else if ($unitId == 1) {
                     $val = 1;
@@ -65,14 +70,34 @@
                 }
             } else {
 
-                return "not a positive integer";
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("error", "Not a Positive Integer") </script>';
+                return;
             }
             if ($val == 1) 
             {                                                
                 $this->GrnModel->writeData("add_stock","`added_quntity`,`date&time`,inventoryId","$newq,'$datetime',$itemId");
                 // $this->GrnModel-> updateData('inventory', 'inventoryId',$itemId, array('quantity'=>$newupdateq));
                 $this->GrnModel->executeSql("UPDATE `inventory` SET `quantity`=$newupdateq WHERE inventoryId=$itemId");
-                return "inserted";
+                $unitName2=null;
+                if($unitId=="1")
+                {
+                    $unitName2="(kg)";
+                }
+                else if($unitId=="2")
+                {
+                    $unitName2="(l)";
+                }
+                else if($unitId=="3")
+                {
+                    $unitName2="(items)";
+                }
+
+                echo "<h1 style='display:none'></h1>";
+                echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                echo '<script> artemisAlert.alert("success", "Item: "+"'.$itemId.'"+" "+"filled with "+"'.$newq.'"+" "+"'.$unitName2.'") </script>';
+                return;
 
             } 
             else 

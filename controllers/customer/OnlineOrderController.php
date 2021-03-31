@@ -27,7 +27,8 @@ class OnlineOrderController extends Controller
   }
 
   public function renderMainMenu(){
-    $result = $this->OnlineOrderModel->getAllDataWhere('menu', 'type', 'mains');
+    $sql = "SELECT * FROM menu WHERE type='mains' AND availability='TRUE'";
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -44,7 +45,8 @@ class OnlineOrderController extends Controller
   }
 
   public function renderSidesMenu(){
-    $result = $this->OnlineOrderModel->getAllDataWhere('menu', 'type', 'starters');
+    $sql = "SELECT * FROM menu WHERE type='starters' AND availability='TRUE'";
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -61,7 +63,8 @@ class OnlineOrderController extends Controller
   }
 
   public function renderBeveragesMenu(){
-    $result = $this->OnlineOrderModel->getAllDataWhere('menu', 'type', 'beverages');
+    $sql = "SELECT * FROM menu WHERE type='beverages' AND availability='TRUE'";
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -78,7 +81,8 @@ class OnlineOrderController extends Controller
   }
 
   public function renderDessertMenu(){
-    $result = $this->OnlineOrderModel->getAllDataWhere('menu', 'type', 'desserts');
+    $sql = "SELECT * FROM menu WHERE type='desserts' AND availability='TRUE'";
+    $result = $this->OnlineOrderModel->executeSql($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo '
@@ -91,6 +95,26 @@ class OnlineOrderController extends Controller
         </div>
         ';
       }
+    }
+  }
+
+  public function getCustomerID($phone)
+  {
+    $result = $this->OnlineOrderModel->getAllDataWhere('customer', 'contactNo', $phone);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        return $row['customerId'];
+      }
+    }
+  }
+
+  public function hasExistingOrder($phone){
+    $customer_id = $this->getCustomerID($phone);
+    $result = $this->OnlineOrderModel->executeSql('SELECT * FROM `order_details` WHERE `customerId`='.$customer_id.' AND `orderStatus`!=8');
+    if ($result->num_rows > 0) {
+      return TRUE;
+    }else{
+      return FALSE;
     }
   }
 

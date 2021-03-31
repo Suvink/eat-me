@@ -5,7 +5,6 @@ $staffid=$_SESSION['staffId'];
 $name_first=$_SESSION['firstName'];
 $name_last=$_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
-
 require_once './controllers/store/GrnController.php';
 $GrnController = new GrnController();
 $result4 = null;
@@ -35,7 +34,7 @@ if (isset($_POST['sendbtn'])) {
     $oldq = $_POST['oldq'];
     $unitId = $_POST['unitId'];
     $itemId = $_POST['itemId'];
-    echo $GrnController->getInputVal($newq, $oldq, $unitId, $itemId);
+    $GrnController->getInputVal($newq, $oldq, $unitId, $itemId);
 }
 
 ?>
@@ -51,6 +50,8 @@ if (isset($_POST['sendbtn'])) {
     <!-- Local Styles -->
     <link rel="stylesheet" href="../../css/kitchenInventory.css">
     <link rel="stylesheet" href="../../css/inventory.css">
+    <link rel="icon" type="image/png" href="../../img/favicon.png" />
+    <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
     <title>GRN</title>
     <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -95,7 +96,7 @@ if (isset($_POST['sendbtn'])) {
                     <button class="button is-primary button-is-active left-radius right-radius idle">GRN</button>
                 </a>
                 <a href="/admin/menu/update">
-                    <button class="button is-primary left-radius right-radius idle">Menue</button>
+                    <button class="button is-primary left-radius right-radius idle">Menu</button>
                 </a>
                 <a href="/admin/staffmanage">
                     <button class="button is-primary left-radius idle">Staff    Manage</button>
@@ -144,56 +145,60 @@ if (isset($_POST['sendbtn'])) {
                         <div class="menu-cards" id="hide">
                             <?php
 
-                            if ($result4 != null) {
+                            if ($result4 != null) 
+                            {
                                 while ($row = mysqli_fetch_assoc($result4)) {
-                            ?>
-                                    <form method="POST" action="/grn">
-                                        <div class="container">
-                                            <div class="menu-card">
-                                                <img src="https://image.flaticon.com/icons/svg/1775/1775636.svg">
-                                                <div class="columns group">
-                                                    <div class="column is-6">
-                                                        <h3 class="mt-1 mb-0">Item_ID :</h3>
-                                                    </div>
-                                                    <div class="column is-6">
-                                                        <input type="hidden" name="itemId" value="<?php echo $row['inventoryId']; ?>">
-                                                        <h3 class="mt-1 mb-0"><?php echo $row['inventoryId']; ?></h3>
-                                                    </div>
-                                                    <div class="column is-12">
-                                                        <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    if($row['tag']!="deleted")
+                                    {
+                                        ?>
+                                                <form method="POST" action="/grn">
+                                                    <div class="container">
+                                                        <div class="menu-card">
+                                                            <img src="<?php echo $row['url']?>">
+                                                            <div class="columns group">
+                                                                <div class="column is-6">
+                                                                    <h3 class="mt-1 mb-0">Item_ID :</h3>
+                                                                </div>
+                                                                <div class="column is-6">
+                                                                    <input type="hidden" name="itemId" value="<?php echo $row['inventoryId']; ?>">
+                                                                    <h3 class="mt-1 mb-0"><?php echo $row['inventoryId']; ?></h3>
+                                                                </div>
+                                                                <div class="column is-12">
+                                                                    <h3 class="mt-1 mb-0"><?php echo $row['itemName'] ?></h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                            <div class="menu-card retrieve-box mt-2 ml-2 card-zoom">
-                                                <div class="columns group">
-                                                    <div class="column is-7">
-                                                        <h3 class="mt-1 mb-0 ml-0">Current Quantity:</h3>
+                                                        <div class="menu-card retrieve-box mt-2 ml-2 card-zoom">
+                                                            <div class="columns group">
+                                                                <div class="column is-7">
+                                                                    <h3 class="mt-1 mb-0 ml-0">Current Quantity:</h3>
+                                                                </div>
+                                                                <div class="column is-5">
+                                                                    <input type="hidden" name="oldq" value="<?php echo $row['quantity']; ?>">
+                                                                    <input type="hidden" name="unitId" value="<?php echo $row['unitId']; ?>">
+                                                                    <h3 class="mt-1 mb-0"><?php
+                                                                                            echo $GrnController->getRoundOfVal($row['unitId'], $row['quantity']);
+                                                                                            echo "(" . $GrnController->getMeasurementUnit($row['unitId']) . ")";
+                                                                                            ?>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="columns group">
+                                                                <div class="column is-12">
+                                                                    <h3 class="mt-1 mb-0 f-size"><input type="text" name="newq" class="retreive-quantity-txtbox"><?php echo "(" . $GrnController->getMeasurementUnit($row['unitId']) . ")" ?></h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="columns group">
+                                                                <div class="column is-12">
+                                                                    <h3 class="mt-1 mb-0"><button name="sendbtn" class="add-stock-quantity-addbtn">Add to Stock</button></h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="column is-5">
-                                                        <input type="hidden" name="oldq" value="<?php echo $row['quantity']; ?>">
-                                                        <input type="hidden" name="unitId" value="<?php echo $row['unitId']; ?>">
-                                                        <h3 class="mt-1 mb-0"><?php
-                                                                                echo $GrnController->getRoundOfVal($row['unitId'], $row['quantity']);
-                                                                                echo "(" . $GrnController->getMeasurementUnit($row['unitId']) . ")";
-                                                                                ?>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="columns group">
-                                                    <div class="column is-12">
-                                                        <h3 class="mt-1 mb-0 f-size"><input type="text" name="newq" class="retreive-quantity-txtbox"><?php echo "(" . $GrnController->getMeasurementUnit($row['unitId']) . ")" ?></h3>
-                                                    </div>
-                                                </div>
-                                                <div class="columns group">
-                                                    <div class="column is-12">
-                                                        <h3 class="mt-1 mb-0"><button name="sendbtn" class="add-stock-quantity-addbtn">Add to Stock</button></h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                            <?php
+                                                </form>
+                                        <?php
+                                    }
                                 }
                             }
                             ?>
@@ -219,5 +224,11 @@ if (isset($_POST['sendbtn'])) {
     <!-- --------kitchen display js file -->
     <script type="text/javascript" src="../../js/kitchenretrieve.js"></script>
 </body>
-
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 </html>

@@ -187,3 +187,20 @@ th{
 .color-org{
     background-color: #f5a540;
 }
+/* report  */
+.createReport-btn {
+    width:400px;
+    background-color: #114d1b;
+}
+.CloseReport-btn{
+    width:400px;
+}
+.modify
+{
+    /* background-color: #434444ab; */
+    width: 220px; 
+    border: none;
+    border-bottom: 2px solid #f5a540;
+    font-size: 20px;  
+    font-family: 'Baloo Thambi 2', cursive;
+}

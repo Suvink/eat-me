@@ -5,6 +5,11 @@ $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
+// date_default_timezone_set("Asia/Colombo");
+// $timestamp = date($dateAndTime);
+// $timestamp=time();
+// echo $timestamp;
+
 require_once './controllers/admin/DashBoardController.php';
 $DashBoardController = new DashBoardController();
 
@@ -12,6 +17,19 @@ $result=null;
 if (isset($_POST['logout'])) {
   $DashBoardController->logoutstaffMem();
 }
+
+//Import Koolreport
+require_once "./koolreport/core/autoload.php";
+require_once "./config/koolreportconfig.php";
+
+use \koolreport\datasources\PdoDataSource;
+use \koolreport\widgets\google\ColumnChart;
+use \koolreport\widgets\google\BarChart;
+use \koolreport\widgets\google\PieChart;
+use \koolreport\widgets\google\LineChart;
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +47,7 @@ if (isset($_POST['logout'])) {
 
 <body>
 
-<!-- -----navi bar ---------- -->
+  <!-- -----navi bar ---------- -->
   <form action="" method="POST">
     <div class="navbar">
       <div class="columns group">
@@ -47,7 +65,7 @@ if (isset($_POST['logout'])) {
     </div>
   </form>
   <!--------xx-----navi bar --------xx------->
-  
+
   <!----------- navigatable buttons------------>
   <?php
   if ($roleId == "1") {
@@ -65,7 +83,7 @@ if (isset($_POST['logout'])) {
           <button class="button is-primary left-radius right-radius idle">GRN</button>
         </a>
         <a href="/admin/menu/update">
-          <button class="button is-primary left-radius right-radius idle">Menue</button>
+          <button class="button is-primary left-radius right-radius idle">Menu</button>
         </a>
         <a href="/admin/staffmanage">
           <button class="button is-primary left-radius idle">Staff Manage</button>
@@ -89,8 +107,7 @@ if (isset($_POST['logout'])) {
           <h2 class="subtitle">🕑<?php $result=$DashBoardController->getOngoingOrders(); 
                                       $row = mysqli_fetch_assoc($result);
                                       echo $row['COUNT(*)'];
-                                  
-                                  ?></h2>
+                                ?></h2>
         </div>
       </div>
       <div class="column is-4">
@@ -107,9 +124,19 @@ if (isset($_POST['logout'])) {
       <div class="column is-4">
         <div class="card">
           <h4 class="title">
-            Inventory <span class="orange-color">Status</span>
+            Today <span class="orange-color">Sales</span>
           </h4>
-          <h2 class="subtitle is-success">✅ OK</h2>
+          <h2 class="subtitle is-success"><?php $result=$DashBoardController->getTodaySales(); 
+                                      $count = 0;
+                                      while ($row = mysqli_fetch_assoc($result)) {
+                                        $count=$count+$row['amount'];
+                                      }
+                                      echo number_format((float)$count, 2,'.','');
+                                      
+                                  ?>
+                                  
+                                  
+                                  </h2>
         </div>
       </div>
     </div>
@@ -120,11 +147,13 @@ if (isset($_POST['logout'])) {
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Customer</th>
-          <th>Items</th>
-          <th>Price</th>
-          <th>Status</th>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Amount</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>State</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
@@ -135,31 +164,13 @@ if (isset($_POST['logout'])) {
           {
             ?>
             <tr>
-
+            <td><?php echo $row['orderId']; ?></td>
             <td><?php echo $row['customerId']; ?></td>
-            <td><?php $result2=$DashBoardController->getCustomerName($row['customerId']); 
-                      $row2 = mysqli_fetch_assoc($result2);
-                      echo $row2['firstName']." ".$row2['lastName'];
-                ?> 
-            </td>
-            <td><?php $result3=$DashBoardController->getItems($row['orderId']); 
-                      while ($row3 = mysqli_fetch_assoc($result3)) 
-                      {
-                        echo $row3['itemNo'];
-                        $result4=$DashBoardController->getItemName($row3['itemNo']); 
-                        $row4 = mysqli_fetch_assoc($result4);
-                        echo $row4['itemName'];
-                      }
-                ?> 
-            </td>
             <td><?php echo $row['amount']; ?></td>
-            <td><?php echo $row['orderStatus']; ?></td> 
-            <td><?php $result5=$DashBoardController->getOrderState($row['orderStatus']); 
-                      $row5 = mysqli_fetch_assoc($result5);
-                      echo $row5['state']; 
-                ?> 
-            </td>                                    
-                                   
+            <td><?php echo $row['firstName']; ?></td>
+            <td><?php echo $row['lastName']; ?></td>
+            <td><?php echo $row['state']; ?></td>
+            <td><?php echo $row['date']; ?></td>
             </tr>
             <?php
           }
