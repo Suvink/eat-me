@@ -173,7 +173,7 @@ if (isset($_POST['logout'])) {
     //refresh table
     setInterval(function() {
       fetchOrderDetails();
-    }, 30000);
+    }, 10000);
     
   </script>
 
