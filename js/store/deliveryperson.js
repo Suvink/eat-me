@@ -86,7 +86,8 @@ async function getAssignedOrders(sId) {
 			method: 'GET',
 		});
 		let responseOrderData = JSON.parse(await response.text());
-		//console.log(responseOrderData);
+        //console.log(responseOrderData);
+        //console.log(sId);
 		document.getElementById("loading-details").style.display = "none";
 		let tbodyOrderRef = document.getElementById("assigned-order").getElementsByTagName('tbody')[0];
 
@@ -106,20 +107,20 @@ async function getAssignedOrders(sId) {
 				let id = row.insertCell(0);
 				let customer = row.insertCell(1);
 				let amount = row.insertCell(2);
-				let tableNo = row.insertCell(3);
+				let address = row.insertCell(3);
 				let status = row.insertCell(4);
 				let cusId =row.insertCell(5);
 
 				id.innerHTML = entry.orderId;
 				customer.innerHTML = (entry.firstName.includes("user-") ? entry.firstName : (entry.firstName + ' ' + entry.lastName));
 				amount.innerHTML = 'Rs.' + entry.amount + '.00';
-				tableNo.innerHTML = entry.tableNo;
+				address.innerHTML = entry.address;
 				status.innerHTML = `<select name="Status" id="Status_` + entry.orderId + `" onchange=popupRate("Status_`+ entry.orderId + `")>
                                         <option value="Placed">Placed</option>
                                         <option value="Accepted">Accepted</option>
-                                        <option value="Steward_Assigned">Assigned</option>
+                                        <option value="DP_Assigned">D_Assigned</option>
                                         <option value="Prepared">Prepared</option>
-                                        <option value="Served">Served</option>
+                                        <option value="Delivered">Delivered</option>
                                         <option value="Completed">Completed</option>
 																		</select>`;
 				cusId.id='temp-cus-id-' + entry.orderId;
@@ -173,7 +174,7 @@ async function getAvailability(sId) {
 		}
 
 	} catch (err) {
-		console.log(err)
+		//console.log(err)
 		artemisAlert.alert('error', 'Something went wrong!')
 	}
 }
