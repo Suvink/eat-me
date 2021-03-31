@@ -670,6 +670,7 @@
 <!-- --------kitchen display js file -->
 <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+
 <?php
   if (isset($_GET['attempt'])) {
     if ($_GET['attempt'] == 'false') {
@@ -677,4 +678,5 @@
     }
   }
   ?>
+
 </html>
