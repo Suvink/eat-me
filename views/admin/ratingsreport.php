@@ -47,7 +47,7 @@
 
     <section class="mt-1 pl-1 pr-1">
         <h1 class="title has-text-centered mb-2">Customer Ratings <span class="orange-color">Report</span></h1>
-       
+      
             <div class="row d-flex mb-1" style="justify-content: flex-end;">
                 <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"onclick="sortTableNumbers(0)">Sort by Customer ID</button>
                 <button class="zoom mr-1 ml-1" style="font-family: 'Baloo Thambi 2', cursive;"  onclick="sortTableLetters(1)">Sort by Customer Name</button>

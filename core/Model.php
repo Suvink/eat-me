@@ -70,7 +70,6 @@ class Model {
     //SELECT name FROM customer WHERE phone=0771655198
     public function getSpecificDataWhere($columnName,$tableName, $column, $data){
         $sql = 'SELECT '.$columnName.' FROM '.$tableName.' WHERE '.$column.'="'.$data.'"';
-        // echo $sql;
         $result =  $this->con->query($sql);
         
         if ($result === FALSE) {
