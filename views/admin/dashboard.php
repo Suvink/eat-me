@@ -5,10 +5,15 @@ $staffid = $_SESSION['staffId'];
 $name_first = $_SESSION['firstName'];
 $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
+// date_default_timezone_set("Asia/Colombo");
+// $timestamp = date($dateAndTime);
+// $timestamp=time();
+// echo $timestamp;
 
 require_once './controllers/admin/DashBoardController.php';
 $DashBoardController = new DashBoardController();
 
+$result=null;
 if (isset($_POST['logout'])) {
   $DashBoardController->logoutstaffMem();
 }
@@ -99,7 +104,10 @@ use \koolreport\widgets\google\LineChart;
           <h4 class="title">
             Ongoing <span class="orange-color">Orders</span>
           </h4>
-          <h2 class="subtitle">🕑 45</h2>
+          <h2 class="subtitle">🕑<?php $result=$DashBoardController->getOngoingOrders(); 
+                                      $row = mysqli_fetch_assoc($result);
+                                      echo $row['COUNT(*)'];
+                                ?></h2>
         </div>
       </div>
       <div class="column is-4">
@@ -107,15 +115,28 @@ use \koolreport\widgets\google\LineChart;
           <h4 class="title">
             Completed <span class="orange-color">Orders</span>
           </h4>
-          <h2 class="subtitle">🍔 45</h2>
+          <h2 class="subtitle">🍔<?php $result=$DashBoardController->getCompletedOrders(); 
+                                      $row = mysqli_fetch_assoc($result);
+                                      echo $row['COUNT(*)'];
+                                  ?></h2>
         </div>
       </div>
       <div class="column is-4">
         <div class="card">
           <h4 class="title">
-            Inventory <span class="orange-color">Status</span>
+            Today <span class="orange-color">Sales</span>
           </h4>
-          <h2 class="subtitle is-success">✅ OK</h2>
+          <h2 class="subtitle is-success"><?php $result=$DashBoardController->getTodaySales(); 
+                                      $count = 0;
+                                      while ($row = mysqli_fetch_assoc($result)) {
+                                        $count=$count+$row['amount'];
+                                      }
+                                      echo number_format((float)$count, 2,'.','');
+                                      
+                                  ?>
+                                  
+                                  
+                                  </h2>
         </div>
       </div>
     </div>
@@ -126,102 +147,39 @@ use \koolreport\widgets\google\LineChart;
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Customer</th>
-          <th>Items</th>
-          <th>Price</th>
-          <th>Status</th>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Amount</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>State</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1001</td>
-          <td>Thilina</td>
-          <td>Coca Cola</td>
-          <td>LKR 230.00</td>
-          <td>Ongoing</td>
-        </tr>
-        <tr>
-          <td>1001</td>
-          <td>Nuwanmali</td>
-          <td>Coca Cola</td>
-          <td>LKR 230.00</td>
-          <td>Ongoing</td>
-        </tr>
+      <?php
+        $result = $DashBoardController->getInventoryDetails();
+        if($result){
+          while ($row = mysqli_fetch_assoc($result))
+          {
+            ?>
+            <tr>
+            <td><?php echo $row['orderId']; ?></td>
+            <td><?php echo $row['customerId']; ?></td>
+            <td><?php echo $row['amount']; ?></td>
+            <td><?php echo $row['firstName']; ?></td>
+            <td><?php echo $row['lastName']; ?></td>
+            <td><?php echo $row['state']; ?></td>
+            <td><?php echo $row['date']; ?></td>
+            </tr>
+            <?php
+          }
+        }
+      ?>
       </tbody>
     </table>
   </section>
 
-
-
-  <section class="mt-2 pl-1 pr-1">
-    <h1 class="title has-text-centered ">Inventory <span class="orange-color">Items</span></h1>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Customer</th>
-          <th>Items</th>
-          <th>Price</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1001</td>
-          <td>Hasa</td>
-          <td>Coca Cola</td>
-          <td>LKR 230.00</td>
-          <td>Ongoing</td>
-        </tr>
-        <tr>
-          <td>1001</td>
-          <td>Amod</td>
-          <td>Coca Cola</td>
-          <td>LKR 230.00</td>
-          <td>Ongoing</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="mt-2 pl-1 pr-1">
-    <h1 class="title has-text-centered ">Store <span class="orange-color">Status</span></h1>
-
-    <div class="columns group">
-      <div class="column is-4">
-        <h5 class="title has-text-centered ">Ongoing Orders</h1>
-          <?php
-          PieChart::create(array(
-            "dataSource" => (new PdoDataSource($connection))->query("
-              SELECT orderType ,COUNT(orderType) as Count FROM order_details GROUP BY orderType
-              "),
-            "options" => array(
-              "is3D" => true
-            )
-          ));
-          ?>
-      </div>
-      <div class="column is-4">
-        <h5 class="title has-text-centered ">Staff Distribution</h1>
-          <?php
-          ColumnChart::create(array(
-            "dataSource" => (new PdoDataSource($connection))->query("
-                SELECT roleId, COUNT(roleId) AS count FROM staff GROUP BY roleId")
-          ));
-          ?>
-      </div>
-      <div class="column is-4">
-        <h5 class="title has-text-centered ">Payment Types</h1>
-        <?php
-          ColumnChart::create(array(
-            "dataSource"=>(new PdoDataSource($connection))->query("
-            SELECT paymentType, COUNT(paymentType) AS count FROM order_details GROUP BY paymentType"),
-          ));
-        ?>
-      </div>
-    </div>
-  </section>
 </body>
 
 </html>
