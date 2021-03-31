@@ -7,7 +7,7 @@ $name_last = $_SESSION['lastName'];
 $roleId = $_SESSION['roleId'];
 
 $page = $_SERVER['PHP_SELF'];
-$sec = "30";
+$sec = "20";
 header("Refresh: $sec; url=/kitchendisplay/orders"); 
 
 

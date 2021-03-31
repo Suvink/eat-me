@@ -97,7 +97,7 @@
                 if($status>2 && $status<6)
                 {
                     $i++;
-                    echo $row1['orderId'];"  ";$row2['orderStatus'];
+                    // echo $row1['orderId'];"  ";$row2['orderStatus'];
                 }
             }
             if($i<=3)

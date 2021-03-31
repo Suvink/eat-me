@@ -4,11 +4,11 @@ ob_start();
 require_once './controllers/store/ImageUploaderController.php';
 $ImageUploaderController= new ImageUploaderController();
 
-// echo $_SESSION['imgeUploadTo'];
+//  echo $_SESSION['imgeUploadTo'];
 //   echo          $_SESSION['idInventory'];
 //      echo       $_SESSION['itemNameInven'];
 
-
+// echo $_SESSION['uploadStatus'];
 $style1= "style=display:none";
 $style2= "style=display:none";
 $style3= "style=display:none";
