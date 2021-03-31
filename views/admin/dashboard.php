@@ -13,7 +13,7 @@ $roleId = $_SESSION['roleId'];
 require_once './controllers/admin/DashBoardController.php';
 $DashBoardController = new DashBoardController();
 
-$result=null;
+$result = null;
 if (isset($_POST['logout'])) {
   $DashBoardController->logoutstaffMem();
 }
@@ -104,10 +104,10 @@ use \koolreport\widgets\google\LineChart;
           <h4 class="title">
             Ongoing <span class="orange-color">Orders</span>
           </h4>
-          <h2 class="subtitle">🕑<?php $result=$DashBoardController->getOngoingOrders(); 
-                                      $row = mysqli_fetch_assoc($result);
-                                      echo $row['COUNT(*)'];
-                                ?></h2>
+          <h2 class="subtitle">🕑<?php $result = $DashBoardController->getOngoingOrders();
+                                  $row = mysqli_fetch_assoc($result);
+                                  echo $row['COUNT(*)'];
+                                  ?></h2>
         </div>
       </div>
       <div class="column is-4">
@@ -115,9 +115,9 @@ use \koolreport\widgets\google\LineChart;
           <h4 class="title">
             Completed <span class="orange-color">Orders</span>
           </h4>
-          <h2 class="subtitle">🍔<?php $result=$DashBoardController->getCompletedOrders(); 
-                                      $row = mysqli_fetch_assoc($result);
-                                      echo $row['COUNT(*)'];
+          <h2 class="subtitle">🍔<?php $result = $DashBoardController->getCompletedOrders();
+                                  $row = mysqli_fetch_assoc($result);
+                                  echo $row['COUNT(*)'];
                                   ?></h2>
         </div>
       </div>
@@ -126,17 +126,17 @@ use \koolreport\widgets\google\LineChart;
           <h4 class="title">
             Today <span class="orange-color">Sales</span>
           </h4>
-          <h2 class="subtitle is-success"><?php $result=$DashBoardController->getTodaySales(); 
-                                      $count = 0;
-                                      while ($row = mysqli_fetch_assoc($result)) {
-                                        $count=$count+$row['amount'];
-                                      }
-                                      echo number_format((float)$count, 2,'.','');
-                                      
-                                  ?>
-                                  
-                                  
-                                  </h2>
+          <h2 class="subtitle is-success"><?php $result = $DashBoardController->getTodaySales();
+                                          $count = 0;
+                                          while ($row = mysqli_fetch_assoc($result)) {
+                                            $count = $count + $row['amount'];
+                                          }
+                                          echo number_format((float)$count, 2, '.', '');
+
+                                          ?>
+
+
+          </h2>
         </div>
       </div>
     </div>
@@ -157,27 +157,64 @@ use \koolreport\widgets\google\LineChart;
         </tr>
       </thead>
       <tbody>
-      <?php
+        <?php
         $result = $DashBoardController->getInventoryDetails();
-        if($result){
-          while ($row = mysqli_fetch_assoc($result))
-          {
-            ?>
+        if ($result) {
+          while ($row = mysqli_fetch_assoc($result)) {
+        ?>
             <tr>
-            <td><?php echo $row['orderId']; ?></td>
-            <td><?php echo $row['customerId']; ?></td>
-            <td><?php echo $row['amount']; ?></td>
-            <td><?php echo $row['firstName']; ?></td>
-            <td><?php echo $row['lastName']; ?></td>
-            <td><?php echo $row['state']; ?></td>
-            <td><?php echo $row['date']; ?></td>
+              <td><?php echo $row['orderId']; ?></td>
+              <td><?php echo $row['customerId']; ?></td>
+              <td><?php echo $row['amount']; ?></td>
+              <td><?php echo $row['firstName']; ?></td>
+              <td><?php echo $row['lastName']; ?></td>
+              <td><?php echo $row['state']; ?></td>
+              <td><?php echo $row['date']; ?></td>
             </tr>
-            <?php
+        <?php
           }
         }
-      ?>
+        ?>
       </tbody>
     </table>
+  </section>
+
+  <section class="mt-2 pl-1 pr-1">
+    <h1 class="title has-text-centered ">Store <span class="orange-color">Status</span></h1>
+
+    <div class="columns group">
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Ongoing Orders</h1>
+          <?php
+          PieChart::create(array(
+            "dataSource" => (new PdoDataSource($connection))->query("
+              SELECT orderType ,COUNT(orderType) as Count FROM order_details GROUP BY orderType
+              "),
+            "options" => array(
+              "is3D" => true
+            )
+          ));
+          ?>
+      </div>
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Staff Distribution</h1>
+          <?php
+          ColumnChart::create(array(
+            "dataSource" => (new PdoDataSource($connection))->query("
+                SELECT roleId, COUNT(roleId) AS count FROM staff GROUP BY roleId")
+          ));
+          ?>
+      </div>
+      <div class="column is-4">
+        <h5 class="title has-text-centered ">Payment Types</h1>
+        <?php
+          ColumnChart::create(array(
+            "dataSource"=>(new PdoDataSource($connection))->query("
+            SELECT paymentType, COUNT(paymentType) AS count FROM order_details GROUP BY paymentType"),
+          ));
+        ?>
+      </div>
+    </div>
   </section>
 
 </body>

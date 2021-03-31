@@ -17,6 +17,9 @@ if (isset($_POST['place-order'])) {
   $DineinOrderController->setOrderArray($orderData);
   $DineinOrderController->setorderTotal($orderTotal);
 
+  //Reserve the Table
+  $DineinOrderController->reserveTable($tableNo);
+
   //Insert the Order into DB
   $customer_id = $DineinOrderController->getCustomerID($_SESSION['user_phone']);
   $_SESSION['order_id'] = $DineinOrderController->getUnformattedOrderID();
