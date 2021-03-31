@@ -22,7 +22,12 @@
   overflow: auto;
 }
 .search-box img {
-  width: 80px;
+  width: 150px;
+  height: 100px;
+}
+.menu-card img{
+  width: 120px;
+  height: 100px;
 }
 /* search feild inside search box */
 .searchbox-holder {
