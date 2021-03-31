@@ -15,13 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   //Add the review into the table
   $sql = "INSERT INTO `minor_rates_customer`(`customerRating`, `orderId`, `customerId`) VALUES (" . $data->rateNum . "," . $data->orderId . "," . $data->cusId . ")";
   $sql2=  "UPDATE `order_details` SET `orderStatus`='8' WHERE `orderId`=$data->orderId";
-  $sql3="UPDATE `table_details` SET `reservation`='NotReserved' WHERE tableNo IN (SELECT table_details.tableNo FROM `table_details` JOIN dine_in_order ON dine_in_order.tableNo=table_details.tableNo WHERE dine_in_order.orderId=".$data->orderId.")";
+  $sql3= "SELECT table_details.tableNo FROM `table_details` JOIN dine_in_order ON dine_in_order.tableNo=table_details.tableNo WHERE dine_in_order.orderId=".$data->orderId."";
+  $result3 = $con->query($sql3);
+  $row= mysqli_fetch_assoc($result3);
+  $tNum= $row['tableNo'];
+  $sql4= "UPDATE `table_details` SET `reservation`='Not Reserved' WHERE tableNo=$tNum ";
   
   $result = $con->query($sql);
   $result2=$con->query($sql2);
-  $result3=$con->query($sql3);
+  $result4=$con->query($sql4);
   
-  if ($result === TRUE && $result2 === TRUE && $result2 === TRUE) {
+  if ($result === TRUE && $result2 === TRUE && $result4 === TRUE) {
     header("HTTP/1.1 200 OK");
     http_response_code(200);
     $messageString = '{"message": "Review Added"}';

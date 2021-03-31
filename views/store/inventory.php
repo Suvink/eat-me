@@ -86,6 +86,7 @@ if (isset($_POST['go'])) {
 $styleRepotPopOne = "style=display:none";
 $styleGRNCreateRepoBtn = "style=display:none";
 $styleRetCreateRepoBtn = "style=display:none";
+$styleSalesCreateRepoBtn = "style=display:none";
 $topic=null;
 if (isset($_POST['GRN-Report'])) {
     $styleRepotPopOne = "style=display:display";
@@ -102,8 +103,14 @@ if (isset($_POST['Retrieve-Report'])) {
     $styleRepotPopOne = "style=display:display";
     $topic="Retrieve";
     $styleRetCreateRepoBtn = "style=display:display";
-    header('Location: ./retrievereport');
+   
 }
+if (isset($_POST['createRetrieveReport'])) {
+    $_SESSION['startDate']=$_POST['startDate'];
+    $_SESSION['endDate']=$_POST['endDate'];
+    $_SESSION['reportName']="Retrieve";
+    header('Location: ./retrievereport');
+ }
 if (isset($_POST['changeImage'])) {
     $_SESSION['imgeUploadTo']="inventory";
     $_SESSION['idUpload']=$_POST['id2'];
@@ -115,7 +122,16 @@ if (isset($_POST['ratings'])) {
     header('Location: ./ratingsreport');
  }
 if (isset($_POST['saleReports'])) {
-    header('Location: ./salesreport');
+    $styleRepotPopOne = "style=display:display";
+    $topic="Retrieve";
+    $styleSalesCreateRepoBtn = "style=display:display";
+    
+ }
+ if (isset($_POST['CreateSaleReports'])) {
+    $_SESSION['startDate']=$_POST['startDate'];
+    $_SESSION['endDate']=$_POST['endDate'];
+    $url = 'Location: ./salesreport?s_date='.$_POST['startDate']."&e_date=".$_POST['endDate'];
+    header($url);
  }
 
 ?>
@@ -538,6 +554,9 @@ if (isset($_POST['saleReports'])) {
                         </div>
                         <div class="column is-12" <?php echo  $styleRetCreateRepoBtn;?>>
                             <button name="createRetrieveReport" class=" mr-1 is-primary  createReport-btn zoom"> Create Retrieve Report</button>
+                        </div>
+                        <div class="column is-12" <?php echo  $styleSalesCreateRepoBtn;?>>
+                            <button name="CreateSaleReports" class=" mr-1 is-primary  createReport-btn zoom"> Create Retrieve Report</button>
                         </div>
                 </form>
                 <form action="" method="POST">
