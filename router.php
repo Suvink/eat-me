@@ -14,6 +14,7 @@ $menuUpdate = 'views/admin/menuupdate.php';
 $grnReport = 'views/admin/grnreport.php';
 $retrievereport = 'views/admin/retrievereport.php';
 $ratingsreport = 'views/admin/ratingsreport.php';
+$salesreport = 'views/admin/salesreport.php';
 
 //Customer
 $dineinLogin = 'views/customer/DineinLogin.php';
@@ -91,6 +92,9 @@ switch ($request) {
         break;
     case '/grnreport':
         require($grnReport);
+        break;
+    case '/salesreport':
+        require($salesreport);
         break;
     case '/ratingsreport':
         require($ratingsreport);
