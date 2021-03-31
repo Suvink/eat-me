@@ -34,9 +34,12 @@
       $_SESSION['id-dinein']=$id;
       $orderStatusBtn = $KitchenDisplayDineinOrdersController->getOrderStatusBtn($_SESSION['id-dinein']);
       $row = mysqli_fetch_assoc($orderStatusBtn);
-      if ($row['orderStatus'] == "2") {
-         $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
-         $_SESSION['rider-btn-dinein'] = "style=display:block";
+      if ($row['orderStatus'] == "1") {
+         $_SESSION['accpt-dec-btns-dinein'] = "style=display:block";
+        //  $_SESSION['rider-btn-dinein'] = "style=display:block";
+      }else if ($row['orderStatus'] == "2") {
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:block";
       } else if ($row['orderStatus'] == "3") {
          $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
          $_SESSION['rider-btn-dinein'] = "style=display:none";
@@ -47,7 +50,10 @@
         $_SESSION['prepared-btn-one-dinein']= "style=display:none";
         $_SESSION['prepared-btn-two-dinein'] = "style=display:none";
       } else {
-         $_SESSION['accpt-dec-btns-dinein'] = "style=display:display";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+       $_SESSION['prepared-btn-one-dinein']= "style=display:none";
+       $_SESSION['prepared-btn-two-dinein'] = "style=display:none";
       }
       $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($_SESSION['id-dinein']);
     }
@@ -96,17 +102,32 @@
       $fName= $_POST['fName'];
       $assSId= $_POST['assSId'];
       // echo $assOrId,$dateAndTime,$fName,$assSId;
-      $KitchenDisplayDineinOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
-       $_SESSION['popup-1-dinein'] = "style=display:display";
-       $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
-       $_SESSION['rider-btn-dinein'] = "style=display:none";
-       $_SESSION['popup-rider-dinein'] = "style=display:none";
-       $_SESSION['popup-summery-dinein']="style=display:none";
-      $id = $assOrId;
-      $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($assOrId);
-     $_SESSION['prepared-btn-one-dinein']= "style=display:block";
-      $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId,$dateAndTime);
-      $KitchenDisplayDineinOrdersController->updateRiderStatus($assSId);
+      $checkRiderAvail=$KitchenDisplayDineinOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
+      if($checkRiderAvail==1)
+      {
+        $_SESSION['popup-1-dinein'] = "style=display:display";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['popup-rider-dinein'] = "style=display:none";
+        $_SESSION['popup-summery-dinein']="style=display:none";
+        $id = $assOrId;
+        $getOrderItems = $KitchenDisplayDineinOrdersController->getOrderItems($assOrId);
+        $_SESSION['prepared-btn-one-dinein']= "style=display:block";
+      }
+      else if($checkRiderAvail==0)
+      {
+        $_SESSION['popup-1-dinein'] = "style=display:none";
+        $_SESSION['accpt-dec-btns-dinein'] = "style=display:none";
+        $_SESSION['rider-btn-dinein'] = "style=display:none";
+        $_SESSION['popup-rider-dinein'] = "style=display:none";
+        $_SESSION['popup-summery-dinein'] = "style=display:none";
+        //  $id = $assOrId;
+        //  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
+        //  $_SESSION['prepared-btn-one'] = "style=display:none";
+      }
+     
+      // $KitchenDisplayDineinOrdersController->updateToAssigned($assOrId,$dateAndTime);
+      // $KitchenDisplayDineinOrdersController->updateRiderStatus($assSId);
     }
     if (isset($_POST['prepared1'])) {
       $orId = $_POST['orId'];
@@ -147,7 +168,11 @@
   <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchendisplay.css">
+<<<<<<< HEAD
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
+=======
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
+>>>>>>> 8ae9e6d8bed3b85ed4f7b10ad8fcaf7616be9249
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -287,7 +312,25 @@
                           </div>
                         </div>
                       <?php
-                      }
+                      }else if ($row['orderStatus'] > 5){
+                        ?>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
+                            </div>
+                          </div>
+                        <?php
+                        }
                       ?>
                     </div>
                   </form>
@@ -631,5 +674,13 @@
 <!-- --------kitchen display js file -->
 <script type="text/javascript" src="../../js/kitchendisplay.js"></script>
 </body>
+
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 
 </html>

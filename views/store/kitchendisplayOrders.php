@@ -38,7 +38,10 @@ if (isset($_POST['click'])) {
   $_SESSION['id']=$id;
   $orderStatusBtn = $KitchenDisplayOrdersController->getOrderStatusBtn($_SESSION['id']);
   $row = mysqli_fetch_assoc($orderStatusBtn);
-  if ($row['orderStatus'] == "2") {
+  if ($row['orderStatus'] == "1") {
+    $_SESSION['accpt-dec-btns'] = "style=display:block";
+    // $_SESSION['rider-btn'] = "style=display:block";
+  } else if ($row['orderStatus'] == "2") {
     $_SESSION['accpt-dec-btns'] = "style=display:none";
     $_SESSION['rider-btn'] = "style=display:block";
   } else if ($row['orderStatus'] == "4") {
@@ -51,7 +54,10 @@ if (isset($_POST['click'])) {
     $_SESSION['prepared-btn-one'] = "style=display:none";
     $_SESSION['prepared-btn-two'] = "style=display:none";
   } else {
-   $_SESSION['accpt-dec-btns'] = "style=display:display";
+    $_SESSION['accpt-dec-btns'] = "style=display:none";
+    $_SESSION['rider-btn'] = "style=display:none";
+    $_SESSION['prepared-btn-one'] = "style=display:none";
+    $_SESSION['prepared-btn-two'] = "style=display:none";
   }
   $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($_SESSION['id']);
 }
@@ -100,17 +106,33 @@ if (isset($_POST['asignesOrders'])) {
   $fName= $_POST['fName'];
   $assSId= $_POST['assSId'];
   // echo $assOrId,$dateAndTime,$fName,$assSId;
-  $KitchenDisplayOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
-  $_SESSION['popup-1'] = "style=display:display";
- $_SESSION['accpt-dec-btns'] = "style=display:none";
-  $_SESSION['rider-btn'] = "style=display:none";
-  $_SESSION['popup-rider'] = "style=display:none";
-  $_SESSION['popup-summery'] = "style=display:none";
-  $id = $assOrId;
-  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
-  $_SESSION['prepared-btn-one'] = "style=display:block";
-  $KitchenDisplayOrdersController->updateToAssigned($assOrId,$dateAndTime);
-  $KitchenDisplayOrdersController->updateRiderStatus($assSId);
+  $checkRiderAvail=$KitchenDisplayOrdersController->orderAssign($assOrId,$assSId, $dateAndTime,$fName);
+  
+  if($checkRiderAvail==1)
+  {
+    $_SESSION['popup-1'] = "style=display:display";
+    $_SESSION['accpt-dec-btns'] = "style=display:none";
+     $_SESSION['rider-btn'] = "style=display:none";
+     $_SESSION['popup-rider'] = "style=display:none";
+     $_SESSION['popup-summery'] = "style=display:none";
+     $id = $assOrId;
+     $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
+     $_SESSION['prepared-btn-one'] = "style=display:block";
+  }
+  else if($checkRiderAvail==0)
+  {
+    $_SESSION['popup-1'] = "style=display:none";
+    $_SESSION['accpt-dec-btns'] = "style=display:none";
+     $_SESSION['rider-btn'] = "style=display:none";
+     $_SESSION['popup-rider'] = "style=display:none";
+     $_SESSION['popup-summery'] = "style=display:none";
+    //  $id = $assOrId;
+    //  $getOrderItems = $KitchenDisplayOrdersController->getOrderItems($assOrId);
+    //  $_SESSION['prepared-btn-one'] = "style=display:none";
+  }
+ 
+  //$KitchenDisplayOrdersController->updateToAssigned($assOrId,$dateAndTime);
+  //$KitchenDisplayOrdersController->updateRiderStatus($assSId);
 }
 // $style8 = "style=display:none";
 if (isset($_POST['prepared1'])) {
@@ -155,7 +177,11 @@ if (isset($_POST['close-btn'])) {
   <link rel="stylesheet" href="../../css/adminMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchenMenuUpdate.css">
   <link rel="stylesheet" href="../../css/kitchendisplay.css">
+<<<<<<< HEAD
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
+=======
+  <link rel="stylesheet" href="../../plugins/ArtemisAlert/ArtemisAlert.css">
+>>>>>>> 8ae9e6d8bed3b85ed4f7b10ad8fcaf7616be9249
   <title>kitchen Display</title>
   <!-- <script type="text/javascript" src="../../js/kitchendisplay.js"></script> -->
 
@@ -289,7 +315,25 @@ if (isset($_POST['close-btn'])) {
                           </div>
                         </div>
                       <?php
-                      }
+                      }else if ($row['orderStatus'] > 5){
+                        ?>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-accept">Accepted</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-assign">Assigned</h3>
+                            </div>
+                          </div>
+                          <div class="columns group">
+                            <div class="column is-12">
+                              <h3 class="mt-1 mb-0 color-prepare">Prepared</h3>
+                            </div>
+                          </div>
+                        <?php
+                        }
                       ?>
                     </div>
                   </form>
@@ -653,4 +697,12 @@ if (isset($_POST['close-btn'])) {
 			});
 		});
 	</script>
+
+<?php
+  if (isset($_GET['attempt'])) {
+    if ($_GET['attempt'] == 'false') {
+      echo "<script> artemisAlert.alert('error', 'login failed')</script>";
+    }
+  }
+  ?>
 </html>

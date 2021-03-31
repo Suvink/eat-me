@@ -10,7 +10,7 @@
         public function setUrlInven($path_filename_ext,$id,$name)
         {
             $result=$this->ImageUploaderModel-> updateData('inventory','inventoryId',$id,array('url' =>$path_filename_ext));
-            echo '<p class="mt-2 ml-0 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'"Added to the menu with the IMAGE <span style="color:white">______</span></p>';
+            echo '<p class="mt-2 ml-0 mr-5" align=center>Item ID: "'.$_SESSION["idUpload"].'" "'.$_SESSION["itemNameUpload"].'"Added to the inventroy with the IMAGE <span style="color:white">______</span></p>';
             return $result;
         }
         public function setUrlMenu($path_filename_ext,$id,$name)
