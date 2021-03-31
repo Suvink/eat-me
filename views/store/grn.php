@@ -4,6 +4,7 @@ ob_start();
 $staffid=$_SESSION['staffId'];
 $name_first=$_SESSION['firstName'];
 $name_last=$_SESSION['lastName'];
+$roleId = $_SESSION['roleId'];
 
 require_once './controllers/store/GrnController.php';
 $GrnController = new GrnController();
@@ -78,7 +79,7 @@ if (isset($_POST['sendbtn'])) {
 
 <!----------- navigatable buttons------------>
     <?php
-      if($staffid==1)
+      if($roleId=="1")
       {     
         ?>
         <section>

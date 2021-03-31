@@ -4,6 +4,7 @@ ob_start();
 $staffid=$_SESSION['staffId'];
 $name_first=$_SESSION['firstName'];
 $name_last=$_SESSION['lastName'];
+$roleId = $_SESSION['roleId'];
 require_once './controllers/admin/staffManageController.php';
 $staffManageController = new StaffManageController();
 // echo $params;
@@ -111,7 +112,7 @@ if(isset($_POST['updateToList'])){
     
     <!----------- navigatable buttons------------>
        <?php
-      if(isset($staffid))
+      if($roleId == "1")
       {     
         ?>
             <section>

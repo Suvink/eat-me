@@ -10,7 +10,7 @@
         }
         public function getInventoryDetails()
         {
-            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE flag NOT LIKE 'deleted%' ");
+            $result=$this->InventoryModel-> executeSql("SELECT * FROM inventory WHERE tag NOT LIKE 'deleted%' ");
             return $result;
         }
         public function getUnits($id)
