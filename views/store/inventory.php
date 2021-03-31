@@ -113,6 +113,9 @@ if (isset($_POST['changeImage'])) {
 if (isset($_POST['ratings'])) {
     header('Location: ./ratingsreport');
  }
+if (isset($_POST['saleReports'])) {
+    header('Location: ./salesreport');
+ }
 
 ?>
 
@@ -416,6 +419,11 @@ if (isset($_POST['ratings'])) {
             <div class="columns group">
                 <div class="column is-12">
                     <button name="ratings" class="width-adjust font zoom">Ratings</button>
+                </div>
+            </div>
+            <div class="columns group">
+                <div class="column is-12">
+                    <button name="saleReports" class="width-adjust font zoom">Sales Reports</button>
                 </div>
             </div>
             <!-- <div class="columns group">
