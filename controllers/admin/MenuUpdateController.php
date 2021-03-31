@@ -710,8 +710,8 @@
             $send=0;
             if(is_numeric($itemNumber))
             {
-                if(ctype_alpha(str_replace(' ', '', $itemName)) === true)
-                {
+                // if(ctype_alpha(str_replace(' ', '', $itemName)) === true)
+                // {
                   if(preg_match("/^[0-9]+(\.[0-9]{2})?$/", $itemPrice))
                   {
                       if($itemType=="mains")
@@ -748,19 +748,19 @@
                         echo '<script> artemisAlert.alert("error", " '.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Price must be a whole number"+"\n"+"=> Invalid data") </script>';
                         return; 
                   }
-                }
-                else
-                {
-                    // echo "Item name must contains only latters & spaces";
-                    // echo '<script language="javascript">';
-                    // echo 'alert("'.$itemName.'"+" " +"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data")';
-                    // echo '</script>';
-                    $send=0;
-                    echo "<h1 style='display:none'></h1>";
-                    echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
-                    echo '<script> artemisAlert.alert("error", " '.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data") </script>';
-                    return; 
-                }
+                // }
+                // else
+                // {
+                //     // echo "Item name must contains only latters & spaces";
+                //     // echo '<script language="javascript">';
+                //     // echo 'alert("'.$itemName.'"+" " +"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data")';
+                //     // echo '</script>';
+                //     $send=0;
+                //     echo "<h1 style='display:none'></h1>";
+                //     echo "<script src='../../plugins/ArtemisAlert/ArtemisAlert.js'></script>";
+                //     echo '<script> artemisAlert.alert("error", " '.$itemName.'"+" "+"'.$itemPrice.'"+" "+"Item name must contains only latters & spaces"+"\n"+"=> Invalid Data") </script>';
+                //     return; 
+                // }
             }
             else
             {
@@ -782,6 +782,8 @@
                 $_SESSION['imgeUploadTo']="menu";
                 $_SESSION['idUpload']=$itemNumber;
                 $_SESSION['itemNameUpload']=$itemName;
+                // echo $_SESSION['imgeUploadTo'];
+                $_SESSION['uploadStatus']="upload";
 
             // echo '<script language="javascript">';
             // echo 'alert("'.$id3.'"+" "+"'.$itemName3.'"+" " +"Added to the Inventory")';
