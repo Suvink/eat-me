@@ -138,7 +138,6 @@ if (isset($_POST['place-order'])) {
 
   <?php
   unset($orderData);
-
   ?>
 
   <div class="popout" onclick="stopEvent();">
