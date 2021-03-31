@@ -26,6 +26,7 @@ if (isset($_POST['logout'])) {
 	<link rel="stylesheet" href="../../css/style.css">
 	<!-- local styles -->
 	<link rel="stylesheet" href="../../css/minorStaffStyles.css">
+	<link rel="stylesheet" href="../../css/deliveryPersonStyles.css">
 	<link rel="stylesheet" href="../../css/ratingStyles.css">
   <link rel="icon" type="image/png" href="../../img/favicon.png" />
 	<title>Delivery Home </title>
@@ -75,7 +76,7 @@ if (isset($_POST['logout'])) {
 									<th>Order ID</th>
 									<th>Customer</th>
 									<th>Price</th>
-									<th>Table No</th>
+									<th>Address</th>
 									<th>Status</th>
 									<th style="display: none;">CustomerId</th>
 								</tr>
