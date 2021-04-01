@@ -91,7 +91,7 @@ if (isset($_POST['logout'])) {
 				</div>
 			</div>
 			<section>
-				<div class="popup">
+				<div class="popup" style="padding-left: 1rem;padding-right:1.5rem">
 					<div class="popuptext" style="position: unset">
 						<div class="flex-container" style="background-color:white" id="logout-popup">
 							<h3 class="title"> Are you sure want to logout?</h3>
