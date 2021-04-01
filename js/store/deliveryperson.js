@@ -16,10 +16,7 @@ function popupRate(oId) {
 		updateOrderStatus();
 	}
 }
-function logoutPopUp(){
-	let showLogout = document.getElementById("logout-popup");
-	showLogout.classList.toggle("show");
-}
+
 async function updateOrderStatus() {
 	try {
 		const response = await fetch('/api/v1/DP/UpdateDelivered?update=true&order_id='+oIdNo, {

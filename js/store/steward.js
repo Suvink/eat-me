@@ -35,10 +35,7 @@ function showRating() {
 	showRating.classList.toggle("show");
 
 }
-function logoutPopUp(){
-	let showLogout = document.getElementById("logout-popup");
-	showLogout.classList.toggle("show");
-}
+
 function colorBtnAndRate(buttonNumber) {
 	console.log(buttonNumber);
 	switch (buttonNumber) {

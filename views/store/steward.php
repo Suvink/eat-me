@@ -11,7 +11,7 @@ if (!isset($_SESSION['staffId'])) {
 
 
 if (isset($_POST['logout'])) {
-	
+
 	$StewardController->logoutstaffMem();
 }
 ?>
@@ -91,17 +91,17 @@ if (isset($_POST['logout'])) {
 				</div>
 			</div>
 			<section>
-			<div class="popup">
-				<div class="popuptext" style="position: unset">
-					<div class="flex-container" style="background-color:white" id="logout-popup">
-						<h3 class="title"> Are you sure want to logout?</h3>
+				<div class="popup">
+					<div class="popuptext" style="position: unset">
+						<div class="flex-container" style="background-color:white" id="logout-popup">
+							<h3 class="title"> Are you sure want to logout?</h3>
 							<form action="/steward" method="POST">
 								<button class="button is-primary" name="logout">Yes</button>
 								<button class="button is-primary" name="">No</button>
 							</form>
+						</div>
 					</div>
 				</div>
-			</div>
 			</section>
 			<div class="popup">
 				<div class="popuptext">
@@ -128,6 +128,10 @@ if (isset($_POST['logout'])) {
 	<script src="../../js/store/steward.js" type="text/javascript"></script>
 	<script src="../../plugins/ArtemisAlert/ArtemisAlert.js" type="text/javascript"></script>
 	<script>
+		function logoutPopUp() {
+			let showLogout = document.getElementById("logout-popup");
+			showLogout.classList.toggle("show");
+		}
 		//save value of availability input tag
 		document.getElementById("switch").value = getAvailability(<?= $_SESSION['staffId'] ?>);
 		// //refresh availability data in 30s
@@ -150,7 +154,7 @@ if (isset($_POST['logout'])) {
 			});
 		});
 	</script> -->
-	
+
 
 </body>
 
