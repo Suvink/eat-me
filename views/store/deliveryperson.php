@@ -41,9 +41,9 @@ if (isset($_POST['logout'])) {
 			<div class="column is-10 has-text-right nav-logout">
 				<i class="fas fa-user" aria-hidden="true"></i>
 				<span class="mr-1">DP <?= $_SESSION['staffId'] ?></span>
-				<form class="d-inline" action="/deliveryperson" method="POST">
-					<button class="button is-primary" name="logout">Logout</button>
-				</form>
+				<div class="d-inline">
+					<button class="button is-primary" onclick="logoutPopUp()">Logout</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -90,6 +90,19 @@ if (isset($_POST['logout'])) {
 					</section>
 				</div>
 			</div>
+			<section>
+			<div class="popup">
+				<div class="popuptext" style="position: unset">
+					<div class="flex-container" style="background-color:white" id="logout-popup">
+						<h3 class="title"> Are you sure want to logout?</h3>
+							<form action="/deliveryperson" method="POST">
+								<button class="button is-primary" name="logout">Yes</button>
+								<button class="button is-primary" name="">No</button>
+							</form>
+					</div>
+				</div>
+			</div>
+			</section>
 			<div class="popup">
 				<div class="popuptext">
 					<div class="flex-container" id="rate">

@@ -31,7 +31,7 @@ class Controller
   }
 
   public function logoutstaffMem()
-  {
+  { 
     session_destroy();
     unset($_SESSION['staffId']);
     header("Location: /staff/login");
