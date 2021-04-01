@@ -93,10 +93,10 @@ if (isset($_POST['logout'])) {
 			<section>
 				<div class="popup" style="padding-left: 1rem;padding-right:1.5rem">
 					<div class="popuptext" style="position: unset">
-						<div class="flex-container" style="background-color:white" id="logout-popup">
+						<div class="flex-container" style="background-color:white;padding:1rem;" id="logout-popup">
 							<h3 class="title"> Are you sure want to logout?</h3>
 							<form action="/steward" method="POST">
-								<button class="button is-primary" name="logout">Yes</button>
+								<button class="button is-primary mr-1" name="logout">Yes</button>
 								<button class="button is-primary" name="">No</button>
 							</form>
 						</div>
