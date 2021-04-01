@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
   <div class="navbar">
     <div class="columns group">
       <div class="column is-2">
-        <img src="../../img/logo.png" height="56" width="224" />
+        <a href="/" ><img src="../../img/logo.png" height="56" width="224" /></a>
       </div>
       <div class="column is-10"></div>
     </div>
