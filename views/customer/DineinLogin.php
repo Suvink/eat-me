@@ -81,7 +81,6 @@ if (isset($_POST['submit'])) {
   <script src="../../plugins/ArtemisAlert/ArtemisAlert.js"></script>
   <script>
 
-  
 
     window.onload = function(){
       if(!localStorage.getItem("table_number")){

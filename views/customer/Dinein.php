@@ -172,7 +172,7 @@
                   </div>
                   <div class="menu-selected-row-description has-text-left">
                     <h4 class="mb-0 mt-0">`+document.getElementById(itemName).innerHTML+`</h4>
-                    <input placeholder="qty" value="1" id="item-qty-`+itemId+`" onchange="updateCartQty(`+itemId+`);">
+                    <input type="number" placeholder="qty" min='1' value="1" id="item-qty-`+itemId+`" onchange="updateCartQty(`+itemId+`);">
                   </div>
                   <div class="menu-selected-row-price">
                     <h4 class="mb-0 mt-0" id="item-price-`+itemId+`">`+document.getElementById(ItemPrice).innerHTML+`</h4>
@@ -198,10 +198,16 @@
   }
 
   function updateCartQty(itemId){
+    
     let qtyDiv = 'item-qty-'+itemId;
     let itemPriceDiv = 'price-'+itemId;
     let itemPriceDivCart = 'item-price-'+itemId;
     let increasedQty = order[itemId] - document.getElementById(qtyDiv).value;
+
+    if(document.getElementById(qtyDiv).value < 0){
+      artemisAlert.alert('warning', 'Item number has to be positive number');
+      return;
+    }
 
     //TODO 
     //convert everything to positive

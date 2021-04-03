@@ -9,6 +9,7 @@ class OnlineOrderSummeryController extends Controller
   private $orderTotal;
   private $deliveryFee;
   private $itemCounter;
+  private $vat;
 
   function __construct()
   {
@@ -53,11 +54,21 @@ class OnlineOrderSummeryController extends Controller
     }
   }
 
-  public function getTotalOrderFee()
+  public function getVat()
   {
     if ($this->deliveryFee && $this->orderTotal) {
       //cant keep the order total in double because we are double checking the user's order against DB for any hacks 
-      echo number_format((float)($this->deliveryFee + $this->orderTotal), 2, '.', '');
+      $vat_amount = number_format((number_format((float)($this->deliveryFee + $this->orderTotal), 2, '.', '') * 0.15), 2, '.', '');
+      $this->vat = $vat_amount;
+      return $vat_amount;
+    }
+  }
+
+  public function getTotalOrderFee()
+  {
+    if ($this->deliveryFee && $this->orderTotal && $this->vat) {
+      //cant keep the order total in double because we are double checking the user's order against DB for any hacks 
+      echo number_format((float)($this->deliveryFee + $this->orderTotal + $this->vat), 2, '.', '');
     }
   }
 
