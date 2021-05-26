@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // //SendSMS
     $smsText = "Your OTP for Eat ME is " . $OTP;
-    $user = "94771655198";
-    $password = "1357";
+    $user = "94771645198";
+    $password = "1234";
     $text = urlencode($smsText);
 
     $to = $data->phone;
